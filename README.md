@@ -73,11 +73,11 @@
 
 ## PRODUCTS
 #### path:
-- ./content/isActive.js
-- ./content/fetchProducts.js -> fetch products when button in src/build/index.html clicked (builded react application) (raw application located in ui folder: ui/src/App.jsx, function handleProductsDownload responsible for executing call to extension.)
-- ./content/download.js
-- ./content/selectProductsNew.js
-- ./content/selectProduct.js
+- ./content/isActive.js           -> helper function
+- ./content/fetchProducts.js      -> fetch products when button in src/build/index.html clicked (builded react application) (raw application located in ui folder: ui/src/App.jsx, function handleProductsDownload responsible for executing call to extension.)
+- ./content/download.js           -> helper function
+- ./content/selectProductsNew.js  -> content script that will be executed once UI Button in React will we clicked
+- ./content/selectProduct.js      -> add Button to each SA Detail product to download particular product on click
 
 ## COMPONENTS
 #### path: src/content/components/index.js
