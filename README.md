@@ -39,6 +39,37 @@
 }
 ```
 3. When URL matched content script will be executed. 
+```
+{
+  "author": {
+    "email": "demczenko@beliani.co.uk"
+  },
+  "name": "Prolo power tools",
+  "version": "2.0.0",
+  "manifest_version": 3,
+  "description": "Make prolo great again!",
+  "default_locale": "en",
+  "icons": {
+    "32": "./icons/copy-32.png",
+    "64": "./icons/copy-64.png",
+    "128": "./icons/copy-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.prologistics.info/saved_details.php?filter_id=*"
+      ],
+      "js": [
+        "./content/isActive.js",
+        "./content/fetchProducts.js",
+        "./content/download.js",
+        "./content/selectProductsNew.js",
+        "./content/selectProduct.js"
+      ]
+    }
+  ]
+}
+```
 
 ## PRODUCTS
 #### path:
