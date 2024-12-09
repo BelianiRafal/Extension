@@ -20,6 +20,24 @@
     }
 ```
 2. Define content script.
+```
+{
+  "author": {
+    "email": "demczenko@beliani.co.uk"
+  },
+  "name": "Prolo power tools",
+  "version": "2.0.0",
+  "manifest_version": 3,
+  "description": "Make prolo great again!",
+  "default_locale": "en",
+  "icons": {
+    "32": "./icons/copy-32.png",
+    "64": "./icons/copy-64.png",
+    "128": "./icons/copy-128.png"
+  },
+  "content_scripts": []
+}
+```
 3. When URL matched content script will be executed. 
 
 ## PRODUCTS
