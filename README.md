@@ -2,6 +2,7 @@
 [Linkify JS](https://linkify.js.org/) \
 [Papa Parse](https://www.papaparse.com/docs) \
 [Mustache](https://github.com/janl/mustache.js)
+[Dexie](https://dexie.org/)
 
 ## HOW EXTENSION WORK
 1. In manifest.json file need to define content_scripts.
@@ -70,6 +71,16 @@
   ]
 }
 ```
+4. Files ordering in ```js array``` matter.
+```
+"js": [
+    "./content/isActive.js",
+    "./content/fetchProducts.js",
+    "./content/download.js",
+    "./content/selectProductsNew.js",
+    "./content/selectProduct.js"
+]
+```
 
 ## PRODUCTS
 #### path:
@@ -96,7 +107,20 @@ components will be added to context.
 ```
 
 ## SELECT CGB TEMPLATE
-#### path: src/content
+#### path:
+- src/content/templates/banners.js
+There should be defined 2 variables.
+SELECTOR and TEMPLATES
+- ./content/mustache/index.js
+Library to parse variable in template
+- ./content/papaParse/papaparse.min.js
+Library to parse CSV file content
+- ./libraries/dexie.js
+Library to add indexed DB to project (inactive)
+- ./content/handlers/handleSelectBannerTemplate.js
+Function to handle select banner
+- ./content/cgb_templates/index.js
+Main function that initialize all stuff
 
 ## SELECT NEWSLETTER TEMPLATE
 #### path: src/content
