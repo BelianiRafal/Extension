@@ -1,6 +1,6 @@
 ## LIBRARIES IN USE
-[Linkify JS](https://linkify.js.org/)
-[Papa Parse](https://www.papaparse.com/docs)
+[Linkify JS](https://linkify.js.org/) \
+[Papa Parse](https://www.papaparse.com/docs) \
 [Mustache](https://github.com/janl/mustache.js)
 
 ## PRODUCTS
