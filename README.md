@@ -108,98 +108,98 @@ components will be added to context.
 
 ## SELECT CGB TEMPLATE
 #### path:
-- src/content/templates/banners.js
-There should be defined 2 variables.
-SELECTOR and TEMPLATES
-- ./content/mustache/index.js
-Library to parse variable in template
-- ./content/papaParse/papaparse.min.js
-Library to parse CSV file content
-- ./libraries/dexie.js
-Library to add indexed DB to project (not in use)
-- ./content/handlers/handleSelectBannerTemplate.js
-Function to handle select banner
-- ./content/cgb_templates/index.js
+- src/content/templates/banners.js \
+There should be defined 2 variables. \
+SELECTOR and TEMPLATES \
+- ./content/mustache/index.js \
+Library to parse variable in template \
+- ./content/papaParse/papaparse.min.js \
+Library to parse CSV file content \
+- ./libraries/dexie.js \
+Library to add indexed DB to project (not in use) \
+- ./content/handlers/handleSelectBannerTemplate.js \
+Function to handle select banner \
+- ./content/cgb_templates/index.js \
 Main function that initialize all stuff above.
 
 ## SELECT NEWSLETTER TEMPLATE
 #### path:
-- ./content/mustache/index.js
-Library to parse variable in template
+- ./content/mustache/index.js \
+Library to parse variable in template \
 
-- ./content/papaParse/papaparse.min.js
-Library to parse CSV file content
+- ./content/papaParse/papaparse.min.js \
+Library to parse CSV file content \
 
-- ./content/context/index.js
-File to initialize context globally. (for LP and Newsletter)
+- ./content/context/index.js \
+File to initialize context globally. (for LP and Newsletter) \
 
-- ./content/components/index.js
-Add components to context.
+- ./content/components/index.js \
+Add components to context. \
 
-- ./content/handlers/handleSelectNewsletterTemplate.js
-Function to handle newsletter select.
+- ./content/handlers/handleSelectNewsletterTemplate.js \
+Function to handle newsletter select. \
 
-- ./content/templates/newsletters.js
-This file should contain 2 variables TEMPLATES and SELECTOR
+- ./content/templates/newsletters.js \
+This file should contain 2 variables TEMPLATES and SELECTOR \
 
-- ./content/select_template/index.js
-Functionality to add button select template and dialog interfaces
+- ./content/select_template/index.js \
+Functionality to add button select template and dialog interfaces \
 
-- ./content/select_context/index.js
-Functionality to select context
+- ./content/select_context/index.js \
+Functionality to select context \
 
-- ./content/fulfill_NS/index.js
-Functionality to fulfill Newsletter
+- ./content/fulfill_NS/index.js \
+Functionality to fulfill Newsletter \
 
-- ./content/helpers/CSVfns.js
-Functionality to convert, parse CSV
+- ./content/helpers/CSVfns.js \
+Functionality to convert, parse CSV \
 
-- ./content/fulFillServer.js
-Functionality to fulfill servers for newsletter campaign
+- ./content/fulFillServer.js \
+Functionality to fulfill servers for newsletter campaign \
 
-- ./content/sendEmailToMe.js
-Functionality to send newsletter by clicking on button
+- ./content/sendEmailToMe.js \
+Functionality to send newsletter by clicking on button \
 
-- ./content/svg.js
-SVG graphic
+- ./content/svg.js \
+SVG graphic \
 
-- ./content/newsletter_family/handleButtonSubjectUpdate.js
-Functionality to update Subject line for newsletter campaign in Newsletter Family Table
+- ./content/newsletter_family/handleButtonSubjectUpdate.js \
+Functionality to update Subject line for newsletter campaign in Newsletter Family Table \
 
-- ./content/newsletter_family/copyCampaignNumber.js
-Functionality to copy Campaign Number in Newsletter Family Table
+- ./content/newsletter_family/copyCampaignNumber.js \
+Functionality to copy Campaign Number in Newsletter Family Table \
 
-- ./content/newsletter_family/handleButtonBodyUpdate.js
-Function to handle Update Body
+- ./content/newsletter_family/handleButtonBodyUpdate.js \
+Function to handle Update Body \
 
-- ./content/newsletter_family/features/updateBody.js
-Functionality to copy Body value in Newsletter Family Table
+- ./content/newsletter_family/features/updateBody.js \
+Functionality to copy Body value in Newsletter Family Table \
 
-- ./content/newsletter_family/features/fulfillBody.js
-Functionality to copy Body value in Newsletter Family Table
+- ./content/newsletter_family/features/fulfillBody.js \
+Functionality to copy Body value in Newsletter Family Table \
 
-- ./content/newsletter_family/NewsletterFamilyTable.js
+- ./content/newsletter_family/NewsletterFamilyTable.js \
 Main file to initialize functionality above
 
 ## SELECT LANDING TEMPLATE
 #### path:
-./content/mustache/index.js
+- ./content/mustache/index.js \
 
-./content/papaParse/papaparse.min.js
+- ./content/papaParse/papaparse.min.js \
 
-./content/context/index.js
+- ./content/context/index.js \
 
-./content/components/index.js
+- ./content/components/index.js \
 
-./content/templates/landing.js
+- ./content/templates/landing.js \
 
-./content/handlers/handleSelectLandingTemplate.js
+- ./content/handlers/handleSelectLandingTemplate.js \
 
-./content/select_templates/index.js
+- ./content/select_templates/index.js \
 
-./content/select_context/index.js
+- ./content/select_context/index.js \
 
-./content/fulfill_LP/index.j
+- ./content/fulfill_LP/index.js
 
 ## CONTEXT
 #### path: src/content
