@@ -169,8 +169,52 @@ company_details: {
 ```src/content/templates/newsletters.js```
 
 ### Properties:
+```
+{
+  title: STRING,
+  description: STRING,
+  is_active: BOOLEAN,
+  fallback: {
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+  },
+  html: STRING
+}
+```
 
 ### Example:
+```
+{
+    title: "Sunday NS with:",
+    description: "Header\nTimer \n3 categories \nWithout CTA's\nFooter",
+    is_active: true,
+    fallback: {
+      Newsletter_bg_color: "#fbf5f5",
+      Timer_bg_color: "#750000",
+      Timer_color: "#fff",
+
+      Top_image_src: "https://beliani.info/newsletter/2022/uk240150_01.jpg",
+
+      Timer_href: "/lp24-10-25",
+      Timer_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
+
+      Campaign_src_1: 20241025,
+      Campaign_src_2: 20241023,
+      Campaign_src_3: 20241024,
+      Banner_href_1: "/lp24-10-25",
+      Banner_href_2: "/lp24-10-23",
+      Banner_href_3: "/lp24-10-24",
+
+      Conditions_title: "Conditions title",
+      Conditions_description: "Condition description",
+      Conditions_unsubscribe: "Conditions unsubscribe"
+    },
+    html: '<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html\n  xmlns="http://www.w3.org/1999/xhtml"\n  xmlns:o="urn:schemas-microsoft-com:office:office"\n  xmlns:v="urn:schemas-microsoft-com:vml"\n>\n  <head>\n    <title>Beliani</title>\n    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\n    <meta name="x-apple-disable-message-reformatting" />\n    <meta name="viewport"\n      content="width=device-width, initial-scale=1, user-scalable=yes"\n    />\n    <meta name="color-scheme" content="light only" />\n    <meta name="supported-color-schemes" content="light only" />\n    <link\n      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic-ext,latin-ext"\n    />\n    <style>\n      table,\n      td {\n        mso-table-lspace: 0pt;\n        mso-table-rspace: 0pt;\n      }\n      img {\n        -ms-interpolation-mode: bicubic;\n      }\n      .title-advantages {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        padding-bottom: 10px;\n        padding-top: 10px;\n        margin: 0;\n      }\n      .title-advantages-item {\n        margin-left: 4px;\n      }\n      .newsletterRecommendationHeader {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        margin-bottom: 10px;\n        margin-top: 10px;\n      }\n      .newsletterFreebieContainer {\n        padding-left: 10px;\n      }\n      .newsletterBottom80px {\n        padding-bottom: 80px;\n      }\n      .newsletterBottom10px {\n        padding-bottom: 10px;\n      }\n      .newsletterContainer {\n        padding-left: 20px;\n        padding-right: 20px;\n      }\n      .newsletterCta {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterCode {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterBottom20px {\n        padding-bottom: 20px;\n      }\n      .newsletterBottom35px {\n        padding-bottom: 35px;\n      }\n      .newsletterBottom60px {\n        padding-bottom: 60px;\n      }\n      .newsletterParagraph {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitleOfferPart {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitle {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductTitle {\n        font-size: 20px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductLowPrice {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        font-weight: 600;\n      }\n      .newsletterProductHightPrice {\n        font-size: 14px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        text-decoration: line-through;\n      }\n      .newsletterRight10px {\n        padding-right: 10px;\n      }\n      .newsletterLeft10px {\n        padding-left: 10px;\n      }\n      .newsletterFooter {\n        padding-left: 20px !important;\n        padding-right: 20px !important;\n      }\n      .newsletterConditions {\n        color: black;\n        font-family: "Open Sans", sans-serif;\n        font-size: 8px;\n      }\n      .newsletterFooterCompanyDetails {\n        vertical-align: middle;\n        padding-top: 20px;\n        padding-right: 0px;\n        padding-bottom: 20px;\n        font-size: 11px;\n        font-family: "Open Sans", sans-serif !important;\n        color: #000000;\n        background: #ececec;\n        width: 100%;\n      }\n      .newsletterFooterTitle {\n        text-align: left;\n        color: #000000;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterProductTitleFreebie {\n        text-align: center;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterFooterCategoryLEFT {\n        padding-bottom: 20px !important;\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHT {\n        padding-bottom: 20px !important;\n        padding-left: 10px !important;\n      }\n      .newsletterFooterCategoryLEFTBottom {\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHTBottom {\n        padding-left: 10px !important;\n      }\n      .newsletterSocialIcon {\n        padding-left: 25px !important;\n      }\n      .newsletterTopBottomContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      .newsletterKlarnaBannerContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      @media screen and (max-width: 768px) {\n        .newsletterFooterCategoryLEFTBottom {\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHTBottom {\n          padding-left: 5px !important;\n        }\n        .newsletterFooterCategoryLEFT {\n          padding-bottom: 10px !important;\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHT {\n          padding-bottom: 10px !important;\n          padding-left: 5px !important;\n        }\n        .newsletterSocialIcon {\n          padding-left: 13px !important;\n        }\n        .newsletterTopBottomContainer {\n          padding-top: 20px !important;\n          padding-bottom: 20px !important;\n        }\n        .newsletterFooterTitle {\n          font-size: 18px;\n        }\n        .newsletterProductTitleFreebie {\n          font-size: 18px;\n        }\n        .newsletterProductTitle {\n          font-size: 18px;\n        }\n        .newsletterProductLowPrice {\n          font-size: 16px;\n        }\n        .newsletterProductHightPrice {\n          display: block;\n        }\n        .newsletterProductTitleContainer {\n          padding-top: 10px;\n        }\n        .newsletterTitle {\n          font-size: 25px;\n        }\n        .newsletterTitleOfferPart {\n          font-size: 25px;\n        }\n        .newsletterContainer {\n          padding-left: 10px;\n          padding-right: 10px;\n        }\n        .newsletterFreebieContainer {\n          padding-left: 10px;\n          padding-right: 0px !important;\n        }\n        .newsletterBottom35px {\n          padding-bottom: 20px;\n        }\n        .newsletterBottom60px {\n          padding-bottom: 40px;\n        }\n        .newsletterParagraph {\n          font-size: 16px;\n        }\n        .newsletterLeft10px {\n          padding-left: 5px;\n        }\n        .newsletterRight10px {\n          padding-right: 5px;\n        }\n        .newsletterBottom20px {\n          padding-bottom: 10px;\n        }\n        .newsletterBottom80px {\n          padding-bottom: 50px;\n        }\n      }\n      @media screen and (max-width: 570px) {\n        .newsletterProductTitleFreebie {\n          font-size: 16px;\n        }\n      }\n      @media screen and (max-width: 460px) {\n        .newsletterProductTitleFreebie {\n          font-size: 14px;\n        }\n      }\n      @media screen and (max-width: 370px) {\n        .newsletterProductTitleFreebie {\n          font-size: 12px;\n        }\n      }\n    </style>\n  </head>\n  <body\n    class="body"\n    style="\n      width: 100% !important;\n      padding: 0 !important;\n      margin: 0 auto !important;\n      font-family: \'Open Sans\', sans-serif !important;\n      font-size: 13px;\n      color: #000000;\n      text-align: left;\n      background-color: #ececec;\n    "\n    width="100%"\n  >\n    {{{header}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      id="newsletter"\n      style="max-width:650px;width:100%;background-color:{{Newsletter_bg_color}};color:#000"\n      width="100%"\n    >\n      <tbody>\n        <tr>\n          <td align="center">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td>\n                    <a href="{{origin}}{{utm}}{{id}}"\n                      ><img\n                        alt=""\n                        loading="lazy"\n                        src="{{Top_image_src}}"\n                        style="vertical-align: middle; max-width: 100%"\n                    /></a>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_1}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_1}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}; color: {{Timer_color}};">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Timer_bg_color}}">\n            <a href="{{origin}}/content{{Timer_href}}{{utm}}{{id}}"\n              ><img\n                alt="Timer gif"\n                loading="lazy"\n                src="{{Timer_src}}"\n                style="vertical-align: middle; max-width: 100%"\n            /></a>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_2}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_2}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_3}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_3}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom80px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      class="newsletterContainer"\n      style="max-width: 650px; width: 100%; background-color: #ffffff"\n    >\n      <tbody>\n        <tr>\n          <td class="newsletterBottom35px">\n {{{services_banner}}} {{{footer_categories}}} {{{klarna}}} {{{socials}}} {{{advantages}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      class="newsletterContainer"\n      style="max-width: 650px; width: 100%; background-color: #ffffff"\n      width="650"\n    >\n      <tbody>\n        <tr>\n          <td>\n            <img\n              alt=""\n              loading="lazy"\n              src="https://beliani.info/newsletter/2022/line.jpg"\n              style="display: block; max-width: 100%"\n            />\n          </td>\n        </tr>\n        <tr>\n          <td align="left" class="newsletterTopBottomContainer">\n            <span class="newsletterConditions" style="color: #000000"\n              >{{Conditions_title}}: {{Conditions_description}} {{Conditions_unsubscribe}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    {{{company_details}}}\n  </body>\n</html>\n',
+}
+```
 --------------
 
 > ### Langing
@@ -178,9 +222,54 @@ company_details: {
 ```src/content/templates/landing.js```
 
 ### Properties:
+```
+{
+  title: STRING,
+  description: STRING,
+  is_active: BOOLEAN,
+  fallback: {
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+  },
+  html: STRING
+}
+```
 
 ### Example:
+```
+{
+    title: "Sunday LP with:",
+    description: "Timer \n3 categories \nWithout CTA's",
+    is_active: true,
+    fallback: {
+      Newsletter_bg_color: "#fbf5f5",
+      Timer_bg_color: "#750000",
+      Timer_color: "#fff",
 
+      Top_image_src: "https://beliani.info/newsletter/2022/uk240150_01.jpg",
+
+      Timer_href: "/lp24-10-25",
+      Timer_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
+
+      Campaign_src_1: 20241025,
+      Campaign_src_2: 20241023,
+      Campaign_src_3: 20241024,
+      Banner_href_1: "/lp24-10-25",
+      Banner_href_2: "/lp24-10-23",
+      Banner_href_3: "/lp24-10-24",
+
+      Conditions_title: "Conditions title",
+      Conditions_description: "Condition description",
+      Conditions_unsubscribe: "Conditions unsubscribe"
+    },
+    html: `
+      CREATE YOUR TEMPLATE IN /src/content/templates/landing.js
+    `,
+  }
+```
 --------------
 > ### BANNER
 ### Path:
