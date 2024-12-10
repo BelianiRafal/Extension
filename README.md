@@ -201,24 +201,22 @@ Main file to initialize functionality above
 
 - ./content/fulfill_LP/index.js
 
-## CONTEXT
-#### path: src/content
-
-## SLUG CONTEXT
-#### path: src/content
-
-## UPDATE BODY
-#### path: src/content
-
-## UPDATE SUBJECT
-#### path: src/content
+## CONTEXT/SLUG CONTEXT
+#### path:
+- src/content/context/index.js \
+Functionality to add context for Newsletter and Landing pages
 
 ## ISSUES
-#### path: src/content
+#### path:
+- src/content/issue.js \
+Functionality to render issues on https://www.prologistics.info/start.php page
 
-## LIBRARIES
-#### path: src/content
+## MULTISELECT
+#### path:
+- ./content/multiselect.js \
+Multiselect for Mailing templates page. Click + Shift Click will select campaigns range
 
-## CSV PPUSH
-#### path: src/content
-
+## CSV PUSH
+#### path:
+- ./content/uploadCSV.js \
+Functionality to upload CSV file on page https://www.prologistics.info/push_notifications.php in order to automate PUSH messages
