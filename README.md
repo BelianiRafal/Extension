@@ -92,8 +92,8 @@
 
 ## HOW TO CREATE COMPONENTS/NEWSLETTER/LANDING/BANNERS TEMPLATE
 > ### Components
-> #### path:
-> src/content/components/index.js
+### Path:
+```src/content/components/index.js```
 ### Properties
 ```
 {
