@@ -102,7 +102,8 @@ Variable should be defined tihs way: ```{{{name}}}```
 It is important to use 3 brackets before and after
 
 ## ACCESS TO GLOBAL VARIABLES
-Such variables accessible in newsletter and landing page textareas 
+Such variables accessible in newsletter and landing page textareas.
+Variable value depends from shop id, seller, language page.
 - slug
 - origin
 - id
