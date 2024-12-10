@@ -91,11 +91,11 @@
 - ./content/selectProduct.js      -> add Button to each SA Detail product to download particular product on click
 
 ## HOW TO CREATE COMPONENTS/NEWSLETTER/LANDING/BANNERS TEMPLATE
-- 1
-- 1
-- 1
-- 1
-- 1
+> ### Components
+
+> ### Newsletter
+
+> ### Langing
 
 ## DEFINE VARIABLES IN TEMPLATE
 Variable should be defined tihs way: ```{{{name}}}```
