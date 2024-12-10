@@ -92,6 +92,76 @@
 
 ## HOW TO CREATE COMPONENTS/NEWSLETTER/LANDING/BANNERS TEMPLATE
 > ### Components
+> #### path:
+> src/content/components/index.js
+### Properties
+```
+{
+  title: STRING,
+  description: STRING,
+  is_active: BOOLEAN,
+  fallback: {
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+  },
+  data: {
+    "SLUG_SELLER + SLUG_LANGUAGE": {
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+    },
+    "SLUG_SELLER + SLUG_LANGUAGE": {
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+      "VARIABLE NAME": "VARIABLE VALUE",
+    },
+  },
+  html: STRING
+}
+```
+### Example:
+```
+{
+company_details: {
+    title: "Company details",
+    description: "Company details template",
+    fallback: {
+      "Company Details": "Company Details",
+      Address: "Beliani (UK) GmbH 6340 Baar Switzerland",
+      "Mobile number": "Phone: 020 3318 8222;",
+      "Email address": "E-mail:",
+      "Mail to": "mailto:mail@beliani.co.uk",
+      Email: "mail@beliani.co.uk",
+      "Commercial register":
+        "Commercial Register: Commercial Register of the Canton of Zug, CH-170.4.008.869-6",
+      VAT: "VAT ID: CHE-114.825.869 VAT",
+    },
+    is_active: true,
+    html: '<table\n            cellspacing="0"\n            cellpadding="0"\n            border="0"\n            align="center"\n            id="newsletter"\n          >\n            <tbody>\n              <tr>\n                <td align="center" class="newsletterFooterCompanyDetails">\n                  <span\n                    style="color: #000000; text-align: center; font-size: 11px"\n                  >\n                    <b\n                      ><span style="font-size: 10px"\n                        >{{Company Details}}</span\n                      ></b\n                    >\n                    <br />{{Address}}<br />{{Mobile number}} {{Email address}}\n                    <a href="{{{Mail to}}}">{{Email}}</a>\n                    <br />{{Commercial register}}<br />{{VAT}}\n                  </span>\n                </td>\n              </tr>\n            </tbody>\n          </table>',
+    data: {
+      ptpt: {
+        "Company Details": "Detalhes da Empresa",
+        Address: "Beliani (DE) GmbH CH 6340 Baar Suíça",
+        "Mobile number": "Telefone: +351 22 145 07 45;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.pt",
+        Email: "mail@beliani.pt",
+        "Commercial register":
+          "Registo Comercial: Reg. comercial do cantão ZUG, CHE-115.695.894",
+        VAT: "USt-IDNr: DE 276156472",
+      },
+    },
+    html: `<table\n            cellspacing="0"\n            cellpadding="0"\n            border="0"\n            align="center"\n            id="newsletter"\n          >\n            <tbody>\n              <tr>\n                <td align="center" class="newsletterFooterCompanyDetails">\n                  <span\n                    style="color: #000000; text-align: center; font-size: 11px"\n                  >\n                    <b\n                      ><span style="font-size: 10px"\n                        >{{Company Details}}</span\n                      ></b\n                    >\n                    <br />{{Address}}<br />{{Mobile number}} {{Email address}}\n                    <a href="{{{Mail to}}}">{{Email}}</a>\n                    <br />{{Commercial register}}<br />{{VAT}}\n                  </span>\n                </td>\n              </tr>\n            </tbody>\n          </table>`
+  }
+}
+```
 
 > ### Newsletter
 
