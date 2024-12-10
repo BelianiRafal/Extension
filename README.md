@@ -98,9 +98,25 @@
 - 1
 
 ## DEFINE VARIABLES IN TEMPLATE
-Variable should be defined tihs way: {{{name}}}
+Variable should be defined tihs way: ```{{{name}}}```
 It is important to use 3 brackets before and after
 
+## ACCESS TO GLOBAL VARIABLES
+Such variables accessible in newsletter and landing page textareas 
+- slug
+- origin
+- id
+- utm
+- picture_server_url
+```
+const DEFAULT_VARIABLES = {
+  slug: "uk",
+  origin: "https://www.beliani.co.uk",
+  id: new URLSearchParams(window.location.search).get("id"),
+  utm: "?utm_source=newsletter&utm_medium=email&utm_campaign=",
+  picture_server_url: "https://upload.pictureserver.net/static/2024/",
+}
+```
 
 ## COMPONENTS
 #### path: src/content/components/index.js
