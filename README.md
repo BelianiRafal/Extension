@@ -162,6 +162,7 @@ company_details: {
   }
 }
 ```
+--------------
 
 > ### Newsletter
 ### Path:
@@ -170,6 +171,7 @@ company_details: {
 ### Properties:
 
 ### Example:
+--------------
 
 > ### Langing
 ### Path:
@@ -179,6 +181,7 @@ company_details: {
 
 ### Example:
 
+--------------
 > ### BANNER
 ### Path:
 ```src/content/templates/banners.js```
