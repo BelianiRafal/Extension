@@ -90,6 +90,13 @@
 - ./content/selectProductsNew.js  -> content script that will be executed once UI Button in React will we clicked
 - ./content/selectProduct.js      -> add Button to each SA Detail product to download particular product on click
 
+## HOW TO CREATE COMPONENTS/NEWSLETTER/LANDING/BANNERS TEMPLATE
+- 1
+- 1
+- 1
+- 1
+- 1
+
 ## COMPONENTS
 #### path: src/content/components/index.js
 Each time extension executed and components file path added to scripts in matched object,
