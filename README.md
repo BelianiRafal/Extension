@@ -90,11 +90,11 @@
 - ./content/selectProductsNew.js  -> content script that will be executed once UI Button in React will we clicked
 - ./content/selectProduct.js      -> add Button to each SA Detail product to download particular product on click
 
-## HOW TO CREATE COMPONENTS/NEWSLETTER/LANDING/BANNERS TEMPLATE
-> ### Components
+## HOW TO CREATE COMPONENT/NEWSLETTER/LANDING/BANNER TEMPLATE
+> ### Component
 ### Path:
 ```src/content/components/index.js```
-### Properties
+### Properties:
 ```
 {
   title: STRING,
@@ -164,8 +164,62 @@ company_details: {
 ```
 
 > ### Newsletter
+### Path:
+```src/content/templates/newsletters.js```
+
+### Properties:
+
+### Example:
 
 > ### Langing
+### Path:
+```src/content/templates/landing.js```
+
+### Properties:
+
+### Example:
+
+> ### BANNER
+### Path:
+```src/content/templates/banners.js```
+
+### Properties:
+```
+{
+  title: STRING,
+  description: STRING,
+  is_active: BOOLEAN,
+  fallback: {
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+    "VARIABLE NAME": "VARIABLE VALUE",
+  },
+  html: STRING
+}
+```
+
+### Example:
+```
+{
+    title: "Mobile Cgb offer part",
+    description:
+      "Mobile banner with:\n2 columns.\nLeft side text.\nRight side graphic.",
+    is_active: false,
+    fallback: {
+      Offert_part_1: "Up to 50% off",
+      Offert_part_2: "all blankets & throws",
+      Offert_part_3: "until 11th November",
+      Cta: "Shop now",
+      category_href: "sofas",
+      video_src:
+        "https://www.pictureserver.net/pic_storage/pic/d8/1e/english_src_banner_picid_11256_image.mp4?ver=1",
+      bg_color: "#ffffff",
+    },
+    html: '<style>\n          #cgb.xyzGridContainer {\n            display: flex;\n            align-items: start;\n            padding-left: 20px;\n            flex-direction: column;\n            width: fit-content;\n          }\n\n          #cgb .cgbContainer a {\n            color: #000000;\n          }\n        \n          #cgb .xyCTA {\n            text-decoration-thickness: 1px;\n            font-weight: 500;\n            font-size: 11px;\n          }\n        \n          #cgb .xyHeader1 {\n            font-size: 25px;\n            line-height: 36px;\n            margin: 0 0 5px 0;\n          }\n          #cgb .xyHeader3 {\n            font-size: 11px;\n            text-decoration: none;\n            margin: 0 0 3px 0;\n          }\n          </style>\n\n<div id="cgb" class="xyzGridContainer" style="background-color:{{{bg_color}}}">\n  <div style="padding: 10px 5px 10px 0px;">\n      <p class="xyHeader1">\n        {{{Offert_part_1}}}\n      </br>\n        {{{Offert_part_2}}}\n      </p>\n      <p class="xyHeader3">\n        {{{Offert_part_3}}}\n      </p>\n      <a href="/{{{category_href}}}"  class="xyCTA">\n        {{{Cta}}}\n      </a>\n  </div>\n  <div>\n      <a href="/{{{category_href}}}"><video playsinline autoplay loop muted disableremoteplayback="true" style="max-width: 100%; vertical-align: middle;" >\n          <source\n              src="{{{video_src}}}"\n              type="video/mp4">\n      </video></a>\n  </div>\n</div>',
+  }
+```
 
 ## DEFINE VARIABLES IN TEMPLATE
 Variable should be defined tihs way: ```{{{name}}}```
