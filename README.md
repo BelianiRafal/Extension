@@ -109,74 +109,74 @@ components will be added to context.
 ## SELECT CGB TEMPLATE
 #### path:
 - src/content/templates/banners.js \
-There should be defined 2 variables. \
-SELECTOR and TEMPLATES \
+There should be defined 2 variables. 
+SELECTOR and TEMPLATES 
 - ./content/mustache/index.js \
-Library to parse variable in template \
+Library to parse variable in template 
 - ./content/papaParse/papaparse.min.js \
-Library to parse CSV file content \
+Library to parse CSV file content 
 - ./libraries/dexie.js \
-Library to add indexed DB to project (not in use) \
+Library to add indexed DB to project (not in use) 
 - ./content/handlers/handleSelectBannerTemplate.js \
-Function to handle select banner \
+Function to handle select banner 
 - ./content/cgb_templates/index.js \
 Main function that initialize all stuff above.
 
 ## SELECT NEWSLETTER TEMPLATE
 #### path:
 - ./content/mustache/index.js \
-Library to parse variable in template \
+Library to parse variable in template 
 
 - ./content/papaParse/papaparse.min.js \
-Library to parse CSV file content \
+Library to parse CSV file content 
 
 - ./content/context/index.js \
-File to initialize context globally. (for LP and Newsletter) \
+File to initialize context globally. (for LP and Newsletter) 
 
 - ./content/components/index.js \
-Add components to context. \
+Add components to context. 
 
 - ./content/handlers/handleSelectNewsletterTemplate.js \
-Function to handle newsletter select. \
+Function to handle newsletter select. 
 
 - ./content/templates/newsletters.js \
-This file should contain 2 variables TEMPLATES and SELECTOR \
+This file should contain 2 variables TEMPLATES and SELECTOR 
 
 - ./content/select_template/index.js \
-Functionality to add button select template and dialog interfaces \
+Functionality to add button select template and dialog interfaces 
 
 - ./content/select_context/index.js \
-Functionality to select context \
+Functionality to select context 
 
 - ./content/fulfill_NS/index.js \
-Functionality to fulfill Newsletter \
+Functionality to fulfill Newsletter 
 
 - ./content/helpers/CSVfns.js \
-Functionality to convert, parse CSV \
+Functionality to convert, parse CSV 
 
 - ./content/fulFillServer.js \
-Functionality to fulfill servers for newsletter campaign \
+Functionality to fulfill servers for newsletter campaign 
 
 - ./content/sendEmailToMe.js \
-Functionality to send newsletter by clicking on button \
+Functionality to send newsletter by clicking on button 
 
 - ./content/svg.js \
-SVG graphic \
+SVG graphic 
 
 - ./content/newsletter_family/handleButtonSubjectUpdate.js \
-Functionality to update Subject line for newsletter campaign in Newsletter Family Table \
+Functionality to update Subject line for newsletter campaign in Newsletter Family Table 
 
 - ./content/newsletter_family/copyCampaignNumber.js \
-Functionality to copy Campaign Number in Newsletter Family Table \
+Functionality to copy Campaign Number in Newsletter Family Table 
 
 - ./content/newsletter_family/handleButtonBodyUpdate.js \
-Function to handle Update Body \
+Function to handle Update Body 
 
 - ./content/newsletter_family/features/updateBody.js \
-Functionality to copy Body value in Newsletter Family Table \
+Functionality to copy Body value in Newsletter Family Table 
 
 - ./content/newsletter_family/features/fulfillBody.js \
-Functionality to copy Body value in Newsletter Family Table \
+Functionality to copy Body value in Newsletter Family Table 
 
 - ./content/newsletter_family/NewsletterFamilyTable.js \
 Main file to initialize functionality above
