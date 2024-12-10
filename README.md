@@ -91,12 +91,19 @@
 - ./content/selectProduct.js      -> add Button to each SA Detail product to download particular product on click
 
 ## HOW TO CREATE COMPONENT/NEWSLETTER/LANDING/BANNER TEMPLATE
+1. Create object with predefined properties.
+2. Add to:
+- TEMPLATES ARRAY in case of Newsletter, Landing, Banner.
+- COMPONENTS OBJECT in case of Components.
+3. App will automatically render everything.
+
+-------------
 > ### Component
 ### Path:
 ```src/content/components/index.js```
 ### Properties:
 ```
-{
+"COMPONENT NAME": {
   title: STRING,
   description: STRING,
   is_active: BOOLEAN,
