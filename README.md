@@ -97,6 +97,11 @@
 - 1
 - 1
 
+## DEFINE VARIABLES IN TEMPLATE
+Variable should be defined tihs way: {{{name}}}
+It is important to use 3 brackets before and after
+
+
 ## COMPONENTS
 #### path: src/content/components/index.js
 Each time extension executed and components file path added to scripts in matched object,
