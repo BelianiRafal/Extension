@@ -83,12 +83,22 @@
 ```
 
 ## PRODUCTS
-#### path:
+#### Path:
 - ./content/isActive.js           -> helper function
 - ./content/fetchProducts.js      -> fetch products when button in src/build/index.html clicked (builded react application) (raw application located in ui folder: ui/src/App.jsx, function handleProductsDownload responsible for executing call to extension.)
 - ./content/download.js           -> helper function
-- ./content/selectProductsNew.js  -> content script that will be executed once UI Button in React will we clicked
-- ./content/selectProduct.js      -> add Button to each SA Detail product to download particular product on click
+- ./content/selectProductsNew.js  -> content script that will be executed once UI Button in React will be clicked
+- ./content/selectProduct.js      -> add Button to each SA Detail product to download particular product on click. Thus feature use the same function selectProductsNew to download products.
+
+#### Description:
+1. Main function that is responsible for products fetching is ```fetchProducts```.
+2. Entry point in function located in row: 112. Ids that function receives on the row 1, comes from function ```selectProductsNew.js``` row 12.
+3. Next we will iterate over provided **IDS** and call for each **MASTER_ID**  function ```getProductData```.
+4. Inside this function should be handled responses for **LINKS**, **NAME**, **SLAVES** for **MASTER_ID**.
+5. Function ```parse_response``` responsible for parsing response for both: **NAME**, **SLAVES**.
+6. Iterate over ```slaves_ids``` from parsed ```parse_response``` function.
+7. Function ```parse_response_prices``` responsible for parsing response price for particular **SLAVE_ID**.
+8. Function ```getAllSAId``` responsible for selecting all **MASTER_ID** from SA page. Function for located inside file ```selectProduct```.
 
 ## HOW TO CREATE COMPONENT/NEWSLETTER/LANDING/BANNER TEMPLATE
 1. Create object with predefined properties.
