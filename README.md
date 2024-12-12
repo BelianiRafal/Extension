@@ -100,7 +100,7 @@
 7. Function ```parse_response_prices``` responsible for parsing response price for particular **SLAVE_ID**.
 8. Function ```getAllSAId``` responsible for selecting all **MASTER_ID** from SA page. Function for located inside file ```selectProduct```.
 
-## HOW TO CREATE COMPONENT/NEWSLETTER/LANDING/BANNER TEMPLATE
+## HOW TO CREATE COMPONENT/NEWSLETTER/LANDING/CGB BANNER TEMPLATE
 1. Create object with predefined properties.
 2. Add to:
 - TEMPLATES ARRAY in case of Newsletter, Landing, Banner.
@@ -288,7 +288,7 @@ company_details: {
   }
 ```
 --------------
-> ### BANNER
+> ### CGB BANNER
 ### Path:
 ```src/content/templates/banners.js```
 
