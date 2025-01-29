@@ -9,7 +9,7 @@ const TEMPLATES = [
       Offert_part_2: "all blankets & throws",
       Offert_part_3: "until 11th November",
       Cta: "Shop now",
-      category_href: "sofas ",
+      category_href: "sofas",
       video_src:
         "https://www.pictureserver.net/pic_storage/pic/d8/1e/english_src_banner_picid_11256_image.mp4?ver=1",
       bg_color: "#ffffff",
