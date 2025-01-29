@@ -1,0 +1,2696 @@
+const COMPONENTS = {
+  header: {
+    title: "Header",
+    description: "Header template",
+    is_active: true,
+    fallback: {
+      "Whitelist href": "https://www.beliani.co.uk/content/whitelist-emails/",
+      "Trouble viewing": "Having trouble viewing Newsletter? View the",
+      "Trouble viewing href text": "online version.",
+      "Add Beliani to your": "Add Beliani to your",
+      Whitelist: "whitelist.",
+      "365-Day Return": "365-Day Returns",
+      "Free Delivery": "Free Delivery & Return",
+      "Header asembly src": "",
+      "Header asembly_cosy src": "",
+      "Header delivery src":
+        "https://upload.pictureserver.net/static/2024/uk_top_db.jpg",
+      "Header delivery_cosy src":
+        "https://upload.pictureserver.net/static/2024/uk_top_cozy_db.jpg",
+      "Header asembly href":
+        "https://www.beliani.co.uk/content/delivery-services/",
+      "Header top image src":
+        "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+      "Header top image href": "https://www.beliani.co.uk/",
+      "Header Category 1 src":
+        "https://upload.pictureserver.net/static/2024/uk_header_01.png",
+      "Header Category 1 href":
+        "https://www.beliani.co.uk/living-room-furniture/",
+      "Header Category 2 src":
+        "https://upload.pictureserver.net/static/2024/uk_header_02.png",
+      "Header Category 2 href": "https://www.beliani.co.uk/home-accessories/",
+      "Header Category 3 src":
+        "https://upload.pictureserver.net/static/2024/uk_header_03.png",
+      "Header Category 3 href": "https://www.beliani.co.uk/garden-furniture/",
+    },
+    data: {
+      atde: {
+        "Whitelist href": "https://www.beliani.at/content/whitelist-emails-de/",
+        "Trouble viewing": "Der Newsletter wird nicht richtig angezeigt?",
+        "Trouble viewing href text": "Sieh",
+        "Add Beliani to your":
+          "dir die Online-Version an. Setze Beliani auf deine",
+        Whitelist: "weiße Liste.",
+        "365-Day Return": "365 Tage Rückgaberecht",
+        "Free Delivery": "Gratis Lieferung & Rückversand",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src":
+          "https://upload.pictureserver.net/static/2024/at_top_db.jpg",
+        "Header delivery_cosy src":
+          "https://upload.pictureserver.net/static/2024/at_top_cozy_db.jpg",
+        "Header asembly href":
+          "https://www.beliani.at/content/lieferservices-at/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.at/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_01.png",
+        "Header Category 1 href": "https://www.beliani.at/wohnzimmer-moebel/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_02.png",
+        "Header Category 2 href": "https://www.beliani.at/wohnzubehor/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_03.png",
+        "Header Category 3 href": "https://www.beliani.at/gartenmoebel/",
+      },
+      chde: {
+        "Whitelist href": "https://www.beliani.ch/content/whitelist-emails-de/",
+        "Trouble viewing": "Der Newsletter wird nicht richtig angezeigt?",
+        "Trouble viewing href text": "Sieh",
+        "Add Beliani to your":
+          "dir die Online-Version an. Setze Beliani auf deine",
+        Whitelist: "weisse Liste.",
+        "365-Day Return": "365 Tage Rückgaberecht",
+        "Free Delivery": "Gratis Lieferung & Rückversand",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/chde_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/chde_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.ch/content/lieferservices-ch/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.ch/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_01.png",
+        "Header Category 1 href": "https://www.beliani.ch/wohnzimmer-moebel/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_02.png",
+        "Header Category 2 href": "https://www.beliani.ch/wohnzubehor/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_03.png",
+        "Header Category 3 href": "https://www.beliani.ch/gartenmoebel/",
+      },
+      chfr: {
+        "Whitelist href": "https://www.beliani.ch/content/whitelist-emails-fr/",
+        "Trouble viewing": "Ce message n’apparaît pas, consultez la",
+        "Trouble viewing href text": "version en ligne.",
+        "Add Beliani to your": "Ajoutez Beliani",
+        Whitelist: "à votre liste d'emails.",
+        "365-Day Return": "Droit de retour 365 jours",
+        "Free Delivery": "Livraison & retour gratuits",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/chfr_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/chfr_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.ch/content/services-de-livraison/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.ch/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_01.png",
+        "Header Category 1 href": "https://www.beliani.ch/meubles-de-salon/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_02.png",
+        "Header Category 2 href": "https://www.beliani.ch/accessoires/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_03.png",
+        "Header Category 3 href": "https://www.beliani.ch/meubles-de-jardin/",
+      },
+      czcz: {
+        "Whitelist href": "https://www.beliani.cz/content/whitelist-emails-cz/",
+        "Trouble viewing":
+          "Máte problémy se zobrazením newsletteru? Tady zobrazíte",
+        "Trouble viewing href text": "online verzi.",
+        "Add Beliani to your": "Přidejte Beliani mezi",
+        Whitelist: "povolené e-mailové adresy.",
+        "365-Day Return": "365 dní na vrácení",
+        "Free Delivery": "Doručení a vrácení zdarma",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/cz_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/cz_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.cz/content/dorucovaci-sluzby/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.cz/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/cz_header_01.png",
+        "Header Category 1 href": "https://www.beliani.cz/nabytek-do-obyvaku/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/cz_header_02.png",
+        "Header Category 2 href": "https://www.beliani.cz/doplnky/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/cz_header_03.png",
+        "Header Category 3 href": "https://www.beliani.cz/zahradni-nabytek/",
+      },
+      dede: {
+        "Whitelist href": "https://www.beliani.de/content/whitelist-emails-de/",
+        "Trouble viewing": "Der Newsletter wird nicht richtig angezeigt?",
+        "Trouble viewing href text": "Sieh",
+        "Add Beliani to your":
+          "dir die Online-Version an. Setze Beliani auf deine",
+        Whitelist: "weiße Liste.",
+        "365-Day Return": "365 Tage Rückgaberecht",
+        "Free Delivery": "Gratis Lieferung & Rückversand",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/de_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/de_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.de/content/lieferservices-de/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.de/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_01.png",
+        "Header Category 1 href": "https://www.beliani.de/wohnzimmer-moebel/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_02.png",
+        "Header Category 2 href": "https://www.beliani.de/wohnzubehor/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/chde_header_03.png",
+        "Header Category 3 href": "https://www.beliani.de/gartenmoebel/",
+      },
+      dkdk: {
+        "Whitelist href": "https://www.beliani.dk/content/whitelist-emails-dk/",
+        "Trouble viewing": "Kan du ikke se billeder? Tjek online version",
+        "Trouble viewing href text": "af vores webshop.",
+        "Add Beliani to your": "Tilføj Beliani til din",
+        Whitelist: "whitelist.",
+        "365-Day Return": "365 dages returret",
+        "Free Delivery": "Gratis levering og returnering",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/dk_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/dk_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.dk/content/leveringstjenester/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.dk/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/dk_header_01.png",
+        "Header Category 1 href": "https://www.beliani.dk/stuemobler/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/dk_header_02.png",
+        "Header Category 2 href": "https://www.beliani.dk/boligtilbehor/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/dk_header_03.png",
+        "Header Category 3 href": "https://www.beliani.dk/havemobler/",
+      },
+      eses: {
+        "Whitelist href": "https://www.beliani.es/content/whitelist-emails-es/",
+        "Trouble viewing": "¿No puedes ver la Newsletter? Consulta la versión",
+        "Trouble viewing href text": "en línea.",
+        "Add Beliani to your": "Añade Beliani a tu",
+        Whitelist: "lista blanca de emails.",
+        "365-Day Return": "365 días de devolución",
+        "Free Delivery": "Entrega & devolución gratis",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/es_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/es_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.es/content/servicios-de-entrega/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.es/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/es_header_01.png",
+        "Header Category 1 href": "https://www.beliani.es/salon/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/es_header_02.png",
+        "Header Category 2 href":
+          "https://www.beliani.es/accesorios-del-hogar/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/es_header_03.png",
+        "Header Category 3 href": "https://www.beliani.es/jardin/",
+      },
+      fifi: {
+        "Whitelist href": "https://www.beliani.fi/content/whitelist-emails-fi/",
+        "Trouble viewing": "Eikö uutiskirje näy kunnolla? Avaa",
+        "Trouble viewing href text": "uutiskirje selaimessa.",
+        "Add Beliani to your": "Lisää Beliani sähköpostisi",
+        Whitelist: "valkolistalle.",
+        "365-Day Return": "365 päivän palautusoikeus",
+        "Free Delivery": "Ilmainen toimitus ja palautus",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href": "",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.fi/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/fi_header_01.png",
+        "Header Category 1 href":
+          "https://www.beliani.fi/olohuoneen-kalusteet/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/fi_header_02.png",
+        "Header Category 2 href": "https://www.beliani.fi/sisustustuotteet/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/fi_header_03.png",
+        "Header Category 3 href": "https://www.beliani.fi/puutarhakalusteet/",
+      },
+      frfr: {
+        "Whitelist href": "https://www.beliani.fr/content/whitelist-emails-fr/",
+        "Trouble viewing": "Ce message n’apparaît pas, consultez la",
+        "Trouble viewing href text": "version en ligne.",
+        "Add Beliani to your": "Ajoutez Beliani",
+        Whitelist: "à votre liste d'emails.",
+        "365-Day Return": "Droit de retour 365 jours",
+        "Free Delivery": "Livraison & retour gratuits",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src":
+          "https://upload.pictureserver.net/static/2024/fr_top_db.jpg",
+        "Header delivery_cosy src":
+          "https://upload.pictureserver.net/static/2024/fr_top_cozy_db.jpg",
+        "Header asembly href":
+          "https://www.beliani.fr/content/services-de-livraison-fr/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.fr/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_01.png",
+        "Header Category 1 href": "https://www.beliani.fr/meubles-de-salon/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_02.png",
+        "Header Category 2 href": "https://www.beliani.fr/accessoires/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_03.png",
+        "Header Category 3 href": "https://www.beliani.fr/meubles-de-jardin/",
+      },
+      huhu: {
+        "Whitelist href": "https://www.beliani.hu/content/whitelist-emails-hu/",
+        "Trouble viewing":
+          "Hírlevelünk nem jelenik meg tökéletesen? Nézd meg az",
+        "Trouble viewing href text": "online verziót.",
+        "Add Beliani to your": "Add hozzá a Belianit",
+        Whitelist: "fehérlistádhoz.",
+        "365-Day Return": "365 napos visszaküldési jog",
+        "Free Delivery": "Ingyenes szállítás és visszaküldés",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/hu_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/hu_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.hu/content/szallitasi-szolgaltatasok-hu/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.hu/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/hu_header_01.png",
+        "Header Category 1 href": "https://www.beliani.hu/nappali-butorok/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/hu_header_02.png",
+        "Header Category 2 href": "https://www.beliani.hu/otthoni-kiegeszitok/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/hu_header_03.png",
+        "Header Category 3 href": "https://www.beliani.hu/kerti-garniturak/",
+      },
+      itit: {
+        "Whitelist href": "https://www.beliani.it/content/whitelist-emails-it/",
+        "Trouble viewing": "Non riesci a visualizzare la newsletter?",
+        "Trouble viewing href text": "la versione online.",
+        "Add Beliani to your": "Aggiungi Beliani alla",
+        Whitelist: "tua lista di e-mail.",
+        "365-Day Return": "Reso fino a 365 Giorni",
+        "Free Delivery": "Spedizione e Reso Gratuiti",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/it_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/it_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.it/content/servizi-di-consegna-it/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.it/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/it_header_01.png",
+        "Header Category 1 href": "https://www.beliani.it/soggiorno/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/it_header_02.png",
+        "Header Category 2 href": "https://www.beliani.it/accessori-casa/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/it_header_03.png",
+        "Header Category 3 href": "https://www.beliani.it/giardino/",
+      },
+      chit: {
+        "Whitelist href": "https://www.beliani.ch/content/whitelist-emails-it/",
+        "Trouble viewing": "Non riesci a visualizzare la newsletter?",
+        "Trouble viewing href text": "la versione online.",
+        "Add Beliani to your": "Aggiungi Beliani alla",
+        Whitelist: "tua lista di e-mail.",
+        "365-Day Return": "Reso fino a 365 Giorni",
+        "Free Delivery": "Spedizione e Reso Gratuiti",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href": "",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.ch/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/it_header_01.png",
+        "Header Category 1 href": "https://www.beliani.ch/soggiorno/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/it_header_02.png",
+        "Header Category 2 href": "https://www.beliani.ch/accessori-casa/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/it_header_03.png",
+        "Header Category 3 href": "https://www.beliani.ch/giardino/",
+      },
+      nlnl: {
+        "Whitelist href": "https://www.beliani.nl/content/whitelist-emails-nl/",
+        "Trouble viewing":
+          "Wordt deze nieuwsbrief niet correct weergegeven? Naar de",
+        "Trouble viewing href text": "online versie.",
+        "Add Beliani to your": "Voeg Beliani toe aan je",
+        Whitelist: "whitelist.",
+        "365-Day Return": "365 dagen retourrecht",
+        "Free Delivery": "Gratis levering & retour",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/nl_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/nl_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.nl/content/bezorg-services/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.nl/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/nl_header_01.png",
+        "Header Category 1 href": "https://www.beliani.nl/woonkamer/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/nl_header_02.png",
+        "Header Category 2 href": "https://www.beliani.nl/woonaccessoires/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/nl_header_03.png",
+        "Header Category 3 href": "https://www.beliani.nl/tuinmeubelen/",
+      },
+      nono: {
+        "Whitelist href": "https://www.beliani.no/content/whitelist-emails-no/",
+        "Trouble viewing": "Har du problemer med å se nyhetsbrevet? Se",
+        "Trouble viewing href text": "online versjonen.",
+        "Add Beliani to your": "Legg til Beliani i din",
+        Whitelist: "hviteliste.",
+        "365-Day Return": "365-dagers returrett",
+        "Free Delivery": "Gratis frakt",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href": "",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.no/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/no_header_01.png",
+        "Header Category 1 href":
+          "https://www.beliani.no/stuemoebler/alle+produkter/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/no_header_02.png",
+        "Header Category 2 href": "https://www.beliani.no/tilbehoer/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/no_header_03.png",
+        "Header Category 3 href": "https://www.beliani.no/hagemoebler/",
+      },
+      plpl: {
+        "Whitelist href": "https://www.beliani.pl/content/whitelist-emails-pl/",
+        "Trouble viewing": "Przejdź do naszej",
+        "Trouble viewing href text": "wersji online.",
+        "Add Beliani to your": "Dodaj Beliani do",
+        Whitelist: "zaufanych maili.",
+        "365-Day Return": "Zwrot do 365 dni",
+        "Free Delivery": "Darmowa dostawa i zwroty",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src":
+          "https://upload.pictureserver.net/static/2024/pl_top_db.jpg",
+        "Header delivery_cosy src":
+          "https://upload.pictureserver.net/static/2024/pl_top_cozy_db.jpg",
+        "Header asembly href":
+          "https://www.beliani.pl/content/dodatkowe-uslugi-dostawy/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.pl/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/pl_header_01.png",
+        "Header Category 1 href": "https://www.beliani.pl/meble-do-salonu/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/pl_header_02.png",
+        "Header Category 2 href": "https://www.beliani.pl/dodatki/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/pl_header_03.png",
+        "Header Category 3 href": "https://www.beliani.pl/ogrod/",
+      },
+      ptpt: {
+        "Whitelist href": "https://www.beliani.pt/content/whitelist-emails-pt/",
+        "Trouble viewing":
+          "Não consegue visualizar a Newsletter? Consulte a versão",
+        "Trouble viewing href text": "online.",
+        "Add Beliani to your": "Adicione a Beliani à sua",
+        Whitelist: "lista de permissões de e-mails.",
+        "365-Day Return": "Devolução até 365 dias",
+        "Free Delivery": "Entrega e devolução grátis",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/pt_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/pt_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.pt/content/servicos-entrega-pt/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.pt/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/pt_header_01.png",
+        "Header Category 1 href": "https://www.beliani.pt/sala/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/pt_header_02.png",
+        "Header Category 2 href": "https://www.beliani.pt/acessorios/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/pt_header_03.png",
+        "Header Category 3 href": "https://www.beliani.pt/exterior/",
+      },
+      sese: {
+        "Whitelist href": "https://www.beliani.se/content/whitelist-emails-se/",
+        "Trouble viewing": "Ser du inte bilderna? Gå till vår",
+        "Trouble viewing href text": "onlineversion.",
+        "Add Beliani to your": "Lägg till Beliani i din",
+        Whitelist: "vitlista.",
+        "365-Day Return": "365-dagars returrätt",
+        "Free Delivery": "Fri frakt och retur",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href": "",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.se/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/se_header_01.png",
+        "Header Category 1 href": "https://www.beliani.se/vardagsrumsmobler/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/se_header_02.png",
+        "Header Category 2 href": "https://www.beliani.se/hemtillbehor/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/se_header_03.png",
+        "Header Category 3 href": "https://www.beliani.se/tradgardsmobler/",
+      },
+      sksk: {
+        "Whitelist href": "https://www.beliani.sk/content/whitelist-emails-sk/",
+        "Trouble viewing": "Máte problémy s čítaním e-mailu? Pozrite si",
+        "Trouble viewing href text": "online verziu.",
+        "Add Beliani to your": "Pridajte Beliani medzi",
+        Whitelist: "povolené e-mailové adresy.",
+        "365-Day Return": "365 dní na vrátenie",
+        "Free Delivery": "Bezplatné doručenie a vrátenie",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href": "",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.sk/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/sk_header_01.png",
+        "Header Category 1 href": "https://www.beliani.sk/nabytok-do-obyvacky/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/sk_header_02.png",
+        "Header Category 2 href": "https://www.beliani.sk/doplnky/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/sk_header_03.png",
+        "Header Category 3 href": "https://www.beliani.sk/zahrada/",
+      },
+      ukuk: {
+        "Whitelist href": "https://www.beliani.co.uk/content/whitelist-emails/",
+        "Trouble viewing": "Having trouble viewing Newsletter? View the",
+        "Trouble viewing href text": "online version.",
+        "Add Beliani to your": "Add Beliani to your",
+        Whitelist: "whitelist.",
+        "365-Day Return": "365-Day Returns",
+        "Free Delivery": "Free Delivery & Return",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src":
+          "https://upload.pictureserver.net/static/2024/uk_top_db.jpg",
+        "Header delivery_cosy src":
+          "https://upload.pictureserver.net/static/2024/uk_top_cozy_db.jpg",
+        "Header asembly href":
+          "https://www.beliani.co.uk/content/delivery-services/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.co.uk/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/uk_header_01.png",
+        "Header Category 1 href":
+          "https://www.beliani.co.uk/living-room-furniture/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/uk_header_02.png",
+        "Header Category 2 href": "https://www.beliani.co.uk/home-accessories/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/uk_header_03.png",
+        "Header Category 3 href": "https://www.beliani.co.uk/garden-furniture/",
+      },
+      befr: {
+        "Whitelist href": "https://www.beliani.be/content/whitelist-emails-fr/",
+        "Trouble viewing": "Ce message n’apparaît pas, consultez la",
+        "Trouble viewing href text": "version en ligne.",
+        "Add Beliani to your": "Ajoutez Beliani",
+        Whitelist: "à votre liste d'emails.",
+        "365-Day Return": "Droit de retour 365 jours",
+        "Free Delivery": "Livraison & retour gratuits",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src":
+          "https://upload.pictureserver.net/static/2024/fr_top_db.jpg",
+        "Header delivery_cosy src":
+          "https://upload.pictureserver.net/static/2024/fr_top_cozy_db.jpg",
+        "Header asembly href":
+          "https://www.beliani.fr/content/services-de-livraison-fr/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.be/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_01.png",
+        "Header Category 1 href": "https://www.beliani.fr/meubles-de-salon/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_02.png",
+        "Header Category 2 href": "https://www.beliani.fr/accessoires/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/fr_header_03.png",
+        "Header Category 3 href": "https://www.beliani.fr/meubles-de-jardin/",
+      },
+      benl: {
+        "Whitelist href": "https://www.beliani.be/content/whitelist-emails-nl/",
+        "Trouble viewing":
+          "Wordt deze nieuwsbrief niet correct weergegeven? Naar de",
+        "Trouble viewing href text": "online versie.",
+        "Add Beliani to your": "Voeg Beliani toe aan je",
+        Whitelist: "whitelist.",
+        "365-Day Return": "365 dagen retourrecht",
+        "Free Delivery": "Gratis levering & retour",
+        "Header asembly src":
+          "https://upload.pictureserver.net/static/2024/nl_top_ab.jpg",
+        "Header asembly_cosy src":
+          "https://upload.pictureserver.net/static/2024/nl_top_cozy_ab.jpg",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href":
+          "https://www.beliani.nl/content/bezorg-services/",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.be/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/nl_header_01.png",
+        "Header Category 1 href": "https://www.beliani.nl/woonkamer/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/nl_header_02.png",
+        "Header Category 2 href": "https://www.beliani.nl/woonaccessoires/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/nl_header_03.png",
+        "Header Category 3 href": "https://www.beliani.nl/tuinmeubelen/",
+      },
+      roro: {
+        "Whitelist href": "",
+        "Trouble viewing": "",
+        "Trouble viewing href text": "",
+        "Add Beliani to your": "",
+        Whitelist: "",
+        "365-Day Return": "Retururi în 365 de zile",
+        "Free Delivery": "Livrare gratuită",
+        "Header asembly src": "",
+        "Header asembly_cosy src": "",
+        "Header delivery src": "",
+        "Header delivery_cosy src": "",
+        "Header asembly href": "",
+        "Header top image src":
+          "https://upload.pictureserver.net/static/2024/header_2023_final.jpg",
+        "Header top image href": "https://www.beliani.ro/",
+        "Header Category 1 src":
+          "https://upload.pictureserver.net/static/2024/ro_header_01.png",
+        "Header Category 1 href": "https://www.beliani.ro/camera-de-zi/",
+        "Header Category 2 src":
+          "https://upload.pictureserver.net/static/2024/ro_header_02.png",
+        "Header Category 2 href":
+          "https://www.beliani.ro/accesorii-pentru-casa/",
+        "Header Category 3 src":
+          "https://upload.pictureserver.net/static/2024/ro_header_03.png",
+        "Header Category 3 href": "https://www.beliani.ro/mobila-de-gradina/",
+      },
+    },
+    html: '\n<!--[if gte mso 9]><v:background xmlns:v="urn:schemas-microsoft-com:vml"fill="t"><v:fill type="tile"color="#ececec"></v:background><![endif]-->\n<p class="title-advantages"><span class="title-advantages-item">✔️ {{Free Delivery}}</span><span class="title-advantages-item">✔️ {{365-Day Return}}</span></p>\n<p class="newsletterRecommendationHeader">{{Trouble viewing}} <a class="newsletterRecommendationHeaderLink" href="[[newsshowurl]]" style="color:#000000;">{{Trouble viewing href text}}</a> {{Add Beliani to your}} <a class="newsletterRecommendationHeaderLink" href="{{{Whitelist href}}}{{utm}}{{id}}" style="color:#000000;">{{Whitelist}}</a></p>\n<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;background-color:#ffffff;padding-top:0em;padding-bottom:0em;">\n\t<tbody>\n\t\t<tr>\n\t\t\t<th><a href="{{{Header top image href}}}{{utm}}{{id}}"><img alt="Beliani" border="0" src="{{Header top image src}}" style="display:block;max-width:100%;"></a></th>\n\t\t</tr>\n\t</tbody>\n</table>\n<table align="center" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto;background-color:#ffffff;padding-top:0em;padding-bottom:0em;">\n\t<tbody>\n\t\t<tr>\n\t\t\t<th><a href="{{Header Category 1 href}}{{utm}}{{id}}"><img alt="Möbel" border="0" src="{{Header Category 1 src}}" style="display:block;max-width:100%;"></a></th>\n\t\t\t<th><a href="{{Header Category 2 href}}{{utm}}{{id}}"><img alt="Accessoires" border="0" src="{{Header Category 2 src}}" style="display:block;max-width:100%;"></a></th>\n\t\t\t<th><a href="{{Header Category 3 href}}{{utm}}{{id}}"><img alt="Garten" border="0" src="{{Header Category 3 src}}" style="display:block;max-width:100%;"></a></th>\n\t\t</tr>\n\t</tbody>\n</table>',
+  },
+  company_details: {
+    title: "Company details",
+    description: "Company details template",
+    fallback: {
+      "Company Details": "Company Details",
+      Address: "Beliani (UK) GmbH 6340 Baar Switzerland",
+      "Mobile number": "Phone: 020 3318 8222;",
+      "Email address": "E-mail:",
+      "Mail to": "mailto:mail@beliani.co.uk",
+      Email: "mail@beliani.co.uk",
+      "Commercial register":
+        "Commercial Register: Commercial Register of the Canton of Zug, CH-170.4.008.869-6",
+      VAT: "VAT ID: CHE-114.825.869 VAT",
+    },
+    is_active: true,
+    html: '<table\n            cellspacing="0"\n            cellpadding="0"\n            border="0"\n            align="center"\n            id="newsletter"\n          >\n            <tbody>\n              <tr>\n                <td align="center" class="newsletterFooterCompanyDetails">\n                  <span\n                    style="color: #000000; text-align: center; font-size: 11px"\n                  >\n                    <b\n                      ><span style="font-size: 10px"\n                        >{{Company Details}}</span\n                      ></b\n                    >\n                    <br />{{Address}}<br />{{Mobile number}} {{Email address}}\n                    <a href="{{{Mail to}}}">{{Email}}</a>\n                    <br />{{Commercial register}}<br />{{VAT}}\n                  </span>\n                </td>\n              </tr>\n            </tbody>\n          </table>',
+    data: {
+      "ptpt": {
+        "Company Details": "Detalhes da Empresa",
+        "Address": "Beliani (DE) GmbH 6340 Baar Suíça",
+        "Mobile number": "Telefone: +351 22 145 07 45;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.pt",
+        "Email": "mail@beliani.pt",
+        "Commercial register": "Registo Comercial: CHE-115.695.894",
+        "VAT": "USt-IDNr: DE 276156472"
+      },
+      "eses": {
+        "Company Details": "Datos de empresa",
+        "Address": "Beliani (DE) GmbH 6340 Baar Suiza",
+        "Mobile number": "Teléfono: 932 714 061;",
+        "Email address": "e-mail:",
+        "Mail to": "mailto:mail@beliani.es",
+        "Email": "mail@beliani.es",
+        "Commercial register": "Registro comercial: CHE-115.695.894",
+        "VAT": "USt-IDNr: DE 276156472"
+      },
+      "nlnl": {
+        "Company Details": "Bedrijfsinformatie",
+        "Address": "Beliani (EU) GmbH 6340 Baar Switzerland",
+        "Mobile number": "Telefoonnummer: (038) 7440 103;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.nl",
+        "Email": "mail@beliani.nl",
+        "Commercial register": "Handelsregister: CHE-433.124.131",
+        "VAT": "USt-IDNr: DE369393001"
+      },
+      "chde": {
+        "Company Details": "Impressum",
+        "Address": "Beliani (Switzerland) GmbH, 6340 Baar, Schweiz",
+        "Mobile number": "Telefonnummer: 043 508 22 33;",
+        "Email address": "E-Mail:",
+        "Mail to": "mailto:mail@beliani.ch",
+        "Email": "mail@beliani.ch",
+        "Commercial register": "Handelsregister: CHE-462.179.861",
+        "VAT": "USt-IDNr: CHE-462.179.861"
+      },
+      "atde": {
+        "Company Details": "Impressum",
+        "Address": "Beliani (Deutschland) GmbH, 6340 Baar, Schweiz",
+        "Mobile number": "Telefonnummer: +43 1 375 00 57;",
+        "Email address": "E-Mail:",
+        "Mail to": "mailto:mail@beliani.at",
+        "Email": "mail@beliani.at",
+        "Commercial register": "Handelsregister: CHE-485.669.231",
+        "VAT": "USt-IDNr: DE 276156472"
+      },
+      "dede": {
+        "Company Details": "Impressum",
+        "Address": "Beliani (Deutschland) GmbH, 6340 Baar, Schweiz",
+        "Mobile number": "Telefonnummer: 0221 6778 9927;",
+        "Email address": "E-Mail:",
+        "Mail to": "mailto:mail@beliani.de",
+        "Email": "mail@beliani.de",
+        "Commercial register": "Handelsregister: CHE-485.669.231",
+        "VAT": "USt-IDNr: DE276156472"
+      },
+      "chfr": {
+        "Company Details": "Mentions légales",
+        "Address": "Beliani (Switzerland) GmbH, 6340 Baar, Suisse",
+        "Mobile number": "Téléphone: 043 508 22 33;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.ch",
+        "Email": "mail@beliani.ch",
+        "Commercial register": "Registre du commerce : CHE-462.179.861",
+        "VAT": "USt-IDNr: CHE-462.179.861"
+      },
+      "frfr": {
+        "Company Details": "Mentions légales",
+        "Address": "Beliani (DE) GmbH, 6340 Baar, Suisse",
+        "Mobile number": "Téléphone: 01 87 39 86 15;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.fr",
+        "Email": "mail@beliani.fr",
+        "Commercial register": "Registre du commerce : CHE-115.695.894",
+        "VAT": "USt-IDNr: FR 31883868630"
+      },
+      "huhu": {
+        "Company Details": "Impresszum",
+        "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
+        "Mobile number": "Telefonszám: +36 1 211 4034;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.hu",
+        "Email": "mail@beliani.hu",
+        "Commercial register": "Cégjegyzékszám: CHE-115.695.894",
+        "VAT": "Közösségi adószám: DE 276156472"
+      },
+      "czcz": {
+        "Company Details": "Detaily společnosti",
+        "Address": "Beliani (DE) GmbH 6340 Baar Švýcarsko",
+        "Mobile number": "Telefonní číslo: 228 881 514;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.cz",
+        "Email": "mail@beliani.cz",
+        "Commercial register": "Obchodní registr: CHE-115.695.894",
+        "VAT": "USt-IDNr: DE276156472"
+      },
+      "sksk": {
+        "Company Details": "Detaily spoločnosti",
+        "Address": "Beliani (DE) GmbH 6340 Baar Švajčiarsko",
+        "Mobile number": "Telefónne číslo: +421 2/327 846 12;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.sk",
+        "Email": "mail@beliani.sk",
+        "Commercial register": "Obchodný register: CHE-115.695.894",
+        "VAT": "USt-IDNr: DE276156472"
+      },
+      "itit": {
+        "Company Details": "Dettagli societari",
+        "Address": "Beliani (DE) GmbH 6340 Baar Svizzera",
+        "Mobile number": "Numero di telefono: 06 5654 8602;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.it",
+        "Email": "mail@beliani.it",
+        "Commercial register": "Registro commerciale: CHE-115.695.894",
+        "VAT": "Partita IVA: DE 276156472"
+      },
+      "chit": {
+        "Company Details": "Dettagli societari",
+        "Address": "Beliani ((Switzerland)) GmbH CH 6340 Baar Svizzera",
+        "Mobile number": "Numero di telefono: 06 5654 8602;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.ch",
+        "Email": "mail@beliani.ch",
+        "Commercial register": "Registro commerciale: CHE-462.179.861",
+        "VAT": "Partita IVA: CHE-462.179.861"
+      },
+      "sese": {
+        "Company Details": "Företagsuppgifter",
+        "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
+        "Mobile number": "Phone: 08-123 509 30;",
+        "Email address": "E-post:",
+        "Mail to": "mailto:mail@beliani.se",
+        "Email": "mail@beliani.se",
+        "Commercial register": "Handelsregister: CHE-115.695.894",
+        "VAT": "USt-IDNr: DE 276156472"
+      },
+      "ukuk": {
+        "Company Details": "Company Details",
+        "Address": "Beliani (UK) GmbH 6340 Baar Switzerland",
+        "Mobile number": "Phone: 020 3318 8222;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.co.uk",
+        "Email": "mail@beliani.co.uk",
+        "Commercial register": "Commercial Register: CHE-115.421.807",
+        "VAT": "VAT ID: GB 975042511"
+      },
+      "nono": {
+        "Company Details": "Selskapets Detaljer",
+        "Address": "Beliani Group AG GmbH 6340 Baar Sveits",
+        "Mobile number": "Telefonnummer: 21 98 88 87;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.no",
+        "Email": "mail@beliani.no",
+        "Commercial register": "Handelsregister: 16282354",
+        "VAT": "USt-IDNr: 927 713 055"
+      },
+      "dkdk": {
+        "Company Details": "Selskabs informationer",
+        "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
+        "Mobile number": "Telefonnummer: 89 88 10 86;",
+        "Email address": "email:",
+        "Mail to": "mailto:mail@beliani.dk",
+        "Email": "mail@beliani.dk",
+        "Commercial register": "Handelsregister: CHE-115.695.894",
+        "VAT": "USt-IDNr: DE 276156472"
+      },
+      "fifi": {
+        "Company Details": "Yhtiön tiedot",
+        "Address": "Beliani (DE) GmbH 6340 Baar Sveitsi",
+        "Mobile number": "Puhelinnumero: 09 4245 0464;",
+        "Email address": "sähköposti:",
+        "Mail to": "mailto:mail@beliani.fi",
+        "Email": "mail@beliani.fi",
+        "Commercial register": "Rekisteröity: CHE-115.695.894",
+        "VAT": "USt-IDNr: DE276156472"
+      },
+      "plpl": {
+        "Company Details": "Dane Firmy",
+        "Address": "Beliani (PL) GmbH 6340 Baar Szwajcaria",
+        "Mobile number": "Telefon: +48 91 350 83 60;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.pl",
+        "Email": "mail@beliani.pl",
+        "Commercial register": "Rejestr handlowy: CHE-136.573.305",
+        "VAT": "NIP: PL5263092611"
+      },
+      "benl": {
+        "Company Details": "Bedrijfsinformatie",
+        "Address": "Beliani (EU) GmbH CH 6340 Baar Switzerland",
+        "Mobile number": "Telefoonnummer: 28 08 56 14;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.be",
+        "Email": "mail@beliani.be",
+        "Commercial register": "Handelsregister: CHE-433.124.131",
+        "VAT": "USt-IDNr: DE369393001"
+      },
+      "befr": {
+        "Company Details": "Mentions légales",
+        "Address": "Beliani (EU) GmbH CH 6340 Baar Switzerland",
+        "Mobile number": "Téléphone: 28 08 56 14;",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.be",
+        "Email": "mail@beliani.be",
+        "Commercial register": "Commercial Register: CHE-433.124.131",
+        "VAT": "USt-IDNr: DE369393001"
+      },
+      "roro": {
+        "Company Details": "Detalii companie",
+        "Address": "Beliani (EU) GmbH 6340 Baar Elveția",
+        "Mobile number": "Telefon: 0 316 300 677",
+        "Email address": "E-mail:",
+        "Mail to": "mailto:mail@beliani.ro",
+        "Email": "mail@beliani.ro",
+        "Commercial register": "Nr. de înregistrare la registrul comerțului: CHE-433.124.131",
+        "VAT": "VAT ID: DE369393001"
+      }
+    }
+  },
+  services_banner: {
+    title: "Services banenr",
+    description: "Services banner with link to content page",
+    is_active: true,
+    fallback: {
+      "Services src": "https://www.beliani.co.uk/content/delivery-services/",
+      "Services href":
+        "https://upload.pictureserver.net/static/2024/uk_bottom_db.jpg",
+    },
+    data: {
+      ptpt: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/pt_bottom_ab.jpg",
+        "Services href": "https://www.beliani.pt/content/servicos-entrega-pt/",
+      },
+      eses: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/es_bottom_ab.jpg",
+        "Services href": "https://www.beliani.es/content/servicios-de-entrega/",
+      },
+      nlnl: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/nl_bottom_ab.jpg",
+        "Services href": "https://www.beliani.nl/content/bezorg-services/",
+      },
+      chde: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/chde_bottom_ab.jpg",
+        "Services href": "https://www.beliani.ch/content/lieferservices-ch/",
+      },
+      atde: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/at_bottom_db.jpg",
+        "Services href": "https://www.beliani.at/content/lieferservices-at/",
+      },
+      dede: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/de_bottom_ab.jpg",
+        "Services href": "https://www.beliani.de/content/lieferservices-de/",
+      },
+      chfr: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/chfr_bottom_ab.jpg",
+        "Services href":
+          "https://www.beliani.ch/content/services-de-livraison/",
+      },
+      frfr: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/fr_bottom_db.jpg",
+        "Services href":
+          "https://www.beliani.fr/content/services-de-livraison-fr/",
+      },
+      huhu: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/hu_bottom_ab.jpg",
+        "Services href":
+          "https://www.beliani.hu/content/szallitasi-szolgaltatasok-hu/",
+      },
+      czcz: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/cz_bottom_ab.jpg",
+        "Services href": "https://www.beliani.cz/content/dorucovaci-sluzby/",
+      },
+      sksk: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/sk_bottom_sa.png",
+        "Services href": "https://www.beliani.sk/content/zelena-energia/",
+      },
+      itit: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/it_bottom_ab.jpg",
+        "Services href":
+          "https://www.beliani.it/content/servizi-di-consegna-it/",
+      },
+      chit: {
+        "Services src": "",
+        "Services href": "",
+      },
+      sese: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/se_bottom_sa.png",
+        "Services href": "https://www.beliani.se/content/solenergi/",
+      },
+      ukuk: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/uk_bottom_db.jpg",
+        "Services href": "https://www.beliani.co.uk/content/delivery-services/",
+      },
+      nono: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/no_bottom_sa.png",
+        "Services href": "https://www.beliani.no/content/solenergi/",
+      },
+      dkdk: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/dk_bottom_ab.jpg",
+        "Services href": "https://www.beliani.dk/content/leveringstjenester/",
+      },
+      fifi: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/fi_bottom_sa.png",
+        "Services href":
+          "https://www.beliani.fi/content/ymparistoystavallista-energiaa/",
+      },
+      plpl: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/pl_bottom_db.jpg",
+        "Services href":
+          "https://www.beliani.pl/content/dodatkowe-uslugi-dostawy/",
+      },
+      benl: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/benl_bottom_sa.png",
+        "Services href": "https://www.beliani.be/content/zonneenergie/",
+      },
+      befr: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/befr_bottom_sa.png",
+        "Services href": "https://www.beliani.be/content/energie-verte/",
+      },
+      roro: {
+        "Services src":
+          "https://upload.pictureserver.net/static/2024/ro_bottom_sa.png",
+        "Services href": "http://www.beliani.ro/content/sustenabilitate/",
+      },
+    },
+    html: '<table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      class="newsletterContainer"\n      style="max-width: 650px; width: 100%; background-color: #ffffff"\n    >\n      <tbody>\n        <tr>\n          <td class="newsletterBottom35px">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td>\n                    <img\n                      alt=""\n                      src="https://beliani.info/newsletter/2022/line.jpg"\n                      style="display: block"\n                      width="100%"\n                    />\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td>\n            <a\n              href="{{Services href}}{{utm}}{{id}}"\n              ><img\n                loading="lazy"\n                src="{{Services src}}"\n                style="display: block; max-width: 610px; width: 100%"\n                width="610"\n            /></a>\n          </td>\n        </tr>\n        <tr>\n          <td class="newsletterBottom35px"></td>\n        </tr>\n      </tbody>\n    </table>',
+  },
+  advantages: {
+    title: "Advantages",
+    description: "Advantages template",
+    is_active: true,
+    fallback: {
+      "Advantages src 1":
+        "https://upload.pictureserver.net/static/2024/uk_usp_01.png",
+      "Advantages src 2":
+        "https://upload.pictureserver.net/static/2024/uk_usp_02.png",
+      "Advantages src 4":
+        "https://upload.pictureserver.net/static/2024/uk_usp_03.png",
+      "Advantages src 3":
+        "https://upload.pictureserver.net/static/2024/uk_usp_04.png",
+      "Advantages href 1": "https://www.beliani.co.uk/content/delivery/",
+      "Advantages href 2": "https://www.beliani.co.uk/content/about-us/",
+      "Advantages href 4": "https://www.beliani.co.uk/content/faq-en/",
+      "Advantages href 3":
+        "https://www.beliani.co.uk/content/terms-and-conditions/",
+    },
+    data: {
+      ptpt: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/pt_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/pt_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/pt_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/pt_usp_04.png",
+        "Advantages href 1": "https://www.beliani.pt/content/entrega/",
+        "Advantages href 2": "https://www.beliani.pt/content/sobre-nos/",
+        "Advantages href 4": "https://www.beliani.pt/content/faq-pt/",
+        "Advantages href 3":
+          "https://www.beliani.pt/content/termos-e-condicoes/",
+      },
+      eses: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/es_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/es_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/es_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/es_usp_04.png",
+        "Advantages href 1": "https://www.beliani.es/content/envio/",
+        "Advantages href 2": "https://www.beliani.es/content/sobre-nosotros/",
+        "Advantages href 4": "https://www.beliani.es/content/centro-de-ayuda/",
+        "Advantages href 3":
+          "https://www.beliani.es/content/condiciones-generales/",
+      },
+      nlnl: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/nl_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/nl_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/nl_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/nl_usp_04.png",
+        "Advantages href 1": "https://www.beliani.nl/content/levering/",
+        "Advantages href 2": "https://www.beliani.nl/content/over-ons/",
+        "Advantages href 4": "https://www.beliani.nl/content/faq/",
+        "Advantages href 3":
+          "https://www.beliani.nl/content/algemene-voorwaarden/",
+      },
+      chde: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/chde_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/chde_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/chde_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/chde_usp_04.png",
+        "Advantages href 1": "https://www.beliani.ch/content/lieferung/",
+        "Advantages href 2": "https://www.beliani.ch/content/uber-uns/",
+        "Advantages href 4": "https://www.beliani.ch/content/faq-de/",
+        "Advantages href 3": "https://www.beliani.ch/content/agb/",
+      },
+      atde: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/chde_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/de_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/chde_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/chde_usp_04.png",
+        "Advantages href 1": "https://www.beliani.at/content/lieferung/",
+        "Advantages href 2": "https://www.beliani.at/content/uber-uns/",
+        "Advantages href 4": "https://www.beliani.at/content/faq/",
+        "Advantages href 3": "https://www.beliani.at/content/agb/",
+      },
+      dede: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/chde_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/de_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/chde_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/chde_usp_04.png",
+        "Advantages href 1": "https://www.beliani.de/content/lieferung/",
+        "Advantages href 2": "https://www.beliani.de/content/uber-uns/",
+        "Advantages href 4": "https://www.beliani.de/content/faq/",
+        "Advantages href 3": "https://www.beliani.de/content/agb/",
+      },
+      chfr: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/fr_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/fr_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/fr_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/fr_usp_04.png",
+        "Advantages href 1": "https://www.beliani.ch/content/livraison/",
+        "Advantages href 2": "https://www.beliani.ch/content/a-propos-de-nous/",
+        "Advantages href 4": "https://www.beliani.ch/content/faq-fr/",
+        "Advantages href 3": "https://www.beliani.ch/content/cgv",
+      },
+      frfr: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/fr_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/fr_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/fr_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/fr_usp_04.png",
+        "Advantages href 1": "https://www.beliani.fr/content/livraison/",
+        "Advantages href 2": "https://www.beliani.fr/content/a-propos-de-nous/",
+        "Advantages href 4": "https://www.beliani.fr/content/centre-d-aide/",
+        "Advantages href 3": "https://www.beliani.fr/content/cgv/",
+      },
+      huhu: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/hu_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/hu_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/hu_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/hu_usp_04.png",
+        "Advantages href 1": "https://www.beliani.hu/content/szallitas/",
+        "Advantages href 2": "https://www.beliani.hu/content/rolunk/",
+        "Advantages href 4": "https://www.beliani.hu/content/faq/",
+        "Advantages href 3": "https://www.beliani.hu/content/aszf/",
+      },
+      czcz: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/cz_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/cz_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/cz_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/cz_usp_04.png",
+        "Advantages href 1": "https://www.beliani.cz/content/dodani/",
+        "Advantages href 2": "https://www.beliani.cz/content/o-nas/",
+        "Advantages href 4": "https://www.beliani.cz/content/faq/",
+        "Advantages href 3":
+          "https://www.beliani.cz/content/vseobecne-podminky/",
+      },
+      sksk: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/sk_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/sk_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/sk_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/sk_usp_04.png",
+        "Advantages href 1": "https://www.beliani.sk/content/dodanie/",
+        "Advantages href 2": "https://www.beliani.sk/content/o-nas/",
+        "Advantages href 4": "https://www.beliani.sk/content/faq/",
+        "Advantages href 3":
+          "https://www.beliani.sk/content/vseobecne-podmienky/",
+      },
+      itit: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/it_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/it_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/it_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/it_usp_04.png",
+        "Advantages href 1": "https://www.beliani.it/content/consegna/",
+        "Advantages href 2": "https://www.beliani.it/content/chi-siamo/",
+        "Advantages href 4":
+          "https://www.beliani.it/content/help-center_italian/",
+        "Advantages href 3":
+          "https://www.beliani.it/content/termini-e-condizioni/",
+      },
+      chit: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/it_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/it_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/it_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/it_usp_04.png",
+        "Advantages href 1": "https://www.beliani.ch/content/consegna/",
+        "Advantages href 2": "https://www.beliani.it/content/chi-siamo/",
+        "Advantages href 4":
+          "https://www.beliani.it/content/help-center_italian/",
+        "Advantages href 3":
+          "https://www.beliani.ch/content/termini-e-condizioni-ch/",
+      },
+      sese: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/se_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/se_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/se_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/se_usp_04.png",
+        "Advantages href 1": "https://www.beliani.se/content/leverans/",
+        "Advantages href 2": "https://www.beliani.se/content/villkor/",
+        "Advantages href 4": "https://www.beliani.se/content/om-oss/",
+        "Advantages href 3":
+          "https://www.beliani.se/content/sjalvbetjaning_swedish/",
+      },
+      ukuk: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/uk_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/uk_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/uk_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/uk_usp_04.png",
+        "Advantages href 1": "https://www.beliani.co.uk/content/delivery/",
+        "Advantages href 2": "https://www.beliani.co.uk/content/about-us/",
+        "Advantages href 4": "https://www.beliani.co.uk/content/faq-en/",
+        "Advantages href 3":
+          "https://www.beliani.co.uk/content/terms-and-conditions/",
+      },
+      nono: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/no_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/no_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/no_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/no_usp_04.png",
+        "Advantages href 1": "https://www.beliani.no/content/levering/",
+        "Advantages href 2": "https://www.beliani.no/content/om-oss/",
+        "Advantages href 4":
+          "https://www.beliani.no/content/hjelpesenter_norwegian/",
+        "Advantages href 3":
+          "https://www.beliani.no/content/vilkar-og-betingelser/",
+      },
+      dkdk: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/dk_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/dk_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/dk_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/dk_usp_04.png",
+        "Advantages href 1": "https://www.beliani.dk/content/levering/",
+        "Advantages href 2": "https://www.beliani.dk/content/om-os/",
+        "Advantages href 4": "https://www.beliani.dk/content/hjaelp/",
+        "Advantages href 3":
+          "https://www.beliani.dk/content/vilkar-og-betingelser/",
+      },
+      fifi: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/fi_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/fi_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/fi_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/fi_usp_04.png",
+        "Advantages href 1": "https://www.beliani.fi/content/toimitus/",
+        "Advantages href 2": "https://www.beliani.fi/content/tietoja-meista/",
+        "Advantages href 4": "https://www.beliani.fi/content/ohjekeskus/",
+        "Advantages href 3": "https://www.beliani.fi/content/kayttoehdot/",
+      },
+      plpl: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/pl_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/pl_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/pl_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/pl_usp_04.png",
+        "Advantages href 1": "https://www.beliani.pl/content/dostawa/",
+        "Advantages href 2": "https://www.beliani.pl/content/o-nas/",
+        "Advantages href 4":
+          "https://www.beliani.pl/content/najczesciej-zadawane-pytania/",
+        "Advantages href 3":
+          "https://www.beliani.pl/content/ogolne-warunki-handlowe/",
+      },
+      benl: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/nl_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/nl_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/nl_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/nl_usp_04.png",
+        "Advantages href 1": "https://www.beliani.be/content/levering/",
+        "Advantages href 2": "https://www.beliani.be/content/over-ons/",
+        "Advantages href 4": "https://www.beliani.be/content/faq/",
+        "Advantages href 3":
+          "https://www.beliani.be/content/algemene-voorwaarden/",
+      },
+      befr: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/fr_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/fr_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/fr_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/fr_usp_04.png",
+        "Advantages href 1": "https://www.beliani.be/content/livraison/",
+        "Advantages href 2": "https://www.beliani.be/content/a-propos-de-nous/",
+        "Advantages href 4": "https://www.beliani.be/content/centre-d-aide/",
+        "Advantages href 3": "https://www.beliani.be/content/cgv/",
+      },
+      roro: {
+        "Advantages src 1":
+          "https://upload.pictureserver.net/static/2024/ro_usp_01.png",
+        "Advantages src 2":
+          "https://upload.pictureserver.net/static/2024/ro_usp_02.png",
+        "Advantages src 4":
+          "https://upload.pictureserver.net/static/2024/ro_usp_03.png",
+        "Advantages src 3":
+          "https://upload.pictureserver.net/static/2024/ro_usp_04.png",
+        "Advantages href 1": "https://www.beliani.ro/content/livrare/",
+        "Advantages href 2": "https://www.beliani.ro/content/despre-noi/",
+        "Advantages href 4": "https://www.beliani.ro/content/faq-ro/",
+        "Advantages href 3":
+          "https://www.beliani.ro/content/termeni-si-conditii/",
+      },
+    },
+    html: '<table\n  cellspacing="0"\n  class="newsletterContainer"\n  cellpadding="0"\n  border="0"\n  align="center"\n  style="background-color: #ffffff"\n>\n  <tbody>\n    <tr>\n      <td>\n        <img\n          loading="lazy"\n          src="https://beliani.info/newsletter/2022/line.jpg"\n          style="display: block; max-width: 100%"\n          alt=""\n        />\n      </td>\n    </tr>\n    <!-- ADVANTAGES -->\n    <tr>\n      <td class="newsletterTopBottomContainer">\n        <table\n          cellspacing="0"\n          cellpadding="0"\n          border="0"\n          style="background-color: #f5f5f5"\n        >\n          <tbody>\n            <tr>\n              <td>\n                <a href="{{{Advantages href 1}}}{{utm}}{{id}}">\n                  <img\n                    loading="lazy"\n                    src="{{{Advantages src 1}}}"\n                    alt=""\n                    style="display: block; max-width: 100%"\n                    border="0"\n                  />\n                </a>\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <a href="{{{Advantages href 2}}}{{utm}}{{id}}">\n                  <img\n                    loading="lazy"\n                    src="{{{Advantages src 2}}}"\n                    alt=""\n                    style="display: block; max-width: 100%"\n                    border="0"\n                  />\n                </a>\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <a href="{{{Advantages href 3}}}{{utm}}{{id}}">\n                  <img\n                    loading="lazy"\n                    src="{{{Advantages src 3}}}"\n                    alt=""\n                    style="display: block; max-width: 100%"\n                    border="0"\n                  />\n                </a>\n              </td>\n            </tr>\n            <tr>\n              <td>\n                <a href="{{{Advantages href 4}}}{{utm}}{{id}}">\n                  <img\n                    loading="lazy"\n                    src="{{{Advantages src 4}}}"\n                    alt=""\n                    style="display: block; max-width: 100%"\n                    border="0"\n                  />\n                </a>\n              </td>\n            </tr>\n          </tbody>\n        </table>\n      </td>\n    </tr>\n  </tbody>\n</table>\n',
+  },
+  socials: {
+    title: "Socials",
+    description: "Socials template",
+    fallback: {
+      "Socials Title": "Follow us",
+      "Instagram src":
+        "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+      "Instagram href": "https://instagram.com/beliani_uk/",
+      "Facebook src":
+        "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+      "Facebook href": "https://www.facebook.com/beliani.co.uk/",
+      "Youtube src":
+        "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+      "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+      "Pinterest src":
+        "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+      "Pinterest href": "https://www.pinterest.co.uk/belianiuk/",
+      "X src":
+        "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+      "X href": "https://x.com/Beliani_Europe",
+      "Tiktok src":
+        "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+      "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+    },
+    is_active: true,
+    data: {
+      ptpt: {
+        "Socials Title": "Siga-nos",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_portugal/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/belianiportugal/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://pl.pinterest.com/belianiportugal/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      eses: {
+        "Socials Title": "Síguenos",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani.espana/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.espana/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianies/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      nlnl: {
+        "Socials Title": "Volg ons",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_nl/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.nederland/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://nl.pinterest.com/BelianiNederland/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      chde: {
+        "Socials Title": "Folge uns auf",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_schweiz/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.ch/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianich/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      atde: {
+        "Socials Title": "Folge uns auf",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_oesterreich/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.oesterreich/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://pinterest.com/belianiat/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      dede: {
+        "Socials Title": "Folge uns auf",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_deutschland",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.de/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.de/belianide/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      chfr: {
+        "Socials Title": "Suivez-nous",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_schweiz/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.ch/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://pinterest.com/belianich/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      frfr: {
+        "Socials Title": "Suivez-nous",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_fr/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.fr/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.fr/belianifr/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      huhu: {
+        "Socials Title": "Kövess minket",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_magyarorszag/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href":
+          "https://www.facebook.com/Beliani-Magyarorsz%C3%A1g-1564931000428515/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://pinterest.com/beliani_magyarorszag/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      czcz: {
+        "Socials Title": "Sledujte nás na",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani.cz/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.cz/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://pinterest.com/belianicz/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      sksk: {
+        "Socials Title": "Sledujte nás na",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_sk/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/BelianiSlovensko/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://pinterest.com/beliani_slovensko/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      itit: {
+        "Socials Title": "Seguici",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_italia/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/belianiitalia/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianiitalia/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      chit: {
+        "Socials Title": "Seguici",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_italia/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/belianiitalia/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianiitalia/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      sese: {
+        "Socials Title": "Håll dig uppdaterad",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_sverige/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.sverige",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianisverige/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      ukuk: {
+        "Socials Title": "Follow us",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://instagram.com/beliani_uk/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.co.uk/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.co.uk/belianiuk/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      nono: {
+        "Socials Title": "Følg oss",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_norge/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/BelianiNorge",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/beliani_norge/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      dkdk: {
+        "Socials Title": "Hold dig opdateret",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani.danmark/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.dk",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianidanmark/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      fifi: {
+        "Socials Title": "Seuraa meitä",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_suomi/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/belianisuomi/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianisuomi/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      plpl: {
+        "Socials Title": "Znajdź nas",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_polska/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/BelianiPolska/",
+        "Youtube src":
+          "https://beliani.info/newsletter/2022/footerYoutube2022New.jpg",
+        "Youtube href": "https://www.youtube.com/c/BelianiGmbH/featured/",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/belianipl/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      benl: {
+        "Socials Title": "Volg ons",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_belgie/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.belgie/",
+        "Youtube src": "",
+        "Youtube href": "",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/beliani_belgie/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      befr: {
+        "Socials Title": "Suivez-nous",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "https://www.instagram.com/beliani_belgie/",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "https://www.facebook.com/beliani.belgie/",
+        "Youtube src": "",
+        "Youtube href": "",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "https://www.pinterest.com/beliani_belgie/",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "https://x.com/Beliani_Europe",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "https://www.tiktok.com/@beliani_europe",
+      },
+      roro: {
+        "Socials Title": "Urmărește-ne",
+        "Instagram src":
+          "https://beliani.info/newsletter/2022/footerInstagram2022New.jpg",
+        "Instagram href": "",
+        "Facebook src":
+          "https://beliani.info/newsletter/2022/footerFacebook2022New.jpg",
+        "Facebook href": "",
+        "Youtube src": "",
+        "Youtube href": "",
+        "Pinterest src":
+          "https://beliani.info/newsletter/2022/footerPinterest2022New.jpg",
+        "Pinterest href": "",
+        "X src":
+          "https://upload.pictureserver.net/static/2024/footerXlogo2024.jpg",
+        "X href": "",
+        "Tiktok src":
+          "https://upload.pictureserver.net/static/2024/footerTIKTOKlogo2024.jpg",
+        "Tiktok href": "",
+      },
+    },
+    html: '<table align="center" border="0" cellpadding="0" cellspacing="0" class="newsletterContainer" style="background-color:#ffffff;">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td><img alt="" loading="lazy" src="https://beliani.info/newsletter/2022/line.jpg" style="display:block;max-width:100%;"></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td align="center">\n\t\t\t<table border="0" cellpadding="0" cellspacing="0" width="100%">\n\t\t\t\t<tbody>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td align="left" class="footer">\n\t\t\t\t\t\t<table border="0" cellpadding="0" cellspacing="0">\n\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t<td class="newsletterTopBottomContainer"><span class="newsletterFooterTitle">{{Socials Title}}</span></td>\n\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t\t<td align="right" class="footer" style="padding-right:5px;vertical-align:middle;">\n\t\t\t\t\t\t<table border="0" cellpadding="0" cellspacing="0">\n\t\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t\t<td class="newsletterSocialIcon"><a href="{{{Instagram href}}}{{utm}}{{id}}"><img alt="Instagram" border="0" loading="lazy" src="{{{Instagram src}}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t\t\t\t<td class="newsletterSocialIcon"><a href="{{{Facebook href}}}{{utm}}{{id}}"><img alt="Facebook" border="0" loading="lazy" src="{{{Facebook src}}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t\t\t\t<td class="newsletterSocialIcon"><a href="{{{Youtube href}}}{{utm}}{{id}}"><img alt="YouTube" border="0" loading="lazy" src="{{{Youtube src}}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t\t\t\t<td class="newsletterSocialIcon"><a href="{{{Pinterest href}}}{{utm}}{{id}}"><img alt="Pinterest" border="0" loading="lazy" src="{{{Pinterest src}}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t\t\t\t<td class="newsletterSocialIcon"><a href="{{{X href}}}{{utm}}{{id}}"><img alt="Pinterest" border="0" loading="lazy" src="{{{X src}}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t\t\t\t<td class="newsletterSocialIcon"><a href="{{{Tiktok href}}}{{utm}}{{id}}"><img alt="Pinterest" border="0" loading="lazy" src="{{{Tiktok src}}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t\t</tbody>\n\t\t\t\t\t\t</table>\n\t\t\t\t\t\t</td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>',
+  },
+  klarna: {
+    title: "Klarna",
+    description: "Klarna template",
+    fallback: {
+      "Klarna src":
+        "https://upload.pictureserver.net/static/2024/uk_klarna.png",
+      "Klarna href": "https://www.beliani.co.uk/content/klarna-uk/",
+    },
+    is_active: true,
+    html: '<table\n  align="center"\n  border="0"\n  cellpadding="0"\n  cellspacing="0"\n  class="newsletterContainer"\n  style="background-color: #ffffff"\n>\n  <tbody>\n    <tr>\n      <td>\n        <img\n          alt=""\n          src="https://beliani.info/newsletter/2022/line.jpg"\n          style="display: block; max-width: 100%"\n        />\n      </td>\n    </tr>\n    <tr>\n      <td class="newsletterTopBottomContainer">\n        <a\n          href="{{{Klarna href}}}{{utm}}{{id}}"\n          ><img\n            alt=""\n            border="0"\n            src="{{Klarna src}}"\n            style="display: block; max-width: 100%"\n        /></a>\n      </td>\n    </tr>\n  </tbody>\n</table>\n',
+    data: {
+      ptpt: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/pt_klarna.png",
+        "Klarna href": "https://www.beliani.pt/content/pagamento/",
+      },
+      eses: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/es_klarna.png",
+        "Klarna href": "https://www.beliani.es/content/metodos-de-pago/",
+      },
+      nlnl: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/nl_klarna.png",
+        "Klarna href": "https://www.beliani.nl/content/betalen/",
+      },
+      chde: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/chde_klarna.png",
+        "Klarna href": "https://www.beliani.ch/content/bezahlung/",
+      },
+      atde: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/chde_klarna.png",
+        "Klarna href": "https://www.beliani.at/content/klarna-at/",
+      },
+      dede: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/chde_klarna.png",
+        "Klarna href": "https://www.beliani.de/content/klarna-de/",
+      },
+      chfr: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/chfr_klarna.png",
+        "Klarna href": "https://www.beliani.ch/content/paiement/",
+      },
+      frfr: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/fr_klarna.png",
+        "Klarna href": "https://www.beliani.fr/content/paiement/",
+      },
+      huhu: {
+        "Klarna src": "",
+        "Klarna href": "",
+      },
+      czcz: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/cz_klarna.png",
+        "Klarna href": "https://www.beliani.cz/content/zpusoby-platby/",
+      },
+      sksk: {
+        "Klarna src": "",
+        "Klarna href": "",
+      },
+      itit: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/it_klarna.png",
+        "Klarna href": "https://www.beliani.it/content/klarna-it/",
+      },
+      chit: {
+        "Klarna src": "",
+        "Klarna href": "",
+      },
+      sese: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/se_klarna.png",
+        "Klarna href": "https://www.beliani.se/content/klarna-se/",
+      },
+      ukuk: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/uk_klarna.png",
+        "Klarna href": "https://www.beliani.co.uk/content/klarna-uk/",
+      },
+      nono: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/no_klarna.png",
+        "Klarna href": "https://www.beliani.no/content/klarna-no/",
+      },
+      dkdk: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/dk_klarna.png",
+        "Klarna href": "https://www.beliani.dk/content/betalingsmetoder/",
+      },
+      fifi: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/fi_klarna.png",
+        "Klarna href": "https://www.beliani.fi/content/klarna-fi/",
+      },
+      plpl: {
+        "Klarna src":
+          "https://upload.pictureserver.net/static/2024/pl_klarna.png",
+        "Klarna href": "https://www.beliani.pl/content/platnosc/",
+      },
+      benl: {
+        "Klarna src": "",
+        "Klarna href": "",
+      },
+      befr: {
+        "Klarna src": "",
+        "Klarna href": "",
+      },
+      roro: {
+        "Klarna src": "",
+        "Klarna href": "",
+      },
+    },
+  },
+  footer_categories: {
+    title: "Footer categories",
+    description: "Footer categories template",
+    is_active: true,
+    html: '<table align="center" border="0" cellpadding="0" cellspacing="0" class="newsletterContainer" style="background-color:#ffffff;">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td><img alt="" loading="lazy" src="https://beliani.info/newsletter/2022/line.jpg" style="display:block;max-width:100%;"></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td class="newsletterTopBottomContainer"><span class="newsletterFooterTitle">{{Title}}</span></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td class="newsletterBottom35px">\n\t\t\t<table align="center" border="0" cellpadding="0" cellspacing="0">\n\t\t\t\t<tbody>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFT"><a href="{{{Footer category href 1}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 1}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHT"><a href="{{{Footer category href 2}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 2}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFT"><a href="{{{Footer category href 3}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 3}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHT"><a href="{{{Footer category href 4}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 4}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFT"><a href="{{{Footer category href 5}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 5}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHT"><a href="{{{Footer category href 6}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 6}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFTBottom"><a href="{{{Footer category href 7}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 7}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHTBottom"><a href="{{{Footer category href 8}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 8}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>',
+    data: {
+      ptpt: {
+        Title: "Veja muito mais",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/pt_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/pt_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/pt_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/pt_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/pt_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/pt_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/pt_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/pt_cat_08.png",
+        "Footer category href 1": "https://www.beliani.pt/sofas",
+        "Footer category href 2": "https://www.beliani.pt/camas",
+        "Footer category href 3":
+          "https://www.beliani.pt/mesas/mesas-de-centro/",
+        "Footer category href 4": "https://www.beliani.pt/cadeiras",
+        "Footer category href 5": "https://www.beliani.pt/poltrona",
+        "Footer category href 6":
+          "https://www.beliani.pt/arrumacao/aparadores/",
+        "Footer category href 7": "https://www.beliani.pt/candeeiros",
+        "Footer category href 8": "https://www.beliani.pt/tapetes",
+      },
+      eses: {
+        Title: "Ver mucho más",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/es_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/es_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/es_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/es_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/es_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/es_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/es_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/es_cat_08.png",
+        "Footer category href 1": "https://www.beliani.es/sofas",
+        "Footer category href 2": "https://www.beliani.es/camas",
+        "Footer category href 3":
+          "https://www.beliani.es/mesas/mesas-de-centro/",
+        "Footer category href 4": "https://www.beliani.es/sillas",
+        "Footer category href 5": "https://www.beliani.es/sillones",
+        "Footer category href 6":
+          "https://www.beliani.es/organizacion-y-almacenaje/",
+        "Footer category href 7": "https://www.beliani.es/lamparas",
+        "Footer category href 8": "https://www.beliani.es/alfombras",
+      },
+      nlnl: {
+        Title: "Bekijk er nog duizenden",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/nl_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/nl_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/nl_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/nl_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/nl_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/nl_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/nl_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/nl_cat_08.png",
+        "Footer category href 1": "https://www.beliani.nl/banken",
+        "Footer category href 2": "https://www.beliani.nl/bedden",
+        "Footer category href 3": "https://www.beliani.nl/tafels/salontafels/",
+        "Footer category href 4": "https://www.beliani.nl/stoelen",
+        "Footer category href 5": "https://www.beliani.nl/fauteuils",
+        "Footer category href 6":
+          "https://www.beliani.nl/woonkamer/commodes-en-dressoirs/",
+        "Footer category href 7": "https://www.beliani.nl/lampen",
+        "Footer category href 8": "https://www.beliani.nl/tapijten",
+      },
+      chde: {
+        Title: "Tausende weitere Möbel",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/dach_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/dach_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/dach_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/dach_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/dach_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/dach_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/dach_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/dach_cat_08.png",
+        "Footer category href 1": "https://www.beliani.ch/sofas/",
+        "Footer category href 2": "https://www.beliani.ch/betten/",
+        "Footer category href 3": "https://www.beliani.ch/tische/kaffeetische",
+        "Footer category href 4": "https://www.beliani.ch/stuehle/",
+        "Footer category href 5": "https://www.beliani.ch/sessel/",
+        "Footer category href 6":
+          "https://www.beliani.ch/aufbewahrung/kommoden",
+        "Footer category href 7": "https://www.beliani.ch/lampen/",
+        "Footer category href 8": "https://www.beliani.ch/teppich/",
+      },
+      atde: {
+        Title: "Tausende weitere Möbel",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/dach_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/dach_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/dach_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/dach_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/dach_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/dach_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/dach_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/dach_cat_08.png",
+        "Footer category href 1": "https://www.beliani.at/sofas/",
+        "Footer category href 2": "https://www.beliani.at/betten/",
+        "Footer category href 3": "https://www.beliani.at/tische/kaffeetische",
+        "Footer category href 4": "https://www.beliani.at/stuehle/",
+        "Footer category href 5": "https://www.beliani.at/sessel/",
+        "Footer category href 6":
+          "https://www.beliani.at/aufbewahrung/kommoden",
+        "Footer category href 7": "https://www.beliani.at/lampen/",
+        "Footer category href 8": "https://www.beliani.at/teppich/",
+      },
+      dede: {
+        Title: "Tausende weitere Möbel",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/dach_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/dach_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/dach_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/dach_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/dach_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/dach_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/dach_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/dach_cat_08.png",
+        "Footer category href 1": "https://www.beliani.de/sofas/",
+        "Footer category href 2": "https://www.beliani.de/betten/",
+        "Footer category href 3": "https://www.beliani.de/tische/kaffeetische",
+        "Footer category href 4": "https://www.beliani.de/stuehle/",
+        "Footer category href 5": "https://www.beliani.de/sessel/",
+        "Footer category href 6":
+          "https://www.beliani.de/aufbewahrung/kommoden",
+        "Footer category href 7": "https://www.beliani.de/lampen/",
+        "Footer category href 8": "https://www.beliani.de/teppich/",
+      },
+      chfr: {
+        Title: "En voir beaucoup plus",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_08.png",
+        "Footer category href 1":
+          "https://www.beliani.ch/meubles-de-salon/canapes/",
+        "Footer category href 2": "https://www.beliani.ch/lits",
+        "Footer category href 3":
+          "https://www.beliani.ch/tables/tables-basses/",
+        "Footer category href 4": "https://www.beliani.ch/chaises",
+        "Footer category href 5": "https://www.beliani.ch/fauteuils",
+        "Footer category href 6":
+          "https://www.beliani.ch/espace-rangement/commodes/",
+        "Footer category href 7": "https://www.beliani.ch/lampes",
+        "Footer category href 8": "https://www.beliani.ch/tapis",
+      },
+      frfr: {
+        Title: "En voir beaucoup plus",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_08.png",
+        "Footer category href 1":
+          "https://www.beliani.fr/meubles-de-salon/canapes/",
+        "Footer category href 2": "https://www.beliani.fr/lits",
+        "Footer category href 3":
+          "https://www.beliani.fr/tables/tables-basses/",
+        "Footer category href 4": "https://www.beliani.fr/chaises",
+        "Footer category href 5": "https://www.beliani.fr/fauteuils",
+        "Footer category href 6":
+          "https://www.beliani.fr/espace-rangement/commodes/",
+        "Footer category href 7": "https://www.beliani.fr/lampes",
+        "Footer category href 8": "https://www.beliani.fr/tapis",
+      },
+      huhu: {
+        Title: "Mutass többet",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/hu_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/hu_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/hu_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/hu_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/hu_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/hu_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/hu_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/hu_cat_08.png",
+        "Footer category href 1": "https://www.beliani.hu/kanapek",
+        "Footer category href 2": "https://www.beliani.hu/agyak",
+        "Footer category href 3":
+          "https://www.beliani.hu/asztalok/dohanyzoasztalok/",
+        "Footer category href 4": "https://www.beliani.hu/fotelek",
+        "Footer category href 5": "https://www.beliani.hu/szekek",
+        "Footer category href 6":
+          "https://www.beliani.hu/tarolo-szekrenyek/komodok/",
+        "Footer category href 7": "https://www.beliani.hu/lampak",
+        "Footer category href 8": "https://www.beliani.hu/szonyegek",
+      },
+      czcz: {
+        Title: "Objevte další produkty",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/cz_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/cz_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/cz_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/cz_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/cz_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/cz_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/cz_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/cz_cat_08.png",
+        "Footer category href 1": "https://www.beliani.cz/pohovky",
+        "Footer category href 2": "https://www.beliani.cz/postele",
+        "Footer category href 3":
+          "https://www.beliani.cz/stoly/konferencni-stolky/",
+        "Footer category href 4": "https://www.beliani.cz/zidle-a-kresla/",
+        "Footer category href 5": "https://www.beliani.cz/kresla",
+        "Footer category href 6":
+          "https://www.beliani.cz/ulozny-prostor/regaly-a-komody/",
+        "Footer category href 7": "https://www.beliani.cz/svitidla",
+        "Footer category href 8": "https://www.beliani.cz/koberce",
+      },
+      sksk: {
+        Title: "Objavte ďalšie produkty",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/sk_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/sk_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/sk_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/sk_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/sk_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/sk_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/sk_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/sk_cat_08.png",
+        "Footer category href 1":
+          "https://www.beliani.sk/pohovky/zobraziť+všetky+produkty",
+        "Footer category href 2":
+          "https://www.beliani.sk/postele/zobraziť+všetky+produkty",
+        "Footer category href 3":
+          "https://www.beliani.sk/stoly/konferencne-stoliky/",
+        "Footer category href 4":
+          "https://www.beliani.sk/stolicky-a-kresla/zobraziť+všetky+produkty",
+        "Footer category href 5":
+          "https://www.beliani.sk/kresla/zobraziť+všetky+produkty",
+        "Footer category href 6":
+          "https://www.beliani.sk/ulozny-priestor/nizke-skrinky",
+        "Footer category href 7":
+          "https://www.beliani.sk/svietidla/zobraziť+všetky+produkty",
+        "Footer category href 8":
+          "https://www.beliani.sk/koberce/zobraziť+všetky+produkty",
+      },
+      itit: {
+        Title: "Scopri migliaia di prodotti",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/it_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/it_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/it_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/it_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/it_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/it_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/it_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/it_cat_08.png",
+        "Footer category href 1": "https://www.beliani.it/divani",
+        "Footer category href 2": "https://www.beliani.it/letti",
+        "Footer category href 3": "https://www.beliani.it/tavoli/tavolini/",
+        "Footer category href 4": "https://www.beliani.it/sedie",
+        "Footer category href 5": "https://www.beliani.it/poltrone",
+        "Footer category href 6":
+          "https://www.beliani.it/soggiorno/mobili-portaoggetti/tutti+i+prodotti/",
+        "Footer category href 7": "https://www.beliani.it/illuminazione",
+        "Footer category href 8": "https://www.beliani.it/tappeti",
+      },
+      chit: {
+        Title: "Scopri migliaia di prodotti",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/it_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/it_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/it_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/it_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/it_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/it_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/it_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/it_cat_08.png",
+        "Footer category href 1": "https://www.beliani.ch/divani",
+        "Footer category href 2": "https://www.beliani.ch/letti",
+        "Footer category href 3": "https://www.beliani.ch/tavoli/tavolini/",
+        "Footer category href 4": "https://www.beliani.ch/sedie",
+        "Footer category href 5": "https://www.beliani.ch/poltrone",
+        "Footer category href 6":
+          "https://www.beliani.ch/soggiorno/mobili-portaoggetti/tutti+i+prodotti/",
+        "Footer category href 7": "https://www.beliani.ch/illuminazione",
+        "Footer category href 8": "https://www.beliani.ch/tappeti",
+      },
+      sese: {
+        Title: "Se tusentals fler",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/se_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/se_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/se_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/se_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/se_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/se_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/se_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/se_cat_08.png",
+        "Footer category href 1": "https://www.beliani.se/soffor/",
+        "Footer category href 2": "https://www.beliani.se/sangar/",
+        "Footer category href 3": "https://www.beliani.se/bord/soffbord/",
+        "Footer category href 4": "https://www.beliani.se/stolar",
+        "Footer category href 5": "https://www.beliani.se/fatolj/",
+        "Footer category href 6":
+          "https://www.beliani.se/forvaring/skap-och-skankar/",
+        "Footer category href 7":
+          "https://www.beliani.se/lampor/alla+produkter/",
+        "Footer category href 8": "https://www.beliani.se/mattor/",
+      },
+      ukuk: {
+        Title: "See thousands more",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/uk_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/uk_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/uk_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/uk_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/uk_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/uk_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/uk_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/uk_cat_08.png",
+        "Footer category href 1":
+          "https://www.beliani.co.uk/sofas/all+products",
+        "Footer category href 2": "https://www.beliani.co.uk/beds/all+products",
+        "Footer category href 3":
+          "https://www.beliani.co.uk/tables/coffee-tables",
+        "Footer category href 4":
+          "https://www.beliani.co.uk/chairs/all+products",
+        "Footer category href 5":
+          "https://www.beliani.co.uk/armchairs/all+products",
+        "Footer category href 6":
+          "https://www.beliani.co.uk/storage/sideboards",
+        "Footer category href 7":
+          "https://www.beliani.co.uk/lighting/all+products",
+        "Footer category href 8": "https://www.beliani.co.uk/rugs/all+products",
+      },
+      nono: {
+        Title: "Se tusenvis av våre",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/no_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/no_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/no_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/no_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/no_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/no_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/no_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/no_cat_08.png",
+        "Footer category href 1": "https://www.beliani.no/sofaer",
+        "Footer category href 2": "https://www.beliani.no/senger",
+        "Footer category href 3": "https://www.beliani.no/bord/sofabord/looks/",
+        "Footer category href 4": "https://www.beliani.no/stoler",
+        "Footer category href 5": "https://www.beliani.no/lenestoler",
+        "Footer category href 6":
+          "https://www.beliani.no/oppbevaring/skjenker/looks/",
+        "Footer category href 7": "https://www.beliani.no/belysning",
+        "Footer category href 8": "https://www.beliani.no/tepper",
+      },
+      dkdk: {
+        Title: "Se tusindvis af flere",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/dk_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/dk_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/dk_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/dk_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/dk_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/dk_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/dk_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/dk_cat_08.png",
+        "Footer category href 1":
+          "https://www.beliani.dk/sofaer/alle+produkter",
+        "Footer category href 2": "https://www.beliani.dk/senge/alle+produkter",
+        "Footer category href 3":
+          "https://www.beliani.dk/borde/sofaborde/looks",
+        "Footer category href 4":
+          "https://www.beliani.dk/stuemobler/stole/alle+produkter/",
+        "Footer category href 5":
+          "https://www.beliani.dk/lenestole/alle+produkter",
+        "Footer category href 6": "https://www.beliani.dk/opbevaring/skaenke/",
+        "Footer category href 7":
+          "https://www.beliani.dk/belysning/alle+produkter",
+        "Footer category href 8":
+          "https://www.beliani.dk/gulvtepper/alle+produkter",
+      },
+      fifi: {
+        Title: "Löydä tuhansia muita",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/fi_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/fi_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/fi_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/fi_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/fi_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/fi_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/fi_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/fi_cat_08.png",
+        "Footer category href 1": "https://www.beliani.fi/sohvat",
+        "Footer category href 2": "https://www.beliani.fi/sangyt",
+        "Footer category href 3": "https://www.beliani.fi/poydat/sohvapoydat/",
+        "Footer category href 4": "https://www.beliani.fi/tuolit",
+        "Footer category href 5": "https://www.beliani.fi/nojatuolit",
+        "Footer category href 6":
+          "https://www.beliani.fi/olohuoneen-kalusteet/sailytys/senkit/",
+        "Footer category href 7": "https://www.beliani.fi/valaisimet",
+        "Footer category href 8": "https://www.beliani.fi/matot",
+      },
+      plpl: {
+        Title: "Zobacz jeszcze więcej",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/pl_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/pl_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/pl_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/pl_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/pl_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/pl_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/pl_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/pl_cat_08.png",
+        "Footer category href 1":
+          "https://www.beliani.pl/sofy/wszystkie+produkty",
+        "Footer category href 2":
+          "https://www.beliani.pl/lozka/wszystkie+produkty",
+        "Footer category href 3": "https://www.beliani.pl/stoly/stoliki-kawowe",
+        "Footer category href 4":
+          "https://www.beliani.pl/krzesla/wszystkie+produkty",
+        "Footer category href 5":
+          "https://www.beliani.pl/fotele/wszystkie+produkty",
+        "Footer category href 6": "https://www.beliani.pl/przechowywanie/",
+        "Footer category href 7":
+          "https://www.beliani.pl/oswietlenie/wszystkie+produkty/",
+        "Footer category href 8":
+          "https://www.beliani.pl/dywany/wszystkie+produkty/",
+      },
+      benl: {
+        Title: "Bekijk er nog duizenden",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/nl_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/nl_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/nl_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/nl_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/nl_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/nl_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/nl_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/nl_cat_08.png",
+        "Footer category href 1": "https://www.beliani.be/banken",
+        "Footer category href 2": "https://www.beliani.be/bedden",
+        "Footer category href 3": "https://www.beliani.be/tafels/salontafels/",
+        "Footer category href 4": "https://www.beliani.be/stoelen",
+        "Footer category href 5": "https://www.beliani.be/fauteuils",
+        "Footer category href 6": "https://www.beliani.be/opbergen/dressoirs/",
+        "Footer category href 7": "https://www.beliani.be/lampen",
+        "Footer category href 8": "https://www.beliani.be/vloerkleden/",
+      },
+      befr: {
+        Title: "En voir beaucoup plus",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/chfr_cat_08.png",
+        "Footer category href 1":
+          "https://www.beliani.be/meubles-de-salon/canapes/",
+        "Footer category href 2": "https://www.beliani.be/lits",
+        "Footer category href 3":
+          "https://www.beliani.be/tables/tables-basses/",
+        "Footer category href 4": "https://www.beliani.be/chaises",
+        "Footer category href 5": "https://www.beliani.be/fauteuils",
+        "Footer category href 6":
+          "https://www.beliani.be/espace-rangement/commodes/",
+        "Footer category href 7": "https://www.beliani.be/lampes",
+        "Footer category href 8": "https://www.beliani.be/tapis",
+      },
+      roro: {
+        Title: "Vezi mii de altele",
+        "Footer category src 1":
+          "https://upload.pictureserver.net/static/2024/ro_cat_01.png",
+        "Footer category src 2":
+          "https://upload.pictureserver.net/static/2024/ro_cat_02.png",
+        "Footer category src 3":
+          "https://upload.pictureserver.net/static/2024/ro_cat_03.png",
+        "Footer category src 4":
+          "https://upload.pictureserver.net/static/2024/ro_cat_04.png",
+        "Footer category src 5":
+          "https://upload.pictureserver.net/static/2024/ro_cat_05.png",
+        "Footer category src 6":
+          "https://upload.pictureserver.net/static/2024/ro_cat_06.png",
+        "Footer category src 7":
+          "https://upload.pictureserver.net/static/2024/ro_cat_07.png",
+        "Footer category src 8":
+          "https://upload.pictureserver.net/static/2024/ro_cat_08.png",
+        "Footer category href 1": "https://www.beliani.ro/canapele/",
+        "Footer category href 2": "https://www.beliani.ro/paturi/",
+        "Footer category href 3":
+          "https://www.beliani.ro/tabele/mese-de-cafea/",
+        "Footer category href 4": "https://www.beliani.ro/scaune/",
+        "Footer category href 5": "https://www.beliani.ro/fotolii/",
+        "Footer category href 6":
+          "https://www.beliani.ro/mobilier-de-depozitare/dulapuri-si-dulapuri-cu-sertare/",
+        "Footer category href 7": "https://www.beliani.ro/iluminat/",
+        "Footer category href 8": "https://www.beliani.ro/covoare/",
+      },
+    },
+    fallback: {
+      Title: "See thousands more",
+      "Footer category src 1":
+        "https://upload.pictureserver.net/static/2024/uk_cat_01.png",
+      "Footer category src 2":
+        "https://upload.pictureserver.net/static/2024/uk_cat_02.png",
+      "Footer category src 3":
+        "https://upload.pictureserver.net/static/2024/uk_cat_03.png",
+      "Footer category src 4":
+        "https://upload.pictureserver.net/static/2024/uk_cat_04.png",
+      "Footer category src 5":
+        "https://upload.pictureserver.net/static/2024/uk_cat_05.png",
+      "Footer category src 6":
+        "https://upload.pictureserver.net/static/2024/uk_cat_06.png",
+      "Footer category src 7":
+        "https://upload.pictureserver.net/static/2024/uk_cat_07.png",
+      "Footer category src 8":
+        "https://upload.pictureserver.net/static/2024/uk_cat_08.png",
+      "Footer category href 1": "https://www.beliani.co.uk/sofas/all+products",
+      "Footer category href 2": "https://www.beliani.co.uk/beds/all+products",
+      "Footer category href 3":
+        "https://www.beliani.co.uk/tables/coffee-tables",
+      "Footer category href 4": "https://www.beliani.co.uk/chairs/all+products",
+      "Footer category href 5":
+        "https://www.beliani.co.uk/armchairs/all+products",
+      "Footer category href 6": "https://www.beliani.co.uk/storage/sideboards",
+      "Footer category href 7":
+        "https://www.beliani.co.uk/lighting/all+products",
+      "Footer category href 8": "https://www.beliani.co.uk/rugs/all+products",
+    },
+  },
+};
+
+const app_components = {
+  init() {
+    this.setComponents();
+  },
+
+  setComponents() {
+    chrome.storage.local.set({
+      components: COMPONENTS,
+    });
+  },
+};
+
+app_components.init();

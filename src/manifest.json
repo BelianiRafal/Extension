@@ -1,0 +1,155 @@
+{
+  "author": {
+    "email": "demczenko@beliani.co.uk"
+  },
+  "name": "Prolo power tools",
+  "version": "2.0.0",
+  "manifest_version": 3,
+  "description": "Make prolo great again!",
+  "default_locale": "en",
+  "icons": {
+    "32": "./icons/copy-32.png",
+    "64": "./icons/copy-64.png",
+    "128": "./icons/copy-128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.prologistics.info/newsletter_preview.html?id=*"],
+      "js": ["./content/mustache/index.js", "./content/pages/my_page.js"]
+    },
+    {
+      "matches": ["https://www.prologistics.info/shop_content.php?id=*&shop_id=*"],
+      "js": [
+        "./content/mustache/index.js",
+        "./content/papaParse/papaparse.min.js",
+        "./content/context/index.js",
+        "./content/components/index.js",
+
+        "./content/templates/landing.js",
+        "./content/handlers/handleSelectLandingTemplate.js",
+
+        "./content/select_templates/index.js",
+        "./content/select_context/index.js",
+        "./content/fulfill_LP/index.js"
+      ]
+    },
+    {
+      "matches": ["https://www.prologistics.info/news_email.php?id=*"],
+      "exclude_matches": [
+        "https://www.prologistics.info/news_email.php?id=*&validate_message=*"
+      ],
+      "js": [
+        "./content/mustache/index.js",
+        "./content/papaParse/papaparse.min.js",
+        "./content/context/index.js",
+        "./content/components/index.js",
+        "./content/handlers/handleSelectNewsletterTemplate.js",
+        "./content/templates/newsletters.js",
+
+        "./content/newsletter_family/handleLandingUpdate.js",
+
+        "./content/select_template/index.js",
+        "./content/select_context/index.js",
+
+        "./content/fulfill_NS/index.js",
+        "./content/helpers/CSVfns.js",
+        "./content/fulFillServer.js",
+        "./content/sendEmailToMe.js",
+        "./content/svg.js",
+        "./content/newsletter_family/handleButtonSubjectUpdate.js",
+        "./content/newsletter_family/copyCampaignNumber.js",
+
+        "./content/newsletter_family/handleButtonBodyUpdate.js",
+
+        "./content/newsletter_family/features/updateBody.js",
+        "./content/newsletter_family/features/copyLandingDate.js",
+        "./content/newsletter_family/features/fulfillBody.js",
+        "./content/newsletter_family/NewsletterFamilyTable.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.prologistics.info/news_email.php?id=*&validate_message=*"
+      ],
+      "run_at": "document_idle",
+      "js": ["./content/newsletterCheckPage.js"]
+    },
+    {
+      "matches": ["https://www.prologistics.info/news_emails.php"],
+      "run_at": "document_idle",
+      "js": ["./content/multiselect/index.js"]
+    },
+    {
+      "matches": [
+        "https://www.prologistics.info/shop_banner.php?id=*",
+        "https://prolodev.prologistics.info/shop_banner.php?id*"
+      ],
+      "run_at": "document_idle",
+      "js": [
+        "./content/mustache/index.js",
+        "./content/papaParse/papaparse.min.js",
+        "./libraries/dexie.js",
+        "./content/handlers/handleSelectBannerTemplate.js",
+        "./content/templates/banners.js",
+        "./content/cgb_templates/index.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.prologistics.info/saved_details.php?filter_id=*"
+      ],
+      "js": [
+        "./content/isActive.js",
+        "./content/fetchProducts.js",
+        "./content/download.js",
+        "./content/selectProductsNew.js",
+        "./content/selectProduct.js"
+      ]
+    },
+    {
+      "matches": ["https://www.prologistics.info/start.php"],
+      "js": [
+        "./content/linkifyjs/linkify.js",
+        "./content/linkifyjs/linkify-html.min.js",
+        "./content/issue.js"
+      ]
+    },
+    {
+      "matches": ["https://www.prologistics.info/push_notifications.php"],
+      "js": ["./content/helpers/CSVfns.js", "./content/uploadCSV.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "./background/sw.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Click to view a popup",
+    "default_popup": "./build/index.html"
+  },
+  "externally_connectable": {
+    "matches": ["http://localhost:5173/"]
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset",
+        "enabled": true,
+        "path": "rule.json"
+      }
+    ]
+  },
+  "permissions": [
+    "tabs",
+    "storage",
+    "scripting",
+    "activeTab",
+    "identity",
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback"
+  ],
+  "host_permissions": [
+    "https://www.prologistics.info/*",
+    "https://prolodev.prologistics.info/*"
+  ]
+}
