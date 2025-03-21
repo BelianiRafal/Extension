@@ -1904,7 +1904,7 @@ const COMPONENTS = {
       chde: {
         "Klarna src":
           "https://upload.pictureserver.net/static/2024/chde_klarna.png",
-        "Klarna href": "https://www.beliani.ch/content/bezahlung/",
+        "Klarna href": "https://www.beliani.ch/content/klarna-ch-de/",
       },
       atde: {
         "Klarna src":
@@ -1919,7 +1919,7 @@ const COMPONENTS = {
       chfr: {
         "Klarna src":
           "https://upload.pictureserver.net/static/2024/chfr_klarna.png",
-        "Klarna href": "https://www.beliani.ch/content/paiement/",
+        "Klarna href": "https://www.beliani.ch/content/klarna-ch-fr/",
       },
       frfr: {
         "Klarna src":
