@@ -820,7 +820,7 @@ const COMPONENTS = {
       "sese": {
         "Company Details": "Företagsuppgifter",
         "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
-        "Mobile number": "Telefon: 08-446 891 58;",
+        "Mobile number": "Phone: 08-123 509 30;",
         "Email address": "E-post:",
         "Mail to": "mailto:mail@beliani.se",
         "Email": "mail@beliani.se",
@@ -860,7 +860,7 @@ const COMPONENTS = {
       "fifi": {
         "Company Details": "Yhtiön tiedot",
         "Address": "Beliani (DE) GmbH 6340 Baar Sveitsi",
-        "Mobile number": "Puhelinnumero: 09 3157 9611;",
+        "Mobile number": "Puhelinnumero: 09 4245 0464;",
         "Email address": "sähköposti:",
         "Mail to": "mailto:mail@beliani.fi",
         "Email": "mail@beliani.fi",
@@ -1881,7 +1881,7 @@ const COMPONENTS = {
     fallback: {
       "Klarna src":
         "https://upload.pictureserver.net/static/2024/uk_klarna.png",
-      "Klarna href": "https://www.beliani.co.uk/content/klarna-uk/",
+      "Klarna href": "https://www.beliani.co.uk/content/payment/",
     },
     is_active: true,
     html: '<table\n  align="center"\n  border="0"\n  cellpadding="0"\n  cellspacing="0"\n  class="newsletterContainer"\n  style="background-color: #ffffff"\n>\n  <tbody>\n    <tr>\n      <td>\n        <img\n          alt=""\n          src="https://beliani.info/newsletter/2022/line.jpg"\n          style="display: block; max-width: 100%"\n        />\n      </td>\n    </tr>\n    <tr>\n      <td class="newsletterTopBottomContainer">\n        <a\n          href="{{{Klarna href}}}{{utm}}{{id}}"\n          ><img\n            alt=""\n            border="0"\n            src="{{Klarna src}}"\n            style="display: block; max-width: 100%"\n        /></a>\n      </td>\n    </tr>\n  </tbody>\n</table>\n',
@@ -1904,22 +1904,22 @@ const COMPONENTS = {
       chde: {
         "Klarna src":
           "https://upload.pictureserver.net/static/2024/chde_klarna.png",
-        "Klarna href": "https://www.beliani.ch/content/klarna-ch-de/",
+        "Klarna href": "https://www.beliani.ch/content/bezahlung/",
       },
       atde: {
         "Klarna src":
           "https://upload.pictureserver.net/static/2024/chde_klarna.png",
-        "Klarna href": "https://www.beliani.at/content/klarna-at/",
+        "Klarna href": "https://www.beliani.at/content/bezahlung/",
       },
       dede: {
         "Klarna src":
           "https://upload.pictureserver.net/static/2024/chde_klarna.png",
-        "Klarna href": "https://www.beliani.de/content/klarna-de/",
+        "Klarna href": "https://www.beliani.de/content/bezahlung/",
       },
       chfr: {
         "Klarna src":
           "https://upload.pictureserver.net/static/2024/chfr_klarna.png",
-        "Klarna href": "https://www.beliani.ch/content/klarna-ch-fr/",
+        "Klarna href": "https://www.beliani.ch/content/paiement/",
       },
       frfr: {
         "Klarna src":
@@ -1927,68 +1927,69 @@ const COMPONENTS = {
         "Klarna href": "https://www.beliani.fr/content/paiement/",
       },
       huhu: {
-        "Klarna src": "",
-        "Klarna href": "",
+        "Klarna src": 
+          "https://upload.pictureserver.net/static/2024/hu_klarna.png",
+        "Klarna href": "https://www.beliani.cz/content/zpusoby-platby/",
       },
       czcz: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/cz_klarna.png",
+          "https://pictureserver.net/static/2024/cz_klarna.png",
         "Klarna href": "https://www.beliani.cz/content/zpusoby-platby/",
       },
       sksk: {
-        "Klarna src": "",
-        "Klarna href": "",
+        "Klarna src": "https://pictureserver.net/static/2024/sk_klarna.png",
+        "Klarna href": "https://www.beliani.sk/content/sposoby-platby/",
       },
       itit: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/it_klarna.png",
-        "Klarna href": "https://www.beliani.it/content/klarna-it/",
+          "https://pictureserver.net/static/2024/it_klarna.png",
+        "Klarna href": "https://www.beliani.it/content/pagamento/",
       },
       chit: {
-        "Klarna src": "",
-        "Klarna href": "",
+        "Klarna src": "https://pictureserver.net/static/2024/it_klarna.png",
+        "Klarna href": "https://www.beliani.ch/content/pagamento/",
       },
       sese: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/se_klarna.png",
-        "Klarna href": "https://www.beliani.se/content/klarna-se/",
+          "https://pictureserver.net/static/2024/se_klarna.png",
+        "Klarna href": "https://www.beliani.se/content/betalningsmetoder/",
       },
       ukuk: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/uk_klarna.png",
-        "Klarna href": "https://www.beliani.co.uk/content/klarna-uk/",
+          "https://pictureserver.net/static/2024/uk_klarna.png",
+        "Klarna href": "https://www.beliani.co.uk/content/payment/",
       },
       nono: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/no_klarna.png",
-        "Klarna href": "https://www.beliani.no/content/klarna-no/",
+          "https://pictureserver.net/static/2024/no_klarna.png",
+        "Klarna href": "https://www.beliani.no/content/betaling/",
       },
       dkdk: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/dk_klarna.png",
+          "https://pictureserver.net/static/2024/dk_klarna.png",
         "Klarna href": "https://www.beliani.dk/content/betalingsmetoder/",
       },
       fifi: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/fi_klarna.png",
-        "Klarna href": "https://www.beliani.fi/content/klarna-fi/",
+          "https://pictureserver.net/static/2024/fi_klarna.png",
+        "Klarna href": "https://www.beliani.fi/content/maksutavat/",
       },
       plpl: {
         "Klarna src":
-          "https://upload.pictureserver.net/static/2024/pl_klarna.png",
+          "https://pictureserver.net/static/2024/pl_klarna.png",
         "Klarna href": "https://www.beliani.pl/content/platnosc/",
       },
       benl: {
-        "Klarna src": "",
-        "Klarna href": "",
+        "Klarna src": "https://pictureserver.net/static/2024/nl_klarna.png",
+        "Klarna href": "https://www.beliani.be/content/betalen/",
       },
       befr: {
-        "Klarna src": "",
-        "Klarna href": "",
+        "Klarna src": "https://pictureserver.net/static/2024/fr_klarna.png",
+        "Klarna href": "https://www.beliani.be/content/paiement/",
       },
       roro: {
-        "Klarna src": "",
-        "Klarna href": "",
+        "Klarna src": "https://pictureserver.net/static/2024/ro_klarna.png",
+        "Klarna href": "https://www.beliani.ro/content/plati/",
       },
     },
   },
