@@ -29,8 +29,8 @@ const copyLandingDate = {
 
   init(ui) {
     const copyLanding = ui.createTh({
-      title: "Copy Landing Date",
-      description: "Copy landing page date from current landing page.",
+      title: "Copy Landing Date & Name",
+      description: "Copy landing page date and name from current landing page.",
     });
     ui.header.append(copyLanding);
 
@@ -39,8 +39,10 @@ const copyLandingDate = {
     this.deactivate_from_date = document.querySelector("#deactivate_from_date");
     this.deactivate_from_time = document.querySelector("#deactivate_from_time");
 
+    const nameInputs = []; // Tablica do przechowywania wszystkich pól input
+    
     const rows = ui.tbody.querySelectorAll("tr");
-    rows.forEach((row) => {
+    rows.forEach((row, index) => {
       const hrefs = row.querySelectorAll("a");
       const id = row.querySelector("a");
       if (!id) {
@@ -51,6 +53,32 @@ const copyLandingDate = {
       const href_lp = (hrefs && [...hrefs]).filter((item) => {
         return item.href.includes("/shop_content.php?id");
       });
+      
+      // Tworzenie pola input dla nazwy
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.className = "lp-name-input";
+      nameInput.placeholder = "Landing page name";
+      nameInput.style.marginRight = "5px";
+      nameInput.style.padding = "3px";
+      nameInput.style.width = "150px";
+      
+      // Dodajemy input do tablicy
+      nameInputs.push(nameInput);
+      
+      // Dla pierwszego pola dodajemy nasłuchiwacz zdarzeń
+      if (index === 0) {
+        nameInput.addEventListener("input", function() {
+          // Aktualizujemy wszystkie pozostałe pola
+          const value = this.value;
+          nameInputs.forEach((input, i) => {
+            if (i !== 0) { // Pomijamy pierwsze pole (to, które edytujemy)
+              input.value = value;
+            }
+          });
+        });
+      }
+      
       const button = ui.createButton({
         title: "Copy LP date",
         onClick: () => {
@@ -81,21 +109,24 @@ const copyLandingDate = {
             activate_from_time: this.activate_from_time.value,
             deactivate_from_date: this.deactivate_from_date.value,
             deactivate_from_time: this.deactivate_from_time.value,
-            newsletter_template_id: _id
+            newsletter_template_id: _id,
+            name: nameInput.value // Dodajemy wartość nazwy z inputa
           };
-          handleLandingUpdate(payload)
-          // if (this.body.value.trim().length <= 10) {
-          //   new Notification("Body content too small.");
-          //   return;
-          // }
-          // const payload = {
-          //   campaign_id: _id,
-          //   body: this.body.value,
-          // };
-          // handleButtonBodyUpdate(payload);
+          handleLandingUpdate(payload);
         },
       });
-      row.append(ui.createColumn([button]));
+      
+      // Tworzenie kontenera dla inputa i przycisku
+      const container = document.createElement("div");
+      container.style.display = "flex";
+      container.style.alignItems = "center";
+      
+      // Dodanie inputa i przycisku do kontenera
+      container.appendChild(nameInput);
+      container.appendChild(button);
+      
+      // Dodanie kontenera do kolumny
+      row.append(ui.createColumn([container]));
     });
   },
 };
