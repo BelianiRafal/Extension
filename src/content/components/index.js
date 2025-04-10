@@ -1929,7 +1929,7 @@ const COMPONENTS = {
       huhu: {
         "Klarna src": 
           "https://upload.pictureserver.net/static/2024/hu_klarna.png",
-        "Klarna href": "https://www.beliani.cz/content/zpusoby-platby/",
+        "Klarna href": "https://www.beliani.hu/content/fizetesi-opciok/",
       },
       czcz: {
         "Klarna src":
