@@ -820,7 +820,7 @@ const COMPONENTS = {
       "sese": {
         "Company Details": "Företagsuppgifter",
         "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
-        "Mobile number": "Phone: 08-123 509 30;",
+        "Mobile number": "Telefon: 08-123 509 30;",
         "Email address": "E-post:",
         "Mail to": "mailto:mail@beliani.se",
         "Email": "mail@beliani.se",
