@@ -829,7 +829,7 @@ const COMPONENTS = {
       },
       "ukuk": {
         "Company Details": "Company Details",
-        "Address": "Beliani (UK) GmbH 6340 Baar Switzerland",
+        "Address": "Beliani (UK) GmbH Haldenstrasse 5 6340 Baar Switzerland",
         "Mobile number": "Phone: 020 3318 8222;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.co.uk",
@@ -860,7 +860,7 @@ const COMPONENTS = {
       "fifi": {
         "Company Details": "Yhtiön tiedot",
         "Address": "Beliani (DE) GmbH 6340 Baar Sveitsi",
-        "Mobile number": "Puhelinnumero: 09 4245 0464;",
+        "Mobile number": "Puhelinnumero: 09 3157 9611;",
         "Email address": "sähköposti:",
         "Mail to": "mailto:mail@beliani.fi",
         "Email": "mail@beliani.fi",
