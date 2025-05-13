@@ -118,6 +118,14 @@
     {
       "matches": ["https://www.prologistics.info/push_notifications.php"],
       "js": ["./content/helpers/CSVfns.js", "./content/uploadCSV.js"]
+    },
+    {
+      "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
+      "js": [
+        "./content/emoji/content.js",
+        "./content/issue/content.js"
+      ],
+      "css": ["./content/emoji/styles.css"]
     }
   ],
   "background": {
