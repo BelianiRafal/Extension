@@ -210,7 +210,7 @@ const TEMPLATES = [
    {{{Offert_part_1}}} <br> {{{Offert_part_2}}}
     </p> 
     <p class="xyHeader3">{{{Offert_part_3}}}</p> 
-    <span class="xyCTA">{{Cta}}]</span> 
+    <span class="xyCTA">{{Cta}}</span> 
     </div> 
     <div style="width:100%"> 
     <video playsinline autoplay loop muted disableremoteplayback="true" style="max-width: 100%; vertical-align: middle;"> 
