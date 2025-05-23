@@ -2231,30 +2231,20 @@ const COMPONENTS = {
       },
       huhu: {
         Title: "Mutass többet",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/hu_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/hu_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/hu_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/hu_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/hu_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/hu_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/hu_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/hu_cat_08.png",
+        "Footer category src 1": "https://upload.pictureserver.net/static/2024/hu_cat_01.png",
+        "Footer category src 2": "https://upload.pictureserver.net/static/2024/hu_cat_02.png",
+        "Footer category src 3": "https://upload.pictureserver.net/static/2024/hu_cat_03.png",
+        "Footer category src 4": "https://upload.pictureserver.net/static/2024/hu_cat_05.png",
+        "Footer category src 5": "https://upload.pictureserver.net/static/2024/hu_cat_04.png",
+        "Footer category src 6": "https://upload.pictureserver.net/static/2024/hu_cat_06.png",
+        "Footer category src 7": "https://upload.pictureserver.net/static/2024/hu_cat_07.png",
+        "Footer category src 8": "https://upload.pictureserver.net/static/2024/hu_cat_08.png",
         "Footer category href 1": "https://www.beliani.hu/kanapek",
         "Footer category href 2": "https://www.beliani.hu/agyak",
-        "Footer category href 3":
-          "https://www.beliani.hu/asztalok/dohanyzoasztalok/",
-        "Footer category href 4": "https://www.beliani.hu/fotelek",
-        "Footer category href 5": "https://www.beliani.hu/szekek",
-        "Footer category href 6":
-          "https://www.beliani.hu/tarolo-szekrenyek/komodok/",
+        "Footer category href 3": "https://www.beliani.hu/asztalok/dohanyzoasztalok/",
+        "Footer category href 4": "https://www.beliani.hu/szekek",
+        "Footer category href 5": "https://www.beliani.hu/fotelek",
+        "Footer category href 6":  "https://www.beliani.hu/tarolo-szekrenyek/komodok/",
         "Footer category href 7": "https://www.beliani.hu/lampak",
         "Footer category href 8": "https://www.beliani.hu/szonyegek",
       },
