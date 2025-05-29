@@ -1,9 +1,24 @@
-function handleButtonSubjectUpdate({ campaign_id, title, seller, sellerServers, lang }) {
-  const shop_content = document.querySelector("select[name='shop_content_id']")?.value
-  if (!shop_content) {
-    new Notification("Shop content not found.")
+function handleButtonSubjectUpdate(button_element, {
+  campaign_id,
+  title,
+  seller,
+  sellerServers,
+  lang,
+}) {
+
+  // Fix: usuwanie shop content page id
+  // pobieramy wartość "Shop content page" i przesyłamy ją w request body
+  const row = button_element.closest('tr[role="row"]');
+  if (!row) {
+    new Notification("Się zesrało.")
     return
   }
+
+  const shopContentTd = row.querySelectorAll("td")[3];
+  const a = shopContentTd.querySelector('a');
+  const shopContentId = a.textContent.trim();
+
+  // payload
   const formDataValues = {
     seller: seller,
     lang: lang,
@@ -12,8 +27,9 @@ function handleButtonSubjectUpdate({ campaign_id, title, seller, sellerServers, 
     "smtp_id[]": sellerServers,
     id: campaign_id,
     deleted_doc: 0,
-    shop_content_id: shop_content
+    shop_content_id: shopContentId,
   };
+
   const formData = createFormData(formDataValues);
   if (formData) {
     updateContent(formData);

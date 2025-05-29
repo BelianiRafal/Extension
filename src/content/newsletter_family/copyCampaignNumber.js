@@ -58,14 +58,14 @@ setTimeout(() => {
             const parsedCSV = CSVToArray(reader.result);
             const arraysToObjects = parseCSV(parsedCSV);
             console.log(arraysToObjects);
-            
+
             for (const slug in arraysToObjects) {
               const value = arraysToObjects[slug];
               if (slug in input_elements) {
-                const input = input_elements[slug]
+                const input = input_elements[slug];
                 const event = new Event("change");
-                input.value = value['subject'] || ""
-                input.dispatchEvent(event)
+                input.value = value["subject"] || "";
+                input.dispatchEvent(event);
               }
             }
           };
@@ -101,7 +101,8 @@ setTimeout(() => {
     const updateSubject = createTh({ title: "Update subject" });
 
     const label = createLabel();
-    label.style = "padding: 0.2rem; background: #ffffff; border-radius: 0.2rem; margin-left: 0.2rem; cursor: pointer;"
+    label.style =
+      "padding: 0.2rem; background: #ffffff; border-radius: 0.2rem; margin-left: 0.2rem; cursor: pointer;";
     const input = createCSVInput();
     label.append(input);
 
@@ -127,22 +128,6 @@ setTimeout(() => {
       return button;
     }
 
-    function createUpdateButton({ cb, state }) {
-      const button = document.createElement("button");
-      button.style =
-        "display: flex; align-items: center; gap: 2px; font-size: 11px";
-      button.textContent = "Set subject and servers";
-      button.addEventListener("click", () => {
-        if (state.title.trim().length <= 4) {
-          new Notification("Subject line too short. 4 symbols required.");
-        } else {
-          handleButtonSubjectUpdate(state);
-          cb();
-        }
-      });
-      return button;
-    }
-
     function createColumn(children) {
       const td = document.createElement("td");
       td.append(...children);
@@ -155,14 +140,30 @@ setTimeout(() => {
       return input;
     }
 
+    function createUpdateButton({ cb, state }) {
+      const button = document.createElement("button");
+      button.style =
+        "width: max-content; align-items: center; gap: 2px; font-size: 11px;";
+      button.textContent = "Set subject and servers";
+      button.addEventListener("click", () => {
+        if (state.title.trim().length <= 4) {
+          new Notification("Subject line too short. 4 symbols required.");
+        } else {
+          handleButtonSubjectUpdate(button, state);
+          cb();
+        }
+      });
+      return button;
+    }
+
     rows.forEach((row) => {
       const id = row.querySelector("a");
       if (id) {
-        const _id = id.textContent.trim()
+        const _id = id.textContent.trim();
         const seller = row.children[1].innerText;
         const lang = row.children[2].innerText;
         const sellerToServer = {
-          "Beliani": [60, 64, 65, 67],
+          Beliani: [60, 64, 65, 67],
           "Beliani SP": [60, 64, 65, 67],
           "Beliani AT": [60, 64, 65, 67],
           "Beliani IT": [60, 64, 65, 67],
@@ -189,25 +190,31 @@ setTimeout(() => {
           lang: lang,
           sellerServers: sellerToServer[seller],
         };
-        const copyCampaign = createColumn([
-          createCopyButton(_id),
-        ]);
+        const copyCampaign = createColumn([createCopyButton(_id)]);
+
+        const slContainer = document.createElement("div");
+        slContainer.style =
+          "display: flex;flex-wrap: nowrap;flex-direction: row;align-items: flex-start;gap: 8px;";
+
         const input = createInput((ev) => {
           state.title = ev.target.value;
         });
-        const editSubjectLine = createColumn([
-          input,
-          createUpdateButton({
-            state: state,
-            cb: () => (input.value = ""),
-          }),
-        ]);
+
+        const editSubjectLineButton = createUpdateButton({
+          state: state,
+          cb: () => (input.value = ""),
+        });
+
+        slContainer.append(input, editSubjectLineButton);
+
+
         input_elements[seller.toLowerCase() + "_" + lang.toLowerCase()] = input;
+
+        const editSubjectLineColumn = createColumn([slContainer]) 
+
         row.append(copyCampaign);
-        row.append(editSubjectLine);
+        row.append(editSubjectLineColumn);
       }
     });
   }
 }, 1000);
-
-
