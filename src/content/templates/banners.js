@@ -196,7 +196,7 @@ const TEMPLATES = [
 
 
     <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
-    <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]]; padding: 10px 0 10px 10px;"> 
+    <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
     <div style="padding: 10px 5px 10px 0px;"> 
     <p class="xyHeader1"> 
    {{{Offert_part_1}}} <br> {{{Offert_part_2}}}
@@ -342,7 +342,7 @@ const TEMPLATES = [
 
 
     <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
-      <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]]; padding: 10px 0 10px 10px;"> 
+      <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
         <div style="padding: 10px 5px 10px 0px;"> 
           <p class="xyHeader1"> 
             {{{Offert_part_1}}} <br> {{{Offert_part_2}}}
