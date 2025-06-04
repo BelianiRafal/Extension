@@ -3050,6 +3050,689 @@ const TEMPLATES = [
   },
   {
     title: "Sunday NS with:",
+    description: "Header\nTimer + Freebies Pic in 2'nd cat\nTimer\n 5 categories \nWithout CTA's\nFooter",
+    is_active: true,
+    fallback: {
+      Newsletter_bg_color: "#fbf5f5",
+      Timer_bg_color: "#750000",
+      Timer_color: "#fff",
+      Timer2_bg_color: "#750000",
+      Timer2_color: "#fff",
+
+      Top_image_src: "https://beliani.info/newsletter/2022/uk240150_01.jpg",
+
+      Timer_href: "/lp25-02-17",
+      Timer_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
+      Timer_freebie_src: 2025,
+
+      Timer2_href: "/lp25-02-17",
+      Timer2_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
+      
+
+      Campaign_src_1: 20250217,
+      Campaign_src_2: 20250219,
+      Campaign_src_3: 20250219,
+      Campaign_src_4: 20250220,
+      Campaign_src_5: 20250221,
+      Banner_href_1: "/lp25-02-17",
+      Banner_href_2: "/lp25-02-18",
+      Banner_href_3: "/lp25-02-19",
+      Banner_href_4: "/lp25-02-20",
+      Banner_href_5: "/lp25-02-21",
+
+      Conditions_title: "Conditions title",
+      Conditions_description: "Condition description",
+      Conditions_unsubscribe: "Conditions unsubscribe",
+    },
+    html: `<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:v="urn:schemas-microsoft-com:vml"
+>
+  <head>
+    <title>Beliani</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=yes"
+    />
+    <meta name="color-scheme" content="light only" />
+    <meta name="supported-color-schemes" content="light only" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic-ext,latin-ext"
+    />
+    <style>
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+      }
+      .title-advantages {
+        text-align: center;
+        font-size: 11px;
+        color: #8c8278;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        margin: 0;
+      }
+      .title-advantages-item {
+        margin-left: 4px;
+      }
+      .newsletterRecommendationHeader {
+        text-align: center;
+        font-size: 11px;
+        color: #8c8278;
+        margin-bottom: 10px;
+        margin-top: 10px;
+      }
+      .newsletterFreebieContainer {
+        padding-left: 10px;
+      }
+      .newsletterBottom80px {
+        padding-bottom: 80px;
+      }
+      .newsletterBottom10px {
+        padding-bottom: 10px;
+      }
+      .newsletterContainer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .newsletterCta {
+        font-size: 20px;
+        line-height: 1.2;
+        font-family: "Open Sans", sans-serif;
+      }
+      .newsletterCode {
+        font-size: 20px;
+        line-height: 1.2;
+        font-family: "Open Sans", sans-serif;
+      }
+      .newsletterBottom20px {
+        padding-bottom: 20px;
+      }
+      .newsletterBottom35px {
+        padding-bottom: 35px;
+      }
+      .newsletterBottom60px {
+        padding-bottom: 60px;
+      }
+      .newsletterParagraph {
+        font-size: 18px;
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.2;
+      }
+      .newsletterTitleOfferPart {
+        font-size: 30px;
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.2;
+      }
+      .newsletterTitle {
+        font-size: 30px;
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.2;
+      }
+      .newsletterProductTitle {
+        font-size: 20px;
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.2;
+      }
+      .newsletterProductLowPrice {
+        font-size: 18px;
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.2;
+        font-weight: 600;
+      }
+      .newsletterProductHightPrice {
+        font-size: 14px;
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.2;
+        text-decoration: line-through;
+      }
+      .newsletterRight10px {
+        padding-right: 10px;
+      }
+      .newsletterLeft10px {
+        padding-left: 10px;
+      }
+      .newsletterFooter {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+      }
+      .newsletterConditions {
+        color: black;
+        font-family: "Open Sans", sans-serif;
+        font-size: 8px;
+      }
+      .newsletterFooterCompanyDetails {
+        vertical-align: middle;
+        padding-top: 20px;
+        padding-right: 0px;
+        padding-bottom: 20px;
+        font-size: 11px;
+        font-family: "Open Sans", sans-serif !important;
+        color: #000000;
+        background: #ececec;
+        width: 100%;
+      }
+      .newsletterFooterTitle {
+        text-align: left;
+        color: #000000;
+        font-family: "Open Sans", sans-serif;
+        font-size: 20px;
+      }
+      .newsletterProductTitleFreebie {
+        text-align: center;
+        font-family: "Open Sans", sans-serif;
+        font-size: 20px;
+      }
+      .newsletterFooterCategoryLEFT {
+        padding-bottom: 20px !important;
+        padding-right: 10px !important;
+      }
+      .newsletterFooterCategoryRIGHT {
+        padding-bottom: 20px !important;
+        padding-left: 10px !important;
+      }
+      .newsletterFooterCategoryLEFTBottom {
+        padding-right: 10px !important;
+      }
+      .newsletterFooterCategoryRIGHTBottom {
+        padding-left: 10px !important;
+      }
+      .newsletterSocialIcon {
+        padding-left: 25px !important;
+      }
+      .newsletterTopBottomContainer {
+        padding-top: 35px !important;
+        padding-bottom: 35px !important;
+      }
+      .newsletterKlarnaBannerContainer {
+        padding-top: 35px !important;
+        padding-bottom: 35px !important;
+      }
+      @media screen and (max-width: 768px) {
+        .newsletterFooterCategoryLEFTBottom {
+          padding-right: 5px !important;
+        }
+        .newsletterFooterCategoryRIGHTBottom {
+          padding-left: 5px !important;
+        }
+        .newsletterFooterCategoryLEFT {
+          padding-bottom: 10px !important;
+          padding-right: 5px !important;
+        }
+        .newsletterFooterCategoryRIGHT {
+          padding-bottom: 10px !important;
+          padding-left: 5px !important;
+        }
+        .newsletterSocialIcon {
+          padding-left: 13px !important;
+        }
+        .newsletterTopBottomContainer {
+          padding-top: 20px !important;
+          padding-bottom: 20px !important;
+        }
+        .newsletterFooterTitle {
+          font-size: 18px;
+        }
+        .newsletterProductTitleFreebie {
+          font-size: 18px;
+        }
+        .newsletterProductTitle {
+          font-size: 18px;
+        }
+        .newsletterProductLowPrice {
+          font-size: 16px;
+        }
+        .newsletterProductHightPrice {
+          display: block;
+        }
+        .newsletterProductTitleContainer {
+          padding-top: 10px;
+        }
+        .newsletterTitle {
+          font-size: 25px;
+        }
+        .newsletterTitleOfferPart {
+          font-size: 25px;
+        }
+        .newsletterContainer {
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+        .newsletterFreebieContainer {
+          padding-left: 10px;
+          padding-right: 0px !important;
+        }
+        .newsletterBottom35px {
+          padding-bottom: 20px;
+        }
+        .newsletterBottom60px {
+          padding-bottom: 40px;
+        }
+        .newsletterParagraph {
+          font-size: 16px;
+        }
+        .newsletterLeft10px {
+          padding-left: 5px;
+        }
+        .newsletterRight10px {
+          padding-right: 5px;
+        }
+        .newsletterBottom20px {
+          padding-bottom: 10px;
+        }
+        .newsletterBottom80px {
+          padding-bottom: 50px;
+        }
+      }
+      @media screen and (max-width: 570px) {
+        .newsletterProductTitleFreebie {
+          font-size: 16px;
+        }
+      }
+      @media screen and (max-width: 460px) {
+        .newsletterProductTitleFreebie {
+          font-size: 14px;
+        }
+      }
+      @media screen and (max-width: 370px) {
+        .newsletterProductTitleFreebie {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body
+    aria-readonly="false"
+    class="body"
+    style="
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 auto !important;
+      font-family: 'Open Sans', sans-serif !important;
+      font-size: 13px;
+      color: #000000;
+      text-align: left;
+      background-color: #ececec;
+    "
+    width="100%"
+  >
+    {{{header}}}
+    <table
+      align="center"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      id="newsletter"
+      style="max-width:650px;width:100%;background-color:{{Newsletter_bg_color}};color:#000"
+      width="100%"
+    >
+      <tbody>
+        <tr>
+          <td align="center">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td>
+                    <a href="{{origin}}{{utm}}{{id}}"
+                      ><img
+                        alt=""
+                        loading="lazy"
+                        src="{{Top_image_src}}"
+                        style="vertical-align: middle; max-width: 100%"
+                    /></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="background-color:{{Newsletter_bg_color}}">
+            <table
+              align="center"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td>
+                            <a
+                              href="{{origin}}/content{{Banner_href_1}}{{utm}}{{id}}"
+                              ><img
+                                alt=""
+                                loading="lazy"
+                                src="{{picture_server_url}}{{slug}}{{Campaign_src_1}}_mb.png"
+                                style="vertical-align: middle; max-width: 100%"
+                            /></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:{{Newsletter_bg_color}}">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td class="newsletterBottom35px"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="background-color:{{Newsletter_bg_color}}">
+            <table
+              align="center"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td>
+                            <a
+                              href="{{origin}}/content{{Banner_href_2}}{{utm}}{{id}}"
+                              ><img
+                                alt=""
+                                loading="lazy"
+                                src="{{picture_server_url}}{{slug}}{{Campaign_src_2}}_mb.png"
+                                style="vertical-align: middle; max-width: 100%"
+                            /></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+         <tr>
+          <td
+            style="background-color:{{Timer_bg_color}};color:{{Timer_color}};"
+          >
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td class="newsletterBottom20px"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="background-color:{{Timer_bg_color}}">
+            <a href="{{origin}}/content{{Timer2_href}}{{utm}}{{id}}"
+              ><img
+                alt="Timer gif"
+                loading="lazy"
+                src="{{Timer_src}}"
+                style="vertical-align: middle; max-width: 100%"
+            /></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:{{Timer_bg_color}}">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td class="newsletterBottom20px"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="background-color:{{Timer_bg_color}}">
+            <a href="{{origin}}/content{{Timer_href}}{{utm}}{{id}}"
+              ><img
+                alt="Freebies picture"
+                loading="lazy"
+                src="{{picture_server_url}}{{Timer_freebie_src}}free.png"
+                style="vertical-align: middle; max-width: 100%"
+            /></a>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:{{Newsletter_bg_color}}">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td class="newsletterBottom35px"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="background-color:{{Newsletter_bg_color}}">
+            <table
+              align="center"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td>
+                            <a
+                              href="{{origin}}/content{{Banner_href_3}}{{utm}}{{id}}"
+                              ><img
+                                alt=""
+                                loading="lazy"
+                                src="{{picture_server_url}}{{slug}}{{Campaign_src_3}}_mb.png"
+                                style="vertical-align: middle; max-width: 100%"
+                            /></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:{{Newsletter_bg_color}}">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td class="newsletterBottom35px"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="background-color:{{Newsletter_bg_color}}">
+            <table
+              align="center"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td>
+                            <a
+                              href="{{origin}}/content{{Banner_href_4}}{{utm}}{{id}}"
+                              ><img
+                                alt=""
+                                loading="lazy"
+                                src="{{picture_server_url}}{{slug}}{{Campaign_src_4}}_mb.png"
+                                style="vertical-align: middle; max-width: 100%"
+                            /></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:{{Newsletter_bg_color}}">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td class="newsletterBottom35px"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td align="center" style="background-color:{{Newsletter_bg_color}}">
+            <table
+              align="center"
+              border="0"
+              cellpadding="0"
+              cellspacing="0"
+              width="100%"
+            >
+              <tbody>
+                <tr>
+                  <td align="center">
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      width="100%"
+                    >
+                      <tbody>
+                        <tr>
+                          <td>
+                            <a
+                              href="{{origin}}/content{{Banner_href_5}}{{utm}}{{id}}"
+                              ><img
+                                alt=""
+                                loading="lazy"
+                                src="{{picture_server_url}}{{slug}}{{Campaign_src_5}}_mb.png"
+                                style="vertical-align: middle; max-width: 100%"
+                            /></a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="background-color:{{Newsletter_bg_color}}">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td class="newsletterBottom80px"></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+      {{{services_banner}}} {{{footer_categories}}} {{{klarna}}} {{{socials}}}
+      {{{advantages}}}
+    
+    <table
+      align="center"
+      border="0"
+      cellpadding="0"
+      cellspacing="0"
+      class="newsletterContainer"
+      style="max-width: 650px; width: 100%; background-color: #ffffff"
+      width="650"
+    >
+      <tbody>
+        <tr>
+          <td>
+            <img
+              alt=""
+              loading="lazy"
+              src="https://beliani.info/newsletter/2022/line.jpg"
+              style="display: block; max-width: 100%"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td align="left" class="newsletterTopBottomContainer">
+            <span class="newsletterConditions" style="color: #000000"
+              >{{Conditions_title}} {{Conditions_description}}
+              {{{Conditions_unsubscribe}}}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {{{company_details}}}
+  </body>
+</html>
+`,
+  },
+  {
+    title: "Sunday NS with:",
     description: "Header\nTimer + Freebies Pic \nTimer\n 4 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {

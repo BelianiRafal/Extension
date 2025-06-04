@@ -90,7 +90,7 @@ const app_context = {
             ],
           id: new URLSearchParams(window.location.search).get("id"),
           utm: "?utm_source=newsletter&utm_medium=email&utm_campaign=",
-          picture_server_url: "https://upload.pictureserver.net/static/2025/",
+          picture_server_url: "https://pictureserver.net/static/2025/",
         };
         payload.slug = payload.sellerSlug + payload.languageSlug;
 
