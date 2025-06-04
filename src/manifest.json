@@ -132,7 +132,7 @@
         "https://www.prologistics.info/spam_plan.php*",
         "https://prolodev.prologistics.info/spam_plan.php*"
       ],
-      "js": ["./content/plan/span_plan.js"]
+      "js": ["./content/planning/span_plan.js"]
     }
   ],
   "background": {
