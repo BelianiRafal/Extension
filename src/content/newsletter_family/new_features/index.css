@@ -14,3 +14,12 @@
   border-radius: 12px;
   cursor: pointer;
 }
+
+#results_table {
+  width: 100%;
+}
+
+#results_table tr,
+#results_table td {
+  transition: all 1s;
+}

@@ -46,7 +46,7 @@
         "./libraries/axios.min.js",
         "./libraries/datatable.min.js",
 
-        "./content/newsletter_family/new_features/constants.js",
+        "./constants.js",
         "./content/newsletter_family/new_features/log.js",
         "./content/newsletter_family/new_features/api.js",
         "./content/newsletter_family/new_features/csvparser.js",

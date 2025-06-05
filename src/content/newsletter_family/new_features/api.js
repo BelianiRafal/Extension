@@ -6,27 +6,45 @@ const sendToBackend = async (type) => {
   if (!mergedTables)
     return alert(`Merged tables not found, check console for errors!`);
 
+  const rowsArray = Array.from(results_table.rows);
+
   for (const row of mergedTables) {
+    const slug = row.slug;
+    const targetRow = rowsArray.filter((row) => {
+      const cells = row.getElementsByTagName("td");
+
+      const slugCell = cells[1];
+
+      return slugCell && slugCell.textContent.trim() === slug;
+    })[0];
+
     // prettier-ignore
     let formData = prepareData(type === `newsletter` ? `newsletter` : `landing-page`, row);
 
-    console.log(`Sending request for row:`, row.slug);
+    console.log(`Sending request for row:`, slug);
 
+    targetRow.style.background = "#6af7ff91";
     // Wait for the sendRequest to complete before the next iteration
     const result = await sendRequest(formData);
 
     if (result.success) {
+      targetRow.style.background = "#00ff006b";
       console.log(
-        `Request successful for row "${row.slug}". Status: ${result.status}`,
+        `Request successful for row "${slug}". Status: ${result.status}`
       );
     } else {
-      console.error(
-        `Request failed for row "${row.slug}". Error: ${result.error}`,
-      );
+      targetRow.style.background = "#ff000091";
+      console.error(`Request failed for row "${slug}". Error: ${result.error}`);
     }
     console.log(`--------------------`);
   }
   console.log(`All requests processed.`);
+
+  setTimeout(() => {
+    rowsArray.forEach((row) => {
+      row.style.background = "inherit";
+    });
+  }, 1500);
 };
 
 const prepareData = (type, data) => {

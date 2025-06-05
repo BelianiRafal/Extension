@@ -83,6 +83,7 @@ const resultsTable = () => {
 
     const table = document.createElement("table");
     table.id = "results_table";
+    table.classList += "stripe";
     results.appendChild(tableHeader);
     results.appendChild(table);
     newsletterFamilyTableTbody.parentElement.after(results);
@@ -97,10 +98,10 @@ const resultsTable = () => {
     columns: [
       { data: "shop", title: "Shop" },
       { data: "slug", title: "Slug" },
-      { data: "newsID", title: "Newsletter ID" },
+      { data: "newsID", title: "NSLT ID" },
       { data: "SL", title: "Subject Line" },
-      { data: "contentId", title: "Content ID" },
-      { data: "contentShopId", title: "Content Shop ID" },
+      { data: "contentId", title: "LP ID" },
+      { data: "contentShopId", title: "LP SHOP ID" },
       { data: "PT", title: "Page Title" },
       { data: "activate_from_date", title: "From (Date)" },
       { data: "activate_from_time", title: "From (Time)" },
