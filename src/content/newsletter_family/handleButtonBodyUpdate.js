@@ -1,7 +1,7 @@
 async function handleButtonBodyUpdate({ campaign_id, body, shop_content }) {
-    if (!shop_content) {
-      new Notification("Shop content not found for " + campaign_id);
-    }
+  if (!shop_content) {
+    new Notification("Shop content not found for " + campaign_id);
+  }
   const formDataValues = {
     update_body: "Update body",
     body: body || "",

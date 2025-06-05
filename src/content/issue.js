@@ -106,7 +106,7 @@ class Issues {
     let isMyIssue = false;
     if ("issue_type" in issue) {
       isMyIssue = issue.issue_type.find(
-        (item) => item.id === this.users[this.user.username]
+        (item) => item.id === this.users[this.user.username],
       );
     }
     return isMyIssue;
@@ -167,7 +167,7 @@ class Issues {
 
     const options = [];
     const entries = Object.entries(this.issues.issue_boards).filter(
-      (item) => item[1].inactive !== "1"
+      (item) => item[1].inactive !== "1",
     );
     for (const [board_id, { name, inactive }] of entries) {
       options.push(this.renderBoard({ id: board_id, name: name }));
@@ -194,11 +194,11 @@ class Issues {
 
   getUser = () => {
     const scriptData = [...document.body.querySelectorAll("script")].find(
-      (item) => item.textContent.includes("pushHost")
+      (item) => item.textContent.includes("pushHost"),
     );
     try {
       const user_data = JSON.parse(
-        scriptData.textContent.split(";")[3].split("=")[1]
+        scriptData.textContent.split(";")[3].split("=")[1],
       );
       return user_data;
     } catch (error) {
@@ -237,11 +237,11 @@ class Issues {
   createColumns = (board_columns, issue_list) => {
     const columns = [];
     const sort_columns = board_columns.toSorted(
-      (a, b) => Number(a.ordering) - Number(b.ordering)
+      (a, b) => Number(a.ordering) - Number(b.ordering),
     );
     for (const column of sort_columns) {
       const column_issues = issue_list.filter(
-        (item) => item.issue_board_column === column.id
+        (item) => item.issue_board_column === column.id,
       );
       columns.push(this.createColumn(column, column_issues));
     }
@@ -267,7 +267,7 @@ class Issues {
     const sort_issue = issue_list.toSorted(
       (a, b) =>
         Number(a.issue_board_column_ordering) -
-        Number(b.issue_board_column_ordering)
+        Number(b.issue_board_column_ordering),
     );
     for (const issue of sort_issue) {
       issueCards.push(this.createIssueCard(issue));
@@ -602,7 +602,7 @@ class Issues {
           method: "POST",
           mode: "cors",
           credentials: "include",
-        }
+        },
       );
       if (!response.ok) {
         throw new Error(response.statusText);

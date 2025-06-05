@@ -1,6 +1,6 @@
 if (
   window.location.href.includes(
-    "https://www.prologistics.info/news_email.php?id="
+    "https://www.prologistics.info/news_email.php?id=",
   )
 ) {
   init();
@@ -16,7 +16,7 @@ function init() {
         rootNode.click();
       },
       title: "Update and fulfill servers",
-    })
+    }),
   );
 }
 

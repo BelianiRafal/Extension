@@ -18,7 +18,7 @@ function CSVToArray(strData, strDelimiter) {
       '([^"\\' +
       strDelimiter +
       "\\r\\n]*))",
-    "gi"
+    "gi",
   );
 
   // Create an array to hold our data. Give the array

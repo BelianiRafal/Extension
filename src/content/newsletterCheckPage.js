@@ -1,4 +1,4 @@
-const node = document.querySelector(".htmlCodeValidation")
+const node = document.querySelector(".htmlCodeValidation");
 if (node) {
   const url = new URLSearchParams(window.location.search);
   const id = url.get("id");
@@ -13,6 +13,10 @@ if (node) {
 
   createBackButton(id);
 } else {
-  const url = new URL(window.location.href)
-  window.location.href = url.origin + url.pathname + "?id=" +new URL(window.location.href).searchParams.get("id")
+  const url = new URL(window.location.href);
+  window.location.href =
+    url.origin +
+    url.pathname +
+    "?id=" +
+    new URL(window.location.href).searchParams.get("id");
 }

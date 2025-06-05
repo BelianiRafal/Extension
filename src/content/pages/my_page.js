@@ -66,7 +66,8 @@ setTimeout(() => {
     const JSON_Content = JSON.parse(content);
     for (const key of Object.keys(JSON_Content)) {
       const value = JSON_Content[key];
-      JSON_Content[key] = typeof value === "string" ? value.replaceAll("\n", "<br/>") : value
+      JSON_Content[key] =
+        typeof value === "string" ? value.replaceAll("\n", "<br/>") : value;
     }
 
     if (id) {
@@ -80,7 +81,7 @@ setTimeout(() => {
           document.querySelector("#campaign_id").href =
             "https://www.prologistics.info/news_email.php?id=" + id;
           document.title = "Newsletter preview";
-        }
+        },
       );
     }
   } catch (error) {

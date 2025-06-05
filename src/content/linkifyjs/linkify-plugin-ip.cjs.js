@@ -1,32 +1,28 @@
-'use strict';
+"use strict";
 
-var linkifyjs = require('linkifyjs');
+var linkifyjs = require("linkifyjs");
 
-const B_IPV6_B = 'B_IPV6_B'; // 'bracket [', IPV6, '] bracket'
+const B_IPV6_B = "B_IPV6_B"; // 'bracket [', IPV6, '] bracket'
 
-const IPv4Token = linkifyjs.createTokenClass('ipv4', {
+const IPv4Token = linkifyjs.createTokenClass("ipv4", {
   isLink: true,
   toHref(scheme) {
     if (scheme === void 0) {
       scheme = linkifyjs.options.defaults.defaultProtocol;
     }
     return `${scheme}://${this.v}`;
-  }
+  },
 });
 
 /**
  * @type {import('linkifyjs').TokenPlugin}
  */
 function ipv4Tokens(_ref) {
-  let {
-    scanner
-  } = _ref;
-  const {
-    start
-  } = scanner;
+  let { scanner } = _ref;
+  const { start } = scanner;
   const flags = {
     byte: true,
-    numeric: true
+    numeric: true,
   };
 
   // States for [0, 9]
@@ -61,7 +57,7 @@ function ipv4Tokens(_ref) {
   }
 
   // States for [250, 255]
-  let xx = Digits[2].tt('5');
+  let xx = Digits[2].tt("5");
   for (let i = 0; i < 6; i++) {
     xx.tt(`${i}`, `25${i}`, flags);
   }
@@ -70,52 +66,48 @@ function ipv4Tokens(_ref) {
 /**
  * @type {import('linkifyjs').TokenPlugin}
  */
-const ipv6Tokens = _ref2 => {
-  let {
-    scanner
-  } = _ref2;
-  const {
-    start
-  } = scanner;
+const ipv6Tokens = (_ref2) => {
+  let { scanner } = _ref2;
+  const { start } = scanner;
   const HEX = /[0-9a-f]/;
-  let z = start.tt('['); // [
-  let _ = z.tt(':'); // [:
+  let z = start.tt("["); // [
+  let _ = z.tt(":"); // [:
 
   let x = z.tr(HEX);
-  let x_ = x.tt(':');
+  let x_ = x.tt(":");
   let x_x = x_.tr(HEX);
-  let x_x_ = x_x.tt(':');
+  let x_x_ = x_x.tt(":");
   let x_x_x = x_x_.tr(HEX);
-  let x_x_x_ = x_x_x.tt(':');
+  let x_x_x_ = x_x_x.tt(":");
   let x_x_x_x = x_x_x_.tr(HEX);
-  let x_x_x_x_ = x_x_x_x.tt(':');
+  let x_x_x_x_ = x_x_x_x.tt(":");
   let x_x_x_x_x = x_x_x_x_.tr(HEX);
-  let x_x_x_x_x_ = x_x_x_x_x.tt(':');
+  let x_x_x_x_x_ = x_x_x_x_x.tt(":");
   let x_x_x_x_x_x = x_x_x_x_x_.tr(HEX);
-  let x_x_x_x_x_x_ = x_x_x_x_x_x.tt(':');
+  let x_x_x_x_x_x_ = x_x_x_x_x_x.tt(":");
   let x_x_x_x_x_x_x = x_x_x_x_x_x_.tr(HEX);
-  let x_x_x_x_x_x_x_ = x_x_x_x_x_x_x.tt(':');
+  let x_x_x_x_x_x_x_ = x_x_x_x_x_x_x.tt(":");
   let x_x_x_x_x_x_x_x = x_x_x_x_x_x_x_.tr(HEX);
-  let BIpv6B = x_x_x_x_x_x_x_x.tt(']', B_IPV6_B);
-  x_x_x_x_x_x_x_.tt(']', BIpv6B);
+  let BIpv6B = x_x_x_x_x_x_x_x.tt("]", B_IPV6_B);
+  x_x_x_x_x_x_x_.tt("]", BIpv6B);
 
   // Note: This isn't quite right because it allows unlimited components but
   // it's proved difficult to come up with a correct implementation.
-  let __ = _.tt(':'); // [::
+  let __ = _.tt(":"); // [::
   let __x = __.tr(HEX);
-  let __x_ = __x.tt(':');
-  __x_.tt(':', __);
+  let __x_ = __x.tt(":");
+  __x_.tt(":", __);
   __x_.tr(HEX, __x);
-  x_.tt(':', __);
-  x_x_.tt(':', __);
-  x_x_x_.tt(':', __);
-  x_x_x_x_.tt(':', __);
-  x_x_x_x_x_.tt(':', __);
-  x_x_x_x_x_x_.tt(':', __);
+  x_.tt(":", __);
+  x_x_.tt(":", __);
+  x_x_x_.tt(":", __);
+  x_x_x_x_.tt(":", __);
+  x_x_x_x_x_.tt(":", __);
+  x_x_x_x_x_x_.tt(":", __);
   _.tr(HEX, x_x);
-  __.tt(']', BIpv6B);
-  __x.tt(']', BIpv6B);
-  __x_.tt(']', BIpv6B);
+  __.tt("]", BIpv6B);
+  __x.tt("]", BIpv6B);
+  __x_.tt("]", BIpv6B);
 
   // Ensures max of 4 items per component are allowed
   for (let i = 1; i < 4; i++) {
@@ -127,17 +119,17 @@ const ipv6Tokens = _ref2 => {
     x_x_x_x_x_x = x_x_x_x_x_x.tr(HEX);
     x_x_x_x_x_x_x = x_x_x_x_x_x_x.tr(HEX);
     x_x_x_x_x_x_x_x = x_x_x_x_x_x_x_x.tr(HEX);
-    x.tt(':', x_);
-    x_x.tt(':', x_x_);
-    x_x_x.tt(':', x_x_x_);
-    x_x_x_x.tt(':', x_x_x_x_);
-    x_x_x_x_x.tt(':', x_x_x_x_x_);
-    x_x_x_x_x_x.tt(':', x_x_x_x_x_x_);
-    x_x_x_x_x_x_x.tt(':', x_x_x_x_x_x_x_);
-    x_x_x_x_x_x_x_x.tt(']', BIpv6B);
+    x.tt(":", x_);
+    x_x.tt(":", x_x_);
+    x_x_x.tt(":", x_x_x_);
+    x_x_x_x.tt(":", x_x_x_x_);
+    x_x_x_x_x.tt(":", x_x_x_x_x_);
+    x_x_x_x_x_x.tt(":", x_x_x_x_x_x_);
+    x_x_x_x_x_x_x.tt(":", x_x_x_x_x_x_x_);
+    x_x_x_x_x_x_x_x.tt("]", BIpv6B);
     __x = __x.tr(HEX);
-    __x.tt(':', __x_);
-    __x.tt(']', BIpv6B);
+    __x.tt(":", __x_);
+    __x.tt("]", BIpv6B);
   }
 };
 
@@ -145,18 +137,8 @@ const ipv6Tokens = _ref2 => {
  * @type {import('linkifyjs').Plugin}
  */
 function ip(_ref3) {
-  let {
-    scanner,
-    parser
-  } = _ref3;
-  const {
-    COLON,
-    DOT,
-    SLASH,
-    LOCALHOST,
-    SLASH_SCHEME,
-    groups
-  } = scanner.tokens;
+  let { scanner, parser } = _ref3;
+  const { COLON, DOT, SLASH, LOCALHOST, SLASH_SCHEME, groups } = scanner.tokens;
   const ByteDot = new linkifyjs.State();
   const ByteDotByte = new linkifyjs.State();
   const ByteDotByteDotByte = new linkifyjs.State();
@@ -186,6 +168,6 @@ function ip(_ref3) {
   UriPrefixIPv6ColonPort.tt(SLASH, Url);
 }
 
-linkifyjs.registerTokenPlugin('ipv4', ipv4Tokens);
-linkifyjs.registerTokenPlugin('ipv6', ipv6Tokens);
-linkifyjs.registerPlugin('ip', ip);
+linkifyjs.registerTokenPlugin("ipv4", ipv4Tokens);
+linkifyjs.registerTokenPlugin("ipv6", ipv6Tokens);
+linkifyjs.registerPlugin("ip", ip);

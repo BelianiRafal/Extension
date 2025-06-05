@@ -141,4 +141,3 @@ const TEMPLATES = [
   },
 ];
 const SELECTOR = "textarea[name=body]";
-

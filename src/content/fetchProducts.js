@@ -26,11 +26,11 @@ async function fetchProducts(ids) {
         if (response.value.ok) {
           const response_json = await response.value.json();
           responses_json.push(
-            Array.isArray(cbs) ? cbs[index](response_json) : cbs(response_json)
+            Array.isArray(cbs) ? cbs[index](response_json) : cbs(response_json),
           );
         } else {
           console.log(
-            "Response value is not ok while parsing slaves response."
+            "Response value is not ok while parsing slaves response.",
           );
         }
       }
@@ -85,7 +85,7 @@ async function fetchProducts(ids) {
         // })
         (response) => response.sa.article_name,
         (response) => response.saCollection.list,
-      ]
+      ],
     );
     const [name, slaves_ids] = parsed_response_slaves;
 
@@ -93,9 +93,9 @@ async function fetchProducts(ids) {
     const slaves_prices = await parse_response_prices(
       await Promise.allSettled(
         slaves_ids.map((slave) =>
-          fetch(apiRoutes.getPriceAndIsActive(slave.id))
-        )
-      )
+          fetch(apiRoutes.getPriceAndIsActive(slave.id)),
+        ),
+      ),
     );
     // EXIT models getPriceAndIsActive.js
 
@@ -109,8 +109,8 @@ async function fetchProducts(ids) {
 
   // Iterate over each main_id and create Promise.
   const ids_response = await Promise.allSettled(
-    ids.map((product) => getProductData(product))
+    ids.map((product) => getProductData(product)),
   );
-  
+
   return ids_response.map((item) => item.value).flat();
 }

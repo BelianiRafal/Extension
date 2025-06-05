@@ -23,20 +23,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               data: inActiveProducts,
               name: "inactive_products.json",
             });
-            return
+            return;
           } else {
             downloadJSON({
               data: inActiveProducts,
               name: "inactive_products.json",
             });
-            return
+            return;
           }
         }
         downloadJSON({ data: products, name: "products.json" });
         sendResponse({ status: "success" });
       } catch (error) {
         alert(
-          "Something went wrong. Try fetch product 1 by 1. " + error.message
+          "Something went wrong. Try fetch product 1 by 1. " + error.message,
         );
       }
     }

@@ -27,7 +27,7 @@ const NewsletterFamilyTable = {
           return true;
         }
         return false;
-      }
+      },
     );
     if (!this.newsletter_family) {
       return new Notification("Newsletter family table not found.");
@@ -60,7 +60,7 @@ const NewsletterFamilyTable = {
     header: null,
     createTh({ title, description }) {
       const th = document.createElement("th");
-      th.title = description || ""
+      th.title = description || "";
       th.style.textAlign = "center";
       const b = document.createElement("b");
       b.textContent = title;
@@ -76,15 +76,15 @@ const NewsletterFamilyTable = {
       const button = document.createElement("button");
       button.style =
         "display: flex; align-items: center; gap: 2px; font-size: 11px; white-space: nowrap;";
-      button.textContent = title
+      button.textContent = title;
       button.addEventListener("click", onClick);
       return button;
-    }
+    },
   },
 };
 
 setTimeout(() => {
   NewsletterFamilyTable.init({
-    features: [updateBody, fulfillBody, copyLandingDate],
+    features: [updateBody, fulfillBody],
   });
-}, 1000)
+}, 1000);

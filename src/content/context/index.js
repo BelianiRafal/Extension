@@ -139,7 +139,7 @@ const app_context = {
           select_context.style =
             "text-transform: capitalize; height: 22px; border-radius: 2px;";
           const options = [];
-          const contextKeys = Object.keys(context || {})
+          const contextKeys = Object.keys(context || {});
           for (const key of contextKeys) {
             const option = document.createElement("option");
             option.value = key;
@@ -177,7 +177,7 @@ const app_context = {
               // Take from context slug value.
               if (!(payload.slug in selectedContext)) {
                 new Notification(
-                  payload.slug + " not found in selected context."
+                  payload.slug + " not found in selected context.",
                 );
                 console.log(payload.slug + " not found in: ", selectedContext);
               } else {
@@ -220,7 +220,7 @@ const app_context = {
             removeContextButton.onclick = () => {
               if (
                 confirm(
-                  `Are you sure? Context data for ${value} will be removed.`
+                  `Are you sure? Context data for ${value} will be removed.`,
                 )
               ) {
                 this.handleRemoveContext({
@@ -249,7 +249,7 @@ const app_context = {
               // Take from context slug value.
               if (!(payload.slug in _selectedContext)) {
                 new Notification(
-                  payload.slug + " not found in selected context."
+                  payload.slug + " not found in selected context.",
                 );
                 console.log(payload.slug + " not found in: ", _selectedContext);
               } else {
@@ -292,7 +292,7 @@ const app_context = {
             removeContextButton.onclick = () => {
               if (
                 confirm(
-                  `Are you sure? Context data for ${selectedContext} will be removed.`
+                  `Are you sure? Context data for ${selectedContext} will be removed.`,
                 )
               ) {
                 this.handleRemoveContext({
@@ -319,7 +319,7 @@ const app_context = {
         });
 
         document.body.append(button);
-      }
+      },
     );
   },
 
@@ -335,7 +335,7 @@ const app_context = {
       () => {
         new Notification(`Context data for ${value} removed.`);
         sidebar.remove();
-      }
+      },
     );
   },
 
@@ -502,11 +502,13 @@ const app_context = {
                         },
                         () => {
                           new Notification(
-                            "File: " + file.name + " has been added to context."
+                            "File: " +
+                              file.name +
+                              " has been added to context.",
                           );
                           dialog.close();
-                          location.reload()
-                        }
+                          location.reload();
+                        },
                       );
                     } else {
                       chrome.storage.local.set(
@@ -518,11 +520,13 @@ const app_context = {
                         },
                         () => {
                           new Notification(
-                            "File: " + file.name + " has been added to context."
+                            "File: " +
+                              file.name +
+                              " has been added to context.",
                           );
                           dialog.close();
-                          location.reload()
-                        }
+                          location.reload();
+                        },
                       );
                     }
                   });
@@ -556,11 +560,13 @@ const app_context = {
                         },
                         () => {
                           new Notification(
-                            "File: " + file.name + " has been added to context."
+                            "File: " +
+                              file.name +
+                              " has been added to context.",
                           );
                           dialog.close();
-                          location.reload()
-                        }
+                          location.reload();
+                        },
                       );
                     } else {
                       chrome.storage.local.set(
@@ -572,11 +578,13 @@ const app_context = {
                         },
                         () => {
                           new Notification(
-                            "File: " + file.name + " has been added to context."
+                            "File: " +
+                              file.name +
+                              " has been added to context.",
                           );
                           dialog.close();
-                          location.reload()
-                        }
+                          location.reload();
+                        },
                       );
                     }
                   });

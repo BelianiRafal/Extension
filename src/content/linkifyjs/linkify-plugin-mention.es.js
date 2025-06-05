@@ -1,10 +1,10 @@
-import { createTokenClass, registerPlugin } from 'linkifyjs';
+import { createTokenClass, registerPlugin } from "linkifyjs";
 
-const MentionToken = createTokenClass('mention', {
+const MentionToken = createTokenClass("mention", {
   isLink: true,
   toHref() {
-    return '/' + this.toString().slice(1);
-  }
+    return "/" + this.toString().slice(1);
+  },
 });
 
 /**
@@ -12,19 +12,9 @@ const MentionToken = createTokenClass('mention', {
  * @type {import('linkifyjs').Plugin}
  */
 function mention(_ref) {
-  let {
-    scanner,
-    parser
-  } = _ref;
-  const {
-    HYPHEN,
-    SLASH,
-    UNDERSCORE,
-    AT
-  } = scanner.tokens;
-  const {
-    domain
-  } = scanner.tokens.groups;
+  let { scanner, parser } = _ref;
+  const { HYPHEN, SLASH, UNDERSCORE, AT } = scanner.tokens;
+  const { domain } = scanner.tokens.groups;
 
   // @
   const At = parser.start.tt(AT); // @
@@ -53,4 +43,4 @@ function mention(_ref) {
   MentionDivider.tt(HYPHEN, Mention);
 }
 
-registerPlugin('mention', mention);
+registerPlugin("mention", mention);
