@@ -760,7 +760,7 @@ const COMPONENTS = {
       "frfr": {
         "Company Details": "Mentions légales",
         "Address": "Beliani (DE) GmbH, 6340 Baar, Suisse",
-        "Mobile number": "Téléphone: 01 87 39 86 15;",
+        "Mobile number": "Téléphone: +33 1 84 79 84 99;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.fr",
         "Email": "mail@beliani.fr",
