@@ -99,7 +99,8 @@
         "./content/handlers/handleSelectBannerTemplate.js",
         "./content/templates/banners.js",
         "./content/cgb_templates/index.js"
-      ]
+      ],
+      "css": ["./content/cgb_templates/style.css"]
     },
     {
       "matches": [
