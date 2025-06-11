@@ -4,8 +4,8 @@ const initializeNewsEmailPage = () => {
   newsletterFamilyTableTbody = findNewsletterFamilyTableTbody();
 
   if (!newsletterFamilyTableTbody) {
-    console.error(
-      "Newsletter family table not found on news_email page. Aborting extension initialization.",
+    logger.error(
+      "Newsletter family table not found on news_email page. Aborting extension initialization."
     );
     return;
   }
@@ -17,12 +17,6 @@ let nsltTableData = [];
 
 const processNewsletterTableData = () => {
   const rows = newsletterFamilyTableTbody.querySelectorAll("tr");
-
-  if (rows.length < 3) {
-    console.warn(
-      "Less than 3 rows in the newsletter family table, processing might be incomplete.",
-    );
-  }
 
   rows.forEach((row) => {
     const tableDataCells = row.querySelectorAll("td");
@@ -42,9 +36,9 @@ const processNewsletterTableData = () => {
       // getting newsletter id
       if (form) {
         if (!form.getAttribute("id")) {
-          console.warn(
+          logger.warn(
             "Skipping form processing due to missing ID in row:",
-            row,
+            row
           );
           return;
         }
@@ -75,10 +69,10 @@ const processNewsletterTableData = () => {
           rowData.contentId = searchParams.get("id");
           rowData.contentShopId = searchParams.get("shop_id");
         } catch (error) {
-          console.error(
+          logger.error(
             "Error parsing URL from <a> element:",
             aElement.href,
-            error,
+            error
           );
         }
       }
@@ -89,20 +83,25 @@ const processNewsletterTableData = () => {
         rowData.slug = SELLER_LANG_TO_SLUG[currentShopKey];
       }
     });
-    if (!rowData.shop) return console.warn("Missing shop");
-    if (!rowData.language) return console.warn("Missing language");
-    if (!rowData.slug) return console.warn("Missing slug");
-    if (!rowData.newsID) return console.warn("Missing newsID");
-    if (!rowData.contentId) return console.warn("Missing contentId");
-    if (!rowData.contentShopId) return console.warn("Missing contentShopId");
+
+    if (!rowData.shop) return logger.warn("Missing shop");
+    if (!rowData.language) return logger.warn("Missing language");
+    if (!rowData.slug) return logger.warn("Missing slug");
+    if (!rowData.newsID) return logger.warn("Missing newsID");
+    if (!rowData.contentId)
+      logger.warn(`Missing contentId for newsID: ${rowData.newsID}`);
+    if (!rowData.contentShopId)
+      logger.warn(`Missing contentShopId for newsID: ${rowData.newsID}`);
 
     // pushing data to object
     nsltTableData.push(rowData);
   });
 
+  if (nsltTableData.length === 0)
+    return logger.error("No data found in newsletter family table.");
+
   // debug console log using table function
-  // logger.debug("Data from Newsletter Family Table: ", {table: nsltTableData});
-  console.table(nsltTableData);
+  logger.debug("Data from Newsletter Family Table: ", { table: nsltTableData });
 
   setupNewsEmailUIElements();
 };
@@ -111,11 +110,11 @@ const processNewsletterTableData = () => {
 const setupNewsEmailUIElements = () => {
   const updateSubjectsButton = createButton(
     "NSLT | Update SL & Servers",
-    handleSLAndServersUpdate,
+    handleSLAndServersUpdate
   );
   const updatePageTitlesButton = createButton(
     "LP | Update Page Titles",
-    handlePageTitlesUpdate,
+    handlePageTitlesUpdate
   );
 
   const uploadCSVInput = document.createElement("input");
