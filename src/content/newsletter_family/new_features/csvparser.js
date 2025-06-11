@@ -22,18 +22,17 @@ const loadCSV = async (result) => {
       dynamicTyping: true,
       skipEmptyLines: true,
       error: (error) => {
-        console.error("Papa Parse individual row error:", error);
+        logger.error("Papa Parse individual row error:", error);
       },
     });
 
     if (parsedResult.errors.length > 0) {
-      return console.error("Papa Parse overall errors:", parsedResult.errors);
+      return logger.error("Papa Parse overall errors:", parsedResult.errors);
     }
 
     const parsedData = parsedResult.data.filter((row, rowIndex) => {
-      // Added rowIndex
-      let rowIsValid = true; // Assume valid until proven otherwise
-      const emptyColumns = []; // Array to store names of empty columns
+      let rowIsValid = true;
+      const emptyColumns = [];
 
       // Iterate over the keys (column names) in the row object
       for (const key in row) {
@@ -42,8 +41,8 @@ const loadCSV = async (result) => {
           // Check if the value is null, undefined, or an empty string (after trimming)
           // prettier-ignore
           if (value === null || value === undefined || (typeof value === 'string' && value.trim() === '')) {
-            rowIsValid = false; // Mark row as invalid
-            emptyColumns.push(key); // Add the column name to the list of empty columns
+            rowIsValid = false; 
+            emptyColumns.push(key);
           }
         }
       }
@@ -52,25 +51,24 @@ const loadCSV = async (result) => {
         // Log the row index (starting from 0, or adjust for CSV line number)
         // and the names of the empty columns
         // prettier-ignore
-        console.warn(`Skipped row ${rowIndex + 1} due to missing data in columns: ${emptyColumns.join(', ')}. Original row data:`, row);
+        logger.warn(`Skipped row ${rowIndex + 1} due to missing data in columns: ${emptyColumns.join(', ')}. Original row data:`, row);
       }
 
-      return rowIsValid; // Only return true for valid rows
+      return rowIsValid;
     });
 
     dataFromCSV = parsedData;
-    logger.info("Data from CSV: ");
-    console.table(parsedData);
+    logger.info("Data from CSV: ", { table: dataFromCSV });
 
     mergeTables();
   } catch (error) {
-    return console.error("Error during Papa Parse or table generation:", error);
+    return logger.error("Error during Papa Parse or table generation:", error);
   }
 };
 
 const resultsTable = () => {
   if (document.getElementById("RESULTS_CONTAINER")) {
-    return console.warn("Table exists!");
+    return logger.warn("Table exists!");
   } else {
     const results = document.createElement("div");
     results.classList.add("ext-container");
