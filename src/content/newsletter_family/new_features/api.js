@@ -4,41 +4,42 @@ const sendToBackend = async (type) => {
     return alert(`Newsletter table data incorrectly scraped!`);
   if (!dataFromCSV) return alert(`Empty dataFromCSV object! Read CSV first!`);
   if (!mergedTables)
-    return alert(`Merged tables not found, check console for errors!`);
+    return alert(
+      `You probably forgot to upload CSV file!\nMerged tables not found, check console for errors!`
+    );
 
   const rowsArray = Array.from(results_table.rows);
 
   for (const row of mergedTables) {
     const slug = row.slug;
-    const targetRow = rowsArray.filter((row) => {
-      const cells = row.getElementsByTagName("td");
-
-      const slugCell = cells[1];
-
+    const targetRow = rowsArray.find((row) => {
+      const slugCell = row.getElementsByTagName("td")[1];
       return slugCell && slugCell.textContent.trim() === slug;
-    })[0];
+    });
 
-    // prettier-ignore
-    let formData = prepareData(type === `newsletter` ? `newsletter` : `landing-page`, row);
+    const formData = prepareData(
+      type === "newsletter" ? "newsletter" : "landing-page",
+      row
+    );
 
-    console.log(`Sending request for row:`, slug);
+    logger.debug(`Sending request for row:`, slug);
 
-    targetRow.style.background = "#6af7ff91";
-    // Wait for the sendRequest to complete before the next iteration
+    if (targetRow) targetRow.style.background = "#6af7ff91";
     const result = await sendRequest(formData);
 
+    if (targetRow) {
+      targetRow.style.background = result.success ? "#00ff006b" : "#ff000091";
+    }
+
     if (result.success) {
-      targetRow.style.background = "#00ff006b";
-      console.log(
+      logger.debug(
         `Request successful for row "${slug}". Status: ${result.status}`
       );
     } else {
-      targetRow.style.background = "#ff000091";
-      console.error(`Request failed for row "${slug}". Error: ${result.error}`);
+      logger.error(`Request failed for row "${slug}". Error: ${result.error}`);
     }
-    console.log(`--------------------`);
   }
-  console.log(`All requests processed.`);
+  logger.debug(`All requests processed.`);
 
   setTimeout(() => {
     rowsArray.forEach((row) => {
@@ -47,58 +48,88 @@ const sendToBackend = async (type) => {
   }, 1500);
 };
 
+const getNewsletterId = (shop, language, newsID) => {
+  logger.debug(`${shop} ${language} ${newsID}`);
+  if (
+    (shop === "Beliani" || shop === "Beliani BE") &&
+    !(language === "german" || language === "dutch")
+  ) {
+    return newsID - 1;
+  }
+  return newsID;
+};
+
+const appendNewsletterData = (formData, data) => {
+  const newsletterFields = {
+    seller: data.shop,
+    shop_content_id: data.contentId,
+    lang: data.language,
+    subject: data.SL,
+    id: data.newsID,
+  };
+
+  Object.entries(newsletterFields).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  const smtp_servers =
+    data.shop.trim() !== "Beliani NL" ? DEFAULT_SERVERS : NL_SERVERS;
+  smtp_servers.forEach((server) => {
+    formData.append("smtp_id[]", server);
+  });
+};
+
+const appendLandingPageData = (formData, data) => {
+  formData.append("name", data.name);
+  formData.append(
+    "newsletter_template_id",
+    getNewsletterId(data.shop, data.language, data.newsID)
+  );
+  formData.append("id", data.contentId ?? null);
+  formData.append("shop_id", data.contentShopId ?? null);
+
+  const fieldsWithLanguage = {
+    title_menu: data.name,
+    alias: data.name,
+    description: data.name,
+    title: data.PT,
+  };
+
+  Object.entries(fieldsWithLanguage).forEach(([key, value]) => {
+    formData.append(`${key}[${data.language}]`, value);
+  });
+};
+
 const prepareData = (type, data) => {
   const formData = new FormData();
 
-  switch (type) {
-    case `newsletter`:
-      formData.append(`seller`, data.shop);
-      formData.append(`shop_content_id`, data.contentId);
-      formData.append(`lang`, data.language);
-      formData.append(`subject`, data.SL);
-      formData.append(`id`, data.newsID);
-      if (data.shop.trim() === `Beliani NL`) {
-        formData.append(`smtp_id[]`, 66);
-      } else {
-        formData.append(`smtp_id[]`, 60);
-        formData.append(`smtp_id[]`, 64);
-        formData.append(`smtp_id[]`, 65);
-        formData.append(`smtp_id[]`, 67);
-      }
-      break;
-    case `landing-page`:
-      console.log(data.shop);
-      formData.append(`name`, data.name);
-      formData.append(`title_menu[${data.language}]`, data.name);
-      if (data.shop === "Beliani BE") {
-        formData.append(`newsletter_template_id`, null);
-      } else if (data.shop === "Beliani") {
-        if (data.language === "german") {
-          formData.append(`newsletter_template_id`, data.newsID);
-        } else {
-          formData.append(`newsletter_template_id`, data.newsID - 1);
-        }
-      } else {
-        formData.append(`newsletter_template_id`, data.newsID);
-      }
-      formData.append(`alias[${data.language}]`, data.name);
-      formData.append(`description[${data.language}]`, data.name);
-      formData.append(`title[${data.language}]`, data.PT);
-      formData.append(`id`, data.contentId);
-      formData.append(`shop_id`, data.contentShopId);
-      break;
-  }
+  formData.append("activate_from_date", data.activate_from_date);
+  formData.append("activate_from_time", data.activate_from_time);
+  formData.append("deactivate_from_date", data.deactivate_from_date);
+  formData.append("deactivate_from_time", data.deactivate_from_time);
+  formData.append("update", "Update");
 
-  formData.append(`activate_from_date`, data.activate_from_date);
-  formData.append(`activate_from_time`, data.activate_from_time);
-  formData.append(`deactivate_from_date`, data.deactivate_from_date);
-  formData.append(`deactivate_from_time`, data.deactivate_from_time);
-  formData.append(`update`, `Update`);
+  if (type === "newsletter") {
+    appendNewsletterData(formData, data);
+  } else {
+    if (!data.contentId || !data.contentShopId)
+      return logger.error(
+        "Missing contentId or contentShopId for landing page data"
+      );
+    appendLandingPageData(formData, data);
+  }
 
   return formData;
 };
 
 const sendRequest = async (formData) => {
+  if (!formData) {
+    logger.error("FormData is empty or undefined.");
+    return { success: false, error: "FormData is empty or undefined." };
+  }
+
+  logger.debug(`FormData: `, { table: Array.from(formData) });
+
   try {
     const endpoint = formData.has("seller")
       ? NEWSLETTER_ENDPOINT
@@ -106,20 +137,16 @@ const sendRequest = async (formData) => {
     const response = await axios.post(endpoint, formData, {
       withCredentials: true,
     });
-
     return { success: true, status: response.status };
   } catch (error) {
-    console.error("Error sending request:", error.message);
+    logger.error("Error sending request:", error.message);
     if (error.response) {
-      console.error("Error Data:", error.response.data);
-      console.error("Error Status:", error.response.status);
-      console.error("Error Headers:", error.response.headers);
+      logger.error("Error Data:", error.response.data);
+      logger.error("Error Status:", error.response.status);
+      logger.error("Error Headers:", error.response.headers);
     } else if (error.request) {
-      console.error("No response received for request:", error.request);
+      logger.error("No response received for request:", error.request);
     }
-    return {
-      success: false,
-      error: error.message,
-    };
+    return { success: false, error: error.message };
   }
 };
