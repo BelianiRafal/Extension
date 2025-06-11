@@ -1,10 +1,10 @@
 {
-    "name": {
-        "message": "Prolo extension",
-        "description": "extension name"
-    },
-    "description": {
-        "message": "Let's help our developers",
-        "description": "extension description"
-    }
+  "name": {
+    "message": "Prolo extension",
+    "description": "extension name"
+  },
+  "description": {
+    "message": "Let's help our developers",
+    "description": "extension description"
+  }
 }

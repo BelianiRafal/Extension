@@ -1,0 +1,25 @@
+.ext-container {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px;
+  align-items: center;
+}
+
+.largerButton {
+  border: 1px solid #3636362d;
+  color: #363636;
+  background: rgb(228, 228, 228);
+  padding: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#results_table {
+  width: 100%;
+}
+
+#results_table tr,
+#results_table td {
+  transition: all 1s;
+}

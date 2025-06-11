@@ -1,5 +1,5 @@
-import jQuery from 'jquery';
-import { Options, tokenize } from 'linkifyjs';
+import jQuery from "jquery";
+import { Options, tokenize } from "linkifyjs";
 
 const HTML_NODE = 1,
   TXT_NODE = 3;
@@ -28,8 +28,8 @@ function tokensToNodes(tokens, options, doc) {
   const result = [];
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
-    if (token.t === 'nl' && options.get('nl2br')) {
-      result.push(doc.createElement('br'));
+    if (token.t === "nl" && options.get("nl2br")) {
+      result.push(doc.createElement("br"));
     } else if (!token.isLink || !options.check(token)) {
       result.push(doc.createTextNode(token.toString()));
     } else {
@@ -53,7 +53,10 @@ function linkifyElementHelper(element, options, doc) {
   }
 
   // Is this element already a link?
-  if (element.tagName === 'A' || options.ignoreTags.indexOf(element.tagName) >= 0) {
+  if (
+    element.tagName === "A" ||
+    options.ignoreTags.indexOf(element.tagName) >= 0
+  ) {
     // No need to linkify
     return element;
   }
@@ -64,23 +67,25 @@ function linkifyElementHelper(element, options, doc) {
       case HTML_NODE:
         linkifyElementHelper(childElement, options, doc);
         break;
-      case TXT_NODE:
-        {
-          str = childElement.nodeValue;
-          tokens = tokenize(str);
-          if (tokens.length === 0 || tokens.length === 1 && tokens[0].t === 'text') {
-            // No node replacement required
-            break;
-          }
-          nodes = tokensToNodes(tokens, options, doc);
-
-          // Swap out the current child for the set of nodes
-          replaceChildWithChildren(element, childElement, nodes);
-
-          // so that the correct sibling is selected next
-          childElement = nodes[nodes.length - 1];
+      case TXT_NODE: {
+        str = childElement.nodeValue;
+        tokens = tokenize(str);
+        if (
+          tokens.length === 0 ||
+          (tokens.length === 1 && tokens[0].t === "text")
+        ) {
+          // No node replacement required
           break;
         }
+        nodes = tokensToNodes(tokens, options, doc);
+
+        // Swap out the current child for the set of nodes
+        replaceChildWithChildren(element, childElement, nodes);
+
+        // so that the correct sibling is selected next
+        childElement = nodes[nodes.length - 1];
+        break;
+      }
     }
     childElement = childElement.nextSibling;
   }
@@ -91,13 +96,8 @@ function linkifyElementHelper(element, options, doc) {
  * @param {Document} doc The document implementaiton
  */
 function getDefaultRender(doc) {
-  return _ref => {
-    let {
-      tagName,
-      attributes,
-      content,
-      eventListeners
-    } = _ref;
+  return (_ref) => {
+    let { tagName, attributes, content, eventListeners } = _ref;
     const link = doc.createElement(tagName);
     for (const attr in attributes) {
       link.setAttribute(attr, attributes[attr]);
@@ -129,10 +129,20 @@ function linkifyElement(element, opts, doc) {
     doc = null;
   }
   try {
-    doc = doc || document || window && window.document || global && global.document;
-  } catch (e) {/* do nothing for now */}
+    doc =
+      doc ||
+      document ||
+      (window && window.document) ||
+      (global && global.document);
+  } catch (e) {
+    /* do nothing for now */
+  }
   if (!doc) {
-    throw new Error('Cannot find document implementation. ' + 'If you are in a non-browser environment like Node.js, ' + 'pass the document implementation as the third argument to linkifyElement.');
+    throw new Error(
+      "Cannot find document implementation. " +
+        "If you are in a non-browser environment like Node.js, " +
+        "pass the document implementation as the third argument to linkifyElement.",
+    );
   }
   const options = new Options(opts, getDefaultRender(doc));
   return linkifyElementHelper(element, options, doc);
@@ -147,7 +157,8 @@ linkifyElement.getDefaultRender = getDefaultRender;
  * @param {import('linkifyjs').Opts | import('linkifyjs').Options} opts
  * @param {Document} doc
  */
-linkifyElement.normalize = (opts, doc) => new Options(opts, getDefaultRender(doc));
+linkifyElement.normalize = (opts, doc) =>
+  new Options(opts, getDefaultRender(doc));
 
 // Applies the plugin to jQuery
 /**
@@ -161,15 +172,25 @@ function apply($, doc) {
     doc = false;
   }
   $.fn = $.fn || {};
-  if (typeof $.fn.linkify === 'function') {
+  if (typeof $.fn.linkify === "function") {
     // Already applied
     return;
   }
   try {
-    doc = doc || document || window && window.document || global && global.document;
-  } catch (e) {/* do nothing for now */}
+    doc =
+      doc ||
+      document ||
+      (window && window.document) ||
+      (global && global.document);
+  } catch (e) {
+    /* do nothing for now */
+  }
   if (!doc) {
-    throw new Error('Cannot find document implementation. ' + 'If you are in a non-browser environment like Node.js, ' + 'pass the document implementation as the second argument to linkify-jquery');
+    throw new Error(
+      "Cannot find document implementation. " +
+        "If you are in a non-browser environment like Node.js, " +
+        "pass the document implementation as the second argument to linkify-jquery",
+    );
   }
   function jqLinkify(opts) {
     const options = linkifyElement.normalize(opts, doc);
@@ -179,48 +200,48 @@ function apply($, doc) {
   }
   $.fn.linkify = jqLinkify;
   $(function () {
-    $('[data-linkify]').each(function () {
+    $("[data-linkify]").each(function () {
       const $this = $(this);
       const data = $this.data();
       const target = data.linkify;
       const nl2br = data.linkifyNl2br;
       const opts = {
-        nl2br: !!nl2br && nl2br !== 0 && nl2br !== 'false'
+        nl2br: !!nl2br && nl2br !== 0 && nl2br !== "false",
       };
-      if ('linkifyAttributes' in data) {
+      if ("linkifyAttributes" in data) {
         opts.attributes = data.linkifyAttributes;
       }
-      if ('linkifyDefaultProtocol' in data) {
+      if ("linkifyDefaultProtocol" in data) {
         opts.defaultProtocol = data.linkifyDefaultProtocol;
       }
-      if ('linkifyEvents' in data) {
+      if ("linkifyEvents" in data) {
         opts.events = data.linkifyEvents;
       }
-      if ('linkifyFormat' in data) {
+      if ("linkifyFormat" in data) {
         opts.format = data.linkifyFormat;
       }
-      if ('linkifyFormatHref' in data) {
+      if ("linkifyFormatHref" in data) {
         opts.formatHref = data.linkifyFormatHref;
       }
-      if ('linkifyTagname' in data) {
+      if ("linkifyTagname" in data) {
         opts.tagName = data.linkifyTagname;
       }
-      if ('linkifyTarget' in data) {
+      if ("linkifyTarget" in data) {
         opts.target = data.linkifyTarget;
       }
-      if ('linkifyRel' in data) {
+      if ("linkifyRel" in data) {
         opts.rel = data.linkifyRel;
       }
-      if ('linkifyValidate' in data) {
+      if ("linkifyValidate" in data) {
         opts.validate = data.linkifyValidate;
       }
-      if ('linkifyIgnoreTags' in data) {
+      if ("linkifyIgnoreTags" in data) {
         opts.ignoreTags = data.linkifyIgnoreTags;
       }
-      if ('linkifyClassName' in data) {
+      if ("linkifyClassName" in data) {
         opts.className = data.linkifyClassName;
       }
-      const $target = target === 'this' ? $this : $this.find(target);
+      const $target = target === "this" ? $this : $this.find(target);
       $target.linkify(opts);
     });
   });
@@ -229,11 +250,15 @@ function apply($, doc) {
 // Try applying to the globally-defined jQuery element, if possible
 try {
   apply(jQuery);
-} catch (e) {/**/}
+} catch (e) {
+  /**/
+}
 
 // Try assigning linkifyElement to the browser scope
 try {
   window.linkifyElement = linkifyElement;
-} catch (e) {/**/}
+} catch (e) {
+  /**/
+}
 
 export { apply as default };

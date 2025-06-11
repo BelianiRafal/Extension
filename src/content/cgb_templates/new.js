@@ -73,9 +73,9 @@ const ui = {
         document.body.style.overflow = "hidden";
       },
       closeModal() {
-        dialog.close()
+        dialog.close();
         dialog.style.display = "none";
-      }
+      },
     };
   },
 
@@ -234,7 +234,7 @@ const app = {
 
   initMobile() {
     this.textareas_mobile = document.querySelectorAll(
-      "textarea[name^=mobile_html]"
+      "textarea[name^=mobile_html]",
     );
     if (!this.textareas_mobile) {
       new Notification("Mobile textareas not found.");
@@ -265,7 +265,7 @@ const app = {
       if (name in context && context[name] in this.state.context) {
         const _template = Mustache.render(
           template,
-          this.state.context[context[name]]
+          this.state.context[context[name]],
         );
         return _template;
       } else {
@@ -396,7 +396,7 @@ const app = {
             const data = this.convertToObject(results.data);
             app.state.context = data;
             new Notification(
-              "File: " + file.name + " has been added to context."
+              "File: " + file.name + " has been added to context.",
             );
             input.value = null;
             dialog.close();
@@ -404,7 +404,7 @@ const app = {
             if (!app.state.context) {
               app.state.context = data;
               new Notification(
-                "File: " + file.name + " has been added to context."
+                "File: " + file.name + " has been added to context.",
               );
               input_slug.value = null;
               dialog.close();
@@ -436,7 +436,7 @@ const app = {
                 ...new_context,
               };
               new Notification(
-                "File: " + file.name + " has been added to context."
+                "File: " + file.name + " has been added to context.",
               );
               input.value = null;
               dialog.close();
@@ -469,7 +469,7 @@ const app = {
               if (!app.state.context) {
                 app.state.context = data[0];
                 new Notification(
-                  "File: " + file.name + " has been added to context."
+                  "File: " + file.name + " has been added to context.",
                 );
                 input_slug.value = null;
                 dialog.close();
@@ -479,7 +479,7 @@ const app = {
                   ...data[0],
                 };
                 new Notification(
-                  "File: " + file.name + " has been added to context."
+                  "File: " + file.name + " has been added to context.",
                 );
                 input.value = null;
                 dialog.close();
@@ -519,7 +519,7 @@ const app = {
           onClick: (ev) => {
             if (textarea.value.trim().length <= 10) {
               new Notification(
-                "Pls select template. Minimum length 10 symbols."
+                "Pls select template. Minimum length 10 symbols.",
               );
               return;
             }
@@ -552,7 +552,7 @@ const app = {
             new Notification(
               "Pls select template for" +
                 parent.name +
-                ". Minimum length 10 symbols."
+                ". Minimum length 10 symbols.",
             );
             continue;
           }
@@ -570,7 +570,7 @@ const app = {
         node: this.ui.createSelect({
           title: "Select template",
           options: this.getTemplates((templates) =>
-            templates.filter((item) => item.is_active)
+            templates.filter((item) => item.is_active),
           ),
           onChange: (ev) => {
             textarea.value = this.handleTemplateSelect(ev);
@@ -623,7 +623,9 @@ const app = {
   createDialogNode({ parent, position, onSelect }) {
     return this.ui.createDialog({
       title: "Select template",
-      children: this.getTemplateCard(this.getTemplates(sort.active), null,{onSelect}),
+      children: this.getTemplateCard(this.getTemplates(sort.active), null, {
+        onSelect,
+      }),
       parent,
       position,
     });
@@ -677,7 +679,7 @@ const app = {
             new Notification("Fallback not found in template.");
           }
         },
-        {}
+        {},
       );
 
       const get_template_context = document.createElement("button");
@@ -731,8 +733,8 @@ const app = {
         parent: document.body,
         position: "beforeend",
         onSelect: (template) => {
-          textarea.value = template
-          dialog.closeModal()
+          textarea.value = template;
+          dialog.closeModal();
         },
       });
       this.createButtonSelectNode({
@@ -745,17 +747,17 @@ const app = {
     // this.selectNodes = this.createSelectNodes(this.textareas);
     this.fulfillNodes = this.createFulfillNodes(
       this.textareas,
-      this.languageAttributeToSlugDesktop
+      this.languageAttributeToSlugDesktop,
     );
     this.attachFulfillNodes(this.fulfillNodes);
     this.fulfillAllNodeDesktop = this.createFulfillAllNodes(
       this.fulfillNodes,
-      this.languageAttributeToSlugDesktop
+      this.languageAttributeToSlugDesktop,
     );
     if (this.fulfillNodes.length > 0) {
       this.attachFulfillAllNode(
         this.fulfillNodes[0],
-        this.fulfillAllNodeDesktop
+        this.fulfillAllNodeDesktop,
       );
     }
   },
@@ -764,17 +766,17 @@ const app = {
     this.selectMobileNodes = this.createSelectNodes(this.textareas_mobile);
     this.fulfillMobileNodes = this.createFulfillNodes(
       this.textareas_mobile,
-      this.languageAttributeToSlugMobile
+      this.languageAttributeToSlugMobile,
     );
     this.attachFulfillNodes(this.fulfillMobileNodes);
     this.fulfillAllNodeMobile = this.createFulfillAllNodes(
       this.fulfillMobileNodes,
-      this.languageAttributeToSlugMobile
+      this.languageAttributeToSlugMobile,
     );
     if (this.fulfillMobileNodes.length > 0) {
       this.attachFulfillAllNode(
         this.fulfillMobileNodes[0],
-        this.fulfillAllNodeMobile
+        this.fulfillAllNodeMobile,
       );
     }
   },

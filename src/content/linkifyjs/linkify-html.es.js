@@ -1,4 +1,4 @@
-import { Options, tokenize as tokenize$1 } from 'linkifyjs';
+import { Options, tokenize as tokenize$1 } from "linkifyjs";
 
 /**
  * generated from https://raw.githubusercontent.com/w3c/html/26b5126f96f736f796b9e29718138919dd513744/entities.json
@@ -13,12 +13,12 @@ var HTML5NamedCharRefs = {
   gt: ">",
   lt: "<",
   nbsp: " ",
-  quot: "\""
+  quot: '"',
 };
 var HEXCHARCODE = /^#[xX]([A-Fa-f0-9]+)$/;
 var CHARCODE = /^#([0-9]+)$/;
 var NAMED = /^([A-Za-z0-9]+)$/;
-var EntityParser = /** @class */function () {
+var EntityParser = /** @class */ (function () {
   function EntityParser(named) {
     this.named = named;
   }
@@ -40,7 +40,7 @@ var EntityParser = /** @class */function () {
     }
   };
   return EntityParser;
-}();
+})();
 var WSP = /[\t\n\f ]/;
 var ALPHA = /[A-Za-z]/;
 var CRLF = /\r\n?/g;
@@ -51,12 +51,12 @@ function isAlpha(char) {
   return ALPHA.test(char);
 }
 function preprocessInput(input) {
-  return input.replace(CRLF, '\n');
+  return input.replace(CRLF, "\n");
 }
-var EventedTokenizer = /** @class */function () {
+var EventedTokenizer = /** @class */ (function () {
   function EventedTokenizer(delegate, entityParser, mode) {
     if (mode === void 0) {
-      mode = 'precompile';
+      mode = "precompile";
     }
     this.delegate = delegate;
     this.entityParser = entityParser;
@@ -64,20 +64,20 @@ var EventedTokenizer = /** @class */function () {
     this.state = "beforeData" /* beforeData */;
     this.line = -1;
     this.column = -1;
-    this.input = '';
+    this.input = "";
     this.index = -1;
-    this.tagNameBuffer = '';
+    this.tagNameBuffer = "";
     this.states = {
       beforeData: function () {
         var char = this.peek();
-        if (char === '<' && !this.isIgnoredEndTag()) {
+        if (char === "<" && !this.isIgnoredEndTag()) {
           this.transitionTo("tagOpen" /* tagOpen */);
           this.markTagStart();
           this.consume();
         } else {
-          if (this.mode === 'precompile' && char === '\n') {
+          if (this.mode === "precompile" && char === "\n") {
             var tag = this.tagNameBuffer.toLowerCase();
-            if (tag === 'pre' || tag === 'textarea') {
+            if (tag === "pre" || tag === "textarea") {
               this.consume();
             }
           }
@@ -88,14 +88,14 @@ var EventedTokenizer = /** @class */function () {
       data: function () {
         var char = this.peek();
         var tag = this.tagNameBuffer;
-        if (char === '<' && !this.isIgnoredEndTag()) {
+        if (char === "<" && !this.isIgnoredEndTag()) {
           this.delegate.finishData();
           this.transitionTo("tagOpen" /* tagOpen */);
           this.markTagStart();
           this.consume();
-        } else if (char === '&' && tag !== 'script' && tag !== 'style') {
+        } else if (char === "&" && tag !== "script" && tag !== "style") {
           this.consume();
-          this.delegate.appendToData(this.consumeCharRef() || '&');
+          this.delegate.appendToData(this.consumeCharRef() || "&");
         } else {
           this.consume();
           this.delegate.appendToData(char);
@@ -103,26 +103,30 @@ var EventedTokenizer = /** @class */function () {
       },
       tagOpen: function () {
         var char = this.consume();
-        if (char === '!') {
-          this.transitionTo("markupDeclarationOpen" /* markupDeclarationOpen */);
-        } else if (char === '/') {
+        if (char === "!") {
+          this.transitionTo(
+            "markupDeclarationOpen" /* markupDeclarationOpen */,
+          );
+        } else if (char === "/") {
           this.transitionTo("endTagOpen" /* endTagOpen */);
-        } else if (char === '@' || char === ':' || isAlpha(char)) {
+        } else if (char === "@" || char === ":" || isAlpha(char)) {
           this.transitionTo("tagName" /* tagName */);
-          this.tagNameBuffer = '';
+          this.tagNameBuffer = "";
           this.delegate.beginStartTag();
           this.appendToTagName(char);
         }
       },
       markupDeclarationOpen: function () {
         var char = this.consume();
-        if (char === '-' && this.peek() === '-') {
+        if (char === "-" && this.peek() === "-") {
           this.consume();
           this.transitionTo("commentStart" /* commentStart */);
           this.delegate.beginComment();
         } else {
-          var maybeDoctype = char.toUpperCase() + this.input.substring(this.index, this.index + 6).toUpperCase();
-          if (maybeDoctype === 'DOCTYPE') {
+          var maybeDoctype =
+            char.toUpperCase() +
+            this.input.substring(this.index, this.index + 6).toUpperCase();
+          if (maybeDoctype === "DOCTYPE") {
             this.consume();
             this.consume();
             this.consume();
@@ -147,31 +151,35 @@ var EventedTokenizer = /** @class */function () {
           return;
         } else {
           this.transitionTo("doctypeName" /* doctypeName */);
-          if (this.delegate.appendToDoctypeName) this.delegate.appendToDoctypeName(char.toLowerCase());
+          if (this.delegate.appendToDoctypeName)
+            this.delegate.appendToDoctypeName(char.toLowerCase());
         }
       },
       doctypeName: function () {
         var char = this.consume();
         if (isSpace(char)) {
           this.transitionTo("afterDoctypeName" /* afterDoctypeName */);
-        } else if (char === '>') {
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          if (this.delegate.appendToDoctypeName) this.delegate.appendToDoctypeName(char.toLowerCase());
+          if (this.delegate.appendToDoctypeName)
+            this.delegate.appendToDoctypeName(char.toLowerCase());
         }
       },
       afterDoctypeName: function () {
         var char = this.consume();
         if (isSpace(char)) {
           return;
-        } else if (char === '>') {
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          var nextSixChars = char.toUpperCase() + this.input.substring(this.index, this.index + 5).toUpperCase();
-          var isPublic = nextSixChars.toUpperCase() === 'PUBLIC';
-          var isSystem = nextSixChars.toUpperCase() === 'SYSTEM';
+          var nextSixChars =
+            char.toUpperCase() +
+            this.input.substring(this.index, this.index + 5).toUpperCase();
+          var isPublic = nextSixChars.toUpperCase() === "PUBLIC";
+          var isSystem = nextSixChars.toUpperCase() === "SYSTEM";
           if (isPublic || isSystem) {
             this.consume();
             this.consume();
@@ -181,9 +189,13 @@ var EventedTokenizer = /** @class */function () {
             this.consume();
           }
           if (isPublic) {
-            this.transitionTo("afterDoctypePublicKeyword" /* afterDoctypePublicKeyword */);
+            this.transitionTo(
+              "afterDoctypePublicKeyword" /* afterDoctypePublicKeyword */,
+            );
           } else if (isSystem) {
-            this.transitionTo("afterDoctypeSystemKeyword" /* afterDoctypeSystemKeyword */);
+            this.transitionTo(
+              "afterDoctypeSystemKeyword" /* afterDoctypeSystemKeyword */,
+            );
           }
         }
       },
@@ -191,15 +203,21 @@ var EventedTokenizer = /** @class */function () {
       afterDoctypePublicKeyword: function () {
         var char = this.peek();
         if (isSpace(char)) {
-          this.transitionTo("beforeDoctypePublicIdentifier" /* beforeDoctypePublicIdentifier */);
+          this.transitionTo(
+            "beforeDoctypePublicIdentifier" /* beforeDoctypePublicIdentifier */,
+          );
           this.consume();
         } else if (char === '"') {
-          this.transitionTo("doctypePublicIdentifierDoubleQuoted" /* doctypePublicIdentifierDoubleQuoted */);
+          this.transitionTo(
+            "doctypePublicIdentifierDoubleQuoted" /* doctypePublicIdentifierDoubleQuoted */,
+          );
           this.consume();
         } else if (char === "'") {
-          this.transitionTo("doctypePublicIdentifierSingleQuoted" /* doctypePublicIdentifierSingleQuoted */);
+          this.transitionTo(
+            "doctypePublicIdentifierSingleQuoted" /* doctypePublicIdentifierSingleQuoted */,
+          );
           this.consume();
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.consume();
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
@@ -209,36 +227,48 @@ var EventedTokenizer = /** @class */function () {
       doctypePublicIdentifierDoubleQuoted: function () {
         var char = this.consume();
         if (char === '"') {
-          this.transitionTo("afterDoctypePublicIdentifier" /* afterDoctypePublicIdentifier */);
-        } else if (char === '>') {
+          this.transitionTo(
+            "afterDoctypePublicIdentifier" /* afterDoctypePublicIdentifier */,
+          );
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          if (this.delegate.appendToDoctypePublicIdentifier) this.delegate.appendToDoctypePublicIdentifier(char);
+          if (this.delegate.appendToDoctypePublicIdentifier)
+            this.delegate.appendToDoctypePublicIdentifier(char);
         }
       },
       doctypePublicIdentifierSingleQuoted: function () {
         var char = this.consume();
         if (char === "'") {
-          this.transitionTo("afterDoctypePublicIdentifier" /* afterDoctypePublicIdentifier */);
-        } else if (char === '>') {
+          this.transitionTo(
+            "afterDoctypePublicIdentifier" /* afterDoctypePublicIdentifier */,
+          );
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          if (this.delegate.appendToDoctypePublicIdentifier) this.delegate.appendToDoctypePublicIdentifier(char);
+          if (this.delegate.appendToDoctypePublicIdentifier)
+            this.delegate.appendToDoctypePublicIdentifier(char);
         }
       },
       afterDoctypePublicIdentifier: function () {
         var char = this.consume();
         if (isSpace(char)) {
-          this.transitionTo("betweenDoctypePublicAndSystemIdentifiers" /* betweenDoctypePublicAndSystemIdentifiers */);
-        } else if (char === '>') {
+          this.transitionTo(
+            "betweenDoctypePublicAndSystemIdentifiers" /* betweenDoctypePublicAndSystemIdentifiers */,
+          );
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else if (char === '"') {
-          this.transitionTo("doctypeSystemIdentifierDoubleQuoted" /* doctypeSystemIdentifierDoubleQuoted */);
+          this.transitionTo(
+            "doctypeSystemIdentifierDoubleQuoted" /* doctypeSystemIdentifierDoubleQuoted */,
+          );
         } else if (char === "'") {
-          this.transitionTo("doctypeSystemIdentifierSingleQuoted" /* doctypeSystemIdentifierSingleQuoted */);
+          this.transitionTo(
+            "doctypeSystemIdentifierSingleQuoted" /* doctypeSystemIdentifierSingleQuoted */,
+          );
         }
       },
 
@@ -246,43 +276,53 @@ var EventedTokenizer = /** @class */function () {
         var char = this.consume();
         if (isSpace(char)) {
           return;
-        } else if (char === '>') {
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else if (char === '"') {
-          this.transitionTo("doctypeSystemIdentifierDoubleQuoted" /* doctypeSystemIdentifierDoubleQuoted */);
+          this.transitionTo(
+            "doctypeSystemIdentifierDoubleQuoted" /* doctypeSystemIdentifierDoubleQuoted */,
+          );
         } else if (char === "'") {
-          this.transitionTo("doctypeSystemIdentifierSingleQuoted" /* doctypeSystemIdentifierSingleQuoted */);
+          this.transitionTo(
+            "doctypeSystemIdentifierSingleQuoted" /* doctypeSystemIdentifierSingleQuoted */,
+          );
         }
       },
 
       doctypeSystemIdentifierDoubleQuoted: function () {
         var char = this.consume();
         if (char === '"') {
-          this.transitionTo("afterDoctypeSystemIdentifier" /* afterDoctypeSystemIdentifier */);
-        } else if (char === '>') {
+          this.transitionTo(
+            "afterDoctypeSystemIdentifier" /* afterDoctypeSystemIdentifier */,
+          );
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          if (this.delegate.appendToDoctypeSystemIdentifier) this.delegate.appendToDoctypeSystemIdentifier(char);
+          if (this.delegate.appendToDoctypeSystemIdentifier)
+            this.delegate.appendToDoctypeSystemIdentifier(char);
         }
       },
       doctypeSystemIdentifierSingleQuoted: function () {
         var char = this.consume();
         if (char === "'") {
-          this.transitionTo("afterDoctypeSystemIdentifier" /* afterDoctypeSystemIdentifier */);
-        } else if (char === '>') {
+          this.transitionTo(
+            "afterDoctypeSystemIdentifier" /* afterDoctypeSystemIdentifier */,
+          );
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          if (this.delegate.appendToDoctypeSystemIdentifier) this.delegate.appendToDoctypeSystemIdentifier(char);
+          if (this.delegate.appendToDoctypeSystemIdentifier)
+            this.delegate.appendToDoctypeSystemIdentifier(char);
         }
       },
       afterDoctypeSystemIdentifier: function () {
         var char = this.consume();
         if (isSpace(char)) {
           return;
-        } else if (char === '>') {
+        } else if (char === ">") {
           if (this.delegate.endDoctype) this.delegate.endDoctype();
           this.transitionTo("beforeData" /* beforeData */);
         }
@@ -290,9 +330,9 @@ var EventedTokenizer = /** @class */function () {
 
       commentStart: function () {
         var char = this.consume();
-        if (char === '-') {
+        if (char === "-") {
           this.transitionTo("commentStartDash" /* commentStartDash */);
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.delegate.finishComment();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
@@ -303,20 +343,20 @@ var EventedTokenizer = /** @class */function () {
 
       commentStartDash: function () {
         var char = this.consume();
-        if (char === '-') {
+        if (char === "-") {
           this.transitionTo("commentEnd" /* commentEnd */);
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.delegate.finishComment();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          this.delegate.appendToCommentData('-');
+          this.delegate.appendToCommentData("-");
           this.transitionTo("comment" /* comment */);
         }
       },
 
       comment: function () {
         var char = this.consume();
-        if (char === '-') {
+        if (char === "-") {
           this.transitionTo("commentEndDash" /* commentEndDash */);
         } else {
           this.delegate.appendToCommentData(char);
@@ -324,21 +364,21 @@ var EventedTokenizer = /** @class */function () {
       },
       commentEndDash: function () {
         var char = this.consume();
-        if (char === '-') {
+        if (char === "-") {
           this.transitionTo("commentEnd" /* commentEnd */);
         } else {
-          this.delegate.appendToCommentData('-' + char);
+          this.delegate.appendToCommentData("-" + char);
           this.transitionTo("comment" /* comment */);
         }
       },
 
       commentEnd: function () {
         var char = this.consume();
-        if (char === '>') {
+        if (char === ">") {
           this.delegate.finishComment();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          this.delegate.appendToCommentData('--' + char);
+          this.delegate.appendToCommentData("--" + char);
           this.transitionTo("comment" /* comment */);
         }
       },
@@ -347,9 +387,9 @@ var EventedTokenizer = /** @class */function () {
         var char = this.consume();
         if (isSpace(char)) {
           this.transitionTo("beforeAttributeName" /* beforeAttributeName */);
-        } else if (char === '/') {
+        } else if (char === "/") {
           this.transitionTo("selfClosingStartTag" /* selfClosingStartTag */);
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.delegate.finishTag();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
@@ -360,14 +400,14 @@ var EventedTokenizer = /** @class */function () {
         var char = this.consume();
         if (isSpace(char)) {
           this.transitionTo("beforeAttributeName" /* beforeAttributeName */);
-          this.tagNameBuffer = '';
-        } else if (char === '/') {
+          this.tagNameBuffer = "";
+        } else if (char === "/") {
           this.transitionTo("selfClosingStartTag" /* selfClosingStartTag */);
-          this.tagNameBuffer = '';
-        } else if (char === '>') {
+          this.tagNameBuffer = "";
+        } else if (char === ">") {
           this.delegate.finishTag();
           this.transitionTo("beforeData" /* beforeData */);
-          this.tagNameBuffer = '';
+          this.tagNameBuffer = "";
         } else {
           this.appendToTagName(char);
         }
@@ -377,15 +417,17 @@ var EventedTokenizer = /** @class */function () {
         if (isSpace(char)) {
           this.consume();
           return;
-        } else if (char === '/') {
+        } else if (char === "/") {
           this.transitionTo("selfClosingStartTag" /* selfClosingStartTag */);
           this.consume();
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.consume();
           this.delegate.finishTag();
           this.transitionTo("beforeData" /* beforeData */);
-        } else if (char === '=') {
-          this.delegate.reportSyntaxError('attribute name cannot start with equals sign');
+        } else if (char === "=") {
+          this.delegate.reportSyntaxError(
+            "attribute name cannot start with equals sign",
+          );
           this.transitionTo("attributeName" /* attributeName */);
           this.delegate.beginAttribute();
           this.consume();
@@ -400,22 +442,24 @@ var EventedTokenizer = /** @class */function () {
         if (isSpace(char)) {
           this.transitionTo("afterAttributeName" /* afterAttributeName */);
           this.consume();
-        } else if (char === '/') {
+        } else if (char === "/") {
           this.delegate.beginAttributeValue(false);
           this.delegate.finishAttributeValue();
           this.consume();
           this.transitionTo("selfClosingStartTag" /* selfClosingStartTag */);
-        } else if (char === '=') {
+        } else if (char === "=") {
           this.transitionTo("beforeAttributeValue" /* beforeAttributeValue */);
           this.consume();
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.delegate.beginAttributeValue(false);
           this.delegate.finishAttributeValue();
           this.consume();
           this.delegate.finishTag();
           this.transitionTo("beforeData" /* beforeData */);
-        } else if (char === '"' || char === "'" || char === '<') {
-          this.delegate.reportSyntaxError(char + ' is not a valid character within attribute names');
+        } else if (char === '"' || char === "'" || char === "<") {
+          this.delegate.reportSyntaxError(
+            char + " is not a valid character within attribute names",
+          );
           this.consume();
           this.delegate.appendToAttributeName(char);
         } else {
@@ -428,15 +472,15 @@ var EventedTokenizer = /** @class */function () {
         if (isSpace(char)) {
           this.consume();
           return;
-        } else if (char === '/') {
+        } else if (char === "/") {
           this.delegate.beginAttributeValue(false);
           this.delegate.finishAttributeValue();
           this.consume();
           this.transitionTo("selfClosingStartTag" /* selfClosingStartTag */);
-        } else if (char === '=') {
+        } else if (char === "=") {
           this.consume();
           this.transitionTo("beforeAttributeValue" /* beforeAttributeValue */);
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.delegate.beginAttributeValue(false);
           this.delegate.finishAttributeValue();
           this.consume();
@@ -456,21 +500,27 @@ var EventedTokenizer = /** @class */function () {
         if (isSpace(char)) {
           this.consume();
         } else if (char === '"') {
-          this.transitionTo("attributeValueDoubleQuoted" /* attributeValueDoubleQuoted */);
+          this.transitionTo(
+            "attributeValueDoubleQuoted" /* attributeValueDoubleQuoted */,
+          );
           this.delegate.beginAttributeValue(true);
           this.consume();
         } else if (char === "'") {
-          this.transitionTo("attributeValueSingleQuoted" /* attributeValueSingleQuoted */);
+          this.transitionTo(
+            "attributeValueSingleQuoted" /* attributeValueSingleQuoted */,
+          );
           this.delegate.beginAttributeValue(true);
           this.consume();
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.delegate.beginAttributeValue(false);
           this.delegate.finishAttributeValue();
           this.consume();
           this.delegate.finishTag();
           this.transitionTo("beforeData" /* beforeData */);
         } else {
-          this.transitionTo("attributeValueUnquoted" /* attributeValueUnquoted */);
+          this.transitionTo(
+            "attributeValueUnquoted" /* attributeValueUnquoted */,
+          );
           this.delegate.beginAttributeValue(false);
           this.consume();
           this.delegate.appendToAttributeValue(char);
@@ -480,9 +530,11 @@ var EventedTokenizer = /** @class */function () {
         var char = this.consume();
         if (char === '"') {
           this.delegate.finishAttributeValue();
-          this.transitionTo("afterAttributeValueQuoted" /* afterAttributeValueQuoted */);
-        } else if (char === '&') {
-          this.delegate.appendToAttributeValue(this.consumeCharRef() || '&');
+          this.transitionTo(
+            "afterAttributeValueQuoted" /* afterAttributeValueQuoted */,
+          );
+        } else if (char === "&") {
+          this.delegate.appendToAttributeValue(this.consumeCharRef() || "&");
         } else {
           this.delegate.appendToAttributeValue(char);
         }
@@ -491,9 +543,11 @@ var EventedTokenizer = /** @class */function () {
         var char = this.consume();
         if (char === "'") {
           this.delegate.finishAttributeValue();
-          this.transitionTo("afterAttributeValueQuoted" /* afterAttributeValueQuoted */);
-        } else if (char === '&') {
-          this.delegate.appendToAttributeValue(this.consumeCharRef() || '&');
+          this.transitionTo(
+            "afterAttributeValueQuoted" /* afterAttributeValueQuoted */,
+          );
+        } else if (char === "&") {
+          this.delegate.appendToAttributeValue(this.consumeCharRef() || "&");
         } else {
           this.delegate.appendToAttributeValue(char);
         }
@@ -504,14 +558,14 @@ var EventedTokenizer = /** @class */function () {
           this.delegate.finishAttributeValue();
           this.consume();
           this.transitionTo("beforeAttributeName" /* beforeAttributeName */);
-        } else if (char === '/') {
+        } else if (char === "/") {
           this.delegate.finishAttributeValue();
           this.consume();
           this.transitionTo("selfClosingStartTag" /* selfClosingStartTag */);
-        } else if (char === '&') {
+        } else if (char === "&") {
           this.consume();
-          this.delegate.appendToAttributeValue(this.consumeCharRef() || '&');
-        } else if (char === '>') {
+          this.delegate.appendToAttributeValue(this.consumeCharRef() || "&");
+        } else if (char === ">") {
           this.delegate.finishAttributeValue();
           this.consume();
           this.delegate.finishTag();
@@ -526,10 +580,10 @@ var EventedTokenizer = /** @class */function () {
         if (isSpace(char)) {
           this.consume();
           this.transitionTo("beforeAttributeName" /* beforeAttributeName */);
-        } else if (char === '/') {
+        } else if (char === "/") {
           this.consume();
           this.transitionTo("selfClosingStartTag" /* selfClosingStartTag */);
-        } else if (char === '>') {
+        } else if (char === ">") {
           this.consume();
           this.delegate.finishTag();
           this.transitionTo("beforeData" /* beforeData */);
@@ -540,7 +594,7 @@ var EventedTokenizer = /** @class */function () {
 
       selfClosingStartTag: function () {
         var char = this.peek();
-        if (char === '>') {
+        if (char === ">") {
           this.consume();
           this.delegate.markTagAsSelfClosing();
           this.delegate.finishTag();
@@ -552,20 +606,20 @@ var EventedTokenizer = /** @class */function () {
 
       endTagOpen: function () {
         var char = this.consume();
-        if (char === '@' || char === ':' || isAlpha(char)) {
+        if (char === "@" || char === ":" || isAlpha(char)) {
           this.transitionTo("endTagName" /* endTagName */);
-          this.tagNameBuffer = '';
+          this.tagNameBuffer = "";
           this.delegate.beginEndTag();
           this.appendToTagName(char);
         }
-      }
+      },
     };
     this.reset();
   }
   EventedTokenizer.prototype.reset = function () {
     this.transitionTo("beforeData" /* beforeData */);
-    this.input = '';
-    this.tagNameBuffer = '';
+    this.input = "";
+    this.tagNameBuffer = "";
     this.index = 0;
     this.line = 1;
     this.column = 0;
@@ -594,7 +648,7 @@ var EventedTokenizer = /** @class */function () {
     this.flushData();
   };
   EventedTokenizer.prototype.flushData = function () {
-    if (this.state === 'data') {
+    if (this.state === "data") {
       this.delegate.finishData();
       this.transitionTo("beforeData" /* beforeData */);
     }
@@ -606,7 +660,7 @@ var EventedTokenizer = /** @class */function () {
   EventedTokenizer.prototype.consume = function () {
     var char = this.peek();
     this.index++;
-    if (char === '\n') {
+    if (char === "\n") {
       this.line++;
       this.column = 0;
     } else {
@@ -615,7 +669,7 @@ var EventedTokenizer = /** @class */function () {
     return char;
   };
   EventedTokenizer.prototype.consumeCharRef = function () {
-    var endIndex = this.input.indexOf(';', this.index);
+    var endIndex = this.input.indexOf(";", this.index);
     if (endIndex === -1) {
       return;
     }
@@ -642,11 +696,18 @@ var EventedTokenizer = /** @class */function () {
   };
   EventedTokenizer.prototype.isIgnoredEndTag = function () {
     var tag = this.tagNameBuffer;
-    return tag === 'title' && this.input.substring(this.index, this.index + 8) !== '</title>' || tag === 'style' && this.input.substring(this.index, this.index + 8) !== '</style>' || tag === 'script' && this.input.substring(this.index, this.index + 9) !== '</script>';
+    return (
+      (tag === "title" &&
+        this.input.substring(this.index, this.index + 8) !== "</title>") ||
+      (tag === "style" &&
+        this.input.substring(this.index, this.index + 8) !== "</style>") ||
+      (tag === "script" &&
+        this.input.substring(this.index, this.index + 9) !== "</script>")
+    );
   };
   return EventedTokenizer;
-}();
-var Tokenizer = /** @class */function () {
+})();
+var Tokenizer = /** @class */ (function () {
   function Tokenizer(entityParser, options) {
     if (options === void 0) {
       options = {};
@@ -682,7 +743,7 @@ var Tokenizer = /** @class */function () {
   Tokenizer.prototype.current = function () {
     var token = this.token;
     if (token === null) {
-      throw new Error('token was unexpectedly null');
+      throw new Error("token was unexpectedly null");
     }
     if (arguments.length === 0) {
       return token;
@@ -706,12 +767,12 @@ var Tokenizer = /** @class */function () {
       this.current().loc = {
         start: {
           line: this.startLine,
-          column: this.startColumn
+          column: this.startColumn,
         },
         end: {
           line: this.tokenizer.line,
-          column: this.tokenizer.column
-        }
+          column: this.tokenizer.column,
+        },
       };
     }
     this.startLine = this.tokenizer.line;
@@ -721,7 +782,7 @@ var Tokenizer = /** @class */function () {
   Tokenizer.prototype.beginDoctype = function () {
     this.push({
       type: "Doctype" /* Doctype */,
-      name: ''
+      name: "",
     });
   };
   Tokenizer.prototype.appendToDoctypeName = function (char) {
@@ -749,7 +810,7 @@ var Tokenizer = /** @class */function () {
   Tokenizer.prototype.beginData = function () {
     this.push({
       type: "Chars" /* Chars */,
-      chars: ''
+      chars: "",
     });
   };
   Tokenizer.prototype.appendToData = function (char) {
@@ -762,7 +823,7 @@ var Tokenizer = /** @class */function () {
   Tokenizer.prototype.beginComment = function () {
     this.push({
       type: "Comment" /* Comment */,
-      chars: ''
+      chars: "",
     });
   };
   Tokenizer.prototype.appendToCommentData = function (char) {
@@ -776,15 +837,15 @@ var Tokenizer = /** @class */function () {
   Tokenizer.prototype.beginStartTag = function () {
     this.push({
       type: "StartTag" /* StartTag */,
-      tagName: '',
+      tagName: "",
       attributes: [],
-      selfClosing: false
+      selfClosing: false,
     });
   };
   Tokenizer.prototype.beginEndTag = function () {
     this.push({
       type: "EndTag" /* EndTag */,
-      tagName: ''
+      tagName: "",
     });
   };
   Tokenizer.prototype.finishTag = function () {
@@ -795,11 +856,12 @@ var Tokenizer = /** @class */function () {
   };
   // Tags - name
   Tokenizer.prototype.appendToTagName = function (char) {
-    this.current("StartTag" /* StartTag */, "EndTag" /* EndTag */).tagName += char;
+    this.current("StartTag" /* StartTag */, "EndTag" /* EndTag */).tagName +=
+      char;
   };
   // Tags - attributes
   Tokenizer.prototype.beginAttribute = function () {
-    this._currentAttribute = ['', '', false];
+    this._currentAttribute = ["", "", false];
   };
   Tokenizer.prototype.appendToAttributeName = function (char) {
     this.currentAttribute()[0] += char;
@@ -811,24 +873,26 @@ var Tokenizer = /** @class */function () {
     this.currentAttribute()[1] += char;
   };
   Tokenizer.prototype.finishAttributeValue = function () {
-    this.current("StartTag" /* StartTag */).attributes.push(this._currentAttribute);
+    this.current("StartTag" /* StartTag */).attributes.push(
+      this._currentAttribute,
+    );
   };
   Tokenizer.prototype.reportSyntaxError = function (message) {
     this.current().syntaxError = message;
   };
   return Tokenizer;
-}();
+})();
 function tokenize(input, options) {
   var tokenizer = new Tokenizer(new EntityParser(HTML5NamedCharRefs), options);
   return tokenizer.tokenize(input);
 }
 
-const LinkifyResult = 'LinkifyResult';
-const StartTag = 'StartTag';
-const EndTag = 'EndTag';
-const Chars = 'Chars';
-const Comment = 'Comment';
-const Doctype = 'Doctype';
+const LinkifyResult = "LinkifyResult";
+const StartTag = "StartTag";
+const EndTag = "EndTag";
+const Chars = "Chars";
+const Comment = "Comment";
+const Doctype = "Doctype";
 
 /**
  * @param {string} str html string to link
@@ -854,7 +918,8 @@ function linkifyHtml(str, opts) {
 
       // Ignore all the contents of ignored tags
       const tagName = token.tagName.toUpperCase();
-      const isIgnored = tagName === 'A' || options.ignoreTags.indexOf(tagName) >= 0;
+      const isIgnored =
+        tagName === "A" || options.ignoreTags.indexOf(tagName) >= 0;
       if (!isIgnored) {
         continue;
       }
@@ -878,19 +943,18 @@ function linkifyHtml(str, opts) {
       case LinkifyResult:
         linkified.push(token.rendered);
         break;
-      case StartTag:
-        {
-          let link = '<' + token.tagName;
-          if (token.attributes.length > 0) {
-            link += ' ' + attributeArrayToStrings(token.attributes).join(' ');
-          }
-          if (token.selfClosing) {
-            link += ' /';
-          }
-          link += '>';
-          linkified.push(link);
-          break;
+      case StartTag: {
+        let link = "<" + token.tagName;
+        if (token.attributes.length > 0) {
+          link += " " + attributeArrayToStrings(token.attributes).join(" ");
         }
+        if (token.selfClosing) {
+          link += " /";
+        }
+        link += ">";
+        linkified.push(link);
+        break;
+      }
       case EndTag:
         linkified.push(`</${token.tagName}>`);
         break;
@@ -900,22 +964,21 @@ function linkifyHtml(str, opts) {
       case Comment:
         linkified.push(`<!--${escapeText(token.chars)}-->`);
         break;
-      case Doctype:
-        {
-          let doctype = `<!DOCTYPE ${token.name}`;
-          if (token.publicIdentifier) {
-            doctype += ` PUBLIC "${token.publicIdentifier}"`;
-          }
-          if (token.systemIdentifier) {
-            doctype += ` "${token.systemIdentifier}"`;
-          }
-          doctype += '>';
-          linkified.push(doctype);
-          break;
+      case Doctype: {
+        let doctype = `<!DOCTYPE ${token.name}`;
+        if (token.publicIdentifier) {
+          doctype += ` PUBLIC "${token.publicIdentifier}"`;
         }
+        if (token.systemIdentifier) {
+          doctype += ` "${token.systemIdentifier}"`;
+        }
+        doctype += ">";
+        linkified.push(doctype);
+        break;
+      }
     }
   }
-  return linkified.join('');
+  return linkified.join("");
 }
 
 /**
@@ -929,22 +992,22 @@ function linkifyChars(str, options) {
   const result = [];
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
-    if (token.t === 'nl' && options.get('nl2br')) {
+    if (token.t === "nl" && options.get("nl2br")) {
       result.push({
         type: StartTag,
-        tagName: 'br',
+        tagName: "br",
         attributes: [],
-        selfClosing: true
+        selfClosing: true,
       });
     } else if (!token.isLink || !options.check(token)) {
       result.push({
         type: Chars,
-        chars: token.toString()
+        chars: token.toString(),
       });
     } else {
       result.push({
         type: LinkifyResult,
-        rendered: options.render(token)
+        rendered: options.render(token),
       });
     }
   }
@@ -973,7 +1036,10 @@ function skipTagTokens(tagName, tokens, i, skippedTokens) {
     if (token.type === StartTag && token.tagName.toUpperCase() === tagName) {
       // Nested tag of the same type, "add to stack"
       stackCount++;
-    } else if (token.type === EndTag && token.tagName.toUpperCase() === tagName) {
+    } else if (
+      token.type === EndTag &&
+      token.tagName.toUpperCase() === tagName
+    ) {
       // Closing tag
       stackCount--;
     }
@@ -985,32 +1051,28 @@ function skipTagTokens(tagName, tokens, i, skippedTokens) {
   return skippedTokens;
 }
 function defaultRender(_ref) {
-  let {
-    tagName,
-    attributes,
-    content
-  } = _ref;
+  let { tagName, attributes, content } = _ref;
   return `<${tagName} ${attributesToString(attributes)}>${escapeText(content)}</${tagName}>`;
 }
 function escapeText(text) {
-  return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 function escapeAttr(attr) {
-  return attr.replace(/"/g, '&quot;');
+  return attr.replace(/"/g, "&quot;");
 }
 function attributesToString(attributes) {
   const result = [];
   for (const attr in attributes) {
-    const val = attributes[attr] + '';
+    const val = attributes[attr] + "";
     result.push(`${attr}="${escapeAttr(val)}"`);
   }
-  return result.join(' ');
+  return result.join(" ");
 }
 function attributeArrayToStrings(attrs) {
   const attrStrs = [];
   for (let i = 0; i < attrs.length; i++) {
     const name = attrs[i][0];
-    const value = attrs[i][1] + '';
+    const value = attrs[i][1] + "";
     attrStrs.push(`${name}="${escapeAttr(value)}"`);
   }
   return attrStrs;

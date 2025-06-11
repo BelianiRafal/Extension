@@ -97,7 +97,7 @@ const TEMPLATES = [
       <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
     </video>
   </a>
-</div>`
+</div>`,
   },
   {
     title: "Mobile Offer row x1 MP4",
@@ -135,8 +135,7 @@ const TEMPLATES = [
       <source src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
     </video>
   </a>
-</div>`
-
+</div>`,
   },
   {
     title: "Cgb desktop row x3 MP4",
@@ -173,7 +172,7 @@ const TEMPLATES = [
         <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4"> 
         </video> 
         </div> 
-        </a>`
+        </a>`,
   },
   {
     title: "Cgb mobile row x3 MP4",
@@ -187,7 +186,7 @@ const TEMPLATES = [
       bg_color: "#ffffff",
     },
 
-    html:`<style> 
+    html: `<style> 
     #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
     #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
     #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
@@ -210,11 +209,11 @@ const TEMPLATES = [
     </video> 
     </div> 
     </div> 
-    </a> `
+    </a> `,
   },
 
   //IMG
-    {
+  {
     title: "Desktop Offer row x1 IMG",
     description:
       "Desktop banner with:\n2 rows.\nTitle first row\nGraphic second row.",
@@ -248,7 +247,7 @@ const TEMPLATES = [
     </div>
     <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" />
   </div>
-</a>`
+</a>`,
   },
   {
     title: "Mobile Offer row x1 IMG",
@@ -284,8 +283,7 @@ const TEMPLATES = [
     </div>
     <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" />
   </div>
-</a>`
-
+</a>`,
   },
   {
     title: "Cgb desktop row x3 IMG",
@@ -319,7 +317,7 @@ const TEMPLATES = [
             </div> 
             <img style="max-width: 100%; vertical-align: middle; min-width: 61%;" src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" />
           </div> 
-        </a>`
+        </a>`,
   },
   {
     title: "Cgb mobile row x3 IMG",
@@ -333,7 +331,7 @@ const TEMPLATES = [
       bg_color: "#ffffff",
     },
 
-    html:`<style> 
+    html: `<style> 
     #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
     #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
     #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
@@ -354,7 +352,7 @@ const TEMPLATES = [
           <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" />
         </div> 
       </div> 
-    </a> `
+    </a> `,
   },
   {
     title: "Cgb desktop BW",
@@ -386,4 +384,3 @@ const TEMPLATES = [
   },
 ];
 const SELECTOR = "textarea[name=body]";
-

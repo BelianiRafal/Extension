@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         sendResponse({ status: "success" });
       } catch (error) {
         alert(
-          "Something went wrong. Try fetch product 1 by 1. " + error.message
+          "Something went wrong. Try fetch product 1 by 1. " + error.message,
         );
       }
     }

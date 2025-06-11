@@ -66,7 +66,7 @@ function getAuthToken({ request, sendResponse }) {
 
     fetch(
       "https://www.googleapis.com/drive/v3/files?mimeType='application/vnd.google-apps.spreadsheet'",
-      init
+      init,
     )
       .then((response) => response.json())
       .then(function (data) {
@@ -89,7 +89,7 @@ function getSheetStrategy({ request, sendResponse }) {
 
     fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${request.spreadSheetId}`,
-      init
+      init,
     )
       .then((response) => response.json())
       .then(function (data) {
@@ -112,7 +112,7 @@ function getSheetDataStrategy({ request, sendResponse }) {
 
     fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${request.spreadSheetId}/values/${request.name}`,
-      init
+      init,
     )
       .then((response) => response.json())
       .then(function (data) {

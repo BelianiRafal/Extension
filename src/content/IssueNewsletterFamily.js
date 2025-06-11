@@ -83,7 +83,7 @@ const app = {
       chrome.storage.local.get(["data"], ({ data }) => {
         if (data && "issue_campaign" in data) {
           const campaign = data.issue_campaign.find(
-            (item) => Number(item.issue_id) === Number(this.issue_id)
+            (item) => Number(item.issue_id) === Number(this.issue_id),
           );
           if (!campaign) {
             this.addSetupCampaignButton();
@@ -135,49 +135,21 @@ const app = {
       details.style =
         "background: #ffffff; border-radius: 0.2rem; padding: 0.4rem; cursor: pointer;";
 
-      const button_updateSubject = document.createElement("button");
-      button_updateSubject.textContent = "Set subject";
-
       const button_updateBody = document.createElement("button");
       button_updateBody.textContent = "Set body";
 
       const container = document.createElement("div");
       container.style =
         "display: flex; flex-direction: column; gap: 6px; padding-top: 4px;";
-      const subject = this.createField({
-        title: "Subject line",
-        placeholder: "Update subject line",
-        input_tag: "input",
-        cb: (ev) => {
-          state.title = ev.target.value;
-        },
-      });
+
       const body = this.createField({
         title: "Body",
         placeholder: "Update body",
         input_tag: "textarea",
       });
-      container.append(subject.label);
-      container.append(button_updateSubject);
+
       container.append(body.label);
       container.append(button_updateBody);
-
-      button_updateSubject.addEventListener("click", () => {
-        if (state.title.trim().length <= 4) {
-          new Notification("Subject line too short. 4 symbols required.");
-        } else {
-          console.log(
-            new UpdateSubjectPayload({
-              id: this.ids[country],
-              servers: this.sellers[country],
-              subject: state.title,
-              seller: "Beliani PL",
-              lang: "polish",
-            })
-          );
-          subject.text_input.value = "";
-        }
-      });
 
       button_updateBody.addEventListener("click", () => {
         return new Notification("Under development");
@@ -265,14 +237,14 @@ const app = {
             },
             () => {
               this.createUI();
-            }
+            },
           );
         } else {
           chrome.storage.local.set(
             { data: { issue_campaign: [campaign] } },
             () => {
               this.createUI();
-            }
+            },
           );
         }
       });

@@ -224,7 +224,7 @@ const app = {
             new Notification("Fallback not found in template.");
           }
         },
-        {}
+        {},
       );
 
       const get_template_context = document.createElement("button");
@@ -257,7 +257,7 @@ const app = {
         handleSelectTemplate(
           template.html,
           app.textarea,
-          document.querySelector("input[class~='update-btn']")
+          document.querySelector("input[class~='update-btn']"),
         );
         app.dialog.node.close();
         document.body.style.overflow = "auto";
@@ -301,7 +301,7 @@ const app = {
       ["context", "components"],
       ({ context, components }) => {
         this.components = components;
-      }
+      },
     );
   },
 

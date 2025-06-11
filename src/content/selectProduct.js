@@ -9,7 +9,7 @@ function getAllSAIdNodes() {
         createButton({
           title: "Download " + id,
           id,
-        })
+        }),
       );
       item.appendChild(column);
     });
@@ -31,7 +31,7 @@ function createButton({ title, id }) {
     btn.disabled = true;
     btn.textContent = "Loading...";
     const products = await fetchProducts([{ main_id: id }]);
-    const {inActiveProducts, isInactiveProducts} = isActive(products)
+    const { inActiveProducts, isInactiveProducts } = isActive(products);
     if (isInactiveProducts) {
       if (confirm("Inactive products found. Would you like to continue?")) {
         downloadJSON({ data: products, name: "products.json" });
@@ -39,10 +39,13 @@ function createButton({ title, id }) {
           data: inActiveProducts,
           name: "inactive_products.json",
         });
-        return
+        return;
       } else {
-        downloadJSON({ data: inActiveProducts, name: "inactive_products.json" });
-        return
+        downloadJSON({
+          data: inActiveProducts,
+          name: "inactive_products.json",
+        });
+        return;
       }
     }
     downloadJSON({ data: products, name: "products.json" });

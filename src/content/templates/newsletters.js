@@ -10,7 +10,8 @@ const TEMPLATES = [
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \n4 categories \nTimer in 2nd banner\nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \n4 categories \nTimer in 2nd banner\nWithout CTA's\nFooter",
     is_active: false,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -1625,7 +1626,8 @@ const TEMPLATES = [
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \n4 categories \nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \n4 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -1655,7 +1657,8 @@ const TEMPLATES = [
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \n5 categories \nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \n5 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -2332,7 +2335,8 @@ const TEMPLATES = [
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \nTimer\n 5 categories \nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \nTimer\n 5 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -2349,7 +2353,6 @@ const TEMPLATES = [
 
       Timer2_href: "/lp25-02-17",
       Timer2_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
-      
 
       Campaign_src_1: 20250217,
       Campaign_src_2: 20250219,
@@ -3050,7 +3053,8 @@ const TEMPLATES = [
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic in 2'nd cat\nTimer\n 5 categories \nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic in 2'nd cat\nTimer\n 5 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -3067,7 +3071,6 @@ const TEMPLATES = [
 
       Timer2_href: "/lp25-02-17",
       Timer2_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
-      
 
       Campaign_src_1: 20250217,
       Campaign_src_2: 20250219,
@@ -3733,7 +3736,8 @@ const TEMPLATES = [
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \nTimer\n 4 categories \nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \nTimer\n 4 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -3750,18 +3754,16 @@ const TEMPLATES = [
 
       Timer2_href: "/lp25-02-17",
       Timer2_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
-      
 
       Campaign_src_1: 20250217,
       Campaign_src_2: 20250219,
       Campaign_src_3: 20250219,
       Campaign_src_4: 20250220,
-      
+
       Banner_href_1: "/lp25-02-17",
       Banner_href_2: "/lp25-02-18",
       Banner_href_3: "/lp25-02-19",
       Banner_href_4: "/lp25-02-20",
-      
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
@@ -4403,7 +4405,8 @@ const TEMPLATES = [
   },
   {
     title: "Monday NS with:",
-    description: "Header\nOffer part\nFreebies: x6\nIntro\nCategories: x4 \nSoon ending\nFooter",
+    description:
+      "Header\nOffer part\nFreebies: x6\nIntro\nCategories: x4 \nSoon ending\nFooter",
     is_active: true,
     fallback: {
       Campaign_name: "20241209",
@@ -4414,7 +4417,8 @@ const TEMPLATES = [
       Offer_part_Color: "#000000",
 
       Offer_part_1: "Choose a FREE wall decor from 4 options.",
-      Offer_part_2: "To claim your FREE wall decor, use the code at the checkout when you spend a minimum of XX.",
+      Offer_part_2:
+        "To claim your FREE wall decor, use the code at the checkout when you spend a minimum of XX.",
       Code_href: "https://www.beliani.co.uk/",
       Code_text: "Get code",
       Offer_part_3: "The offer is valid until the 15th of December.",
@@ -4481,7 +4485,8 @@ const TEMPLATES = [
       Intro_Color: "#ffffff",
 
       Intro_title: "Find your perfect bed",
-      Intro_description: "Discover the perfect bed for your needs, we have a wide range to help you create your dream bedroom.",
+      Intro_description:
+        "Discover the perfect bed for your needs, we have a wide range to help you create your dream bedroom.",
 
       Category_Color_1: "#ffffff",
       Category_Background_1: "#750000",
@@ -4654,10 +4659,12 @@ const TEMPLATES = [
       Soonending_title: "Shop limited-time deals",
 
       Soonending_banner_href_1: "https://www.beliani.co.uk/content/lp24-11-20/",
-      Soonending_banner_src_1: "https://upload.pictureserver.net/static/2024/uk20241120b.png",
+      Soonending_banner_src_1:
+        "https://upload.pictureserver.net/static/2024/uk20241120b.png",
 
       Soonending_banner_href_2: "https://www.beliani.co.uk/content/lp24-11-18/",
-      Soonending_banner_src_2: "https://upload.pictureserver.net/static/2024/uk20241118b.png",
+      Soonending_banner_src_2:
+        "https://upload.pictureserver.net/static/2024/uk20241118b.png",
 
       Conditions_title: "Conditions title",
       Conditions_description: "Conditions description",

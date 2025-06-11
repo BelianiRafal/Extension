@@ -32,7 +32,11 @@
       ],
       "run_it": "document_idle",
       "all_frames": false,
-      "js": ["./content/uploadCSV.js", "./content/copyCampaignNumber.js", "./content/newsletterCheckPage.js"]
+      "js": [
+        "./content/uploadCSV.js",
+        "./content/copyCampaignNumber.js",
+        "./content/newsletterCheckPage.js"
+      ]
     },
     {
       "matches": ["https://www.prologistics.info/*"],

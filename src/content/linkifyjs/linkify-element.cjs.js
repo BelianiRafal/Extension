@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-var linkifyjs = require('linkifyjs');
+var linkifyjs = require("linkifyjs");
 
 const HTML_NODE = 1,
   TXT_NODE = 3;
@@ -29,8 +29,8 @@ function tokensToNodes(tokens, options, doc) {
   const result = [];
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i];
-    if (token.t === 'nl' && options.get('nl2br')) {
-      result.push(doc.createElement('br'));
+    if (token.t === "nl" && options.get("nl2br")) {
+      result.push(doc.createElement("br"));
     } else if (!token.isLink || !options.check(token)) {
       result.push(doc.createTextNode(token.toString()));
     } else {
@@ -54,7 +54,10 @@ function linkifyElementHelper(element, options, doc) {
   }
 
   // Is this element already a link?
-  if (element.tagName === 'A' || options.ignoreTags.indexOf(element.tagName) >= 0) {
+  if (
+    element.tagName === "A" ||
+    options.ignoreTags.indexOf(element.tagName) >= 0
+  ) {
     // No need to linkify
     return element;
   }
@@ -65,23 +68,25 @@ function linkifyElementHelper(element, options, doc) {
       case HTML_NODE:
         linkifyElementHelper(childElement, options, doc);
         break;
-      case TXT_NODE:
-        {
-          str = childElement.nodeValue;
-          tokens = linkifyjs.tokenize(str);
-          if (tokens.length === 0 || tokens.length === 1 && tokens[0].t === 'text') {
-            // No node replacement required
-            break;
-          }
-          nodes = tokensToNodes(tokens, options, doc);
-
-          // Swap out the current child for the set of nodes
-          replaceChildWithChildren(element, childElement, nodes);
-
-          // so that the correct sibling is selected next
-          childElement = nodes[nodes.length - 1];
+      case TXT_NODE: {
+        str = childElement.nodeValue;
+        tokens = linkifyjs.tokenize(str);
+        if (
+          tokens.length === 0 ||
+          (tokens.length === 1 && tokens[0].t === "text")
+        ) {
+          // No node replacement required
           break;
         }
+        nodes = tokensToNodes(tokens, options, doc);
+
+        // Swap out the current child for the set of nodes
+        replaceChildWithChildren(element, childElement, nodes);
+
+        // so that the correct sibling is selected next
+        childElement = nodes[nodes.length - 1];
+        break;
+      }
     }
     childElement = childElement.nextSibling;
   }
@@ -92,13 +97,8 @@ function linkifyElementHelper(element, options, doc) {
  * @param {Document} doc The document implementaiton
  */
 function getDefaultRender(doc) {
-  return _ref => {
-    let {
-      tagName,
-      attributes,
-      content,
-      eventListeners
-    } = _ref;
+  return (_ref) => {
+    let { tagName, attributes, content, eventListeners } = _ref;
     const link = doc.createElement(tagName);
     for (const attr in attributes) {
       link.setAttribute(attr, attributes[attr]);
@@ -130,10 +130,20 @@ function linkifyElement(element, opts, doc) {
     doc = null;
   }
   try {
-    doc = doc || document || window && window.document || global && global.document;
-  } catch (e) {/* do nothing for now */}
+    doc =
+      doc ||
+      document ||
+      (window && window.document) ||
+      (global && global.document);
+  } catch (e) {
+    /* do nothing for now */
+  }
   if (!doc) {
-    throw new Error('Cannot find document implementation. ' + 'If you are in a non-browser environment like Node.js, ' + 'pass the document implementation as the third argument to linkifyElement.');
+    throw new Error(
+      "Cannot find document implementation. " +
+        "If you are in a non-browser environment like Node.js, " +
+        "pass the document implementation as the third argument to linkifyElement.",
+    );
   }
   const options = new linkifyjs.Options(opts, getDefaultRender(doc));
   return linkifyElementHelper(element, options, doc);
@@ -148,6 +158,7 @@ linkifyElement.getDefaultRender = getDefaultRender;
  * @param {import('linkifyjs').Opts | import('linkifyjs').Options} opts
  * @param {Document} doc
  */
-linkifyElement.normalize = (opts, doc) => new linkifyjs.Options(opts, getDefaultRender(doc));
+linkifyElement.normalize = (opts, doc) =>
+  new linkifyjs.Options(opts, getDefaultRender(doc));
 
 module.exports = linkifyElement;

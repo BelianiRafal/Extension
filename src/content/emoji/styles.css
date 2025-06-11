@@ -1,128 +1,128 @@
 /* Style dla EmojitPickera */
 #emoji-picker {
-    display: none;
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-    width: 320px;
-    padding: 10px;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  .emoji-tabs {
-    display: flex;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 10px;
-  }
-  
-  .emoji-tab {
-    background: none;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    flex-grow: 1;
-    text-align: center;
-    opacity: 0.6;
-  }
-  
-  .emoji-tab.active {
-    border-bottom: 2px solid #4CAF50;
-    opacity: 1;
-    font-weight: bold;
-  }
-  
-  .emoji-category {
-    display: none;
-    max-height: 200px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-  }
-  
-  .emoji-item {
-    display: inline-block;
-    padding: 5px;
-    font-size: 1.5em;
-    cursor: pointer;
-    transition: transform 0.1s;
-  }
-  
-  .emoji-item:hover {
-    transform: scale(1.2);
-    background-color: #f5f5f5;
-    border-radius: 5px;
-  }
-  
-  /* Specjalne style dla Headers, aby wyglądały jak ikony */
-  .emoji-item.emoji-head {
-    display: inline-block;
-    width: 42px;
-    height: 42px;
-    margin: 5px;
-    padding: 5px;
-    text-align: center;
-    font-size: 0.7em;
-    line-height: 1.2;
-    vertical-align: top;
-    background-color: #f8f8f8;
-    border: 1px solid #e6e6e6;
-    border-radius: 5px;
-    overflow: hidden;
-    word-break: break-word;
-  }
-  
-  .emoji-item.emoji-head:hover {
-    background-color: #e6f7e9;
-    border-color: #4CAF50;
-    transform: scale(1.05);
-  }
-  
-  .emoji-search-container {
-    margin-bottom: 10px;
-  }
-  
-  .emoji-search {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .emoji-close-btn {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  
-  .emoji-close-btn:hover {
-    background-color: #45a049;
-  }
-  
-  /* Dopasowanie przycisk Add emoji do stylistyki strony */
-  .button-module__root__YgbqR.emoji-button {
-    background-color: #4CAF50 !important;
-    color: #FFFFFF !important;
-    margin: 0 10px !important;
-    font-weight: 700 !important;
-    border: 1px none !important;
-    border-radius: .625rem !important;
-    line-height: 1rem !important;
-    padding: .75rem !important;
-    cursor: pointer !important;
-    transition: background-color 0.3s !important;
-  }
-  
-  .button-module__root__YgbqR.emoji-button:hover {
-    background-color: #45a049 !important;
-  }
+  display: none;
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  width: 320px;
+  padding: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.emoji-tabs {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.emoji-tab {
+  background: none;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  flex-grow: 1;
+  text-align: center;
+  opacity: 0.6;
+}
+
+.emoji-tab.active {
+  border-bottom: 2px solid #4caf50;
+  opacity: 1;
+  font-weight: bold;
+}
+
+.emoji-category {
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.emoji-item {
+  display: inline-block;
+  padding: 5px;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.emoji-item:hover {
+  transform: scale(1.2);
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+/* Specjalne style dla Headers, aby wyglądały jak ikony */
+.emoji-item.emoji-head {
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+  margin: 5px;
+  padding: 5px;
+  text-align: center;
+  font-size: 0.7em;
+  line-height: 1.2;
+  vertical-align: top;
+  background-color: #f8f8f8;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.emoji-item.emoji-head:hover {
+  background-color: #e6f7e9;
+  border-color: #4caf50;
+  transform: scale(1.05);
+}
+
+.emoji-search-container {
+  margin-bottom: 10px;
+}
+
+.emoji-search {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.emoji-close-btn {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.emoji-close-btn:hover {
+  background-color: #45a049;
+}
+
+/* Dopasowanie przycisk Add emoji do stylistyki strony */
+.button-module__root__YgbqR.emoji-button {
+  background-color: #4caf50 !important;
+  color: #ffffff !important;
+  margin: 0 10px !important;
+  font-weight: 700 !important;
+  border: 1px none !important;
+  border-radius: 0.625rem !important;
+  line-height: 1rem !important;
+  padding: 0.75rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+}
+
+.button-module__root__YgbqR.emoji-button:hover {
+  background-color: #45a049 !important;
+}

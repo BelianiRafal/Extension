@@ -28,11 +28,11 @@ const updateBody = {
       const button = ui.createButton({
         title: "Copy body",
         onClick: () => {
-          let LP_ID = null
+          let LP_ID = null;
           if (href_lp.length) {
-            LP_ID = new URL(
-              location.origin + href_lp[0].href
-            ).searchParams.get("id");
+            LP_ID = new URL(location.origin + href_lp[0].href).searchParams.get(
+              "id",
+            );
           }
           if (this.body.value.trim().length <= 10) {
             new Notification("Body content too small.");
@@ -41,7 +41,7 @@ const updateBody = {
           const payload = {
             campaign_id: _id,
             body: this.body.value,
-            shop_content: LP_ID
+            shop_content: LP_ID,
           };
           handleButtonBodyUpdate(payload);
         },
