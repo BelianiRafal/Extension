@@ -2,11 +2,12 @@ const ui = {
   unmount: [],
   unsubscribe: [],
 
-  createButton({ title, onClick, style }) {
+  stateButtons: null,
+
+  createButton({ title, onClick, classname }) {
     const btn = document.createElement("button");
-    btn.style = "font-size: 10px; " + style;
     btn.type = "button";
-    btn.textContent = title;
+    (btn.className = classname), (btn.textContent = title);
     btn.addEventListener("click", onClick);
     this.addToUnsubUnmount({
       unsubscribeCb: () => {
@@ -19,10 +20,58 @@ const ui = {
     return btn;
   },
 
-  createSelect({ title, options, onChange }) {
+  createBlockForButton() {
+    this.buttonsBlock = document.createElement("div");
+    this.buttonsBlockContainer = document.createElement("div");
+    this.blockItem1 = document.createElement("div");
+    this.blockItem2 = document.createElement("div");
+    this.blockItem3 = document.createElement("div");
+    this.closeBtn = document.createElement("button");
+    this.blockText = document.createElement("h2");
+
+    this.buttonsBlock.className = "block-btns-main";
+
+    this.buttonsBlockContainer.className = "block-btns-container";
+
+    this.blockItem1.className = "block-item1";
+    this.blockItem2.className = "block-item2";
+    this.blockItem3.className = "block-item3";
+
+    this.blockText.textContent = "Banners buttons";
+    this.blockText.className = "block-btns-text";
+
+    this.closeBtn.textContent = "X";
+    this.closeBtn.className = "closeBtn";
+
+    this.buttonsBlockContainer.append(this.blockText);
+    this.buttonsBlockContainer.append(this.closeBtn);
+    this.buttonsBlockContainer.append(this.blockItem1);
+    this.buttonsBlockContainer.append(this.blockItem2);
+    this.buttonsBlockContainer.append(this.blockItem3);
+    this.buttonsBlock.append(this.buttonsBlockContainer);
+    document.body.append(this.buttonsBlock);
+
+    this.closeBtn.addEventListener("click", () => {
+      this.buttonsBlock.classList.remove("active");
+
+      setTimeout(() => {
+        document.querySelector(".openButton").style.display = "block";
+      }, 400);
+    });
+  },
+
+  AddButtonToContainer(btn, item = "blockItem1") {
+    if (!this[item]) {
+      this.createBlockForButton();
+    }
+    this[item].append(btn);
+  },
+
+  createSelect({ title, options, classname, onChange }) {
     const _options = [];
     const select = document.createElement("select");
     select.textContent = title;
+    select.className = classname;
     select.addEventListener("change", onChange);
     this.addToUnsubUnmount({
       unsubscribeCb: () => {
@@ -68,15 +117,38 @@ const ui = {
   },
 };
 
+function getButton(selector1, selector2, display) {
+  const button =
+    document.querySelector(selector1) || document.querySelector(selector2);
+
+  if (button) {
+    button.style.cssText = `
+        display: ${display};
+      `;
+    if (ui && typeof ui.AddButtonToContainer === "function") {
+      ui.AddButtonToContainer(button, "blockItem1");
+    }
+  }
+  return button;
+}
+
 const app = {
   selectNodes: [],
   selectMobileNodes: [],
+
+  clearAllNodes: [],
+  clearAllNodesMobile: [],
+
+  pasteAllBtn: [],
+  pasteAllBtnMobile: [] || null,
 
   fulfillNodes: [],
   fulfillMobileNodes: [],
 
   textareas: null,
   textareas_mobile: null,
+
+  selectedTemplateValue: null,
 
   fulfillAllNodeDesktop: null,
   fulfillAllNodeMobile: null,
@@ -133,22 +205,34 @@ const app = {
   },
 
   initDesktop() {
-    this.showMobile =
-      document.querySelector("input[class=mobile-show]") ||
-      document.querySelector("input[value='Show Mobile Banners']");
+    this.showMobile = getButton(
+      "input[class=mobile-show]",
+      "input[value='Show Mobile Banners']",
+      "block",
+      this.ui
+    );
+    this.hideMobile = getButton(
+      "input[class=mobile-hide]",
+      "input[value='Hide mobile Banners']",
+      "none",
+      this.ui
+    );
+
     this.textareas = document.querySelectorAll("textarea[name^=html]");
+
     if (!this.textareas) {
       new Notification("Desktop textareas not found.");
       return;
     }
     this.initUI(ui);
+    this.createOpenButton();
     this.addListeners();
     this.createContextBtn();
   },
 
   initMobile() {
     this.textareas_mobile = document.querySelectorAll(
-      "textarea[name^=mobile_html]",
+      "textarea[name^=mobile_html]"
     );
     if (!this.textareas_mobile) {
       new Notification("Mobile textareas not found.");
@@ -160,36 +244,6 @@ const app = {
   addListeners() {
     if (this.showMobile) {
       this.showMobile.addEventListener("click", () => this.initMobile());
-    }
-  },
-
-  handleTemplateSelect(ev) {
-    const value = ev.target.value;
-    if (value === "default") {
-      return "";
-    } else {
-      return value;
-    }
-  },
-
-  handleFullFillTemplate(textarea, context) {
-    try {
-      const template = textarea.value;
-      const name = textarea.name;
-      if (name in context && context[name] in this.state.context) {
-        const _template = Mustache.render(
-          template,
-          this.state.context[context[name]],
-        );
-        return _template;
-      } else {
-        new Notification("Value: " + name + ". Not found in context.");
-        return "";
-      }
-    } catch (error) {
-      console.log(error);
-      new Notification("Template render error");
-      return "";
     }
   },
 
@@ -220,10 +274,52 @@ const app = {
     return object_data;
   },
 
+  createOpenButton() {
+    const openButton = document.createElement("button");
+    openButton.className = "openButton";
+    openButton.textContent = "Open Button CGB";
+
+    document.body.append(openButton);
+
+    openButton.addEventListener("click", () => {
+      const block = document.querySelector(".block-btns-main");
+      block.classList.add("active");
+      openButton.style.display = "none";
+    });
+  },
+
   createContextBtn() {
     const button = document.createElement("button");
     button.textContent = "Add context";
-    button.style = "position: fixed; top: 1rem; right: 1rem;";
+    button.className = "contextBtn";
+    //Find the button on the page
+    const checkUpdateBtn = document.querySelector(
+      `table tr center form input[type="submit"][name="update"]`
+    );
+
+    //Create new button update and add styles
+    const newUpdateBtn = document.createElement("button");
+    newUpdateBtn.textContent = "Update";
+    newUpdateBtn.className = "newUpdateBtn";
+
+    newUpdateBtn.addEventListener("click", () => {
+      newUpdateBtn.disabled = true;
+      newUpdateBtn.textContent = "Wait...";
+
+      //Check if there is a button on the page
+      if (typeof checkUpdateBtn !== "undefined" && checkUpdateBtn !== null) {
+        setTimeout(() => {
+          checkUpdateBtn.click();
+          setTimeout(() => {
+            newUpdateBtn.disabled = false;
+            newUpdateBtn.textContent = "Update";
+          }, 500);
+        }, 2000);
+      } else {
+        alert("Update button was not found");
+        return;
+      }
+    });
 
     const dialog = document.createElement("dialog");
     dialog.style =
@@ -310,7 +406,7 @@ const app = {
             const data = this.convertToObject(results.data);
             app.state.context = data;
             new Notification(
-              "File: " + file.name + " has been added to context.",
+              "File: " + file.name + " has been added to context."
             );
             input.value = null;
             dialog.style.display = "none";
@@ -319,7 +415,7 @@ const app = {
             if (!app.state.context) {
               app.state.context = data;
               new Notification(
-                "File: " + file.name + " has been added to context.",
+                "File: " + file.name + " has been added to context."
               );
               input_slug.value = null;
               dialog.close();
@@ -351,7 +447,7 @@ const app = {
                 ...new_context,
               };
               new Notification(
-                "File: " + file.name + " has been added to context.",
+                "File: " + file.name + " has been added to context."
               );
               input.value = null;
               dialog.close();
@@ -384,7 +480,7 @@ const app = {
               if (!app.state.context) {
                 app.state.context = data[0];
                 new Notification(
-                  "File: " + file.name + " has been added to context.",
+                  "File: " + file.name + " has been added to context."
                 );
                 input_slug.value = null;
                 dialog.close();
@@ -395,7 +491,7 @@ const app = {
                   ...data[0],
                 };
                 new Notification(
-                  "File: " + file.name + " has been added to context.",
+                  "File: " + file.name + " has been added to context."
                 );
                 input.value = null;
                 dialog.close();
@@ -422,8 +518,10 @@ const app = {
       dialog.style.display = "flex";
       dialog.showModal();
     });
-    document.body.append(button);
-    document.body.append(dialog);
+
+    this.ui.AddButtonToContainer(button, "blockItem1");
+    this.ui.AddButtonToContainer(newUpdateBtn, "blockItem1");
+    this.ui.AddButtonToContainer(dialog, "blockItem1");
   },
 
   createFulfillNodes(nodes, context) {
@@ -436,7 +534,7 @@ const app = {
           onClick: (ev) => {
             if (textarea.value.trim().length <= 10) {
               new Notification(
-                "Pls select template. Minimum length 10 symbols.",
+                "Pls select template. Minimum length 10 symbols."
               );
               return;
             }
@@ -444,7 +542,7 @@ const app = {
               new Notification("Pls provide context.");
               return;
             }
-            textarea.value = this.handleFullFillTemplate(textarea, context);
+            textarea.value = "";
             textarea.dispatchEvent(new Event("change"));
           },
         }),
@@ -455,10 +553,89 @@ const app = {
     return _nodes;
   },
 
-  createFulfillAllNodes(_nodes, context) {
+  createClearAllBtn(_nodes, deviceType) {
     return this.ui.createButton({
-      style: "margin-right: 6px;",
-      title: "Fulfill all",
+      classname: "clearAllBtn",
+      title: "Clear All " + deviceType,
+      onClick: (ev) => {
+        if (
+          confirm(
+            `Are you sure you want to clear the textarea for ${deviceType}?`
+          )
+        ) {
+          for (let i = 0; i < _nodes.length; i++) {
+            const item = _nodes[i];
+            if (item.value.trim().length === 0) {
+              new Notification(
+                `The textarea value for ${deviceType} is empty!`
+              );
+              return;
+            }
+          }
+          _nodes.forEach((item) => {
+            item.value = "";
+          });
+        } else {
+          return;
+        }
+      },
+    });
+  },
+
+  handleTemplateSelect(ev) {
+    const value = ev.target.value;
+    this.selectedTemplateValue = value;
+
+    if (value === "default") {
+      return "";
+    } else {
+      return value;
+    }
+  },
+  handleFullFillTemplate(textarea, context) {
+    try {
+      const template = textarea.value;
+      const name = textarea.name;
+
+      if (name in context && context[name] in this.state.context) {
+        const _template = Mustache.render(
+          template,
+          this.state.context[context[name]]
+        );
+        return _template;
+      } else {
+        new Notification("Value: " + name + ". Not found in context.");
+        return "";
+      }
+    } catch (error) {
+      console.log(error);
+      new Notification("Template render error");
+      return "";
+    }
+  },
+
+  createPasteAllBtn(_nodes, deviceType) {
+    return this.ui.createButton({
+      classname: "block-btns paste",
+      title: "Paste all " + deviceType,
+      onClick: (ev) => {
+        if (!this.state.context) {
+          new Notification("Pls provide context.");
+          return;
+        }
+
+        const valueCheck = this.selectedTemplateValue;
+        for (const { parent } of _nodes) {
+          parent.value = valueCheck;
+        }
+      },
+    });
+  },
+
+  createFulfillAllNodes(_nodes, context, deviceType) {
+    return this.ui.createButton({
+      title: "Fulfill all " + deviceType,
+      classname: "block-btns",
       onClick: (ev) => {
         if (!this.state.context) {
           new Notification("Pls provide context.");
@@ -469,7 +646,7 @@ const app = {
             new Notification(
               "Pls select template for" +
                 parent.name +
-                ". Minimum length 10 symbols.",
+                ". Minimum length 10 symbols."
             );
             continue;
           }
@@ -482,29 +659,31 @@ const app = {
 
   createSelectNodes(nodes) {
     const _nodes = [];
-    for (const textarea of nodes) {
-      const selectNode = {
-        node: this.ui.createSelect({
-          title: "Select template",
-          options: this.getTemplates((templates) =>
-            templates.filter((item) => item.is_active),
-          ),
-          onChange: (ev) => {
-            textarea.value = this.handleTemplateSelect(ev);
-            textarea.dispatchEvent(new Event("change"));
-          },
-        }),
-        parent: textarea,
-      };
-      _nodes.push(selectNode);
-    }
+
+    const firstTextArea = nodes[0];
+
+    const selectNode = {
+      node: this.ui.createSelect({
+        title: "Select template",
+        classname: "block-select",
+        options: this.getTemplates((templates) =>
+          templates.filter((item) => item.is_active)
+        ),
+        onChange: (ev) => {
+          firstTextArea.value = this.handleTemplateSelect(ev);
+          firstTextArea.dispatchEvent(new Event("change"));
+        },
+      }),
+      parent: firstTextArea,
+    };
+
+    _nodes.push(selectNode);
+
     this.attachSelectNodes(_nodes);
   },
 
   attachSelectNodes(nodes) {
-    for (const { node, parent } of nodes) {
-      parent.insertAdjacentElement("afterend", node);
-    }
+    this.ui.AddButtonToContainer(nodes[0].node, "blockItem2");
   },
 
   attachFulfillNodes(nodes) {
@@ -514,7 +693,15 @@ const app = {
   },
 
   attachFulfillAllNode({ parent }, node) {
-    parent.insertAdjacentElement("afterend", node);
+    this.ui.AddButtonToContainer(node, "blockItem2");
+  },
+
+  attachPasteAllFill({ parent }, node) {
+    this.ui.AddButtonToContainer(node, "blockItem2");
+  },
+
+  attachClearAll(node) {
+    this.ui.AddButtonToContainer(node, "blockItem3");
   },
 
   initUI(ui) {
@@ -522,37 +709,68 @@ const app = {
     this.selectNodes = this.createSelectNodes(this.textareas);
     this.fulfillNodes = this.createFulfillNodes(
       this.textareas,
-      this.languageAttributeToSlugDesktop,
+      this.languageAttributeToSlugDesktop
     );
-    this.attachFulfillNodes(this.fulfillNodes);
+
+    this.clearAllNodes = this.createClearAllBtn(this.textareas, "Desktop");
+    this.attachClearAll(this.clearAllNodes);
+
+    // this.attachFulfillNodes(this.fulfillNodes);
+
+    this.pasteAllBtn = this.createPasteAllBtn(this.fulfillNodes, "Desktop");
+
     this.fulfillAllNodeDesktop = this.createFulfillAllNodes(
       this.fulfillNodes,
       this.languageAttributeToSlugDesktop,
+      "Desktop"
     );
+
     if (this.fulfillNodes.length > 0) {
+      this.attachPasteAllFill(this.fulfillNodes[0], this.pasteAllBtn);
       this.attachFulfillAllNode(
         this.fulfillNodes[0],
-        this.fulfillAllNodeDesktop,
+        this.fulfillAllNodeDesktop
       );
     }
   },
 
   initMobileUI(ui) {
+    this.pasteAllBtnMobile.forEach(({ node }) => node.remove?.());
+    this.fulfillMobileNodes.forEach(({ node }) => node.remove?.());
+
     this.selectMobileNodes = this.createSelectNodes(this.textareas_mobile);
     this.fulfillMobileNodes = this.createFulfillNodes(
       this.textareas_mobile,
-      this.languageAttributeToSlugMobile,
+      this.languageAttributeToSlugMobile
     );
-    this.attachFulfillNodes(this.fulfillMobileNodes);
+    // this.attachFulfillNodes(this.fulfillMobileNodes);
     this.fulfillAllNodeMobile = this.createFulfillAllNodes(
       this.fulfillMobileNodes,
       this.languageAttributeToSlugMobile,
+      "Mobile"
     );
+
+    this.clearAllNodesMobile = this.createClearAllBtn(
+      this.textareas_mobile,
+      "Mobile"
+    );
+
+    this.pasteAllBtnMobile = this.createPasteAllBtn(
+      this.fulfillMobileNodes,
+      "Mobile"
+    );
+
     if (this.fulfillMobileNodes.length > 0) {
+      this.attachPasteAllFill(
+        this.fulfillMobileNodes[0],
+        this.pasteAllBtnMobile
+      );
       this.attachFulfillAllNode(
         this.fulfillMobileNodes[0],
-        this.fulfillAllNodeMobile,
+        this.fulfillAllNodeMobile
       );
+
+      this.attachClearAll(this.clearAllNodesMobile);
     }
   },
 };
