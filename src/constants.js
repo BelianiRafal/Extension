@@ -22,5 +22,8 @@ const SELLER_LANG_TO_SLUG = {
   "Beliani UK english": "uk",
 };
 
+const DEFAULT_SERVERS = [60, 64, 65, 67];
+const NL_SERVERS = [66];
+
 const SHOP_ENDPOINT = "https://www.prologistics.info/shop_content.php";
 const NEWSLETTER_ENDPOINT = "https://www.prologistics.info/news_email.php";

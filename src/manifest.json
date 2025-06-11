@@ -14,6 +14,14 @@
   },
   "content_scripts": [
     {
+      "matches": ["https://www.prologistics.info/news_email.php?id=*"],
+      "js": ["./constants.js"]
+    },
+    {
+      "matches": ["https://prolodev.prologistics.info/news_email.php?id=*"],
+      "js": ["./dev_constants.js"]
+    },
+    {
       "matches": ["https://www.prologistics.info/newsletter_preview.html?id=*"],
       "js": ["./content/mustache/index.js", "./content/pages/my_page.js"]
     },
@@ -37,7 +45,10 @@
       ]
     },
     {
-      "matches": ["https://www.prologistics.info/news_email.php?id=*"],
+      "matches": [
+        "https://www.prologistics.info/news_email.php?id=*",
+        "https://prolodev.prologistics.info/news_email.php?id=*"
+      ],
       "exclude_matches": [
         "https://www.prologistics.info/news_email.php?id=*&validate_message=*"
       ],
@@ -46,7 +57,6 @@
         "./libraries/axios.min.js",
         "./libraries/datatable.min.js",
 
-        "./constants.js",
         "./content/newsletter_family/new_features/log.js",
         "./content/newsletter_family/new_features/api.js",
         "./content/newsletter_family/new_features/csvparser.js",
