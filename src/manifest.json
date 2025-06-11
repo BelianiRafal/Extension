@@ -76,9 +76,15 @@
       "js": ["./content/newsletterCheckPage.js"]
     },
     {
-      "matches": ["https://www.prologistics.info/news_emails.php"],
+      "matches": [
+          "https://www.prologistics.info/news_emails.php",
+          "https://prolodev.prologistics.info/news_emails.php"
+        ],
       "run_at": "document_idle",
-      "js": ["./content/multiselect/index.js"]
+      "js": [
+          "./content/multiselect/index.js",
+          "./content/multiselect/select.js"
+        ]
     },
     {
       "matches": [
