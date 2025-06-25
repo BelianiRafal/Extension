@@ -1,137 +1,3 @@
-const ui = {
-  unmount: [],
-  unsubscribe: [],
-
-  stateButtons: null,
-
-  createButton({ title, onClick, classname }) {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    (btn.className = classname), (btn.textContent = title);
-    btn.addEventListener("click", onClick);
-    this.addToUnsubUnmount({
-      unsubscribeCb: () => {
-        btn.removeEventListener("click", onClick);
-      },
-      unmountCb: () => {
-        btn.remove();
-      },
-    });
-    return btn;
-  },
-
-  createBlockForButton() {
-    this.buttonsBlock = document.createElement("div");
-    this.buttonsBlockContainer = document.createElement("div");
-    this.blockItem1 = document.createElement("div");
-    this.blockItem2 = document.createElement("div");
-    this.blockItem3 = document.createElement("div");
-    this.closeBtn = document.createElement("button");
-    this.blockText = document.createElement("h2");
-
-    this.buttonsBlock.className = "block-btns-main";
-
-    this.buttonsBlockContainer.className = "block-btns-container";
-
-    this.blockItem1.className = "block-item1";
-    this.blockItem2.className = "block-item2";
-    this.blockItem3.className = "block-item3";
-
-    this.blockText.textContent = "Banners buttons";
-    this.blockText.className = "block-btns-text";
-
-    this.closeBtn.textContent = "X";
-    this.closeBtn.className = "closeBtn";
-
-    this.buttonsBlockContainer.append(this.blockText);
-    this.buttonsBlockContainer.append(this.closeBtn);
-    this.buttonsBlockContainer.append(this.blockItem1);
-    this.buttonsBlockContainer.append(this.blockItem2);
-    this.buttonsBlockContainer.append(this.blockItem3);
-    this.buttonsBlock.append(this.buttonsBlockContainer);
-    document.body.append(this.buttonsBlock);
-
-    this.closeBtn.addEventListener("click", () => {
-      this.buttonsBlock.classList.remove("active");
-
-      setTimeout(() => {
-        document.querySelector(".openButton").style.display = "block";
-      }, 400);
-    });
-  },
-
-  AddButtonToContainer(btn, item = "blockItem1") {
-    if (!this[item]) {
-      this.createBlockForButton();
-    }
-    this[item].append(btn);
-  },
-
-  createSelect({ title, options, classname, onChange }) {
-    const _options = [];
-    const select = document.createElement("select");
-    select.textContent = title;
-    select.className = classname;
-    select.addEventListener("change", onChange);
-    this.addToUnsubUnmount({
-      unsubscribeCb: () => {
-        select.removeEventListener("change", onChange);
-      },
-      unmountCb: () => {
-        select.remove();
-      },
-    });
-    for (const option of options) {
-      _options.push(this.createOption(option));
-    }
-    const defaultOption = this.createOption({ title, value: "default" });
-    defaultOption.defaultSelected = true;
-    select.appendChild(defaultOption);
-    select.append(..._options);
-    return select;
-  },
-
-  createOption({ title, html }) {
-    const option = document.createElement("option");
-    option.textContent = title;
-    option.value = html;
-    this.addToUnsubUnmount({
-      unmountCb: () => {
-        option.remove();
-      },
-    });
-    return option;
-  },
-
-  addToUnsubUnmount({ unsubscribeCb, unmountCb }) {
-    if (unsubscribeCb) {
-      this.unsubscribe.push(unsubscribeCb);
-    }
-    if (unmountCb) {
-      this.unmount.push(unmountCb);
-    }
-  },
-
-  init() {
-    return ui;
-  },
-};
-
-function getButton(selector1, selector2, display) {
-  const button =
-    document.querySelector(selector1) || document.querySelector(selector2);
-
-  if (button) {
-    button.style.cssText = `
-        display: ${display};
-      `;
-    if (ui && typeof ui.AddButtonToContainer === "function") {
-      ui.AddButtonToContainer(button, "blockItem1");
-    }
-  }
-  return button;
-}
-
 const app = {
   selectNodes: [],
   selectMobileNodes: [],
@@ -139,11 +5,15 @@ const app = {
   clearAllNodes: [],
   clearAllNodesMobile: [],
 
+  DesktopVideosArray: [],
+
   pasteAllBtn: [],
   pasteAllBtnMobile: [] || null,
 
   fulfillNodes: [],
   fulfillMobileNodes: [],
+
+  bannerText: null,
 
   textareas: null,
   textareas_mobile: null,
@@ -162,6 +32,7 @@ const app = {
     "html[finnish]": "fi",
     "html[french]": "fr",
     "html[german]": "de",
+    dach: "dach",
     "html[germanDE]": "chde",
     "html[Hungarian]": "hu",
     "html[italian]": "it",
@@ -192,8 +63,26 @@ const app = {
     "mobile_html[spanish]": "es",
     "mobile_html[swedish]": "se",
   },
-  state: {
-    context: null,
+
+  langAttributeSlugBannerText: {
+    "banner_text[czech]": "cz",
+    "banner_text[danish]": "dk",
+    "banner_text[dutch]": "nl",
+    "banner_text[english]": "uk",
+    "banner_text[finnish]": "fi",
+    "banner_text[french]": "fr",
+    "banner_text[german]": "de",
+    dach: "dach",
+    "banner_text[germanDE]": "chde",
+    "banner_text[Hungarian]": "hu",
+    "banner_text[italian]": "it",
+    "banner_text[norsk]": "no",
+    "banner_text[polish]": "pl",
+    "banner_text[portugal]": "pt",
+    "banner_text[romanian]": "ro",
+    "banner_text[slovak]": "sk",
+    "banner_text[spanish]": "es",
+    "banner_text[swedish]": "se",
   },
 
   init() {
@@ -209,25 +98,33 @@ const app = {
       "input[class=mobile-show]",
       "input[value='Show Mobile Banners']",
       "block",
-      this.ui
+      ui
     );
     this.hideMobile = getButton(
       "input[class=mobile-hide]",
       "input[value='Hide mobile Banners']",
       "none",
-      this.ui
+      ui
     );
 
     this.textareas = document.querySelectorAll("textarea[name^=html]");
+    this.bannerText = document.querySelectorAll("textarea[name^=banner_text]");
 
-    if (!this.textareas) {
+    if (!this.textareas && !this.bannerText) {
       new Notification("Desktop textareas not found.");
       return;
     }
+
+    // this.checkVideoMp4();
     this.initUI(ui);
     this.createOpenButton();
     this.addListeners();
-    this.createContextBtn();
+    createContextBtn();
+
+
+    hideImage();
+
+    this.createPasteAllBtn();
   },
 
   initMobile() {
@@ -247,33 +144,6 @@ const app = {
     }
   },
 
-  convertToObject(CSV) {
-    const object_data = {};
-    for (const element of CSV) {
-      if (!("slug" in element)) {
-        new Notification("slug required");
-        return;
-      }
-      for (const key of Object.keys(element)) {
-        if (element["slug"] in object_data) {
-          if (typeof object_data[element["slug"]] === "object") {
-            object_data[element["slug"]] = {
-              ...object_data[element["slug"]],
-              [key]: element[key],
-            };
-          } else {
-            object_data[element["slug"]] = element[key];
-          }
-        } else {
-          object_data[element["slug"]] = {
-            [key]: element[key],
-          };
-        }
-      }
-    }
-    return object_data;
-  },
-
   createOpenButton() {
     const openButton = document.createElement("button");
     openButton.className = "openButton";
@@ -286,242 +156,6 @@ const app = {
       block.classList.add("active");
       openButton.style.display = "none";
     });
-  },
-
-  createContextBtn() {
-    const button = document.createElement("button");
-    button.textContent = "Add context";
-    button.className = "contextBtn";
-    //Find the button on the page
-    const checkUpdateBtn = document.querySelector(
-      `table tr center form input[type="submit"][name="update"]`
-    );
-
-    //Create new button update and add styles
-    const newUpdateBtn = document.createElement("button");
-    newUpdateBtn.textContent = "Update";
-    newUpdateBtn.className = "newUpdateBtn";
-
-    newUpdateBtn.addEventListener("click", () => {
-      newUpdateBtn.disabled = true;
-      newUpdateBtn.textContent = "Wait...";
-
-      //Check if there is a button on the page
-      if (typeof checkUpdateBtn !== "undefined" && checkUpdateBtn !== null) {
-        setTimeout(() => {
-          checkUpdateBtn.click();
-          setTimeout(() => {
-            newUpdateBtn.disabled = false;
-            newUpdateBtn.textContent = "Update";
-          }, 500);
-        }, 2000);
-      } else {
-        alert("Update button was not found");
-        return;
-      }
-    });
-
-    const dialog = document.createElement("dialog");
-    dialog.style =
-      "border: none; border-radius: .4rem; max-width: 640px; width: 100%; display: none;";
-    const dialog_container = document.createElement("div");
-    dialog_container.style = "padding: 0.4rem; width: 70%;";
-
-    const dialog_sidebar = document.createElement("div");
-    dialog_sidebar.style =
-      "padding: 0.4rem; width: 30%; display: flex; flex-direction: column; gap: 0.4rem;";
-
-    const dialog_sidebar_title = document.createElement("h3");
-    dialog_sidebar_title.textContent = "Import options";
-
-    const dialog_sidebar_import_slug = document.createElement("button");
-    dialog_sidebar_import_slug.textContent = "Import slug context";
-    dialog_sidebar_import_slug.style = "text-align: left; font-size: 12px;";
-    const dialog_sidebar_import_default = document.createElement("button");
-    dialog_sidebar_import_default.textContent = "Import context";
-    dialog_sidebar_import_default.style = "text-align: left; font-size: 12px;";
-
-    dialog_sidebar.append(dialog_sidebar_title);
-    dialog_sidebar.append(dialog_sidebar_import_slug);
-    // dialog_sidebar.append(dialog_sidebar_import_default);
-
-    const container_title_slug = document.createElement("div");
-    container_title_slug.style =
-      "display: flex; align-items: center; justify-content: space-between;";
-
-    const container_title = document.createElement("div");
-    container_title.style =
-      "display: flex; align-items: center; justify-content: space-between;";
-
-    const dialog_title = document.createElement("h2");
-    dialog_title.textContent = "Add context";
-
-    const dialog_title_slug = document.createElement("h2");
-    dialog_title_slug.textContent = "Add slug context";
-
-    const dialog_close = document.createElement("button");
-    dialog_close.textContent = "x";
-    dialog_close.addEventListener("click", () => {
-      dialog.style.display = "none";
-      dialog.close();
-    });
-
-    const container_body_slug = document.createElement("div");
-    container_body_slug.style = "display: flex; flex-direction: column;";
-
-    const container_body = document.createElement("div");
-    container_body.style = "display: flex; flex-direction: column;";
-
-    dialog_sidebar_import_default.addEventListener("click", () => {
-      dialog_container.innerHTML = "";
-      container_title.append(dialog_title);
-      container_title.append(dialog_close);
-      dialog_container.appendChild(container_title);
-      dialog_container.appendChild(container_body);
-    });
-
-    dialog_sidebar_import_slug.addEventListener("click", () => {
-      dialog_container.innerHTML = "";
-      //   clear prev initialization
-      container_title_slug.innerHTML = "";
-      container_title_slug.append(dialog_title_slug);
-      container_title_slug.append(dialog_close);
-      dialog_container.appendChild(container_title_slug);
-      dialog_container.appendChild(container_body_slug);
-    });
-
-    const label_slug = document.createElement("label");
-    label_slug.style =
-      "display: flex; align-items: center; justify-content: center; height: 160px; border-radius: 0.4rem; border: 2px dashed #7364df57; cursor: pointer;";
-    const input_slug = document.createElement("input");
-    input_slug.style = "display: none;";
-    input_slug.accept = ".csv";
-    input_slug.type = "file";
-    input_slug.multiple = true;
-    input_slug.addEventListener("change", () => {
-      if (input_slug.files.length == 1) {
-        const file = input_slug.files[0];
-        Papa.parse(file, {
-          complete: (results) => {
-            const data = this.convertToObject(results.data);
-            app.state.context = data;
-            new Notification(
-              "File: " + file.name + " has been added to context."
-            );
-            input.value = null;
-            dialog.style.display = "none";
-            dialog.close();
-            return;
-            if (!app.state.context) {
-              app.state.context = data;
-              new Notification(
-                "File: " + file.name + " has been added to context."
-              );
-              input_slug.value = null;
-              dialog.close();
-            } else {
-              const new_context = {};
-              for (const key of Object.keys(app.state.context)) {
-                if (key in data) {
-                  if (typeof data[key] === "object") {
-                    new_context[key] = {
-                      ...app.state.context[key],
-                      ...data[key],
-                    };
-                  } else {
-                    new_context[key] = data[key];
-                  }
-                } else {
-                  if (typeof app.state.context[key] === "object") {
-                    new_context[key] = {
-                      ...app.state.context[key],
-                    };
-                  } else {
-                    new_context[key] = app.state.context[key];
-                  }
-                }
-              }
-              // Unpack old context in order to save not SLUG context data
-              app.state.context = {
-                ...app.state.context,
-                ...new_context,
-              };
-              new Notification(
-                "File: " + file.name + " has been added to context."
-              );
-              input.value = null;
-              dialog.close();
-            }
-          },
-          header: true,
-        });
-      }
-    });
-    label_slug.textContent = "Upload slug context";
-    label_slug.append(input_slug);
-
-    container_body_slug.append(label_slug);
-
-    const label = document.createElement("label");
-    label.style =
-      "display: flex; align-items: center; justify-content: center; height: 160px; border-radius: 0.4rem; border: 2px dashed #7364df57; cursor: pointer;";
-    const input = document.createElement("input");
-    input.style = "display: none;";
-    input.accept = ".csv";
-    input.type = "file";
-    input.multiple = true;
-    input.addEventListener("change", () => {
-      if (input.files.length == 1) {
-        const file = input.files[0];
-        Papa.parse(file, {
-          complete: (results) => {
-            const data = results.data;
-            if (data.length >= 1) {
-              if (!app.state.context) {
-                app.state.context = data[0];
-                new Notification(
-                  "File: " + file.name + " has been added to context."
-                );
-                input_slug.value = null;
-                dialog.close();
-                dialog.style.display = "none";
-              } else {
-                app.state.context = {
-                  ...app.state.context,
-                  ...data[0],
-                };
-                new Notification(
-                  "File: " + file.name + " has been added to context."
-                );
-                input.value = null;
-                dialog.close();
-                dialog.style.display = "none";
-              }
-            }
-          },
-          header: true,
-        });
-      }
-    });
-    label.textContent = "Upload context";
-    label.append(input);
-    container_body.append(label);
-
-    container_title_slug.append(dialog_title);
-    container_title_slug.append(dialog_close);
-    dialog_container.appendChild(container_title_slug);
-    dialog_container.appendChild(container_body_slug);
-    dialog.append(dialog_sidebar);
-    dialog.append(dialog_container);
-
-    button.addEventListener("click", () => {
-      dialog.style.display = "flex";
-      dialog.showModal();
-    });
-
-    this.ui.AddButtonToContainer(button, "blockItem1");
-    this.ui.AddButtonToContainer(newUpdateBtn, "blockItem1");
-    this.ui.AddButtonToContainer(dialog, "blockItem1");
   },
 
   createFulfillNodes(nodes, context) {
@@ -538,7 +172,7 @@ const app = {
               );
               return;
             }
-            if (!this.state.context) {
+            if (!state.context) {
               new Notification("Pls provide context.");
               return;
             }
@@ -553,7 +187,7 @@ const app = {
     return _nodes;
   },
 
-  createClearAllBtn(_nodes, deviceType) {
+  createClearAllBtn(_nodes, banner_text, deviceType) {
     return this.ui.createButton({
       classname: "clearAllBtn",
       title: "Clear All " + deviceType,
@@ -573,6 +207,10 @@ const app = {
             }
           }
           _nodes.forEach((item) => {
+            item.value = "";
+          });
+
+          banner_text.forEach((item) => {
             item.value = "";
           });
         } else {
@@ -597,10 +235,14 @@ const app = {
       const template = textarea.value;
       const name = textarea.name;
 
-      if (name in context && context[name] in this.state.context) {
+      // console.log(template);
+      // console.log(name);
+      // console.log(context);
+
+      if (name in context && context[name] in state.context) {
         const _template = Mustache.render(
           template,
-          this.state.context[context[name]]
+          state.context[context[name]]
         );
         return _template;
       } else {
@@ -609,26 +251,139 @@ const app = {
       }
     } catch (error) {
       console.log(error);
-      new Notification("Template render error");
+      // new Notification("Template render error");w
       return "";
     }
   },
 
-  createPasteAllBtn(_nodes, deviceType) {
+  createPasteAllBtn(_nodes, banner_text, deviceType) {
     return this.ui.createButton({
       classname: "block-btns paste",
-      title: "Paste all " + deviceType,
+      title: "Set template " + deviceType,
       onClick: (ev) => {
-        if (!this.state.context) {
-          new Notification("Pls provide context.");
-          return;
-        }
+        // if (!this.state.context) {
+        //   new Notification("Pls provide context.");
+        //   return;
+        // }
 
-        const valueCheck = this.selectedTemplateValue;
-        for (const { parent } of _nodes) {
-          parent.value = valueCheck;
-        }
+
+        console.log(deviceType);
+
+        const loadBtn = ev.currentTarget;
+        const originalHtml = loadBtn.innerHTML;
+
+        loadBtn.innerHTML = `
+        <span class="spinner-text">Loading...</span>
+        <span class="spinner"></span>`;
+        loadBtn.disabled = true;
+
+        const htmlSelect = this.getTemplates((temp) => {
+          return temp.filter(
+            (item) => item.is_active && item["x3" + deviceType]
+          );
+        });
+
+        this.checkVideoMp4(
+          _nodes,
+          banner_text,
+          htmlSelect,
+          loadBtn,
+          originalHtml,
+          deviceType
+        );
       },
+    });
+  },
+
+  checkVideoMp4(_nodes, banner_text, elem, loadBtn, originalHtml, deviceType,) {
+    this.DesktopVideosArray = [];
+    console.log(deviceType);
+    const deviceTypeLowercase = deviceType.toLowerCase();
+
+    let checkVideo = document.querySelectorAll(
+      'tr[id^="trcheckrow"] video[name="media"]'
+    );
+
+    if (checkVideo.length === 0) {
+      checkVideo = document.querySelectorAll('tr[id^="trcheckrow"] img');
+    }
+
+    console.log(checkVideo);
+
+    const slugName = this.languageAttributeToSlugDesktop;
+    const slugNameValues = Object.values(slugName).map((v) => v.toLowerCase());
+
+    const inputFile = document.querySelectorAll(
+      `input[type="hidden"][id^="trnewvalue"]`
+    );
+
+    // [value$="_${deviceTypeLowercase}.mp4"]
+
+    inputFile.forEach((input) => {
+      if (!input.value.endsWith(`_${deviceTypeLowercase}.mp4`)) {
+        return input.value.replace(/\.\w+$/, ".png");
+      }
+    });
+
+    // const inputImgFile = document.querySelectorAll(
+    //   `input[type="hidden"][id^="trnewvalue"][value$="_desktop.png"]`
+    // );
+
+    // console.log(inputImgFile);
+
+    if (!checkVideo.length) {
+      loadBtn.innerHTML = originalHtml;
+      loadBtn.disabled = false;
+      return;
+    }
+
+    let processed = 0;
+
+    checkVideo.forEach((video) => {
+      setTimeout(() => {
+        if (video.offsetWidth > 1000) {
+          this.DesktopVideosArray.push(video);
+        }
+        processed++;
+
+        if (processed === checkVideo.length) {
+          // Все видео проверены — теперь запускаем основную логику
+
+          for (const val of inputFile) {
+            const valItem = val.value.toLowerCase();
+            const smallSLug = valItem.split("_desktop")[0];
+
+            if (
+              slugNameValues.includes(smallSLug) &&
+              Number(slugNameValues.length - 2) ===
+                this.DesktopVideosArray.length
+            ) {
+              _nodes.forEach((item) => {
+                // if (!item.parent.value.length === 0) {
+                //   loadBtn.disabled = true;
+                //   loadBtn.innerHTML = originalHtml;
+                // }
+                item.parent.value = elem[0].html;
+                loadBtn.disabled = false;
+                loadBtn.innerHTML = originalHtml;
+              });
+
+              banner_text.forEach((item) => {
+                item.value = elem[0].banner_text;
+              });
+
+              break;
+            } else {
+              console.log("Error curwa!");
+              loadBtn.innerHTML = originalHtml;
+              loadBtn.disabled = false;
+            }
+          }
+
+          loadBtn.innerHTML = originalHtml;
+          loadBtn.disabled = false;
+        }
+      }, 2000);
     });
   },
 
@@ -637,53 +392,36 @@ const app = {
       title: "Fulfill all " + deviceType,
       classname: "block-btns",
       onClick: (ev) => {
-        if (!this.state.context) {
-          new Notification("Pls provide context.");
-          return;
-        }
+        // if (!state.context) {
+        //   new Notification("Pls provide context.");
+        //   return;
+        // }
+
+        console.log('device type fullfill', deviceType);
         for (const { parent } of _nodes) {
-          if (parent.value.trim().length <= 10) {
-            new Notification(
-              "Pls select template for" +
-                parent.name +
-                ". Minimum length 10 symbols."
-            );
-            continue;
-          }
+          // if (parent.value.trim().length <= 10) {
+          //   new Notification(
+          //     "Pls select template for" +
+          //       parent.name +
+          //       ". Minimum length 10 symbols."
+          //   );
+          //   continue;
+          // }
           parent.value = this.handleFullFillTemplate(parent, context);
           parent.dispatchEvent(new Event("change"));
         }
+
+        this.createFillBannerText();
       },
     });
   },
 
-  createSelectNodes(nodes) {
-    const _nodes = [];
+  createFillBannerText() {
+    const bannerContext = this.langAttributeSlugBannerText;
 
-    const firstTextArea = nodes[0];
-
-    const selectNode = {
-      node: this.ui.createSelect({
-        title: "Select template",
-        classname: "block-select",
-        options: this.getTemplates((templates) =>
-          templates.filter((item) => item.is_active)
-        ),
-        onChange: (ev) => {
-          firstTextArea.value = this.handleTemplateSelect(ev);
-          firstTextArea.dispatchEvent(new Event("change"));
-        },
-      }),
-      parent: firstTextArea,
-    };
-
-    _nodes.push(selectNode);
-
-    this.attachSelectNodes(_nodes);
-  },
-
-  attachSelectNodes(nodes) {
-    this.ui.AddButtonToContainer(nodes[0].node, "blockItem2");
+    this.bannerText.forEach((item) => {
+      item.value = this.handleFullFillTemplate(item, bannerContext);
+    })
   },
 
   attachFulfillNodes(nodes) {
@@ -706,23 +444,29 @@ const app = {
 
   initUI(ui) {
     this.ui = ui.init();
-    this.selectNodes = this.createSelectNodes(this.textareas);
+    // this.selectNodes = this.createSelectNodes(this.textareas);
     this.fulfillNodes = this.createFulfillNodes(
       this.textareas,
       this.languageAttributeToSlugDesktop
     );
 
-    this.clearAllNodes = this.createClearAllBtn(this.textareas, "Desktop");
+    this.clearAllNodes = this.createClearAllBtn(
+      this.textareas,
+      this.bannerText,
+      "Desktop"
+    );
     this.attachClearAll(this.clearAllNodes);
 
-    // this.attachFulfillNodes(this.fulfillNodes);
-
-    this.pasteAllBtn = this.createPasteAllBtn(this.fulfillNodes, "Desktop");
+    this.pasteAllBtn = this.createPasteAllBtn(
+      this.fulfillNodes,
+      this.bannerText,
+      "Desktop"
+    );
 
     this.fulfillAllNodeDesktop = this.createFulfillAllNodes(
       this.fulfillNodes,
       this.languageAttributeToSlugDesktop,
-      "Desktop"
+      "Desktop",
     );
 
     if (this.fulfillNodes.length > 0) {
@@ -738,7 +482,7 @@ const app = {
     this.pasteAllBtnMobile.forEach(({ node }) => node.remove?.());
     this.fulfillMobileNodes.forEach(({ node }) => node.remove?.());
 
-    this.selectMobileNodes = this.createSelectNodes(this.textareas_mobile);
+    // this.selectMobileNodes = this.createSelectNodes(this.textareas_mobile);
     this.fulfillMobileNodes = this.createFulfillNodes(
       this.textareas_mobile,
       this.languageAttributeToSlugMobile
@@ -752,11 +496,13 @@ const app = {
 
     this.clearAllNodesMobile = this.createClearAllBtn(
       this.textareas_mobile,
+      this.bannerText,
       "Mobile"
     );
 
     this.pasteAllBtnMobile = this.createPasteAllBtn(
       this.fulfillMobileNodes,
+      this.bannerText,
       "Mobile"
     );
 

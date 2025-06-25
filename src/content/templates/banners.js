@@ -140,6 +140,7 @@ const TEMPLATES = [
   {
     title: "Cgb desktop row x3 MP4",
     is_active: true,
+    x3Desktop: true,
     fallback: {
       Offert_part_1: "Up to 50% off",
       Offert_part_2: "all blankets & throws",
@@ -173,10 +174,16 @@ const TEMPLATES = [
         </video> 
         </div> 
         </a>`,
+    banner_text: `
+      <p class="xyHeader1">{{{Offert_part_1}}}</br>{{{Offert_part_2}}}</p>
+      <p class="xyHeader3">{{{Offert_part_3}}}</p>
+      <span class="xyCTA">{{Cta}}</span>
+    `,
   },
   {
     title: "Cgb mobile row x3 MP4",
     is_active: true,
+    x3Mobile: true,
     fallback: {
       Offert_part_1: "Up to 50% off",
       Offert_part_2: "all blankets & throws",
@@ -210,6 +217,12 @@ const TEMPLATES = [
     </div> 
     </div> 
     </a> `,
+
+    banner_text: `
+      <p class="xyHeader1">{{{Offert_part_1}}}</br>{{{Offert_part_2}}}</p>
+      <p class="xyHeader3">{{{Offert_part_3}}}</p>
+      <span class="xyCTA">{{Cta}}</span>
+    `,
   },
 
   //IMG

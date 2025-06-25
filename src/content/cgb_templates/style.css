@@ -126,7 +126,7 @@ button {
     border: 2px solid var(--green-background-btn);
 }
 
-.block-btns:hover {
+.block-btns:hover:enabled {
     background: var(--color-white);
     color: var(--color-black);
     transition: var(--transition);
@@ -139,7 +139,18 @@ button {
     border: 2px solid var(--pasteBtn-background);
 }
 
-.paste:hover {
+.block-btns.paste .spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin .3s linear infinite;
+  vertical-align: middle;
+}
+
+.paste:hover:enabled {
     background: var(--color-white);
     color: var(--color-black);
     transition: var(--transition);
@@ -194,3 +205,42 @@ button {
     padding: var(--padding-on-btn);
     cursor: pointer;
 }
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+/* Styles for Show/hide image CGB */
+
+.showImageBtn {
+  position: fixed;
+  top: 21px;
+  right:  170px;
+  cursor: pointer;
+  border: 2px solid var(--bordo-color);
+  background: var(--bordo-color);
+  border-radius: var(--border-radius);
+  color: var(--color-white);
+  padding: var(--padding-on-btn);
+}
+
+.showImageBtn:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+  transition: var(--transition);
+}
+
+.hiddenImage {
+ opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.animatedImage {
+ opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+
