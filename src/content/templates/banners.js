@@ -218,6 +218,12 @@ const TEMPLATES = [
     </div> 
     </div> 
     </a> `,
+
+    banner_text: `
+      <p class="xyHeader1">{{{Offert_part_1}}}</br>{{{Offert_part_2}}}</p>
+      <p class="xyHeader3">{{{Offert_part_3}}}</p>
+      <span class="xyCTA">{{Cta}}</span>
+    `,
   },
 
   //IMG
