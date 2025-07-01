@@ -126,6 +126,7 @@
         "./content/templates/banners.js",
 
         "./content/cgb_templates/ui.js",
+        "./content/cgb_templates/loader.js",
         "./content/cgb_templates/buttons.js",
         "./content/cgb_templates/index.js"
       ],

@@ -66,12 +66,15 @@ const TEMPLATES = [
     description:
       "Desktop banner with:\n2 rows.\nTitle first row\nGraphic second row.",
     is_active: true,
+    x1Desktop: true,
     fallback: {
       Offer_text: "Offer_text",
       category_href: "sofas",
       bg_color: "#ffffff",
     },
-    html: `<style> 
+    html: `
+    //ЭТО ДЕСКТОП Х1 потомушо ИМГ
+    <style> 
 #cgb.xyGContainer {
   max-width: 1224px;
   overflow: hidden;
@@ -100,18 +103,22 @@ const TEMPLATES = [
       </video>
     </div>
   </a>`,
+    banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
   {
     title: "Mobile Offer row x1 MP4",
     description:
       "Mobile banner with:\n2 rows.\nTitle first row\nGraphic second row.",
     is_active: true,
+    x1Mobile: true,
     fallback: {
       Offer_text: "Offer_text",
       category_href: "sofas",
       bg_color: "#ffffff",
     },
-    html: `<style> 
+    html: `
+    //ЭТО МОБИЛКА Х1 потомушо ИМГ
+    <style> 
 #cgb.xyGContainer {
   max-width: 1224px;
 }
@@ -138,6 +145,7 @@ const TEMPLATES = [
     </video>
   </div>
 </a>`,
+    banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
   {
     title: "Cgb desktop row x3 MP4",
@@ -151,7 +159,9 @@ const TEMPLATES = [
       category_href: "sofas",
       bg_color: "#ffffff",
     },
-    html: `<style> 
+    html: `
+    //Это мп4 десктоп
+    <style> 
         #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; } 
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
@@ -194,7 +204,8 @@ const TEMPLATES = [
       bg_color: "#ffffff",
     },
 
-    html: `<style> 
+    html: ` //Это мп4 мобилка
+    <style> 
     #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
     #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
     #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 

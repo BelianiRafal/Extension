@@ -5,7 +5,8 @@ const app = {
   clearAllNodes: [],
   clearAllNodesMobile: [],
 
-  DesktopVideosArray: [],
+  desktopVideosOrImgArray: [],
+  mobileVideosOrImgArray: [],
 
   pasteAllBtn: [],
   pasteAllBtnMobile: [] || null,
@@ -121,7 +122,6 @@ const app = {
     this.addListeners();
     createContextBtn();
 
-
     hideImage();
 
     this.createPasteAllBtn();
@@ -189,21 +189,24 @@ const app = {
 
   createClearAllBtn(_nodes, banner_text, deviceType) {
     return this.ui.createButton({
-      classname: "clearAllBtn",
+      classname: "block-btns clear",
       title: "Clear All " + deviceType,
       onClick: (ev) => {
+        const loader = new Loader(ev.currentTarget);
+
         if (
           confirm(
             `Are you sure you want to clear the textarea for ${deviceType}?`
           )
         ) {
+          loader.showLoader();
           for (let i = 0; i < _nodes.length; i++) {
             const item = _nodes[i];
             if (item.value.trim().length === 0) {
               new Notification(
                 `The textarea value for ${deviceType} is empty!`
               );
-              return;
+              return loader.hideLoader();
             }
           }
           _nodes.forEach((item) => {
@@ -213,8 +216,10 @@ const app = {
           banner_text.forEach((item) => {
             item.value = "";
           });
+
+          loader.hideLoader();
         } else {
-          return;
+          return loader.hideLoader();
         }
       },
     });
@@ -261,25 +266,42 @@ const app = {
       classname: "block-btns paste",
       title: "Set template " + deviceType,
       onClick: (ev) => {
-        // if (!this.state.context) {
+
+        // if (!state.context) {
         //   new Notification("Pls provide context.");
         //   return;
         // }
 
+        const loader = new Loader(ev.currentTarget);
+        loader.showLoader();
+        let checkTemplate = "";
+        let checkDesktop = document.querySelectorAll(
+          'tr[id^="trcheckrow"] video[name="media"]'
+        );
+        if (checkDesktop.length === 0) {
+          checkDesktop = document.querySelectorAll('tr[id^="trcheckrow"] img');
+        }
+        if (!checkDesktop.length) return loader.hideLoader();
 
-        console.log(deviceType);
+        checkDesktop.forEach((elem) => {
+          elem.nodeName === "IMG"
+            ? (checkTemplate = "x1")
+            : (checkTemplate = "x3");
+        });
 
-        const loadBtn = ev.currentTarget;
-        const originalHtml = loadBtn.innerHTML;
+        let checkMobiles = document.querySelector("tr.mobile_banners");
 
-        loadBtn.innerHTML = `
-        <span class="spinner-text">Loading...</span>
-        <span class="spinner"></span>`;
-        loadBtn.disabled = true;
+        if (checkMobiles) {
+          checkMobiles = getMediaMobile(checkMobiles);
+        }
+
+        if (!checkMobiles.length) return loader.hideLoader();
+
+        console.log(checkMobiles);
 
         const htmlSelect = this.getTemplates((temp) => {
           return temp.filter(
-            (item) => item.is_active && item["x3" + deviceType]
+            (item) => item.is_active && item[checkTemplate + deviceType]
           );
         });
 
@@ -287,28 +309,31 @@ const app = {
           _nodes,
           banner_text,
           htmlSelect,
-          loadBtn,
-          originalHtml,
-          deviceType
+          deviceType,
+          loader,
+          checkDesktop,
+          checkMobiles
         );
       },
     });
   },
 
-  checkVideoMp4(_nodes, banner_text, elem, loadBtn, originalHtml, deviceType,) {
-    this.DesktopVideosArray = [];
-    console.log(deviceType);
+  //Вынести в отдельный файл inputFile
+  //Проверить как реагирует если 1 мп4 или имг нет
+
+  checkVideoMp4(
+    _nodes,
+    banner_text,
+    elem,
+    deviceType,
+    loader,
+    checkDesktop,
+    checkMobiles
+  ) {
+    this.desktopVideosOrImgArray = [];
+    this.mobileVideosOrImgArray = [];
+
     const deviceTypeLowercase = deviceType.toLowerCase();
-
-    let checkVideo = document.querySelectorAll(
-      'tr[id^="trcheckrow"] video[name="media"]'
-    );
-
-    if (checkVideo.length === 0) {
-      checkVideo = document.querySelectorAll('tr[id^="trcheckrow"] img');
-    }
-
-    console.log(checkVideo);
 
     const slugName = this.languageAttributeToSlugDesktop;
     const slugNameValues = Object.values(slugName).map((v) => v.toLowerCase());
@@ -317,74 +342,35 @@ const app = {
       `input[type="hidden"][id^="trnewvalue"]`
     );
 
-    // [value$="_${deviceTypeLowercase}.mp4"]
-
     inputFile.forEach((input) => {
       if (!input.value.endsWith(`_${deviceTypeLowercase}.mp4`)) {
         return input.value.replace(/\.\w+$/, ".png");
       }
     });
 
-    // const inputImgFile = document.querySelectorAll(
-    //   `input[type="hidden"][id^="trnewvalue"][value$="_desktop.png"]`
-    // );
+    iterationElementFn(
+      checkDesktop,
+      this.desktopVideosOrImgArray,
+      inputFile,
+      deviceTypeLowercase,
+      slugNameValues,
+      _nodes,
+      loader,
+      banner_text,
+      elem
+    );
 
-    // console.log(inputImgFile);
-
-    if (!checkVideo.length) {
-      loadBtn.innerHTML = originalHtml;
-      loadBtn.disabled = false;
-      return;
-    }
-
-    let processed = 0;
-
-    checkVideo.forEach((video) => {
-      setTimeout(() => {
-        if (video.offsetWidth > 1000) {
-          this.DesktopVideosArray.push(video);
-        }
-        processed++;
-
-        if (processed === checkVideo.length) {
-          // Все видео проверены — теперь запускаем основную логику
-
-          for (const val of inputFile) {
-            const valItem = val.value.toLowerCase();
-            const smallSLug = valItem.split("_desktop")[0];
-
-            if (
-              slugNameValues.includes(smallSLug) &&
-              Number(slugNameValues.length - 2) ===
-                this.DesktopVideosArray.length
-            ) {
-              _nodes.forEach((item) => {
-                // if (!item.parent.value.length === 0) {
-                //   loadBtn.disabled = true;
-                //   loadBtn.innerHTML = originalHtml;
-                // }
-                item.parent.value = elem[0].html;
-                loadBtn.disabled = false;
-                loadBtn.innerHTML = originalHtml;
-              });
-
-              banner_text.forEach((item) => {
-                item.value = elem[0].banner_text;
-              });
-
-              break;
-            } else {
-              console.log("Error curwa!");
-              loadBtn.innerHTML = originalHtml;
-              loadBtn.disabled = false;
-            }
-          }
-
-          loadBtn.innerHTML = originalHtml;
-          loadBtn.disabled = false;
-        }
-      }, 2000);
-    });
+    iterationElementFn(
+      checkMobiles,
+      this.mobileVideosOrImgArray,
+      inputFile,
+      deviceTypeLowercase,
+      slugNameValues,
+      _nodes,
+      loader,
+      banner_text,
+      elem
+    );
   },
 
   createFulfillAllNodes(_nodes, context, deviceType) {
@@ -392,26 +378,32 @@ const app = {
       title: "Fulfill all " + deviceType,
       classname: "block-btns",
       onClick: (ev) => {
-        // if (!state.context) {
-        //   new Notification("Pls provide context.");
-        //   return;
-        // }
-
-        console.log('device type fullfill', deviceType);
-        for (const { parent } of _nodes) {
-          // if (parent.value.trim().length <= 10) {
-          //   new Notification(
-          //     "Pls select template for" +
-          //       parent.name +
-          //       ". Minimum length 10 symbols."
-          //   );
-          //   continue;
-          // }
-          parent.value = this.handleFullFillTemplate(parent, context);
-          parent.dispatchEvent(new Event("change"));
+        if (!state.context) {
+          new Notification("Pls provide context.");
+          return;
         }
 
-        this.createFillBannerText();
+        const loader = new Loader(ev.currentTarget);
+
+        loader.showLoader();
+        setTimeout(() => {
+          for (const { parent } of _nodes) {
+            if (parent.value.trim().length <= 10) {
+              new Notification(
+                "Pls select template for" +
+                  parent.name +
+                  ". Minimum length 10 symbols."
+              );
+              continue;
+            }
+            parent.value = this.handleFullFillTemplate(parent, context);
+            parent.dispatchEvent(new Event("change"));
+          }
+
+          this.createFillBannerText();
+
+          loader.hideLoader();
+        }, 1000);
       },
     });
   },
@@ -421,7 +413,7 @@ const app = {
 
     this.bannerText.forEach((item) => {
       item.value = this.handleFullFillTemplate(item, bannerContext);
-    })
+    });
   },
 
   attachFulfillNodes(nodes) {
@@ -439,7 +431,7 @@ const app = {
   },
 
   attachClearAll(node) {
-    this.ui.AddButtonToContainer(node, "blockItem3");
+    this.ui.AddButtonToContainer(node, "blockItem2");
   },
 
   initUI(ui) {
@@ -450,13 +442,6 @@ const app = {
       this.languageAttributeToSlugDesktop
     );
 
-    this.clearAllNodes = this.createClearAllBtn(
-      this.textareas,
-      this.bannerText,
-      "Desktop"
-    );
-    this.attachClearAll(this.clearAllNodes);
-
     this.pasteAllBtn = this.createPasteAllBtn(
       this.fulfillNodes,
       this.bannerText,
@@ -466,8 +451,15 @@ const app = {
     this.fulfillAllNodeDesktop = this.createFulfillAllNodes(
       this.fulfillNodes,
       this.languageAttributeToSlugDesktop,
-      "Desktop",
+      "Desktop"
     );
+
+    this.clearAllNodes = this.createClearAllBtn(
+      this.textareas,
+      this.bannerText,
+      "Desktop"
+    );
+    // this.attachClearAll(this.clearAllNodes);
 
     if (this.fulfillNodes.length > 0) {
       this.attachPasteAllFill(this.fulfillNodes[0], this.pasteAllBtn);
@@ -475,6 +467,7 @@ const app = {
         this.fulfillNodes[0],
         this.fulfillAllNodeDesktop
       );
+      this.attachClearAll(this.clearAllNodes);
     }
   },
 

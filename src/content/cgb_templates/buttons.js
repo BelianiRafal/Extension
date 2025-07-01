@@ -27,18 +27,21 @@ function createContextBtn() {
   newUpdateBtn.textContent = "Update";
   newUpdateBtn.className = "newUpdateBtn";
 
+  const loader = new Loader(newUpdateBtn);
+
   newUpdateBtn.addEventListener("click", () => {
-    newUpdateBtn.disabled = true;
-    newUpdateBtn.textContent = "Wait...";
+    loader.showLoader();
 
     //Check if there is a button on the page
-    if (typeof checkUpdateBtn !== "undefined" && checkUpdateBtn !== null) {
+    if (checkUpdateBtn) {
       setTimeout(() => {
         checkUpdateBtn.click();
         setTimeout(() => {
           newUpdateBtn.disabled = false;
           newUpdateBtn.textContent = "Update";
-        }, 500);
+
+          loader.hideLoader();
+        }, 1000);
       }, 2000);
     } else {
       alert("Update button was not found");
@@ -261,7 +264,7 @@ function hideImage() {
   }
 
   const showImageBtn = document.createElement("button");
-  showImageBtn.className = 'showImageBtn';
+  showImageBtn.className = "showImageBtn";
   showImageBtn.textContent = "Hide image";
 
   document.body.append(showImageBtn);
@@ -275,7 +278,6 @@ function hideImage() {
 
       [newItem, hideItem].forEach((el) => {
         if (el.classList.contains("hiddenImage")) {
-
           el.style.display = "";
           el.classList.remove("hiddenImage");
           requestAnimationFrame(() => {
@@ -298,4 +300,82 @@ function hideImage() {
 
     showImageBtn.textContent = btnTextHidden ? "Show image" : "Hide image";
   });
+}
+
+function iterationElementFn(
+  iterArr,
+  stateArr,
+  inputElement,
+  deviceTypeLowercase,
+  nameValuesSlug,
+  nodes,
+  loader,
+  banner_text,
+  elem,
+) {
+  let processed = 0;
+
+  iterArr.forEach((video) => {
+    setTimeout(() => {
+      if (video.offsetWidth > 1000) {
+        stateArr.push(video);
+        console.log(stateArr);
+      }
+
+      processed++;
+
+      if (processed === iterArr.length) {
+        // Все видео проверены — теперь запускаем основную логику
+
+        for (const val of inputElement) {
+          const valItem = val.value.toLowerCase();
+          const smallSLug = valItem.split(`_${deviceTypeLowercase}`)[0];
+          
+          // console.log(valItem);
+          // console.log( Number(nameValuesSlug.length - 1));
+          // console.log( stateArr.length);
+          
+          if (
+            nameValuesSlug.includes(smallSLug) &&
+            Number(nameValuesSlug.length - 1) === stateArr.length
+          ) {
+            nodes.forEach((item) => {
+              item.parent.value = elem[0].html;
+            });
+            banner_text.forEach((item) => {
+              item.value = elem[0].banner_text;
+            });
+            loader.hideLoader();
+            break;
+          } else {
+            console.log("Error curwa!");
+            loader.hideLoader();
+          }
+        }
+      }
+    }, 2000);
+  });
+}
+
+//Find mobile selector video or img and return need type
+function getMediaMobile(trElement, selector = "video[name='media']") {
+  if (!(trElement instanceof HTMLElement)) return [];
+
+  const nextTr = trElement.nextElementSibling;
+
+  // Find mp4
+  let media = [
+    ...trElement.querySelectorAll(selector),
+    ...(nextTr?.tagName === "TR" ? nextTr.querySelectorAll(selector) : []),
+  ];
+
+  // If mp4 not found find img
+  if (media.length === 0) {
+    media = [
+      ...trElement.querySelectorAll("img"),
+      ...(nextTr?.tagName === "TR" ? nextTr.querySelectorAll("img") : []),
+    ];
+  }
+
+  return media;
 }
