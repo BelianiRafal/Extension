@@ -1,21 +1,17 @@
-function handleButtonSubjectUpdate(button_element, {
-  campaign_id,
-  title,
-  seller,
-  sellerServers,
-  lang,
-}) {
-
+function handleButtonSubjectUpdate(
+  button_element,
+  { campaign_id, title, seller, sellerServers, lang },
+) {
   // Fix: usuwanie shop content page id
   // pobieramy wartość "Shop content page" i przesyłamy ją w request body
   const row = button_element.closest('tr[role="row"]');
   if (!row) {
-    new Notification("Się zesrało.")
-    return
+    new Notification("Się zesrało.");
+    return;
   }
 
   const shopContentTd = row.querySelectorAll("td")[3];
-  const a = shopContentTd.querySelector('a');
+  const a = shopContentTd.querySelector("a");
   const shopContentId = a.textContent.trim();
 
   // payload

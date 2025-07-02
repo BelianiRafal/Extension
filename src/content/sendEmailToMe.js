@@ -1,10 +1,10 @@
 function getUserEmail() {
   const scriptData = [...document.body.querySelectorAll("script")].find(
-    (item) => item.textContent.includes("pushHost")
+    (item) => item.textContent.includes("pushHost"),
   );
   try {
     const user_data = JSON.parse(
-      scriptData.textContent.split(";")[3].split("=")[1]
+      scriptData.textContent.split(";")[3].split("=")[1],
     );
     return user_data.email;
   } catch (error) {
@@ -18,7 +18,7 @@ const rootNode = document.querySelector("#test_customer");
 
 if (
   window.location.href.includes(
-    "https://www.prologistics.info/news_email.php?id="
+    "https://www.prologistics.info/news_email.php?id=",
   )
 ) {
   fetchAvailableIds();
@@ -45,7 +45,7 @@ function fetchAvailableIds() {
       method: "GET",
       mode: "cors",
       credentials: "include",
-    }
+    },
   )
     .then((data) => data.text())
     .then((response) => {
@@ -68,7 +68,7 @@ function fetchAvailableIds() {
             click.click();
           },
           title: "Send to: " + email,
-        })
+        }),
       );
       rootNode.insertAdjacentElement(
         "afterend",
@@ -80,7 +80,7 @@ function fetchAvailableIds() {
             click.click();
           },
           title: "Send to: rafal.kobus@beliani.net",
-        })
+        }),
       );
     });
 }

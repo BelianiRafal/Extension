@@ -8,7 +8,7 @@ const DEFAULT_VARIABLES = {
   origin: "https://www.beliani.co.uk",
   id: new URLSearchParams(window.location.search).get("id"),
   utm: "?utm_source=newsletter&utm_medium=email&utm_campaign=",
-  picture_server_url: "https://upload.pictureserver.net/static/2025/",
+  picture_server_url: "https://pictureserver.net/static/2025/",
 };
 
 const ui = {
@@ -184,7 +184,7 @@ const app = {
   components: null,
 
   templateCards: {
-    defalut: (template, {onSelect}) => {
+    defalut: (template, { onSelect }) => {
       const container = document.createElement("div");
       container.style =
         "padding: .4rem; display: flex; flex-direction: column; gap: 0.4rem; background: #fff; border-radius: 0.2rem; cursor: pointer;";
@@ -224,7 +224,7 @@ const app = {
             new Notification("Fallback not found in template.");
           }
         },
-        {}
+        {},
       );
 
       const get_template_context = document.createElement("button");
@@ -254,7 +254,7 @@ const app = {
 
       container.addEventListener("click", () => {
         // SELECT TEMPLATE RESPONSIBLE FOR LP AND NS RENDERING.
-        onSelect(template.html)
+        onSelect(template.html);
         app.dialog.node.close();
         document.body.style.overflow = "auto";
       });
@@ -287,18 +287,18 @@ const app = {
 
   init() {
     this.ui = ui.init();
-    const textareas = document.querySelectorAll(SELECTORS)
+    const textareas = document.querySelectorAll(SELECTORS);
     if (!textareas.length) {
       new Notification("Selector " + SELECTORS + " not found.");
       return;
     }
-    this.textareas = [...textareas]
+    this.textareas = [...textareas];
     this.initUI();
     chrome.storage.local.get(
       ["context", "components"],
       ({ context, components }) => {
         this.components = components;
-      }
+      },
     );
   },
 
@@ -308,8 +308,8 @@ const app = {
         parent: document.body,
         position: "beforeend",
         onSelect: (html) => {
-          textarea.value = html
-        }
+          textarea.value = html;
+        },
       });
       this.dialog = dialog;
       this.createButtonSelectNode({
@@ -355,18 +355,24 @@ const app = {
   createDialogNode({ parent, position, onSelect }) {
     return this.ui.createDialog({
       title: "Select template",
-      children: this.getTemplateCard(this.getTemplates(sort.active), "default", {onSelect}),
+      children: this.getTemplateCard(
+        this.getTemplates(sort.active),
+        "default",
+        { onSelect },
+      ),
       parent,
       position,
     });
   },
 
-  getTemplateCard(templates, type = "defalut", {onSelect}) {
+  getTemplateCard(templates, type = "defalut", { onSelect }) {
     const validCard =
       type in this.templateCards
         ? this.templateCards[type]
         : this.templateCards["defalut"];
-    const cards = templates.map(template => validCard(template, {onSelect}));
+    const cards = templates.map((template) =>
+      validCard(template, { onSelect }),
+    );
     return cards;
   },
 

@@ -84,7 +84,7 @@ const app_fulfill = {
       !this.seller
     ) {
       new Notification(
-        "Language, Textarea, Update, Source or Seller not found."
+        "Language, Textarea, Update, Source or Seller not found.",
       );
       return;
     }
@@ -137,10 +137,10 @@ const app_fulfill = {
 
         if (!(selectedContext in context)) {
           this.notify(
-            `Selected context ${selectedContext} not found in context.`
+            `Selected context ${selectedContext} not found in context.`,
           );
           console.log(
-            `Selected context ${selectedContext} not found in ${context}.`
+            `Selected context ${selectedContext} not found in ${context}.`,
           );
           return;
         }
@@ -163,7 +163,7 @@ const app_fulfill = {
 
             const slug_components = this.getSlugComponents(
               components,
-              combinedSlug
+              combinedSlug,
             );
 
             const payload = {
@@ -180,17 +180,17 @@ const app_fulfill = {
               JSON.stringify({
                 payload,
                 time: new Date(),
-              })
+              }),
             );
 
             const html = Mustache.render(this.textarea.innerText, payload);
             const shop_content = document.querySelector(
-              "select[name='shop_content_id']"
+              "select[name='shop_content_id']",
             )?.value;
             const payload_campaign = {
               campaign_id: DEFAULT_VARIABLES.id,
               body: html,
-              shop_content: shop_content
+              shop_content: shop_content,
             };
             handleButtonBodyUpdate(payload_campaign);
             // if (!this.source_btn.classList.contains("cke_button_on")) {
@@ -226,7 +226,7 @@ const app_fulfill = {
 
           return;
         }
-      }
+      },
     );
   },
 

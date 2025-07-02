@@ -1,31 +1,20 @@
-'use strict';
+"use strict";
 
-var linkifyjs = require('linkifyjs');
+var linkifyjs = require("linkifyjs");
 
 // Create a new token that class that the parser emits when it finds a hashtag
-const HashtagToken = linkifyjs.createTokenClass('hashtag', {
-  isLink: true
+const HashtagToken = linkifyjs.createTokenClass("hashtag", {
+  isLink: true,
 });
 
 /**
  * @type {import('linkifyjs').Plugin}
  */
 function hashtag(_ref) {
-  let {
-    scanner,
-    parser
-  } = _ref;
+  let { scanner, parser } = _ref;
   // Various tokens that may compose a hashtag
-  const {
-    POUND,
-    UNDERSCORE
-  } = scanner.tokens;
-  const {
-    alpha,
-    numeric,
-    alphanumeric,
-    emoji
-  } = scanner.tokens.groups;
+  const { POUND, UNDERSCORE } = scanner.tokens;
+  const { alpha, numeric, alphanumeric, emoji } = scanner.tokens.groups;
 
   // Take or create a transition from start to the '#' sign (non-accepting)
   // Take transition from '#' to any text token to yield valid hashtag state
@@ -45,4 +34,4 @@ function hashtag(_ref) {
   Hashtag.tt(UNDERSCORE, Hashtag); // Trailing underscore is okay
 }
 
-linkifyjs.registerPlugin('hashtag', hashtag);
+linkifyjs.registerPlugin("hashtag", hashtag);

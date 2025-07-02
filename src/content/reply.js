@@ -21313,17 +21313,22 @@ const reply = {
   init() {
     this.add_comment = document.querySelector(".btn.btn-default.issuelog");
     this.textarea = document.querySelector("#new_comment");
-    this.mass_mention_node = document.querySelector("[value='Add corrective action']")
-    this.responsible_select = document.querySelector(".default_btn.action_buttons.btn.btn-default"),
-
-    this.clearResponsibleSelect()
+    this.mass_mention_node = document.querySelector(
+      "[value='Add corrective action']",
+    );
+    (this.responsible_select = document.querySelector(
+      ".default_btn.action_buttons.btn.btn-default",
+    )),
+      this.clearResponsibleSelect();
     this.attachReply(this.getUserNodes());
     this.setListeners();
-    this.attachMassMention()
+    this.attachMassMention();
   },
 
   clearResponsibleSelect() {
-    this.responsible_select?.parentNode?.parentNode?.parentNode?.previousElementSibling?.querySelector("button").click()
+    this.responsible_select?.parentNode?.parentNode?.parentNode?.previousElementSibling
+      ?.querySelector("button")
+      .click();
   },
 
   setListeners() {
@@ -21342,7 +21347,7 @@ const reply = {
   setTextAreaValue(value) {
     var setter = Object.getOwnPropertyDescriptor(
       HTMLTextAreaElement.prototype,
-      "value"
+      "value",
     ).set;
     setter.call(this.textarea, this.textarea.value + " " + value);
 
@@ -21365,9 +21370,11 @@ const reply = {
     for (const user of mass_mention) {
       const button = document.createElement("button");
       if (user.id === "4527") {
-        button.style = "font-size: 11px; border-radius: 4px; margin-left: 4px; border: 1px solid black; background: #aadaec";
+        button.style =
+          "font-size: 11px; border-radius: 4px; margin-left: 4px; border: 1px solid black; background: #aadaec";
       } else {
-        button.style = "font-size: 11px; border-radius: 4px; margin-left: 4px; border: 1px solid black; background: #fff";
+        button.style =
+          "font-size: 11px; border-radius: 4px; margin-left: 4px; border: 1px solid black; background: #fff";
       }
       button.textContent = user.value;
       button.type = "button";
@@ -21376,7 +21383,7 @@ const reply = {
       });
       nodes.push(button);
     }
-    this.textarea.parentNode.style.marginBottom = "8px;"
+    this.textarea.parentNode.style.marginBottom = "8px;";
     this.mass_mention_node.parentNode.append(...nodes);
   },
 

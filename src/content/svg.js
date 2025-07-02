@@ -1,5 +1,5 @@
 function svg_copy() {
-    return `
+  return `
   <svg fill="#000000" height="12px" width="12px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
      viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
   <g id="Text-files">
@@ -29,4 +29,4 @@ function svg_copy() {
   </g>
   </svg>
   `;
-  }
+}

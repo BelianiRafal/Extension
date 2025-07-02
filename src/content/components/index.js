@@ -687,227 +687,228 @@ const COMPONENTS = {
     is_active: true,
     html: '<table\n            cellspacing="0"\n            cellpadding="0"\n            border="0"\n            align="center"\n            id="newsletter"\n          >\n            <tbody>\n              <tr>\n                <td align="center" class="newsletterFooterCompanyDetails">\n                  <span\n                    style="color: #000000; text-align: center; font-size: 11px"\n                  >\n                    <b\n                      ><span style="font-size: 11px"\n                        >{{Company Details}}</span\n                      ></b\n                    >\n                    <br />{{Address}}<br />{{Mobile number}} {{Email address}}\n                    <a href="{{{Mail to}}}">{{Email}}</a>\n                    <br />{{Commercial register}}<br />{{VAT}}\n                  </span>\n                </td>\n              </tr>\n            </tbody>\n          </table>',
     data: {
-      "ptpt": {
+      ptpt: {
         "Company Details": "Detalhes da Empresa",
-        "Address": "Beliani (DE) GmbH 6340 Baar Suíça",
+        Address: "Beliani (DE) GmbH 6340 Baar Suíça",
         "Mobile number": "Telefone: +351 22 145 07 45;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.pt",
-        "Email": "mail@beliani.pt",
+        Email: "mail@beliani.pt",
         "Commercial register": "Registo Comercial: CHE-115.695.894",
-        "VAT": "USt-IDNr: DE 276156472"
+        VAT: "USt-IDNr: DE 276156472",
       },
-      "eses": {
+      eses: {
         "Company Details": "Datos de empresa",
-        "Address": "Beliani (DE) GmbH 6340 Baar Suiza",
+        Address: "Beliani (DE) GmbH 6340 Baar Suiza",
         "Mobile number": "Teléfono: 932 714 061;",
         "Email address": "e-mail:",
         "Mail to": "mailto:mail@beliani.es",
-        "Email": "mail@beliani.es",
+        Email: "mail@beliani.es",
         "Commercial register": "Registro comercial: CHE-115.695.894",
-        "VAT": "USt-IDNr: DE 276156472"
+        VAT: "USt-IDNr: DE 276156472",
       },
-      "nlnl": {
+      nlnl: {
         "Company Details": "Bedrijfsinformatie",
-        "Address": "Beliani (EU) GmbH 6340 Baar Switzerland",
+        Address: "Beliani (EU) GmbH 6340 Baar Switzerland",
         "Mobile number": "Telefoonnummer: (020) 7871 308;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.nl",
-        "Email": "mail@beliani.nl",
+        Email: "mail@beliani.nl",
         "Commercial register": "Handelsregister: CHE-433.124.131",
-        "VAT": "USt-IDNr: DE369393001"
+        VAT: "USt-IDNr: DE369393001",
       },
-      "chde": {
+      chde: {
         "Company Details": "Impressum",
-        "Address": "Beliani (Switzerland) GmbH, 6340 Baar, Schweiz",
+        Address: "Beliani (Switzerland) GmbH, 6340 Baar, Schweiz",
         "Mobile number": "Telefonnummer: 043 508 22 33;",
         "Email address": "E-Mail:",
         "Mail to": "mailto:mail@beliani.ch",
-        "Email": "mail@beliani.ch",
+        Email: "mail@beliani.ch",
         "Commercial register": "Handelsregister: CHE-462.179.861",
-        "VAT": "USt-IDNr: CHE-462.179.861"
+        VAT: "USt-IDNr: CHE-462.179.861",
       },
-      "atde": {
+      atde: {
         "Company Details": "Impressum",
-        "Address": "Beliani (Deutschland) GmbH, 6340 Baar, Schweiz",
+        Address: "Beliani (Deutschland) GmbH, 6340 Baar, Schweiz",
         "Mobile number": "Telefonnummer: +43 1 375 00 57;",
         "Email address": "E-Mail:",
         "Mail to": "mailto:mail@beliani.at",
-        "Email": "mail@beliani.at",
+        Email: "mail@beliani.at",
         "Commercial register": "Handelsregister: CHE-485.669.231",
-        "VAT": "USt-IDNr: DE 276156472"
+        VAT: "USt-IDNr: DE 276156472",
       },
-      "dede": {
+      dede: {
         "Company Details": "Impressum",
-        "Address": "Beliani (Deutschland) GmbH, 6340 Baar, Schweiz",
+        Address: "Beliani (Deutschland) GmbH, 6340 Baar, Schweiz",
         "Mobile number": "Telefonnummer: 0221 6778 9927;",
         "Email address": "E-Mail:",
         "Mail to": "mailto:mail@beliani.de",
-        "Email": "mail@beliani.de",
+        Email: "mail@beliani.de",
         "Commercial register": "Handelsregister: CHE-485.669.231",
-        "VAT": "USt-IDNr: DE276156472"
+        VAT: "USt-IDNr: DE276156472",
       },
-      "chfr": {
+      chfr: {
         "Company Details": "Mentions légales",
-        "Address": "Beliani (Switzerland) GmbH, 6340 Baar, Suisse",
+        Address: "Beliani (Switzerland) GmbH, 6340 Baar, Suisse",
         "Mobile number": "Téléphone: 043 508 22 33;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.ch",
-        "Email": "mail@beliani.ch",
+        Email: "mail@beliani.ch",
         "Commercial register": "Registre du commerce : CHE-462.179.861",
-        "VAT": "USt-IDNr: CHE-462.179.861"
+        VAT: "USt-IDNr: CHE-462.179.861",
       },
-      "frfr": {
+      frfr: {
         "Company Details": "Mentions légales",
-        "Address": "Beliani (DE) GmbH, 6340 Baar, Suisse",
-        "Mobile number": "Téléphone: 01 87 39 86 15;",
+        Address: "Beliani (DE) GmbH, 6340 Baar, Suisse",
+        "Mobile number": "Téléphone: +33 1 84 79 84 99;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.fr",
-        "Email": "mail@beliani.fr",
+        Email: "mail@beliani.fr",
         "Commercial register": "Registre du commerce : CHE-115.695.894",
-        "VAT": "USt-IDNr: FR 31883868630"
+        VAT: "USt-IDNr: FR 31883868630",
       },
-      "huhu": {
+      huhu: {
         "Company Details": "Impresszum",
-        "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
+        Address: "Beliani (DE) GmbH 6340 Baar Schweiz",
         "Mobile number": "Telefonszám: +36 1 211 4034;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.hu",
-        "Email": "mail@beliani.hu",
+        Email: "mail@beliani.hu",
         "Commercial register": "Cégjegyzékszám: CHE-115.695.894",
-        "VAT": "Közösségi adószám: DE 276156472"
+        VAT: "Közösségi adószám: DE 276156472",
       },
-      "czcz": {
+      czcz: {
         "Company Details": "Detaily společnosti",
-        "Address": "Beliani (DE) GmbH 6340 Baar Švýcarsko",
+        Address: "Beliani (DE) GmbH 6340 Baar Švýcarsko",
         "Mobile number": "Telefonní číslo: 228 881 514;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.cz",
-        "Email": "mail@beliani.cz",
+        Email: "mail@beliani.cz",
         "Commercial register": "Obchodní registr: CHE-115.695.894",
-        "VAT": "USt-IDNr: DE276156472"
+        VAT: "USt-IDNr: DE276156472",
       },
-      "sksk": {
+      sksk: {
         "Company Details": "Detaily spoločnosti",
-        "Address": "Beliani (DE) GmbH 6340 Baar Švajčiarsko",
+        Address: "Beliani (DE) GmbH 6340 Baar Švajčiarsko",
         "Mobile number": "Telefónne číslo: +421 2/327 846 12;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.sk",
-        "Email": "mail@beliani.sk",
+        Email: "mail@beliani.sk",
         "Commercial register": "Obchodný register: CHE-115.695.894",
-        "VAT": "USt-IDNr: DE276156472"
+        VAT: "USt-IDNr: DE276156472",
       },
-      "itit": {
+      itit: {
         "Company Details": "Dettagli societari",
-        "Address": "Beliani (DE) GmbH 6340 Baar Svizzera",
+        Address: "Beliani (DE) GmbH 6340 Baar Svizzera",
         "Mobile number": "Numero di telefono: 06 5654 8602;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.it",
-        "Email": "mail@beliani.it",
+        Email: "mail@beliani.it",
         "Commercial register": "Registro commerciale: CHE-115.695.894",
-        "VAT": "Partita IVA: DE 276156472"
+        VAT: "Partita IVA: DE 276156472",
       },
-      "chit": {
+      chit: {
         "Company Details": "Dettagli societari",
-        "Address": "Beliani ((Switzerland)) GmbH CH 6340 Baar Svizzera",
+        Address: "Beliani ((Switzerland)) GmbH CH 6340 Baar Svizzera",
         "Mobile number": "Numero di telefono: 06 5654 8602;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.ch",
-        "Email": "mail@beliani.ch",
+        Email: "mail@beliani.ch",
         "Commercial register": "Registro commerciale: CHE-462.179.861",
-        "VAT": "Partita IVA: CHE-462.179.861"
+        VAT: "Partita IVA: CHE-462.179.861",
       },
-      "sese": {
+      sese: {
         "Company Details": "Företagsuppgifter",
-        "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
+        Address: "Beliani (DE) GmbH 6340 Baar Schweiz",
         "Mobile number": "Telefon: 08-123 509 30;",
         "Email address": "E-post:",
         "Mail to": "mailto:mail@beliani.se",
-        "Email": "mail@beliani.se",
+        Email: "mail@beliani.se",
         "Commercial register": "Handelsregister: CHE-115.695.894",
-        "VAT": "USt-IDNr: DE 276156472"
+        VAT: "USt-IDNr: DE 276156472",
       },
-      "ukuk": {
+      ukuk: {
         "Company Details": "Company Details",
-        "Address": "Beliani (UK) GmbH Haldenstrasse 5 6340 Baar Switzerland",
+        Address: "Beliani (UK) GmbH Haldenstrasse 5 6340 Baar Switzerland",
         "Mobile number": "Phone: 020 3318 8222;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.co.uk",
-        "Email": "mail@beliani.co.uk",
+        Email: "mail@beliani.co.uk",
         "Commercial register": "Commercial Register: CHE-115.421.807",
-        "VAT": "VAT ID: GB 975042511"
+        VAT: "VAT ID: GB 975042511",
       },
-      "nono": {
+      nono: {
         "Company Details": "Selskapets Detaljer",
-        "Address": "Beliani Group AG GmbH 6340 Baar Sveits",
+        Address: "Beliani Group AG GmbH 6340 Baar Sveits",
         "Mobile number": "Telefonnummer: 21 98 88 87;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.no",
-        "Email": "mail@beliani.no",
+        Email: "mail@beliani.no",
         "Commercial register": "Handelsregister: 16282354",
-        "VAT": "USt-IDNr: 927 713 055"
+        VAT: "USt-IDNr: 927 713 055",
       },
-      "dkdk": {
+      dkdk: {
         "Company Details": "Selskabs informationer",
-        "Address": "Beliani (DE) GmbH 6340 Baar Schweiz",
+        Address: "Beliani (DE) GmbH 6340 Baar Schweiz",
         "Mobile number": "Telefonnummer: 89 88 10 86;",
         "Email address": "email:",
         "Mail to": "mailto:mail@beliani.dk",
-        "Email": "mail@beliani.dk",
+        Email: "mail@beliani.dk",
         "Commercial register": "Handelsregister: CHE-115.695.894",
-        "VAT": "USt-IDNr: DE 276156472"
+        VAT: "USt-IDNr: DE 276156472",
       },
-      "fifi": {
+      fifi: {
         "Company Details": "Yhtiön tiedot",
-        "Address": "Beliani (DE) GmbH 6340 Baar Sveitsi",
+        Address: "Beliani (DE) GmbH 6340 Baar Sveitsi",
         "Mobile number": "Puhelinnumero: 09 3157 9611;",
         "Email address": "sähköposti:",
         "Mail to": "mailto:mail@beliani.fi",
-        "Email": "mail@beliani.fi",
+        Email: "mail@beliani.fi",
         "Commercial register": "Rekisteröity: CHE-115.695.894",
-        "VAT": "USt-IDNr: DE276156472"
+        VAT: "USt-IDNr: DE276156472",
       },
-      "plpl": {
+      plpl: {
         "Company Details": "Dane Firmy",
-        "Address": "Beliani (PL) GmbH 6340 Baar Szwajcaria",
+        Address: "Beliani (PL) GmbH 6340 Baar Szwajcaria",
         "Mobile number": "Telefon: +48 91 350 83 60;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.pl",
-        "Email": "mail@beliani.pl",
+        Email: "mail@beliani.pl",
         "Commercial register": "Rejestr handlowy: CHE-136.573.305",
-        "VAT": "NIP: PL5263092611"
+        VAT: "NIP: PL5263092611",
       },
-      "benl": {
+      benl: {
         "Company Details": "Bedrijfsinformatie",
-        "Address": "Beliani (EU) GmbH CH 6340 Baar Switzerland",
+        Address: "Beliani (EU) GmbH CH 6340 Baar Switzerland",
         "Mobile number": "Telefoonnummer: 28 08 56 14;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.be",
-        "Email": "mail@beliani.be",
+        Email: "mail@beliani.be",
         "Commercial register": "Handelsregister: CHE-433.124.131",
-        "VAT": "USt-IDNr: DE369393001"
+        VAT: "USt-IDNr: DE369393001",
       },
-      "befr": {
+      befr: {
         "Company Details": "Mentions légales",
-        "Address": "Beliani (EU) GmbH CH 6340 Baar Switzerland",
+        Address: "Beliani (EU) GmbH CH 6340 Baar Switzerland",
         "Mobile number": "Téléphone: 28 08 56 14;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.be",
-        "Email": "mail@beliani.be",
+        Email: "mail@beliani.be",
         "Commercial register": "Commercial Register: CHE-433.124.131",
-        "VAT": "USt-IDNr: DE369393001"
+        VAT: "USt-IDNr: DE369393001",
       },
-      "roro": {
+      roro: {
         "Company Details": "Detalii companie",
-        "Address": "Beliani (EU) GmbH 6340 Baar Elveția",
+        Address: "Beliani (EU) GmbH 6340 Baar Elveția",
         "Mobile number": "Telefon: 0 316 300 677",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.ro",
-        "Email": "mail@beliani.ro",
-        "Commercial register": "Nr. de înregistrare la registrul comerțului: CHE-433.124.131",
-        "VAT": "VAT ID: DE369393001"
-      }
-    }
+        Email: "mail@beliani.ro",
+        "Commercial register":
+          "Nr. de înregistrare la registrul comerțului: CHE-433.124.131",
+        VAT: "VAT ID: DE369393001",
+      },
+    },
   },
   services_banner: {
     title: "Services banenr",
@@ -1927,13 +1928,12 @@ const COMPONENTS = {
         "Klarna href": "https://www.beliani.fr/content/paiement/",
       },
       huhu: {
-        "Klarna src": 
+        "Klarna src":
           "https://upload.pictureserver.net/static/2024/hu_klarna.png",
         "Klarna href": "https://www.beliani.hu/content/fizetesi-opciok/",
       },
       czcz: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/cz_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/cz_klarna.png",
         "Klarna href": "https://www.beliani.cz/content/zpusoby-platby/",
       },
       sksk: {
@@ -1941,8 +1941,7 @@ const COMPONENTS = {
         "Klarna href": "https://www.beliani.sk/content/sposoby-platby/",
       },
       itit: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/it_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/it_klarna.png",
         "Klarna href": "https://www.beliani.it/content/pagamento/",
       },
       chit: {
@@ -1950,33 +1949,27 @@ const COMPONENTS = {
         "Klarna href": "https://www.beliani.ch/content/pagamento/",
       },
       sese: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/se_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/se_klarna.png",
         "Klarna href": "https://www.beliani.se/content/betalningsmetoder/",
       },
       ukuk: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/uk_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/uk_klarna.png",
         "Klarna href": "https://www.beliani.co.uk/content/payment/",
       },
       nono: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/no_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/no_klarna.png",
         "Klarna href": "https://www.beliani.no/content/betaling/",
       },
       dkdk: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/dk_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/dk_klarna.png",
         "Klarna href": "https://www.beliani.dk/content/betalingsmetoder/",
       },
       fifi: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/fi_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/fi_klarna.png",
         "Klarna href": "https://www.beliani.fi/content/maksutavat/",
       },
       plpl: {
-        "Klarna src":
-          "https://pictureserver.net/static/2024/pl_klarna.png",
+        "Klarna src": "https://pictureserver.net/static/2024/pl_klarna.png",
         "Klarna href": "https://www.beliani.pl/content/platnosc/",
       },
       benl: {
@@ -1999,645 +1992,402 @@ const COMPONENTS = {
     is_active: true,
     html: '<table align="center" border="0" cellpadding="0" cellspacing="0" class="newsletterContainer" style="background-color:#ffffff;">\n\t<tbody>\n\t\t<tr>\n\t\t\t<td><img alt="" loading="lazy" src="https://beliani.info/newsletter/2022/line.jpg" style="display:block;max-width:100%;"></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td class="newsletterTopBottomContainer"><span class="newsletterFooterTitle">{{Title}}</span></td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td class="newsletterBottom35px">\n\t\t\t<table align="center" border="0" cellpadding="0" cellspacing="0">\n\t\t\t\t<tbody>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFT"><a href="{{{Footer category href 1}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 1}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHT"><a href="{{{Footer category href 2}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 2}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFT"><a href="{{{Footer category href 3}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 3}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHT"><a href="{{{Footer category href 4}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 4}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFT"><a href="{{{Footer category href 5}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 5}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHT"><a href="{{{Footer category href 6}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 6}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t\t<tr>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryLEFTBottom"><a href="{{{Footer category href 7}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 7}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t\t<td class="newsletterFooterCategoryRIGHTBottom"><a href="{{{Footer category href 8}}}{{utm}}{{id}}"><img alt="" border="0" loading="lazy" src="{{Footer category src 8}}" style="display:block;max-width:100%;"></a></td>\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</table>\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>',
     data: {
-      ptpt: {
-        Title: "Veja muito mais",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/pt_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/pt_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/pt_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/pt_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/pt_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/pt_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/pt_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/pt_cat_08.png",
-        "Footer category href 1": "https://www.beliani.pt/sofas",
-        "Footer category href 2": "https://www.beliani.pt/camas",
-        "Footer category href 3":
-          "https://www.beliani.pt/mesas/mesas-de-centro/",
-        "Footer category href 4": "https://www.beliani.pt/cadeiras",
-        "Footer category href 5": "https://www.beliani.pt/poltrona",
-        "Footer category href 6":
-          "https://www.beliani.pt/arrumacao/aparadores/",
-        "Footer category href 7": "https://www.beliani.pt/candeeiros",
-        "Footer category href 8": "https://www.beliani.pt/tapetes",
+      "ptpt": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/pt_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/pt_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/pt_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/pt_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/pt_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/pt_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/pt_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/pt_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.pt/sofas/todos+os+produtos",
+        "Footer category href 2": "https://www.beliani.pt/camas/todos+os+produtos",
+        "Footer category href 3": "https://www.beliani.pt/mesas/mesas-de-centro/",
+        "Footer category href 4": "https://www.beliani.pt/cadeiras/todos+os+produtos",
+        "Footer category href 5": "https://www.beliani.pt/poltrona/todos+os+produtos",
+        "Footer category href 6": "https://www.beliani.pt/arrumacao/aparadores/",
+        "Footer category href 7": "https://www.beliani.pt/candeeiros/todos+os+produtos",
+        "Footer category href 8": "https://www.beliani.pt/tapetes/todos+os+produtos"
       },
-      eses: {
-        Title: "Ver mucho más",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/es_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/es_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/es_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/es_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/es_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/es_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/es_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/es_cat_08.png",
-        "Footer category href 1": "https://www.beliani.es/sofas",
-        "Footer category href 2": "https://www.beliani.es/camas",
-        "Footer category href 3":
-          "https://www.beliani.es/mesas/mesas-de-centro/",
-        "Footer category href 4": "https://www.beliani.es/sillas",
-        "Footer category href 5": "https://www.beliani.es/sillones",
-        "Footer category href 6":
-          "https://www.beliani.es/organizacion-y-almacenaje/",
-        "Footer category href 7": "https://www.beliani.es/lamparas",
-        "Footer category href 8": "https://www.beliani.es/alfombras",
+      "eses": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/es_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/es_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/es_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/es_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/es_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/es_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/es_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/es_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.es/sofas/todos+los+productos",
+        "Footer category href 2": "https://www.beliani.es/camas/todos+los+productos",
+        "Footer category href 3": "https://www.beliani.es/mesas/mesas-de-centro/",
+        "Footer category href 4": "https://www.beliani.es/sillas/todos+los+productos",
+        "Footer category href 5": "https://www.beliani.es/sillones/todos+los+productos",
+        "Footer category href 6": "https://www.beliani.es/organizacion-y-almacenaje/aparadores/",
+        "Footer category href 7": "https://www.beliani.es/lamparas/todos+los+productos",
+        "Footer category href 8": "https://www.beliani.es/alfombras/todos+los+productos"
       },
-      nlnl: {
-        Title: "Bekijk er nog duizenden",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/nl_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/nl_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/nl_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/nl_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/nl_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/nl_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/nl_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/nl_cat_08.png",
-        "Footer category href 1": "https://www.beliani.nl/banken",
-        "Footer category href 2": "https://www.beliani.nl/bedden",
+      "nlnl": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/nl_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/nl_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/nl_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/nl_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/nl_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/nl_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/nl_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/nl_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.nl/banken/alle+producten",
+        "Footer category href 2": "https://www.beliani.nl/bedden/alle+producten",
         "Footer category href 3": "https://www.beliani.nl/tafels/salontafels/",
-        "Footer category href 4": "https://www.beliani.nl/stoelen",
-        "Footer category href 5": "https://www.beliani.nl/fauteuils",
-        "Footer category href 6":
-          "https://www.beliani.nl/woonkamer/commodes-en-dressoirs/",
-        "Footer category href 7": "https://www.beliani.nl/lampen",
-        "Footer category href 8": "https://www.beliani.nl/tapijten",
+        "Footer category href 4": "https://www.beliani.nl/stoelen/alle+producten",
+        "Footer category href 5": "https://www.beliani.nl/fauteuils/alle+producten",
+        "Footer category href 6": "https://www.beliani.nl/opbergen/sideboards/",
+        "Footer category href 7": "https://www.beliani.nl/lampen/alle+producten",
+        "Footer category href 8": "https://www.beliani.nl/vloerkleden/alle+producten"
       },
-      chde: {
-        Title: "Tausende weitere Möbel",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/dach_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/dach_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/dach_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/dach_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/dach_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/dach_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/dach_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/dach_cat_08.png",
-        "Footer category href 1": "https://www.beliani.ch/sofas/",
-        "Footer category href 2": "https://www.beliani.ch/betten/",
-        "Footer category href 3": "https://www.beliani.ch/tische/kaffeetische",
-        "Footer category href 4": "https://www.beliani.ch/stuehle/",
-        "Footer category href 5": "https://www.beliani.ch/sessel/",
-        "Footer category href 6":
-          "https://www.beliani.ch/aufbewahrung/kommoden",
-        "Footer category href 7": "https://www.beliani.ch/lampen/",
-        "Footer category href 8": "https://www.beliani.ch/teppich/",
+      "chde": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/dach_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/dach_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/dach_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/dach_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/dach_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/dach_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/dach_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/dach_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.ch/sofas/alle+produkte",
+        "Footer category href 2": "https://www.beliani.ch/betten/alle+produkte",
+        "Footer category href 3": "https://www.beliani.ch/tische/kaffeetische/",
+        "Footer category href 4": "https://www.beliani.ch/stuehle/alle+produkte",
+        "Footer category href 5": "https://www.beliani.ch/sessel/alle+produkte",
+        "Footer category href 6": "https://www.beliani.ch/aufbewahrung/sideboard/",
+        "Footer category href 7": "https://www.beliani.ch/lampen/alle+produkte",
+        "Footer category href 8": "https://www.beliani.ch/teppich/alle+produkte"
       },
-      atde: {
-        Title: "Tausende weitere Möbel",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/dach_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/dach_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/dach_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/dach_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/dach_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/dach_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/dach_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/dach_cat_08.png",
-        "Footer category href 1": "https://www.beliani.at/sofas/",
-        "Footer category href 2": "https://www.beliani.at/betten/",
-        "Footer category href 3": "https://www.beliani.at/tische/kaffeetische",
-        "Footer category href 4": "https://www.beliani.at/stuehle/",
-        "Footer category href 5": "https://www.beliani.at/sessel/",
-        "Footer category href 6":
-          "https://www.beliani.at/aufbewahrung/kommoden",
-        "Footer category href 7": "https://www.beliani.at/lampen/",
-        "Footer category href 8": "https://www.beliani.at/teppich/",
+      "atde": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/dach_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/dach_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/dach_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/dach_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/dach_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/dach_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/dach_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/dach_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.at/sofas/alle+produkte",
+        "Footer category href 2": "https://www.beliani.at/betten/alle+produkte",
+        "Footer category href 3": "https://www.beliani.at/tische/kaffeetische/",
+        "Footer category href 4": "https://www.beliani.at/stuehle/alle+produkte",
+        "Footer category href 5": "https://www.beliani.at/sessel/alle+produkte",
+        "Footer category href 6": "https://www.beliani.at/aufbewahrung/sideboard/",
+        "Footer category href 7": "https://www.beliani.at/lampen/alle+produkte",
+        "Footer category href 8": "https://www.beliani.at/teppich/alle+produkte"
       },
-      dede: {
-        Title: "Tausende weitere Möbel",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/dach_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/dach_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/dach_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/dach_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/dach_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/dach_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/dach_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/dach_cat_08.png",
-        "Footer category href 1": "https://www.beliani.de/sofas/",
-        "Footer category href 2": "https://www.beliani.de/betten/",
-        "Footer category href 3": "https://www.beliani.de/tische/kaffeetische",
-        "Footer category href 4": "https://www.beliani.de/stuehle/",
-        "Footer category href 5": "https://www.beliani.de/sessel/",
-        "Footer category href 6":
-          "https://www.beliani.de/aufbewahrung/kommoden",
-        "Footer category href 7": "https://www.beliani.de/lampen/",
-        "Footer category href 8": "https://www.beliani.de/teppich/",
+      "dede": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/dach_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/dach_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/dach_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/dach_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/dach_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/dach_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/dach_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/dach_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.de/sofas/alle+produkte",
+        "Footer category href 2": "https://www.beliani.de/betten/alle+produkte",
+        "Footer category href 3": "https://www.beliani.de/tische/kaffeetische/",
+        "Footer category href 4": "https://www.beliani.de/stuehle/alle+produkte",
+        "Footer category href 5": "https://www.beliani.de/sessel/alle+produkte",
+        "Footer category href 6": "https://www.beliani.de/aufbewahrung/sideboard/",
+        "Footer category href 7": "https://www.beliani.de/lampen/alle+produkte",
+        "Footer category href 8": "https://www.beliani.de/teppich/alle+produkte"
       },
-      chfr: {
-        Title: "En voir beaucoup plus",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_08.png",
-        "Footer category href 1":
-          "https://www.beliani.ch/meubles-de-salon/canapes/",
-        "Footer category href 2": "https://www.beliani.ch/lits",
-        "Footer category href 3":
-          "https://www.beliani.ch/tables/tables-basses/",
-        "Footer category href 4": "https://www.beliani.ch/chaises",
-        "Footer category href 5": "https://www.beliani.ch/fauteuils",
-        "Footer category href 6":
-          "https://www.beliani.ch/espace-rangement/commodes/",
-        "Footer category href 7": "https://www.beliani.ch/lampes",
-        "Footer category href 8": "https://www.beliani.ch/tapis",
+      "chfr": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/chfr_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/chfr_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/chfr_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/chfr_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/chfr_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/chfr_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/chfr_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/chfr_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.ch/canapes/tous+les+produits",
+        "Footer category href 2": "https://www.beliani.ch/lits/tous+les+produits",
+        "Footer category href 3": "https://www.beliani.ch/tables/tables-basses/",
+        "Footer category href 4": "https://www.beliani.ch/chaises/tous+les+produits",
+        "Footer category href 5": "https://www.beliani.ch/fauteuils/tous+les+produits",
+        "Footer category href 6": "https://www.beliani.ch/espace-rangement/commodes/",
+        "Footer category href 7": "https://www.beliani.ch/lampes/tous+les+produits",
+        "Footer category href 8": "https://www.beliani.ch/tapis/tous+les+produits"
       },
-      frfr: {
-        Title: "En voir beaucoup plus",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_08.png",
-        "Footer category href 1":
-          "https://www.beliani.fr/meubles-de-salon/canapes/",
-        "Footer category href 2": "https://www.beliani.fr/lits",
-        "Footer category href 3":
-          "https://www.beliani.fr/tables/tables-basses/",
-        "Footer category href 4": "https://www.beliani.fr/chaises",
-        "Footer category href 5": "https://www.beliani.fr/fauteuils",
-        "Footer category href 6":
-          "https://www.beliani.fr/espace-rangement/commodes/",
-        "Footer category href 7": "https://www.beliani.fr/lampes",
-        "Footer category href 8": "https://www.beliani.fr/tapis",
+      "frfr": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/chfr_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/chfr_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/chfr_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/chfr_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/chfr_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/chfr_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/chfr_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/chfr_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.fr/canapes/tous+les+produits",
+        "Footer category href 2": "https://www.beliani.fr/lits/tous+les+produits",
+        "Footer category href 3": "https://www.beliani.fr/tables/tables-basses/",
+        "Footer category href 4": "https://www.beliani.fr/chaises/tous+les+produits",
+        "Footer category href 5": "https://www.beliani.fr/fauteuils/tous+les+produits",
+        "Footer category href 6": "https://www.beliani.fr/espace-rangement/commodes/",
+        "Footer category href 7": "https://www.beliani.fr/lampes/tous+les+produits",
+        "Footer category href 8": "https://www.beliani.fr/tapis/tous+les+produits"
       },
-      huhu: {
-        Title: "Mutass többet",
-        "Footer category src 1": "https://upload.pictureserver.net/static/2024/hu_cat_01.png",
-        "Footer category src 2": "https://upload.pictureserver.net/static/2024/hu_cat_02.png",
-        "Footer category src 3": "https://upload.pictureserver.net/static/2024/hu_cat_03.png",
-        "Footer category src 4": "https://upload.pictureserver.net/static/2024/hu_cat_05.png",
-        "Footer category src 5": "https://upload.pictureserver.net/static/2024/hu_cat_04.png",
-        "Footer category src 6": "https://upload.pictureserver.net/static/2024/hu_cat_06.png",
-        "Footer category src 7": "https://upload.pictureserver.net/static/2024/hu_cat_07.png",
-        "Footer category src 8": "https://upload.pictureserver.net/static/2024/hu_cat_08.png",
-        "Footer category href 1": "https://www.beliani.hu/kanapek",
-        "Footer category href 2": "https://www.beliani.hu/agyak",
+      "huhu": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/hu_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/hu_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/hu_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/hu_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/hu_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/hu_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/hu_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/hu_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.hu/kanapek/minden+termek",
+        "Footer category href 2": "https://www.beliani.hu/agyak/minden+termek",
         "Footer category href 3": "https://www.beliani.hu/asztalok/dohanyzoasztalok/",
-        "Footer category href 4": "https://www.beliani.hu/szekek",
-        "Footer category href 5": "https://www.beliani.hu/fotelek",
-        "Footer category href 6":  "https://www.beliani.hu/tarolo-szekrenyek/komodok/",
-        "Footer category href 7": "https://www.beliani.hu/lampak",
-        "Footer category href 8": "https://www.beliani.hu/szonyegek",
+        "Footer category href 4": "https://www.beliani.hu/szekek/minden+termek",
+        "Footer category href 5": "https://www.beliani.hu/fotelek/minden+termek",
+        "Footer category href 6": "https://www.beliani.hu/tarolo-szekrenyek/polcos-szekrenyek-es-talalok/",
+        "Footer category href 7": "https://www.beliani.hu/lampak/minden+termek",
+        "Footer category href 8": "https://www.beliani.hu/szonyegek/minden+termek"
       },
-      czcz: {
-        Title: "Objevte další produkty",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/cz_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/cz_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/cz_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/cz_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/cz_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/cz_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/cz_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/cz_cat_08.png",
-        "Footer category href 1": "https://www.beliani.cz/pohovky",
-        "Footer category href 2": "https://www.beliani.cz/postele",
-        "Footer category href 3":
-          "https://www.beliani.cz/stoly/konferencni-stolky/",
-        "Footer category href 4": "https://www.beliani.cz/zidle-a-kresla/",
-        "Footer category href 5": "https://www.beliani.cz/kresla",
-        "Footer category href 6":
-          "https://www.beliani.cz/ulozny-prostor/regaly-a-komody/",
-        "Footer category href 7": "https://www.beliani.cz/svitidla",
-        "Footer category href 8": "https://www.beliani.cz/koberce",
+      "czcz": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/cz_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/cz_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/cz_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/cz_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/cz_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/cz_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/cz_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/cz_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.cz/pohovky/vsechny+produkty",
+        "Footer category href 2": "https://www.beliani.cz/postele/vsechny+produkty",
+        "Footer category href 3": "https://www.beliani.cz/stoly/konferencni-stolky/",
+        "Footer category href 4": "https://www.beliani.cz/zidle-a-kresla/vsechny+produkty",
+        "Footer category href 5": "https://www.beliani.cz/kresla/vsechny+produkty",
+        "Footer category href 6": "https://www.beliani.cz/ulozny-prostor/nizke-skrinky/",
+        "Footer category href 7": "https://www.beliani.cz/svitidla/vsechny+produkty",
+        "Footer category href 8": "https://www.beliani.cz/koberce/vsechny+produkty"
       },
-      sksk: {
-        Title: "Objavte ďalšie produkty",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/sk_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/sk_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/sk_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/sk_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/sk_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/sk_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/sk_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/sk_cat_08.png",
-        "Footer category href 1":
-          "https://www.beliani.sk/pohovky/zobraziť+všetky+produkty",
-        "Footer category href 2":
-          "https://www.beliani.sk/postele/zobraziť+všetky+produkty",
-        "Footer category href 3":
-          "https://www.beliani.sk/stoly/konferencne-stoliky/",
-        "Footer category href 4":
-          "https://www.beliani.sk/stolicky-a-kresla/zobraziť+všetky+produkty",
-        "Footer category href 5":
-          "https://www.beliani.sk/kresla/zobraziť+všetky+produkty",
-        "Footer category href 6":
-          "https://www.beliani.sk/ulozny-priestor/nizke-skrinky",
-        "Footer category href 7":
-          "https://www.beliani.sk/svietidla/zobraziť+všetky+produkty",
-        "Footer category href 8":
-          "https://www.beliani.sk/koberce/zobraziť+všetky+produkty",
+      "sksk": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/sk_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/sk_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/sk_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/sk_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/sk_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/sk_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/sk_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/sk_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.sk/pohovky/zobrazit+vsetky+produkty",
+        "Footer category href 2": "https://www.beliani.sk/postele/zobrazit+vsetky+produkty",
+        "Footer category href 3": "https://www.beliani.sk/stoly/konferencne-stoliky/",
+        "Footer category href 4": "https://www.beliani.sk/stolicky-a-kresla/zobrazit+vsetky+produkty",
+        "Footer category href 5": "https://www.beliani.sk/kresla/zobrazit+vsetky+produkty",
+        "Footer category href 6": "https://www.beliani.sk/ulozny-priestor/nizke-skrinky/",
+        "Footer category href 7": "https://www.beliani.sk/svietidla/zobrazit+vsetky+produkty",
+        "Footer category href 8": "https://www.beliani.sk/koberce/zobrazit+vsetky+produkty"
       },
-      itit: {
-        Title: "Scopri migliaia di prodotti",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/it_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/it_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/it_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/it_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/it_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/it_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/it_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/it_cat_08.png",
-        "Footer category href 1": "https://www.beliani.it/divani",
-        "Footer category href 2": "https://www.beliani.it/letti",
+      "itit": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/it_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/it_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/it_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/it_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/it_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/it_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/it_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/it_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.it/divani/tutti+i+prodotti",
+        "Footer category href 2": "https://www.beliani.it/letti/tutti+i+prodotti",
         "Footer category href 3": "https://www.beliani.it/tavoli/tavolini/",
-        "Footer category href 4": "https://www.beliani.it/sedie",
-        "Footer category href 5": "https://www.beliani.it/poltrone",
-        "Footer category href 6":
-          "https://www.beliani.it/soggiorno/mobili-portaoggetti/tutti+i+prodotti/",
-        "Footer category href 7": "https://www.beliani.it/illuminazione",
-        "Footer category href 8": "https://www.beliani.it/tappeti",
+        "Footer category href 4": "https://www.beliani.it/sedie/tutti+i+prodotti",
+        "Footer category href 5": "https://www.beliani.it/poltrone/tutti+i+prodotti",
+        "Footer category href 6": "https://www.beliani.it/mobili-portaoggetti/credenze/",
+        "Footer category href 7": "https://www.beliani.it/illuminazione/tutti+i+prodotti",
+        "Footer category href 8": "https://www.beliani.it/tappeti/tutti+i+prodotti"
       },
-      chit: {
-        Title: "Scopri migliaia di prodotti",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/it_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/it_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/it_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/it_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/it_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/it_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/it_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/it_cat_08.png",
-        "Footer category href 1": "https://www.beliani.ch/divani",
-        "Footer category href 2": "https://www.beliani.ch/letti",
+      "chit": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/it_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/it_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/it_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/it_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/it_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/it_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/it_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/it_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.ch/divani/tutti+i+prodotti",
+        "Footer category href 2": "https://www.beliani.ch/letti/tutti+i+prodotti",
         "Footer category href 3": "https://www.beliani.ch/tavoli/tavolini/",
-        "Footer category href 4": "https://www.beliani.ch/sedie",
-        "Footer category href 5": "https://www.beliani.ch/poltrone",
-        "Footer category href 6":
-          "https://www.beliani.ch/soggiorno/mobili-portaoggetti/tutti+i+prodotti/",
-        "Footer category href 7": "https://www.beliani.ch/illuminazione",
-        "Footer category href 8": "https://www.beliani.ch/tappeti",
+        "Footer category href 4": "https://www.beliani.ch/sedie/tutti+i+prodotti",
+        "Footer category href 5": "https://www.beliani.ch/poltrone/tutti+i+prodotti",
+        "Footer category href 6": "https://www.beliani.ch/mobili-portaoggetti/credenze/",
+        "Footer category href 7": "https://www.beliani.ch/illuminazione/tutti+i+prodotti",
+        "Footer category href 8": "https://www.beliani.ch/tappeti/tutti+i+prodotti"
       },
-      sese: {
-        Title: "Se tusentals fler",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/se_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/se_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/se_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/se_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/se_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/se_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/se_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/se_cat_08.png",
-        "Footer category href 1": "https://www.beliani.se/soffor/",
-        "Footer category href 2": "https://www.beliani.se/sangar/",
+      "sese": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/se_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/se_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/se_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/se_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/se_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/se_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/se_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/se_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.se/soffor/alla+produkter",
+        "Footer category href 2": "https://www.beliani.se/sangar/alla+produkter",
         "Footer category href 3": "https://www.beliani.se/bord/soffbord/",
-        "Footer category href 4": "https://www.beliani.se/stolar",
-        "Footer category href 5": "https://www.beliani.se/fatolj/",
-        "Footer category href 6":
-          "https://www.beliani.se/forvaring/skap-och-skankar/",
-        "Footer category href 7":
-          "https://www.beliani.se/lampor/alla+produkter/",
-        "Footer category href 8": "https://www.beliani.se/mattor/",
+        "Footer category href 4": "https://www.beliani.se/stolar/alla+produkter",
+        "Footer category href 5": "https://www.beliani.se/fatolj/alla+produkter",
+        "Footer category href 6": "https://www.beliani.se/forvaring/skap-och-skankar/",
+        "Footer category href 7": "https://www.beliani.se/lampor/alla+produkter",
+        "Footer category href 8": "https://www.beliani.se/mattor/alla+produkter"
       },
-      ukuk: {
-        Title: "See thousands more",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/uk_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/uk_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/uk_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/uk_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/uk_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/uk_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/uk_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/uk_cat_08.png",
-        "Footer category href 1":
-          "https://www.beliani.co.uk/sofas/all+products",
+      "ukuk": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/uk_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/uk_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/uk_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/uk_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/uk_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/uk_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/uk_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/uk_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.co.uk/sofas/all+products",
         "Footer category href 2": "https://www.beliani.co.uk/beds/all+products",
-        "Footer category href 3":
-          "https://www.beliani.co.uk/tables/coffee-tables",
-        "Footer category href 4":
-          "https://www.beliani.co.uk/chairs/all+products",
-        "Footer category href 5":
-          "https://www.beliani.co.uk/armchairs/all+products",
-        "Footer category href 6":
-          "https://www.beliani.co.uk/storage/sideboards",
-        "Footer category href 7":
-          "https://www.beliani.co.uk/lighting/all+products",
-        "Footer category href 8": "https://www.beliani.co.uk/rugs/all+products",
+        "Footer category href 3": "https://www.beliani.co.uk/tables/coffee-tables",
+        "Footer category href 4": "https://www.beliani.co.uk/chairs/all+products",
+        "Footer category href 5": "https://www.beliani.co.uk/armchairs/all+products",
+        "Footer category href 6": "https://www.beliani.co.uk/storage/sideboards",
+        "Footer category href 7": "https://www.beliani.co.uk/lighting/all+products",
+        "Footer category href 8": "https://www.beliani.co.uk/rugs/all+products"
       },
-      nono: {
-        Title: "Se tusenvis av våre",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/no_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/no_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/no_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/no_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/no_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/no_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/no_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/no_cat_08.png",
-        "Footer category href 1": "https://www.beliani.no/sofaer",
-        "Footer category href 2": "https://www.beliani.no/senger",
-        "Footer category href 3": "https://www.beliani.no/bord/sofabord/looks/",
-        "Footer category href 4": "https://www.beliani.no/stoler",
-        "Footer category href 5": "https://www.beliani.no/lenestoler",
-        "Footer category href 6":
-          "https://www.beliani.no/oppbevaring/skjenker/looks/",
-        "Footer category href 7": "https://www.beliani.no/belysning",
-        "Footer category href 8": "https://www.beliani.no/tepper",
+      "nono": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/no_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/no_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/no_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/no_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/no_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/no_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/no_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/no_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.no/sofaer/alle+produkter",
+        "Footer category href 2": "https://www.beliani.no/senger/alle+produkter",
+        "Footer category href 3": "https://www.beliani.no/bord/sofabord/",
+        "Footer category href 4": "https://www.beliani.no/stoler/alle+produkter",
+        "Footer category href 5": "https://www.beliani.no/lenestoler/alle+produkter",
+        "Footer category href 6": "https://www.beliani.no/oppbevaring/skjenker/",
+        "Footer category href 7": "https://www.beliani.no/belysning/alle+produkter",
+        "Footer category href 8": "https://www.beliani.no/tepper/alle+produkter"
       },
-      dkdk: {
-        Title: "Se tusindvis af flere",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/dk_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/dk_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/dk_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/dk_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/dk_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/dk_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/dk_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/dk_cat_08.png",
-        "Footer category href 1":
-          "https://www.beliani.dk/sofaer/alle+produkter",
+      "dkdk": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/dk_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/dk_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/dk_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/dk_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/dk_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/dk_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/dk_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/dk_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.dk/sofaer/alle+produkter",
         "Footer category href 2": "https://www.beliani.dk/senge/alle+produkter",
-        "Footer category href 3":
-          "https://www.beliani.dk/borde/sofaborde/looks",
-        "Footer category href 4":
-          "https://www.beliani.dk/stuemobler/stole/alle+produkter/",
-        "Footer category href 5":
-          "https://www.beliani.dk/lenestole/alle+produkter",
+        "Footer category href 3": "https://www.beliani.dk/borde/sofaborde/",
+        "Footer category href 4": "https://www.beliani.dk/stole/alle+produkter",
+        "Footer category href 5": "https://www.beliani.dk/lenestole/alle+produkter",
         "Footer category href 6": "https://www.beliani.dk/opbevaring/skaenke/",
-        "Footer category href 7":
-          "https://www.beliani.dk/belysning/alle+produkter",
-        "Footer category href 8":
-          "https://www.beliani.dk/gulvtepper/alle+produkter",
+        "Footer category href 7": "https://www.beliani.dk/belysning/alle+produkter",
+        "Footer category href 8": "https://www.beliani.dk/gulvtepper/alle+produkter"
       },
-      fifi: {
-        Title: "Löydä tuhansia muita",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/fi_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/fi_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/fi_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/fi_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/fi_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/fi_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/fi_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/fi_cat_08.png",
-        "Footer category href 1": "https://www.beliani.fi/sohvat",
-        "Footer category href 2": "https://www.beliani.fi/sangyt",
+      "fifi": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/fi_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/fi_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/fi_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/fi_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/fi_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/fi_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/fi_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/fi_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.fi/sohvat/kaikki+tuotteet",
+        "Footer category href 2": "https://www.beliani.fi/sangyt/kaikki+tuotteet",
         "Footer category href 3": "https://www.beliani.fi/poydat/sohvapoydat/",
-        "Footer category href 4": "https://www.beliani.fi/tuolit",
-        "Footer category href 5": "https://www.beliani.fi/nojatuolit",
-        "Footer category href 6":
-          "https://www.beliani.fi/olohuoneen-kalusteet/sailytys/senkit/",
-        "Footer category href 7": "https://www.beliani.fi/valaisimet",
-        "Footer category href 8": "https://www.beliani.fi/matot",
+        "Footer category href 4": "https://www.beliani.fi/tuolit/kaikki+tuotteet",
+        "Footer category href 5": "https://www.beliani.fi/nojatuolit/kaikki+tuotteet",
+        "Footer category href 6": "https://www.beliani.fi/sailytys/senkit/",
+        "Footer category href 7": "https://www.beliani.fi/valaisimet/kaikki+tuotteet",
+        "Footer category href 8": "https://www.beliani.fi/matot/kaikki+tuotteet"
       },
-      plpl: {
-        Title: "Zobacz jeszcze więcej",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/pl_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/pl_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/pl_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/pl_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/pl_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/pl_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/pl_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/pl_cat_08.png",
-        "Footer category href 1":
-          "https://www.beliani.pl/sofy/wszystkie+produkty",
-        "Footer category href 2":
-          "https://www.beliani.pl/lozka/wszystkie+produkty",
-        "Footer category href 3": "https://www.beliani.pl/stoly/stoliki-kawowe",
-        "Footer category href 4":
-          "https://www.beliani.pl/krzesla/wszystkie+produkty",
-        "Footer category href 5":
-          "https://www.beliani.pl/fotele/wszystkie+produkty",
-        "Footer category href 6": "https://www.beliani.pl/przechowywanie/",
-        "Footer category href 7":
-          "https://www.beliani.pl/oswietlenie/wszystkie+produkty/",
-        "Footer category href 8":
-          "https://www.beliani.pl/dywany/wszystkie+produkty/",
+      "plpl": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/pl_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/pl_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/pl_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/pl_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/pl_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/pl_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/pl_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/pl_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.pl/sofy/wszystkie+produkty",
+        "Footer category href 2": "https://www.beliani.pl/lozka/wszystkie+produkty",
+        "Footer category href 3": "https://www.beliani.pl/stoly/stoliki-kawowe/",
+        "Footer category href 4": "https://www.beliani.pl/krzesla/wszystkie+produkty",
+        "Footer category href 5": "https://www.beliani.pl/fotele/wszystkie+produkty",
+        "Footer category href 6": "https://www.beliani.pl/przechowywanie/szafki/",
+        "Footer category href 7": "https://www.beliani.pl/oswietlenie/wszystkie+produkty",
+        "Footer category href 8": "https://www.beliani.pl/dywany/wszystkie+produkty"
       },
-      benl: {
-        Title: "Bekijk er nog duizenden",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/nl_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/nl_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/nl_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/nl_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/nl_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/nl_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/nl_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/nl_cat_08.png",
-        "Footer category href 1": "https://www.beliani.be/banken",
-        "Footer category href 2": "https://www.beliani.be/bedden",
+      "benl": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/nl_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/nl_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/nl_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/nl_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/nl_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/nl_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/nl_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/nl_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.be/banken/alle+producten",
+        "Footer category href 2": "https://www.beliani.be/bedden/alle+producten",
         "Footer category href 3": "https://www.beliani.be/tafels/salontafels/",
-        "Footer category href 4": "https://www.beliani.be/stoelen",
-        "Footer category href 5": "https://www.beliani.be/fauteuils",
-        "Footer category href 6": "https://www.beliani.be/opbergen/dressoirs/",
-        "Footer category href 7": "https://www.beliani.be/lampen",
-        "Footer category href 8": "https://www.beliani.be/vloerkleden/",
+        "Footer category href 4": "https://www.beliani.be/stoelen/alle+producten",
+        "Footer category href 5": "https://www.beliani.be/fauteuils/alle+producten",
+        "Footer category href 6": "https://www.beliani.be/opbergen/sideboards/",
+        "Footer category href 7": "https://www.beliani.be/lampen/alle+producten",
+        "Footer category href 8": "https://www.beliani.be/vloerkleden/alle+producten"
       },
-      befr: {
-        Title: "En voir beaucoup plus",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/chfr_cat_08.png",
-        "Footer category href 1":
-          "https://www.beliani.be/meubles-de-salon/canapes/",
-        "Footer category href 2": "https://www.beliani.be/lits",
-        "Footer category href 3":
-          "https://www.beliani.be/tables/tables-basses/",
-        "Footer category href 4": "https://www.beliani.be/chaises",
-        "Footer category href 5": "https://www.beliani.be/fauteuils",
-        "Footer category href 6":
-          "https://www.beliani.be/espace-rangement/commodes/",
-        "Footer category href 7": "https://www.beliani.be/lampes",
-        "Footer category href 8": "https://www.beliani.be/tapis",
+      "befr": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/chfr_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/chfr_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/chfr_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/chfr_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/chfr_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/chfr_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/chfr_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/chfr_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.be/canapes/tous+les+produits",
+        "Footer category href 2": "https://www.beliani.be/lits/tous+les+produits",
+        "Footer category href 3": "https://www.beliani.be/tables/tables-basses/",
+        "Footer category href 4": "https://www.beliani.be/chaises/tous+les+produits",
+        "Footer category href 5": "https://www.beliani.be/fauteuils/tous+les+produits",
+        "Footer category href 6": "https://www.beliani.be/espace-rangement/commodes/",
+        "Footer category href 7": "https://www.beliani.be/lampes/tous+les+produits",
+        "Footer category href 8": "https://www.beliani.be/tapis/tous+les+produits"
       },
-      roro: {
-        Title: "Vezi mii de altele",
-        "Footer category src 1":
-          "https://upload.pictureserver.net/static/2024/ro_cat_01.png",
-        "Footer category src 2":
-          "https://upload.pictureserver.net/static/2024/ro_cat_02.png",
-        "Footer category src 3":
-          "https://upload.pictureserver.net/static/2024/ro_cat_03.png",
-        "Footer category src 4":
-          "https://upload.pictureserver.net/static/2024/ro_cat_04.png",
-        "Footer category src 5":
-          "https://upload.pictureserver.net/static/2024/ro_cat_05.png",
-        "Footer category src 6":
-          "https://upload.pictureserver.net/static/2024/ro_cat_06.png",
-        "Footer category src 7":
-          "https://upload.pictureserver.net/static/2024/ro_cat_07.png",
-        "Footer category src 8":
-          "https://upload.pictureserver.net/static/2024/ro_cat_08.png",
-        "Footer category href 1": "https://www.beliani.ro/canapele/",
-        "Footer category href 2": "https://www.beliani.ro/paturi/",
-        "Footer category href 3":
-          "https://www.beliani.ro/tabele/mese-de-cafea/",
-        "Footer category href 4": "https://www.beliani.ro/scaune/",
-        "Footer category href 5": "https://www.beliani.ro/fotolii/",
-        "Footer category href 6":
-          "https://www.beliani.ro/mobilier-de-depozitare/dulapuri-si-dulapuri-cu-sertare/",
-        "Footer category href 7": "https://www.beliani.ro/iluminat/",
-        "Footer category href 8": "https://www.beliani.ro/covoare/",
-      },
+      "roro": {
+        "Footer category src 1": "https://pictureserver.net/static/2024/ro_cat_01.png?ver=3",
+        "Footer category src 2": "https://pictureserver.net/static/2024/ro_cat_02.png?ver=3",
+        "Footer category src 3": "https://pictureserver.net/static/2024/ro_cat_03.png?ver=3",
+        "Footer category src 4": "https://pictureserver.net/static/2024/ro_cat_04.png?ver=3",
+        "Footer category src 5": "https://pictureserver.net/static/2024/ro_cat_05.png?ver=3",
+        "Footer category src 6": "https://pictureserver.net/static/2024/ro_cat_06.png?ver=3",
+        "Footer category src 7": "https://pictureserver.net/static/2024/ro_cat_07.png?ver=3",
+        "Footer category src 8": "https://pictureserver.net/static/2024/ro_cat_08.png?ver=3",
+        "Footer category href 1": "https://www.beliani.ro/canapele/toate+produsele",
+        "Footer category href 2": "https://www.beliani.ro/paturi/toate+produsele",
+        "Footer category href 3": "https://www.beliani.ro/mese/mese-de-cafea/",
+        "Footer category href 4": "https://www.beliani.ro/scaune/toate+produsele",
+        "Footer category href 5": "https://www.beliani.ro/fotolii/toate+produsele",
+        "Footer category href 6": "https://www.beliani.ro/mobilier-de-depozitare/dulapuri-si-dulapuri-cu-sertare/",
+        "Footer category href 7": "https://www.beliani.ro/iluminat/toate+produsele",
+        "Footer category href 8": "https://www.beliani.ro/covoare/toate+produsele"
+      }
     },
     fallback: {
       Title: "See thousands more",

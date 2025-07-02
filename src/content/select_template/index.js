@@ -8,7 +8,7 @@ const DEFAULT_VARIABLES = {
   origin: "https://www.beliani.co.uk",
   id: new URLSearchParams(window.location.search).get("id"),
   utm: "?utm_source=newsletter&utm_medium=email&utm_campaign=",
-  picture_server_url: "https://upload.pictureserver.net/static/2025/",
+  picture_server_url: "https://pictureserver.net/static/2025/",
 };
 
 const ui = {
@@ -224,7 +224,7 @@ const app = {
             new Notification("Fallback not found in template.");
           }
         },
-        {}
+        {},
       );
 
       const get_template_context = document.createElement("button");
@@ -257,7 +257,7 @@ const app = {
         handleSelectTemplate(
           template.html,
           app.textarea,
-          document.querySelector("input[class~='update-btn']")
+          document.querySelector("input[class~='update-btn']"),
         );
         app.dialog.node.close();
         document.body.style.overflow = "auto";
@@ -301,7 +301,7 @@ const app = {
       ["context", "components"],
       ({ context, components }) => {
         this.components = components;
-      }
+      },
     );
   },
 

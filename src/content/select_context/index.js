@@ -11,7 +11,7 @@ const select_context = {
       ["context", "components", "selectedContext"],
       (props) => {
         this.selectContext(props);
-      }
+      },
     );
   },
 
@@ -52,7 +52,7 @@ const select_context = {
           selectedContext: value,
         });
         new Notification("Context succesfully saved.");
-        location.reload()
+        location.reload();
       }
     });
     this.textarea.insertAdjacentElement("afterend", select_context);

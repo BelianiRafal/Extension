@@ -96,18 +96,24 @@ const fulfillBody = {
       const button = ui.createButton({
         title: "Fulfill body",
         onClick: () => {
-          let LP_ID = null
+          let LP_ID = null;
           if (href_lp.length) {
-            LP_ID = new URL(
-              location.origin + href_lp[0].href
-            ).searchParams.get("id");
+            LP_ID = new URL(location.origin + href_lp[0].href).searchParams.get(
+              "id",
+            );
           }
 
           if (content.length <= 10) {
             new Notification("Body content too small.");
             return;
           }
-          this.render({ id: _id, seller, lang, body: content, contentId: LP_ID });
+          this.render({
+            id: _id,
+            seller,
+            lang,
+            body: content,
+            contentId: LP_ID,
+          });
         },
       });
       row.append(ui.createColumn([button]));
@@ -150,10 +156,10 @@ const fulfillBody = {
 
         if (!(selectedContext in context)) {
           this.notify(
-            `Selected context ${selectedContext} not found in context.`
+            `Selected context ${selectedContext} not found in context.`,
           );
           console.log(
-            `Selected context ${selectedContext} not found in ${context}.`
+            `Selected context ${selectedContext} not found in ${context}.`,
           );
           return;
         }
@@ -182,7 +188,7 @@ const fulfillBody = {
                 slug: languageSlug,
                 origin,
                 id,
-              }
+              },
             );
 
             const payload = {
@@ -201,7 +207,7 @@ const fulfillBody = {
               JSON.stringify({
                 payload,
                 time: new Date(),
-              })
+              }),
             );
             try {
               const parsedTemplate = Mustache.parse(body);
@@ -212,14 +218,14 @@ const fulfillBody = {
               const payload_campaign = {
                 campaign_id: id,
                 body: html,
-                shop_content: contentId
+                shop_content: contentId,
               };
               localStorage.setItem(
                 "fill-campaign-payload",
                 JSON.stringify({
                   payload_campaign,
                   time: new Date(),
-                })
+                }),
               );
               await handleButtonBodyUpdate(payload_campaign);
             } catch (error) {
@@ -240,7 +246,7 @@ const fulfillBody = {
           localStorage.setItem("error", message);
           return;
         }
-      }
+      },
     );
   },
 };

@@ -129,26 +129,32 @@ const app = {
       console.log(optionsData, inputsData);
 
       // Sprawdzenie, czy title lub body zawiera "XX"
-      const titleValue = inputsData.find(item => item.selector === "[name='title']")?.value || "";
-      const bodyValue = inputsData.find(item => item.selector === "[name='body']")?.value || "";
+      const titleValue =
+        inputsData.find((item) => item.selector === "[name='title']")?.value ||
+        "";
+      const bodyValue =
+        inputsData.find((item) => item.selector === "[name='body']")?.value ||
+        "";
 
       if (titleValue.includes("XX") || bodyValue.includes("XX")) {
-          alert("W Twoim tekście jest XX zamiast wartości, sprawdź przed wysyłką.");
-          return; // Przerywa dalszą akcję, jeśli znaleziono "XX"
+        alert(
+          "W Twoim tekście jest XX zamiast wartości, sprawdź przed wysyłką.",
+        );
+        return; // Przerywa dalszą akcję, jeśli znaleziono "XX"
       }
 
       // Keep ordering of name attributes (cta_lang should be selected after shop)
       for (const nameAttr of this.optionsKeys) {
-          setTimeout(() => {
-              this.setOptionValue({
-                  selector: nameAttr,
-                  value: optionsData[nameAttr],
-              });
-          }, 500);
+        setTimeout(() => {
+          this.setOptionValue({
+            selector: nameAttr,
+            value: optionsData[nameAttr],
+          });
+        }, 500);
       }
 
       inputsData.forEach(this.setInputValue);
-  });
+    });
 
     const options = keys.map((item) => {
       const option = document.createElement("option");
@@ -170,7 +176,7 @@ const app = {
     [...(node.querySelectorAll("option") || [])].forEach((option) =>
       option.value === value
         ? (option.selected = true)
-        : (option.selected = false)
+        : (option.selected = false),
     );
     node.dispatchEvent(new Event("change"));
   },

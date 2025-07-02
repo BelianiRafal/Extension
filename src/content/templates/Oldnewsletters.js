@@ -4,15 +4,14 @@ const TEMPLATES = [
     title: "Clear contnet:",
     description: "Just cleaner",
     is_active: true,
-    fallback: {
-
-    },
+    fallback: {},
     html: `<html><head><title></title></head><body></body></html>
-`
+`,
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \n4 categories \nTimer in 2nd banner\nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \n4 categories \nTimer in 2nd banner\nWithout CTA's\nFooter",
     is_active: false,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -36,7 +35,7 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
     html: `<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
@@ -487,7 +486,7 @@ const TEMPLATES = [
     {{{company_details}}}
   </body>
 </html>
-`
+`,
   },
   {
     title: "Sunday NS NO Timer:",
@@ -509,7 +508,7 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
     html: `<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
@@ -1034,7 +1033,7 @@ const TEMPLATES = [
     {{{company_details}}}
   </body>
 </html>
-`
+`,
   },
   {
     title: "Sunday NS with:",
@@ -1059,7 +1058,7 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
     html: `<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html
@@ -1594,7 +1593,7 @@ const TEMPLATES = [
       </body>
       <div style="all: initial"></div>
     </html>
-    `
+    `,
   },
   {
     title: "Sunday NS with:",
@@ -1621,13 +1620,14 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
     html: '<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html\n  xmlns="http://www.w3.org/1999/xhtml"\n  xmlns:o="urn:schemas-microsoft-com:office:office"\n  xmlns:v="urn:schemas-microsoft-com:vml"\n>\n  <head>\n    <title>Beliani</title>\n    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\n    <meta name="x-apple-disable-message-reformatting" />\n    <meta\n      name="viewport"\n      content="width=device-width, initial-scale=1, user-scalable=yes"\n    />\n    <meta name="color-scheme" content="light only" />\n    <meta name="supported-color-schemes" content="light only" />\n    <link\n      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic-ext,latin-ext"\n    />\n    <style>\n      table,\n      td {\n        mso-table-lspace: 0pt;\n        mso-table-rspace: 0pt;\n      }\n      img {\n        -ms-interpolation-mode: bicubic;\n      }\n      .title-advantages {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        padding-bottom: 10px;\n        padding-top: 10px;\n        margin: 0;\n      }\n      .title-advantages-item {\n        margin-left: 4px;\n      }\n      .newsletterRecommendationHeader {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        margin-bottom: 10px;\n        margin-top: 10px;\n      }\n      .newsletterFreebieContainer {\n        padding-left: 10px;\n      }\n      .newsletterBottom80px {\n        padding-bottom: 80px;\n      }\n      .newsletterBottom10px {\n        padding-bottom: 10px;\n      }\n      .newsletterContainer {\n        padding-left: 20px;\n        padding-right: 20px;\n      }\n      .newsletterCta {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterCode {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterBottom20px {\n        padding-bottom: 20px;\n      }\n      .newsletterBottom35px {\n        padding-bottom: 35px;\n      }\n      .newsletterBottom60px {\n        padding-bottom: 60px;\n      }\n      .newsletterParagraph {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitleOfferPart {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitle {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductTitle {\n        font-size: 20px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductLowPrice {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        font-weight: 600;\n      }\n      .newsletterProductHightPrice {\n        font-size: 14px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        text-decoration: line-through;\n      }\n      .newsletterRight10px {\n        padding-right: 10px;\n      }\n      .newsletterLeft10px {\n        padding-left: 10px;\n      }\n      .newsletterFooter {\n        padding-left: 20px !important;\n        padding-right: 20px !important;\n      }\n      .newsletterConditions {\n        color: black;\n        font-family: "Open Sans", sans-serif;\n        font-size: 8px;\n      }\n      .newsletterFooterCompanyDetails {\n        vertical-align: middle;\n        padding-top: 20px;\n        padding-right: 0px;\n        padding-bottom: 20px;\n        font-size: 11px;\n        font-family: "Open Sans", sans-serif !important;\n        color: #000000;\n        background: #ececec;\n        width: 100%;\n      }\n      .newsletterFooterTitle {\n        text-align: left;\n        color: #000000;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterProductTitleFreebie {\n        text-align: center;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterFooterCategoryLEFT {\n        padding-bottom: 20px !important;\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHT {\n        padding-bottom: 20px !important;\n        padding-left: 10px !important;\n      }\n      .newsletterFooterCategoryLEFTBottom {\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHTBottom {\n        padding-left: 10px !important;\n      }\n      .newsletterSocialIcon {\n        padding-left: 25px !important;\n      }\n      .newsletterTopBottomContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      .newsletterKlarnaBannerContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      @media screen and (max-width: 768px) {\n        .newsletterFooterCategoryLEFTBottom {\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHTBottom {\n          padding-left: 5px !important;\n        }\n        .newsletterFooterCategoryLEFT {\n          padding-bottom: 10px !important;\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHT {\n          padding-bottom: 10px !important;\n          padding-left: 5px !important;\n        }\n        .newsletterSocialIcon {\n          padding-left: 13px !important;\n        }\n        .newsletterTopBottomContainer {\n          padding-top: 20px !important;\n          padding-bottom: 20px !important;\n        }\n        .newsletterFooterTitle {\n          font-size: 18px;\n        }\n        .newsletterProductTitleFreebie {\n          font-size: 18px;\n        }\n        .newsletterProductTitle {\n          font-size: 18px;\n        }\n        .newsletterProductLowPrice {\n          font-size: 16px;\n        }\n        .newsletterProductHightPrice {\n          display: block;\n        }\n        .newsletterProductTitleContainer {\n          padding-top: 10px;\n        }\n        .newsletterTitle {\n          font-size: 25px;\n        }\n        .newsletterTitleOfferPart {\n          font-size: 25px;\n        }\n        .newsletterContainer {\n          padding-left: 10px;\n          padding-right: 10px;\n        }\n        .newsletterFreebieContainer {\n          padding-left: 10px;\n          padding-right: 0px !important;\n        }\n        .newsletterBottom35px {\n          padding-bottom: 20px;\n        }\n        .newsletterBottom60px {\n          padding-bottom: 40px;\n        }\n        .newsletterParagraph {\n          font-size: 16px;\n        }\n        .newsletterLeft10px {\n          padding-left: 5px;\n        }\n        .newsletterRight10px {\n          padding-right: 5px;\n        }\n        .newsletterBottom20px {\n          padding-bottom: 10px;\n        }\n        .newsletterBottom80px {\n          padding-bottom: 50px;\n        }\n      }\n      @media screen and (max-width: 570px) {\n        .newsletterProductTitleFreebie {\n          font-size: 16px;\n        }\n      }\n      @media screen and (max-width: 460px) {\n        .newsletterProductTitleFreebie {\n          font-size: 14px;\n        }\n      }\n      @media screen and (max-width: 370px) {\n        .newsletterProductTitleFreebie {\n          font-size: 12px;\n        }\n      }\n    </style>\n  </head>\n  <body\n    class="body"\n    style="\n      width: 100% !important;\n      padding: 0 !important;\n      margin: 0 auto !important;\n      font-family: \'Open Sans\', sans-serif !important;\n      font-size: 13px;\n      color: #000000;\n      text-align: left;\n      background-color: #ececec;\n    "\n    width="100%"\n  >\n    {{{header}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      id="newsletter"\n      style="max-width:650px;width:100%;background-color:{{Newsletter_bg_color}};color:#000"\n      width="100%"\n    >\n      <tbody>\n        <tr>\n          <td align="center">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td>\n                    <a href="{{origin}}{{utm}}{{id}}"\n                      ><img\n                        alt=""\n                        loading="lazy"\n                        src="{{Top_image_src}}"\n                        style="vertical-align: middle; max-width: 100%"\n                    /></a>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_1}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_1}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}; color: {{Timer_color}};">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Timer_bg_color}}">\n            <a href="{{origin}}/content{{Timer_href}}{{utm}}{{id}}"\n              ><img\n                alt="Timer gif"\n                loading="lazy"\n                src="{{Timer_src}}"\n                style="vertical-align: middle; max-width: 100%"\n            /></a>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_2}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_2}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_3}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_3}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n     <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_4}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_4}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n    <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom80px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n {{{services_banner}}}    {{{footer_categories}}} {{{klarna}}} {{{socials}}} {{{advantages}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      class="newsletterContainer"\n      style="max-width: 650px; width: 100%; background-color: #ffffff"\n      width="650"\n    >\n      <tbody>\n        <tr>\n          <td>\n            <img\n              alt=""\n              loading="lazy"\n              src="https://beliani.info/newsletter/2022/line.jpg"\n              style="display: block; max-width: 100%"\n            />\n          </td>\n        </tr>\n        <tr>\n          <td align="left" class="newsletterTopBottomContainer">\n            <span class="newsletterConditions" style="color: #000000"\n              >{{Conditions_title}} {{Conditions_description}} {{{Conditions_unsubscribe}}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    {{{company_details}}}\n  </body>\n</html>\n',
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \n4 categories \nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \n4 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -1651,13 +1651,14 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
-     html: '<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html\n  xmlns="http://www.w3.org/1999/xhtml"\n  xmlns:o="urn:schemas-microsoft-com:office:office"\n  xmlns:v="urn:schemas-microsoft-com:vml"\n>\n  <head>\n    <title>Beliani</title>\n    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\n    <meta name="x-apple-disable-message-reformatting" />\n    <meta\n      name="viewport"\n      content="width=device-width, initial-scale=1, user-scalable=yes"\n    />\n    <meta name="color-scheme" content="light only" />\n    <meta name="supported-color-schemes" content="light only" />\n    <link\n      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic-ext,latin-ext"\n    />\n    <style>\n      table,\n      td {\n        mso-table-lspace: 0pt;\n        mso-table-rspace: 0pt;\n      }\n      img {\n        -ms-interpolation-mode: bicubic;\n      }\n      .title-advantages {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        padding-bottom: 10px;\n        padding-top: 10px;\n        margin: 0;\n      }\n      .title-advantages-item {\n        margin-left: 4px;\n      }\n      .newsletterRecommendationHeader {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        margin-bottom: 10px;\n        margin-top: 10px;\n      }\n      .newsletterFreebieContainer {\n        padding-left: 10px;\n      }\n      .newsletterBottom80px {\n        padding-bottom: 80px;\n      }\n      .newsletterBottom10px {\n        padding-bottom: 10px;\n      }\n      .newsletterContainer {\n        padding-left: 20px;\n        padding-right: 20px;\n      }\n      .newsletterCta {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterCode {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterBottom20px {\n        padding-bottom: 20px;\n      }\n      .newsletterBottom35px {\n        padding-bottom: 35px;\n      }\n      .newsletterBottom60px {\n        padding-bottom: 60px;\n      }\n      .newsletterParagraph {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitleOfferPart {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitle {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductTitle {\n        font-size: 20px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductLowPrice {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        font-weight: 600;\n      }\n      .newsletterProductHightPrice {\n        font-size: 14px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        text-decoration: line-through;\n      }\n      .newsletterRight10px {\n        padding-right: 10px;\n      }\n      .newsletterLeft10px {\n        padding-left: 10px;\n      }\n      .newsletterFooter {\n        padding-left: 20px !important;\n        padding-right: 20px !important;\n      }\n      .newsletterConditions {\n        color: black;\n        font-family: "Open Sans", sans-serif;\n        font-size: 8px;\n      }\n      .newsletterFooterCompanyDetails {\n        vertical-align: middle;\n        padding-top: 20px;\n        padding-right: 0px;\n        padding-bottom: 20px;\n        font-size: 11px;\n        font-family: "Open Sans", sans-serif !important;\n        color: #000000;\n        background: #ececec;\n        width: 100%;\n      }\n      .newsletterFooterTitle {\n        text-align: left;\n        color: #000000;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterProductTitleFreebie {\n        text-align: center;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterFooterCategoryLEFT {\n        padding-bottom: 20px !important;\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHT {\n        padding-bottom: 20px !important;\n        padding-left: 10px !important;\n      }\n      .newsletterFooterCategoryLEFTBottom {\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHTBottom {\n        padding-left: 10px !important;\n      }\n      .newsletterSocialIcon {\n        padding-left: 25px !important;\n      }\n      .newsletterTopBottomContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      .newsletterKlarnaBannerContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      @media screen and (max-width: 768px) {\n        .newsletterFooterCategoryLEFTBottom {\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHTBottom {\n          padding-left: 5px !important;\n        }\n        .newsletterFooterCategoryLEFT {\n          padding-bottom: 10px !important;\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHT {\n          padding-bottom: 10px !important;\n          padding-left: 5px !important;\n        }\n        .newsletterSocialIcon {\n          padding-left: 13px !important;\n        }\n        .newsletterTopBottomContainer {\n          padding-top: 20px !important;\n          padding-bottom: 20px !important;\n        }\n        .newsletterFooterTitle {\n          font-size: 18px;\n        }\n        .newsletterProductTitleFreebie {\n          font-size: 18px;\n        }\n        .newsletterProductTitle {\n          font-size: 18px;\n        }\n        .newsletterProductLowPrice {\n          font-size: 16px;\n        }\n        .newsletterProductHightPrice {\n          display: block;\n        }\n        .newsletterProductTitleContainer {\n          padding-top: 10px;\n        }\n        .newsletterTitle {\n          font-size: 25px;\n        }\n        .newsletterTitleOfferPart {\n          font-size: 25px;\n        }\n        .newsletterContainer {\n          padding-left: 10px;\n          padding-right: 10px;\n        }\n        .newsletterFreebieContainer {\n          padding-left: 10px;\n          padding-right: 0px !important;\n        }\n        .newsletterBottom35px {\n          padding-bottom: 20px;\n        }\n        .newsletterBottom60px {\n          padding-bottom: 40px;\n        }\n        .newsletterParagraph {\n          font-size: 16px;\n        }\n        .newsletterLeft10px {\n          padding-left: 5px;\n        }\n        .newsletterRight10px {\n          padding-right: 5px;\n        }\n        .newsletterBottom20px {\n          padding-bottom: 10px;\n        }\n        .newsletterBottom80px {\n          padding-bottom: 50px;\n        }\n      }\n      @media screen and (max-width: 570px) {\n        .newsletterProductTitleFreebie {\n          font-size: 16px;\n        }\n      }\n      @media screen and (max-width: 460px) {\n        .newsletterProductTitleFreebie {\n          font-size: 14px;\n        }\n      }\n      @media screen and (max-width: 370px) {\n        .newsletterProductTitleFreebie {\n          font-size: 12px;\n        }\n      }\n    </style>\n  </head>\n  <body\n    class="body"\n    style="\n      width: 100% !important;\n      padding: 0 !important;\n      margin: 0 auto !important;\n      font-family: \'Open Sans\', sans-serif !important;\n      font-size: 13px;\n      color: #000000;\n      text-align: left;\n      background-color: #ececec;\n    "\n    width="100%"\n  >\n    {{{header}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      id="newsletter"\n      style="max-width:650px;width:100%;background-color:{{Newsletter_bg_color}};color:#000"\n      width="100%"\n    >\n      <tbody>\n        <tr>\n          <td align="center">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td>\n                    <a href="{{origin}}{{utm}}{{id}}"\n                      ><img\n                        alt=""\n                        loading="lazy"\n                        src="{{Top_image_src}}"\n                        style="vertical-align: middle; max-width: 100%"\n                    /></a>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_1}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_1}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}; color: {{Timer_color}};">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Timer_bg_color}}">\n            <a href="{{origin}}/content{{Timer_href}}{{utm}}{{id}}"\n              ><img\n                alt="Timer gif"\n                loading="lazy"\n                src="{{Timer_src}}"\n                style="vertical-align: middle; max-width: 100%"\n            /></a>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n    <tr><td align="center" style="background-color:{{Timer_bg_color}}"><a href="{{origin}}/content{{Timer_href}}{{utm}}{{id}}" ><img   alt="Freebies picture"   loading="lazy"   src="{{picture_server_url}}{{Timer_freebie_src}}free.png"  style="vertical-align: middle; max-width: 100%"/></a> </td></tr>    <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_2}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_2}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_3}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_3}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n     <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_4}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_4}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n    <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom80px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n {{{services_banner}}}    {{{footer_categories}}} {{{klarna}}} {{{socials}}} {{{advantages}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      class="newsletterContainer"\n      style="max-width: 650px; width: 100%; background-color: #ffffff"\n      width="650"\n    >\n      <tbody>\n        <tr>\n          <td>\n            <img\n              alt=""\n              loading="lazy"\n              src="https://beliani.info/newsletter/2022/line.jpg"\n              style="display: block; max-width: 100%"\n            />\n          </td>\n        </tr>\n        <tr>\n          <td align="left" class="newsletterTopBottomContainer">\n            <span class="newsletterConditions" style="color: #000000"\n              >{{Conditions_title}} {{Conditions_description}} {{{Conditions_unsubscribe}}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    {{{company_details}}}\n  </body>\n</html>\n',
+    html: '<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html\n  xmlns="http://www.w3.org/1999/xhtml"\n  xmlns:o="urn:schemas-microsoft-com:office:office"\n  xmlns:v="urn:schemas-microsoft-com:vml"\n>\n  <head>\n    <title>Beliani</title>\n    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />\n    <meta name="x-apple-disable-message-reformatting" />\n    <meta\n      name="viewport"\n      content="width=device-width, initial-scale=1, user-scalable=yes"\n    />\n    <meta name="color-scheme" content="light only" />\n    <meta name="supported-color-schemes" content="light only" />\n    <link\n      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=cyrillic-ext,latin-ext"\n    />\n    <style>\n      table,\n      td {\n        mso-table-lspace: 0pt;\n        mso-table-rspace: 0pt;\n      }\n      img {\n        -ms-interpolation-mode: bicubic;\n      }\n      .title-advantages {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        padding-bottom: 10px;\n        padding-top: 10px;\n        margin: 0;\n      }\n      .title-advantages-item {\n        margin-left: 4px;\n      }\n      .newsletterRecommendationHeader {\n        text-align: center;\n        font-size: 11px;\n        color: #8c8278;\n        margin-bottom: 10px;\n        margin-top: 10px;\n      }\n      .newsletterFreebieContainer {\n        padding-left: 10px;\n      }\n      .newsletterBottom80px {\n        padding-bottom: 80px;\n      }\n      .newsletterBottom10px {\n        padding-bottom: 10px;\n      }\n      .newsletterContainer {\n        padding-left: 20px;\n        padding-right: 20px;\n      }\n      .newsletterCta {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterCode {\n        font-size: 20px;\n        line-height: 1.2;\n        font-family: "Open Sans", sans-serif;\n      }\n      .newsletterBottom20px {\n        padding-bottom: 20px;\n      }\n      .newsletterBottom35px {\n        padding-bottom: 35px;\n      }\n      .newsletterBottom60px {\n        padding-bottom: 60px;\n      }\n      .newsletterParagraph {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitleOfferPart {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterTitle {\n        font-size: 30px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductTitle {\n        font-size: 20px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n      }\n      .newsletterProductLowPrice {\n        font-size: 18px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        font-weight: 600;\n      }\n      .newsletterProductHightPrice {\n        font-size: 14px;\n        font-family: "Open Sans", sans-serif;\n        line-height: 1.2;\n        text-decoration: line-through;\n      }\n      .newsletterRight10px {\n        padding-right: 10px;\n      }\n      .newsletterLeft10px {\n        padding-left: 10px;\n      }\n      .newsletterFooter {\n        padding-left: 20px !important;\n        padding-right: 20px !important;\n      }\n      .newsletterConditions {\n        color: black;\n        font-family: "Open Sans", sans-serif;\n        font-size: 8px;\n      }\n      .newsletterFooterCompanyDetails {\n        vertical-align: middle;\n        padding-top: 20px;\n        padding-right: 0px;\n        padding-bottom: 20px;\n        font-size: 11px;\n        font-family: "Open Sans", sans-serif !important;\n        color: #000000;\n        background: #ececec;\n        width: 100%;\n      }\n      .newsletterFooterTitle {\n        text-align: left;\n        color: #000000;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterProductTitleFreebie {\n        text-align: center;\n        font-family: "Open Sans", sans-serif;\n        font-size: 20px;\n      }\n      .newsletterFooterCategoryLEFT {\n        padding-bottom: 20px !important;\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHT {\n        padding-bottom: 20px !important;\n        padding-left: 10px !important;\n      }\n      .newsletterFooterCategoryLEFTBottom {\n        padding-right: 10px !important;\n      }\n      .newsletterFooterCategoryRIGHTBottom {\n        padding-left: 10px !important;\n      }\n      .newsletterSocialIcon {\n        padding-left: 25px !important;\n      }\n      .newsletterTopBottomContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      .newsletterKlarnaBannerContainer {\n        padding-top: 35px !important;\n        padding-bottom: 35px !important;\n      }\n      @media screen and (max-width: 768px) {\n        .newsletterFooterCategoryLEFTBottom {\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHTBottom {\n          padding-left: 5px !important;\n        }\n        .newsletterFooterCategoryLEFT {\n          padding-bottom: 10px !important;\n          padding-right: 5px !important;\n        }\n        .newsletterFooterCategoryRIGHT {\n          padding-bottom: 10px !important;\n          padding-left: 5px !important;\n        }\n        .newsletterSocialIcon {\n          padding-left: 13px !important;\n        }\n        .newsletterTopBottomContainer {\n          padding-top: 20px !important;\n          padding-bottom: 20px !important;\n        }\n        .newsletterFooterTitle {\n          font-size: 18px;\n        }\n        .newsletterProductTitleFreebie {\n          font-size: 18px;\n        }\n        .newsletterProductTitle {\n          font-size: 18px;\n        }\n        .newsletterProductLowPrice {\n          font-size: 16px;\n        }\n        .newsletterProductHightPrice {\n          display: block;\n        }\n        .newsletterProductTitleContainer {\n          padding-top: 10px;\n        }\n        .newsletterTitle {\n          font-size: 25px;\n        }\n        .newsletterTitleOfferPart {\n          font-size: 25px;\n        }\n        .newsletterContainer {\n          padding-left: 10px;\n          padding-right: 10px;\n        }\n        .newsletterFreebieContainer {\n          padding-left: 10px;\n          padding-right: 0px !important;\n        }\n        .newsletterBottom35px {\n          padding-bottom: 20px;\n        }\n        .newsletterBottom60px {\n          padding-bottom: 40px;\n        }\n        .newsletterParagraph {\n          font-size: 16px;\n        }\n        .newsletterLeft10px {\n          padding-left: 5px;\n        }\n        .newsletterRight10px {\n          padding-right: 5px;\n        }\n        .newsletterBottom20px {\n          padding-bottom: 10px;\n        }\n        .newsletterBottom80px {\n          padding-bottom: 50px;\n        }\n      }\n      @media screen and (max-width: 570px) {\n        .newsletterProductTitleFreebie {\n          font-size: 16px;\n        }\n      }\n      @media screen and (max-width: 460px) {\n        .newsletterProductTitleFreebie {\n          font-size: 14px;\n        }\n      }\n      @media screen and (max-width: 370px) {\n        .newsletterProductTitleFreebie {\n          font-size: 12px;\n        }\n      }\n    </style>\n  </head>\n  <body\n    class="body"\n    style="\n      width: 100% !important;\n      padding: 0 !important;\n      margin: 0 auto !important;\n      font-family: \'Open Sans\', sans-serif !important;\n      font-size: 13px;\n      color: #000000;\n      text-align: left;\n      background-color: #ececec;\n    "\n    width="100%"\n  >\n    {{{header}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      id="newsletter"\n      style="max-width:650px;width:100%;background-color:{{Newsletter_bg_color}};color:#000"\n      width="100%"\n    >\n      <tbody>\n        <tr>\n          <td align="center">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td>\n                    <a href="{{origin}}{{utm}}{{id}}"\n                      ><img\n                        alt=""\n                        loading="lazy"\n                        src="{{Top_image_src}}"\n                        style="vertical-align: middle; max-width: 100%"\n                    /></a>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_1}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_1}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}; color: {{Timer_color}};">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Timer_bg_color}}">\n            <a href="{{origin}}/content{{Timer_href}}{{utm}}{{id}}"\n              ><img\n                alt="Timer gif"\n                loading="lazy"\n                src="{{Timer_src}}"\n                style="vertical-align: middle; max-width: 100%"\n            /></a>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Timer_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom20px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n    <tr><td align="center" style="background-color:{{Timer_bg_color}}"><a href="{{origin}}/content{{Timer_href}}{{utm}}{{id}}" ><img   alt="Freebies picture"   loading="lazy"   src="{{picture_server_url}}{{Timer_freebie_src}}free.png"  style="vertical-align: middle; max-width: 100%"/></a> </td></tr>    <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_2}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_2}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_3}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_3}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n     <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom35px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n        <tr>\n          <td align="center" style="background-color:{{Newsletter_bg_color}}">\n            <table\n              align="center"\n              border="0"\n              cellpadding="0"\n              cellspacing="0"\n              width="100%"\n            >\n              <tbody>\n                <tr>\n                  <td align="center">\n                    <table\n                      border="0"\n                      cellpadding="0"\n                      cellspacing="0"\n                      width="100%"\n                    >\n                      <tbody>\n                        <tr>\n                          <td>\n                            <a href="{{origin}}/content{{Banner_href_4}}{{utm}}{{id}}"\n                              ><img\n                                alt=""\n                                loading="lazy"\n                                src="{{picture_server_url}}{{slug}}{{Campaign_src_4}}_mb.png"\n                                style="vertical-align: middle; max-width: 100%"\n                            /></a>\n                          </td>\n                        </tr>\n                      </tbody>\n                    </table>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n    <tr>\n          <td style="background-color:{{Newsletter_bg_color}}">\n            <table border="0" cellpadding="0" cellspacing="0" width="100%">\n              <tbody>\n                <tr>\n                  <td class="newsletterBottom80px"></td>\n                </tr>\n              </tbody>\n            </table>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n {{{services_banner}}}    {{{footer_categories}}} {{{klarna}}} {{{socials}}} {{{advantages}}}\n    <table\n      align="center"\n      border="0"\n      cellpadding="0"\n      cellspacing="0"\n      class="newsletterContainer"\n      style="max-width: 650px; width: 100%; background-color: #ffffff"\n      width="650"\n    >\n      <tbody>\n        <tr>\n          <td>\n            <img\n              alt=""\n              loading="lazy"\n              src="https://beliani.info/newsletter/2022/line.jpg"\n              style="display: block; max-width: 100%"\n            />\n          </td>\n        </tr>\n        <tr>\n          <td align="left" class="newsletterTopBottomContainer">\n            <span class="newsletterConditions" style="color: #000000"\n              >{{Conditions_title}} {{Conditions_description}} {{{Conditions_unsubscribe}}}\n          </td>\n        </tr>\n      </tbody>\n    </table>\n    {{{company_details}}}\n  </body>\n</html>\n',
   },
   {
     title: "Sunday NS with:",
-    description: "Header\nTimer + Freebies Pic \n5 categories \nWithout CTA's\nFooter",
+    description:
+      "Header\nTimer + Freebies Pic \n5 categories \nWithout CTA's\nFooter",
     is_active: true,
     fallback: {
       Newsletter_bg_color: "#fbf5f5",
@@ -1683,9 +1684,9 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
-     html: `<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    html: `<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -2357,56 +2358,56 @@ const TEMPLATES = [
       Freebie_Color: "#00000",
 
       JSON_Freebie_product_1: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_1: "https://placehold.co/205x185",
 
       JSON_Freebie_product_2: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_2: "https://placehold.co/205x185",
 
       JSON_Freebie_product_3: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_3: "https://placehold.co/205x185",
 
       JSON_Freebie_product_4: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_4: "https://placehold.co/205x185",
 
       JSON_Freebie_product_5: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_5: "https://placehold.co/205x185",
 
       JSON_Freebie_product_6: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_6: "https://placehold.co/205x185",
 
@@ -2424,41 +2425,40 @@ const TEMPLATES = [
       Category_title_1: "Storage beds",
 
       JSON_Product_11: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_11: "https://placehold.co/295x295",
 
       JSON_Product_12: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_12: "https://placehold.co/295x295",
 
       JSON_Product_13: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_13: "https://placehold.co/295x295",
 
       JSON_Product_14: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_14: "https://placehold.co/295x295",
-
 
       Category_Color_2: "#000000",
       Category_Background_2: "#FFCCB7",
@@ -2467,38 +2467,38 @@ const TEMPLATES = [
       Category_title_2: "Fabric beds",
 
       JSON_Product_21: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_21: "https://placehold.co/295x295",
 
       JSON_Product_22: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_22: "https://placehold.co/295x295",
 
       JSON_Product_23: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_23: "https://placehold.co/295x295",
 
       JSON_Product_24: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_24: "https://placehold.co/295x295",
 
@@ -2509,38 +2509,38 @@ const TEMPLATES = [
       Category_title_3: "Metal beds",
 
       JSON_Product_31: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_31: "https://placehold.co/295x295",
 
       JSON_Product_32: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_32: "https://placehold.co/295x295",
 
       JSON_Product_33: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_33: "https://placehold.co/295x295",
 
       JSON_Product_34: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_34: "https://placehold.co/295x295",
 
@@ -2551,38 +2551,38 @@ const TEMPLATES = [
       Category_title_4: "Leather beds",
 
       JSON_Product_41: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_41: "https://placehold.co/295x295",
 
       JSON_Product_42: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_42: "https://placehold.co/295x295",
 
       JSON_Product_43: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_43: "https://placehold.co/295x295",
 
       JSON_Product_44: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_44: "https://placehold.co/295x295",
 

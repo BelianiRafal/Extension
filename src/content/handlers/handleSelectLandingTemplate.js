@@ -3,6 +3,6 @@ function handleSelectTemplate(html, textarea, updateBtn) {
     campaign_id: DEFAULT_VARIABLES.id,
     body: html,
   };
-  textarea.value = html
-  updateBtn.click()
+  textarea.value = html;
+  updateBtn.click();
 }

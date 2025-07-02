@@ -97,7 +97,7 @@ const app_fulfill = {
       new Notification("Selector " + SELECTORS + " not found.");
       return;
     }
-    this.textareas = [...textareas]
+    this.textareas = [...textareas];
 
     if (!this.seller) {
       new Notification("Shop id not found.");
@@ -107,7 +107,7 @@ const app_fulfill = {
     if (!(this.seller in this.shopIdToSlug)) {
       new Notification("Shop id not found in shopIdToSlug");
       console.log(
-        `${this.seller} not found in ${JSON.stringify(this.shopIdToSlug)}`
+        `${this.seller} not found in ${JSON.stringify(this.shopIdToSlug)}`,
       );
       return;
     }
@@ -121,7 +121,6 @@ const app_fulfill = {
   },
 
   createFulfillTemplateButton() {
-
     for (const textarea of this.textareas) {
       const btn = document.createElement("button");
       btn.style.fontSize = "11px";
@@ -129,17 +128,17 @@ const app_fulfill = {
       btn.textContent = "Fulfill template";
       btn.addEventListener("click", () => {
         const language = textarea
-        .getAttribute("name")
-        .split("[")[1]
-        .replace("]", "");
-      
-      if (!(language in this.languageToSlug)) {
-        new Notification("Language not found in languageToSlug");
-        console.log(
-          `${language} not found in ${JSON.stringify(this.languageToSlug)}`
-        );
-        return;
-      }
+          .getAttribute("name")
+          .split("[")[1]
+          .replace("]", "");
+
+        if (!(language in this.languageToSlug)) {
+          new Notification("Language not found in languageToSlug");
+          console.log(
+            `${language} not found in ${JSON.stringify(this.languageToSlug)}`,
+          );
+          return;
+        }
         this.render(textarea, language);
       });
       textarea.insertAdjacentElement("afterend", btn);
@@ -181,10 +180,10 @@ const app_fulfill = {
 
         if (!(selectedContext in context)) {
           this.notify(
-            `Selected context ${selectedContext} not found in context.`
+            `Selected context ${selectedContext} not found in context.`,
           );
           console.log(
-            `Selected context ${selectedContext} not found in ${context}.`
+            `Selected context ${selectedContext} not found in ${context}.`,
           );
           return;
         }
@@ -207,7 +206,7 @@ const app_fulfill = {
 
             const slug_components = this.getSlugComponents(
               components,
-              combinedSlug
+              combinedSlug,
             );
 
             const payload = {
@@ -224,7 +223,7 @@ const app_fulfill = {
               JSON.stringify({
                 payload,
                 time: new Date(),
-              })
+              }),
             );
 
             const html = Mustache.render(textarea.value, payload);
@@ -246,7 +245,7 @@ const app_fulfill = {
 
           return;
         }
-      }
+      },
     );
   },
 

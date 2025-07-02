@@ -104,7 +104,7 @@ function fetchSheetData(cb, { spreadSheetId, name }) {
         return;
       }
       cb(data);
-    }
+    },
   );
 }
 
@@ -118,7 +118,7 @@ function fetchSheet(cb, { spreadSheetId }) {
         return;
       }
       cb(data.sheets);
-    }
+    },
   );
 }
 

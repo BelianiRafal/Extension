@@ -1,10 +1,15 @@
-import { createTokenClass, stringToArray, registerTokenPlugin, registerPlugin } from 'linkifyjs';
+import {
+  createTokenClass,
+  stringToArray,
+  registerTokenPlugin,
+  registerPlugin,
+} from "linkifyjs";
 
 /**
  * Tokenize will emit token classes of this type
  */
-const Keyword = createTokenClass('keyword', {
-  isLink: true
+const Keyword = createTokenClass("keyword", {
+  isLink: true,
 });
 
 /**
@@ -22,7 +27,7 @@ const registeredKeywordsGroups = {
   alpha: [],
   alphanumeric: [],
   domain: [],
-  keyword: []
+  keyword: [],
 };
 
 // Additional pre-processing regular expressions
@@ -55,7 +60,7 @@ function registerKeywords(keywords) {
   // validate all keywords
   for (let i = 0; i < keywords.length; i++) {
     const keyword = keywords[i];
-    if (typeof keyword !== 'string' || !keyword) {
+    if (typeof keyword !== "string" || !keyword) {
       throw new Error(`linkify-plugin-keyword: Invalid keyword: ${keyword}`);
     }
   }
@@ -83,9 +88,13 @@ function registerKeywords(keywords) {
       pushIfMissing(keyword, registeredKeywordsGroups.alphanumeric);
       continue;
     }
-    const nEmojis = nMatch(keyword, ALL_EMOJIS) + nMatch(keyword, ALL_EMOJI_VARIATIONS);
+    const nEmojis =
+      nMatch(keyword, ALL_EMOJIS) + nMatch(keyword, ALL_EMOJI_VARIATIONS);
     const nHyphens = nMatch(keyword, /-/g);
-    if (nLetters + nNumbers + nEmojis + nHyphens === keyword.length && !/(^-|-$|--)/.test(keyword)) {
+    if (
+      nLetters + nNumbers + nEmojis + nHyphens === keyword.length &&
+      !/(^-|-$|--)/.test(keyword)
+    ) {
       // Composed of letters, numbers hyphens or emojis. No leading,
       // trailing or consecutive hyphens. Valid domain name.
       pushIfMissing(keyword, registeredKeywordsGroups.domain);
@@ -101,16 +110,14 @@ function registerKeywords(keywords) {
  * @type import('linkifyjs').TokenPlugin
  */
 function tokens(_ref) {
-  let {
-    scanner
-  } = _ref;
+  let { scanner } = _ref;
   for (const group in registeredKeywordsGroups) {
     const keywords = registeredKeywordsGroups[group];
     for (let i = 0; i < keywords.length; i++) {
       const chars = stringToArray(keywords[i]);
       scanner.start.ts(chars, keywords[i], {
         keyword: true,
-        [group]: true
+        [group]: true,
       });
     }
   }
@@ -120,10 +127,7 @@ function tokens(_ref) {
  * @type import('linkifyjs').Plugin
  */
 function keyword(_ref2) {
-  let {
-    scanner,
-    parser
-  } = _ref2;
+  let { scanner, parser } = _ref2;
   // Create parser transitions from all registered tokens
   const group = scanner.tokens.groups.keyword;
   if (group && group.length > 0) {
@@ -131,7 +135,7 @@ function keyword(_ref2) {
   }
 }
 
-registerTokenPlugin('keyword', tokens);
-registerPlugin('keyword', keyword);
+registerTokenPlugin("keyword", tokens);
+registerPlugin("keyword", keyword);
 
 export { registerKeywords as default };

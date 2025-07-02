@@ -1,5 +1,5 @@
-const SELECTORS = 'textarea[name^=html]'
-const SELECTOR = SELECTORS
+const SELECTORS = "textarea[name^=html]";
+const SELECTOR = SELECTORS;
 
 const TEMPLATES = [
   {
@@ -25,7 +25,7 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
     html: `
       CREATE YOUR TEMPLATE IN /src/content/templates/landing.js
@@ -56,7 +56,7 @@ const TEMPLATES = [
 
       Conditions_title: "Conditions title",
       Conditions_description: "Condition description",
-      Conditions_unsubscribe: "Conditions unsubscribe"
+      Conditions_unsubscribe: "Conditions unsubscribe",
     },
     html: `
     CREATE YOUR TEMPLATE IN /src/content/templates/landing.js
@@ -85,40 +85,40 @@ const TEMPLATES = [
 
       Freebie_Background: "#FFCCB7",
       Freebie_Color: "#00000",
-      
+
       JSON_Freebie_product_1: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_1: "https://placehold.co/205x185",
 
       JSON_Freebie_product_2: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_2: "https://placehold.co/205x185",
 
       JSON_Freebie_product_3: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_3: "https://placehold.co/205x185",
 
       JSON_Freebie_product_4: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_4: "https://placehold.co/205x185",
 
@@ -129,175 +129,173 @@ const TEMPLATES = [
       Intro_description:
         "Discover the perfect bed for your needs, we have a wide range to help you create your dream bedroom.",
 
-      
-        Category_Color_1: "#ffffff",
-        Category_Background_1: "#750000",
-        Category_href_1: "/storage",
-        Category_CTA_1: "Shop now",
-        Category_title_1: "Storage beds",
-  
-        JSON_Product_11: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_11: "https://placehold.co/295x295",
-  
-        JSON_Product_12: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_12: "https://placehold.co/295x295",
-  
-        JSON_Product_13: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_13: "https://placehold.co/295x295",
-  
-        JSON_Product_14: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_14: "https://placehold.co/295x295",
-  
-  
-        Category_Color_2: "#000000",
-        Category_Background_2: "#FFCCB7",
-        Category_href_2: "/beds",
-        Category_CTA_2: "Shop now",
-        Category_title_2: "Fabric beds",
-  
-        JSON_Product_21: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_21: "https://placehold.co/295x295",
-  
-        JSON_Product_22: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_22: "https://placehold.co/295x295",
-  
-        JSON_Product_23: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_23: "https://placehold.co/295x295",
-  
-        JSON_Product_24: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_24: "https://placehold.co/295x295",
-  
-        Category_Color_3: "#ffffff",
-        Category_Background_3: "#750000",
-        Category_href_3: "/beds",
-        Category_CTA_3: "Shop now",
-        Category_title_3: "Metal beds",
-  
-        JSON_Product_31: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_31: "https://placehold.co/295x295",
-  
-        JSON_Product_32: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_32: "https://placehold.co/295x295",
-  
-        JSON_Product_33: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_33: "https://placehold.co/295x295",
-  
-        JSON_Product_34: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_34: "https://placehold.co/295x295",
-  
-        Category_Color_4: "#000000",
-        Category_Background_4: "#FFCCB7",
-        Category_href_4: "/beds",
-        Category_CTA_4: "Shop now",
-        Category_title_4: "Leather beds",
-  
-        JSON_Product_41: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_41: "https://placehold.co/295x295",
-  
-        JSON_Product_42: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_42: "https://placehold.co/295x295",
-  
-        JSON_Product_43: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_43: "https://placehold.co/295x295",
-  
-        JSON_Product_44: {
-          "name": "DEMRE",
-          "main_id": "63927",
-          "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-          "lowPrice": "$49.99",
-          "highPrice": "$89.99"
-        },
-        Product_src_44: "https://placehold.co/295x295",
+      Category_Color_1: "#ffffff",
+      Category_Background_1: "#750000",
+      Category_href_1: "/storage",
+      Category_CTA_1: "Shop now",
+      Category_title_1: "Storage beds",
+
+      JSON_Product_11: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_11: "https://placehold.co/295x295",
+
+      JSON_Product_12: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_12: "https://placehold.co/295x295",
+
+      JSON_Product_13: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_13: "https://placehold.co/295x295",
+
+      JSON_Product_14: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_14: "https://placehold.co/295x295",
+
+      Category_Color_2: "#000000",
+      Category_Background_2: "#FFCCB7",
+      Category_href_2: "/beds",
+      Category_CTA_2: "Shop now",
+      Category_title_2: "Fabric beds",
+
+      JSON_Product_21: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_21: "https://placehold.co/295x295",
+
+      JSON_Product_22: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_22: "https://placehold.co/295x295",
+
+      JSON_Product_23: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_23: "https://placehold.co/295x295",
+
+      JSON_Product_24: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_24: "https://placehold.co/295x295",
+
+      Category_Color_3: "#ffffff",
+      Category_Background_3: "#750000",
+      Category_href_3: "/beds",
+      Category_CTA_3: "Shop now",
+      Category_title_3: "Metal beds",
+
+      JSON_Product_31: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_31: "https://placehold.co/295x295",
+
+      JSON_Product_32: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_32: "https://placehold.co/295x295",
+
+      JSON_Product_33: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_33: "https://placehold.co/295x295",
+
+      JSON_Product_34: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_34: "https://placehold.co/295x295",
+
+      Category_Color_4: "#000000",
+      Category_Background_4: "#FFCCB7",
+      Category_href_4: "/beds",
+      Category_CTA_4: "Shop now",
+      Category_title_4: "Leather beds",
+
+      JSON_Product_41: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_41: "https://placehold.co/295x295",
+
+      JSON_Product_42: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_42: "https://placehold.co/295x295",
+
+      JSON_Product_43: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_43: "https://placehold.co/295x295",
+
+      JSON_Product_44: {
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
+      },
+      Product_src_44: "https://placehold.co/295x295",
 
       Soonending_title: "Shop limited-time deals",
 
@@ -341,56 +339,56 @@ const TEMPLATES = [
       Freebie_Color: "#00000",
 
       JSON_Freebie_product_1: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_1: "https://placehold.co/205x185",
 
       JSON_Freebie_product_2: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_2: "https://placehold.co/205x185",
 
       JSON_Freebie_product_3: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_3: "https://placehold.co/205x185",
 
       JSON_Freebie_product_4: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_4: "https://placehold.co/205x185",
 
       JSON_Freebie_product_5: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_5: "https://placehold.co/205x185",
 
       JSON_Freebie_product_6: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Freebie_product_src_6: "https://placehold.co/205x185",
 
@@ -408,41 +406,40 @@ const TEMPLATES = [
       Category_title_1: "Storage beds",
 
       JSON_Product_11: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_11: "https://placehold.co/295x295",
 
       JSON_Product_12: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_12: "https://placehold.co/295x295",
 
       JSON_Product_13: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_13: "https://placehold.co/295x295",
 
       JSON_Product_14: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_14: "https://placehold.co/295x295",
-
 
       Category_Color_2: "#000000",
       Category_Background_2: "#FFCCB7",
@@ -451,38 +448,38 @@ const TEMPLATES = [
       Category_title_2: "Fabric beds",
 
       JSON_Product_21: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_21: "https://placehold.co/295x295",
 
       JSON_Product_22: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_22: "https://placehold.co/295x295",
 
       JSON_Product_23: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_23: "https://placehold.co/295x295",
 
       JSON_Product_24: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_24: "https://placehold.co/295x295",
 
@@ -493,38 +490,38 @@ const TEMPLATES = [
       Category_title_3: "Metal beds",
 
       JSON_Product_31: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_31: "https://placehold.co/295x295",
 
       JSON_Product_32: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_32: "https://placehold.co/295x295",
 
       JSON_Product_33: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_33: "https://placehold.co/295x295",
 
       JSON_Product_34: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_34: "https://placehold.co/295x295",
 
@@ -535,38 +532,38 @@ const TEMPLATES = [
       Category_title_4: "Leather beds",
 
       JSON_Product_41: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_41: "https://placehold.co/295x295",
 
       JSON_Product_42: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_42: "https://placehold.co/295x295",
 
       JSON_Product_43: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_43: "https://placehold.co/295x295",
 
       JSON_Product_44: {
-        "name": "DEMRE",
-        "main_id": "63927",
-        "href": "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
-        "lowPrice": "$49.99",
-        "highPrice": "$89.99"
+        name: "DEMRE",
+        main_id: "63927",
+        href: "https://www.beliani.co.uk/shaggy-area-rug-80-x-150-cm-light-grey-demre.html",
+        lowPrice: "$49.99",
+        highPrice: "$89.99",
       },
       Product_src_44: "https://placehold.co/295x295",
 
@@ -585,6 +582,6 @@ const TEMPLATES = [
     },
     html: `
     CREATE YOUR TEMPLATE IN /src/content/templates/landing.js
-    `
+    `,
   },
 ];
