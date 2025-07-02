@@ -68,7 +68,7 @@ class ProductListFilter {
 
         if (isInactiveProducts) {
           if (confirm("Inactive products found. Would you like to continue?")) {
-            downloadJSON({ data: products, name: "products.json" });
+            downloadJSON({ data: active_filter_products, name: "products.json" });
             downloadJSON({
               data: inActive_filter_products,
               name: "inactive_products.json",
