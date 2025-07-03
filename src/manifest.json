@@ -102,35 +102,36 @@
     },
     {
       "matches": [
-          "https://www.prologistics.info/news_emails.php",
-          "https://prolodev.prologistics.info/news_emails.php"
-        ],
+        "https://www.prologistics.info/news_emails.php",
+        "https://prolodev.prologistics.info/news_emails.php"
+      ],
       "run_at": "document_idle",
       "js": [
-          "./content/multiselect/index.js",
-          "./content/multiselect/select.js"
-        ]
+        "./content/multiselect/index.js",
+        "./content/multiselect/select.js"
+      ]
     },
     {
-      "matches": [
-        
-        "https://prolodev.prologistics.info/shop_banner.php?id*"
-      ],
+      "matches": ["https://prolodev.prologistics.info/shop_banner.php?id*"],
       "run_at": "document_idle",
       "js": [
         "./content/mustache/index.js",
         "./content/papaParse/papaparse.min.js",
         "./libraries/dexie.js",
+        "./libraries/sweetalert2.min.js",
 
         "./content/handlers/handleSelectBannerTemplate.js",
         "./content/templates/banners.js",
 
         "./content/cgb_templates/ui.js",
         "./content/cgb_templates/loader.js",
-        "./content/cgb_templates/buttons.js",
+        "./content/cgb_templates/ui-buttons-and-functions.js",
         "./content/cgb_templates/index.js"
       ],
-      "css": ["./content/cgb_templates/style.css"]
+      "css": [
+        "./content/cgb_templates/style.css",
+        "./libraries/sweetalert2.min.css"
+      ]
     },
     {
       "matches": [
@@ -156,9 +157,9 @@
       "matches": [
         "https://www.prologistics.info/push_notifications.php",
         "https://prolodev.prologistics.info/push_notifications.php"
-       ],
+      ],
       "js": [
-        "./content/helpers/CSVfns.js", 
+        "./content/helpers/CSVfns.js",
         "./content/uploadCSV.js",
         "./content/push/macro.js"
       ]

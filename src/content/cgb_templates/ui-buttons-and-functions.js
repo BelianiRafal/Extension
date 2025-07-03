@@ -1,6 +1,5 @@
 function getButton(selector1, selector2, display) {
-  const button =
-    document.querySelector(selector1) || document.querySelector(selector2);
+  const button = document.querySelector(selector1) || document.querySelector(selector2);
 
   if (button) {
     button.style.cssText = `
@@ -18,9 +17,7 @@ function createContextBtn() {
   button.textContent = "Add context";
   button.className = "contextBtn";
   //Find the button on the page
-  const checkUpdateBtn = document.querySelector(
-    `table tr center form input[type="submit"][name="update"]`
-  );
+  const checkUpdateBtn = document.querySelector(`table tr center form input[type="submit"][name="update"]`);
 
   //Create new button update and add styles
   const newUpdateBtn = document.createElement("button");
@@ -50,14 +47,12 @@ function createContextBtn() {
   });
 
   const dialog = document.createElement("dialog");
-  dialog.style =
-    "border: none; border-radius: .4rem; max-width: 640px; width: 100%; display: none;";
+  dialog.style = "border: none; border-radius: .4rem; max-width: 640px; width: 100%; display: none;";
   const dialog_container = document.createElement("div");
   dialog_container.style = "padding: 0.4rem; width: 70%;";
 
   const dialog_sidebar = document.createElement("div");
-  dialog_sidebar.style =
-    "padding: 0.4rem; width: 30%; display: flex; flex-direction: column; gap: 0.4rem;";
+  dialog_sidebar.style = "padding: 0.4rem; width: 30%; display: flex; flex-direction: column; gap: 0.4rem;";
 
   const dialog_sidebar_title = document.createElement("h3");
   dialog_sidebar_title.textContent = "Import options";
@@ -74,12 +69,10 @@ function createContextBtn() {
   // dialog_sidebar.append(dialog_sidebar_import_default);
 
   const container_title_slug = document.createElement("div");
-  container_title_slug.style =
-    "display: flex; align-items: center; justify-content: space-between;";
+  container_title_slug.style = "display: flex; align-items: center; justify-content: space-between;";
 
   const container_title = document.createElement("div");
-  container_title.style =
-    "display: flex; align-items: center; justify-content: space-between;";
+  container_title.style = "display: flex; align-items: center; justify-content: space-between;";
 
   const dialog_title = document.createElement("h2");
   dialog_title.textContent = "Add context";
@@ -134,18 +127,14 @@ function createContextBtn() {
           const data = convertToObject(results.data);
           console.log(data);
           state.context = data;
-          new Notification(
-            "File: " + file.name + " has been added to context."
-          );
+          new Notification("File: " + file.name + " has been added to context.");
           input.value = null;
           dialog.style.display = "none";
           dialog.close();
           return;
           if (!state.context) {
             state.context = data;
-            new Notification(
-              "File: " + file.name + " has been added to context."
-            );
+            new Notification("File: " + file.name + " has been added to context.");
             input_slug.value = null;
             dialog.close();
           } else {
@@ -175,9 +164,7 @@ function createContextBtn() {
               ...state.context,
               ...new_context,
             };
-            new Notification(
-              "File: " + file.name + " has been added to context."
-            );
+            new Notification("File: " + file.name + " has been added to context.");
             input.value = null;
             dialog.close();
           }
@@ -208,9 +195,7 @@ function createContextBtn() {
           if (data.length >= 1) {
             if (!state.context) {
               state.context = data[0];
-              new Notification(
-                "File: " + file.name + " has been added to context."
-              );
+              new Notification("File: " + file.name + " has been added to context.");
               input_slug.value = null;
               dialog.close();
               dialog.style.display = "none";
@@ -219,9 +204,7 @@ function createContextBtn() {
                 ...state.context,
                 ...data[0],
               };
-              new Notification(
-                "File: " + file.name + " has been added to context."
-              );
+              new Notification("File: " + file.name + " has been added to context.");
               input.value = null;
               dialog.close();
               dialog.style.display = "none";
@@ -255,9 +238,7 @@ function createContextBtn() {
 
 // Function for Hide show Image CGB
 function hideImage() {
-  let findImage = document.querySelectorAll(
-    'tr[id^="trcheckrow"] video[name="media"]'
-  );
+  let findImage = document.querySelectorAll('tr[id^="trcheckrow"] video[name="media"]');
 
   if (findImage.length === 0) {
     findImage = document.querySelectorAll('tr[id^="trcheckrow"] img');
@@ -302,62 +283,69 @@ function hideImage() {
   });
 }
 
-function iterationElementFn(
-  iterArr,
-  stateArr,
-  inputElement,
-  deviceTypeLowercase,
-  nameValuesSlug,
-  nodes,
-  loader,
-  banner_text,
-  elem,
-) {
-  let processed = 0;
+//Open button CGB
+function createOpenButton() {
+  const openButton = document.createElement("button");
+  openButton.className = "openButton";
+  openButton.textContent = "Open Button CGB";
 
-  iterArr.forEach((video) => {
-    setTimeout(() => {
-      if (video.offsetWidth > 1000) {
-        stateArr.push(video);
-        console.log(stateArr);
-      }
+  document.body.append(openButton);
 
-      processed++;
-
-      if (processed === iterArr.length) {
-        // Все видео проверены — теперь запускаем основную логику
-
-        for (const val of inputElement) {
-          const valItem = val.value.toLowerCase();
-          const smallSLug = valItem.split(`_${deviceTypeLowercase}`)[0];
-          
-          // console.log(valItem);
-          // console.log( Number(nameValuesSlug.length - 1));
-          // console.log( stateArr.length);
-          
-          if (
-            nameValuesSlug.includes(smallSLug) &&
-            Number(nameValuesSlug.length - 1) === stateArr.length
-          ) {
-            nodes.forEach((item) => {
-              item.parent.value = elem[0].html;
-            });
-            banner_text.forEach((item) => {
-              item.value = elem[0].banner_text;
-            });
-            loader.hideLoader();
-            break;
-          } else {
-            console.log("Error curwa!");
-            loader.hideLoader();
-          }
-        }
-      }
-    }, 2000);
+  openButton.addEventListener("click", () => {
+    const block = document.querySelector(".block-btns-main");
+    block.classList.add("active");
+    openButton.style.display = "none";
   });
 }
 
 //Find mobile selector video or img and return need type
+async function iterationElementFn(stateArr, nodes, banner_text, elem, agreeUpdated) {
+  const localArr = [];
+  localArr.length = 0;
+  localArr.push(...stateArr);
+
+  if (nodes.length === localArr.length || agreeUpdated) {
+    nodes.forEach((item) => {
+      item.parent.value = elem[0].html;
+    });
+    banner_text.forEach((item) => {
+      item.value = elem[0].banner_text;
+    });
+    return true;
+  }
+  return false;
+}
+
+//Sort media for width and return needed value in stateArr
+async function getStateArray(iterArr, deviceTypeLowercase, stateArr) {
+  const items = [...(iterArr || [])];
+
+  await Promise.all(
+    items.map((video) => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const width = video.offsetWidth;
+          let isValid = false;
+          if (deviceTypeLowercase === "desktop") {
+            isValid = width > 950;
+          } else if (deviceTypeLowercase === "mobile") {
+            isValid = width < 800;
+          }
+
+          if (isValid) {
+            stateArr.push(video);
+          }
+          resolve();
+        }, 300);
+      });
+    })
+  );
+
+  return stateArr;
+}
+
+//Find and return all mobile banners for selector mobile_banners
+//and find all banners from tr tag which are outside
 function getMediaMobile(trElement, selector = "video[name='media']") {
   if (!(trElement instanceof HTMLElement)) return [];
 
@@ -371,11 +359,21 @@ function getMediaMobile(trElement, selector = "video[name='media']") {
 
   // If mp4 not found find img
   if (media.length === 0) {
-    media = [
-      ...trElement.querySelectorAll("img"),
-      ...(nextTr?.tagName === "TR" ? nextTr.querySelectorAll("img") : []),
-    ];
+    media = [...trElement.querySelectorAll("img"), ...(nextTr?.tagName === "TR" ? nextTr.querySelectorAll("img") : [])];
   }
 
   return media;
+}
+
+
+//Modal 
+function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCancel) {
+  return Swal.fire({
+    title: title,
+    text: message,
+    icon: iconStyle,
+    confirmButtonText: confirmText || "Ok",
+    confirmButtonColor: btnColor || "#328a35",
+    showCancelButton: needCancel,
+  });
 }
