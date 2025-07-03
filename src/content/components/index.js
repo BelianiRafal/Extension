@@ -2148,8 +2148,8 @@ const COMPONENTS = {
         "Footer category href 1": "https://www.beliani.hu/kanapek/minden+termek",
         "Footer category href 2": "https://www.beliani.hu/agyak/minden+termek",
         "Footer category href 3": "https://www.beliani.hu/asztalok/dohanyzoasztalok/",
-        "Footer category href 4": "https://www.beliani.hu/szekek/minden+termek",
-        "Footer category href 5": "https://www.beliani.hu/fotelek/minden+termek",
+        "Footer category href 4": "https://www.beliani.hu/fotelek/minden+termek",
+        "Footer category href 5": "https://www.beliani.hu/szekek/minden+termek",
         "Footer category href 6": "https://www.beliani.hu/tarolo-szekrenyek/polcos-szekrenyek-es-talalok/",
         "Footer category href 7": "https://www.beliani.hu/lampak/minden+termek",
         "Footer category href 8": "https://www.beliani.hu/szonyegek/minden+termek"
