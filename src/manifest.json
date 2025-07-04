@@ -112,7 +112,9 @@
       ]
     },
     {
-      "matches": ["https://prolodev.prologistics.info/shop_banner.php?id*"],
+      "matches": [
+        "https://www.prologistics.info/shop_banner.php?id=*",
+        "https://prolodev.prologistics.info/shop_banner.php?id*"],
       "run_at": "document_idle",
       "js": [
         "./content/mustache/index.js",
