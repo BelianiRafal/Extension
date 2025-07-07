@@ -146,17 +146,35 @@ const app_fulfill = {
         }
 
         const selectedContextValue = context[selectedContext];
+
+				// console.log(`Selected context value: ${JSON.stringify(selectedContextValue)}`);
+
+				console.log(`Wybrany jezyk: ${this.language}`)
+				console.log(`lang to slug: ${JSON.stringify(this.languageToSlug)}`);
+
         if (this.language in this.languageToSlug) {
           const languageSlug = this.languageToSlug[this.language];
           const sellerSlug = this.sellerToSlug[this.seller];
+
           const combinedSlug = sellerSlug + languageSlug;
-          const origin = this.slugsToOrigin[combinedSlug];
+          
+					const origin = this.slugsToOrigin[combinedSlug];
+
+					console.log(`Language slug: ${languageSlug}`);
+					console.log(`Seller slug: ${sellerSlug}`);
+					console.log(`Origin: ${origin}`);
+
+					console.log(`Combined slug: ${combinedSlug}`);
 
           if (combinedSlug in selectedContextValue) {
+
+						// console.log(`Combined slug found in selected context value: ${JSON.stringify(selectedContextValue[combinedSlug])}`);
+
             const strings = {};
             for (const key in selectedContextValue) {
               const value = selectedContextValue[key];
               if (typeof value === "string") {
+								console.log(`Adding string: ${key} = ${value}`);
                 strings[key] = value;
               }
             }
@@ -166,13 +184,18 @@ const app_fulfill = {
               combinedSlug,
             );
 
+						// prevent slug to become "plpl" or "ukuk" etc.
+						// should be "pl" or "uk" ...
+						// @fixes chde, befr, benl, chit etc. behavior
+						const slugForUrls = languageSlug !== sellerSlug ? combinedSlug : languageSlug;
+
             const payload = {
               ...strings,
               ...slug_components,
               ...selectedContextValue[combinedSlug],
               ...DEFAULT_VARIABLES,
               // Overwrite slug and origin for DEFAULT_VARIABLES from selecte_template/index.js
-              slug: languageSlug,
+              slug: slugForUrls,
               origin,
             };
             localStorage.setItem(

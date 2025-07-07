@@ -37,7 +37,7 @@ async function handleButtonBodyUpdate({ campaign_id, body, shop_content }) {
   }
 
   async function updateContent(formData, campaign_id) {
-    await fetch("https://www.prologistics.info/news_email.php", {
+    await fetch(NEWSLETTER_ENDPOINT, {
       headers: {
         accept:
           "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -55,7 +55,7 @@ async function handleButtonBodyUpdate({ campaign_id, body, shop_content }) {
         "upgrade-insecure-requests": "1",
       },
       referrer:
-        "https://www.prologistics.info/news_email.php?id=" + campaign_id,
+        NEWSLETTER_ENDPOINT + "?id=" + campaign_id,
       referrerPolicy: "strict-origin-when-cross-origin",
       body: formData,
       method: "POST",
