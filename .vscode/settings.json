@@ -1,5 +1,6 @@
 {
 	"conventionalCommits.scopes": [
-		"sunday_nslt"
+		"sunday_nslt",
+		"purge.php"
 	]
 }
