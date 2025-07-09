@@ -242,9 +242,11 @@ const app = {
         let checkNodename = "";
 
         let checkDesktop = document.querySelectorAll('tr[id^="trcheckrow"] video[name="media"]');
+        
         if (checkDesktop.length === 0) {
           checkDesktop = document.querySelectorAll('tr[id^="trcheckrow"] img');
         }
+
         if (!checkDesktop.length) return loader.hideLoader();
 
         //Check if filetype === img return img, else mp4
@@ -275,7 +277,8 @@ const app = {
     this.desktopVideosOrImgArray = [];
     this.mobileVideosOrImgArray = [];
 
-    //fill array and used array.length for modal Swal
+    //Check width of video or img
+    //if condition is not met, then swal modal is show
     const promptArrDesktop = await getStateArray(checkDesktop, "desktop", this.desktopVideosOrImgArray);
     const desktopLengthMismatch = _nodes.length !== promptArrDesktop.length;
 
@@ -302,7 +305,7 @@ const app = {
         return false;
       }
 
-      //Fucn
+      //Function check nodes length and if agree updated true, then fill textareas and banner textareas
       const conclusionDesktop = await iterationElementFn(promptArrDesktop, _nodes, banner_text, elem, agreeToProceed);
       if (!conclusionDesktop) {
         loader.hideLoader();

@@ -125,9 +125,8 @@ function createContextBtn() {
       Papa.parse(file, {
         complete: (results) => {
           const data = convertToObject(results.data);
-          console.log(data);
           state.context = data;
-          new Notification("File: " + file.name + " has been added to context.");
+          swalFireModal(`Context ${file.name} is added`, "", "success", false);
           input.value = null;
           dialog.style.display = "none";
           dialog.close();
@@ -327,7 +326,7 @@ async function getStateArray(iterArr, deviceTypeLowercase, stateArr) {
           const width = video.offsetWidth;
           let isValid = false;
           if (deviceTypeLowercase === "desktop") {
-            isValid = width > 950;
+            isValid = width > 950 || width > 750;
           } else if (deviceTypeLowercase === "mobile") {
             isValid = width < 800;
           }
