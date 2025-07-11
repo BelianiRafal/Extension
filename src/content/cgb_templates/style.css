@@ -1,5 +1,4 @@
 :root {
-    
     --green-background-btn: #328a35;
     --pasteBtn-background: #fd9000;
     --bordo-color: #750000;
@@ -7,8 +6,8 @@
     --color-white: #fff;
     --color-black: #000;
 
-    --padding-on-btn: 8px 15px;
-    --min-width-for-btn: 130px;
+    --padding-on-btn: 10px 15px;
+    --min-width-for-btn: 146px;
     --border-radius: 5px;
     --transition: all .2s linear;
 }
@@ -22,14 +21,12 @@ button {
 }
 
 .block-btns-main {
-    /* display: none; */
     position:fixed; 
     top:50px; 
-    /* right:15px;  */
     right: -100%;
-    width:450px;
+    width:500px;
     z-index: 99;
-    height: 270px; 
+    height: 230px; 
     background-color: #d2d2d2;
     border-radius: 5px;
     box-shadow: 2px 1px 10px #000;
@@ -63,31 +60,23 @@ button {
 }
 
 .closeBtn {
-    width: 20px;
+    width: 22px;
+    height: 22px;
     position: absolute;
     top: 5px;
     right: 5px;
     border-radius: 2px;
     background: var(--red-btn);
     color: var(--color-white);
+    border: 1px solid var(--red-btn);
     cursor: pointer;
 }
 
-.clearAllBtn {
-    padding: var(--padding-on-btn);
-    border-radius: var(--border-radius);
-    background: var(--red-btn);
-    color: var(--color-white);
-    border: 2px solid var(--red-btn);
-    cursor: pointer;
-}
-
-.clearAllBtn:hover {
+.closeBtn:hover {
     background: var(--color-white);
     color: var(--color-black);
     transition: var(--transition);
 }
-
 
 .block-btns-text {
     margin: 10px 0px 0px 10px;
@@ -95,14 +84,15 @@ button {
 
 .block-item1 {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     margin: 15px 0 20px 0;
 }
 
 .block-item2 {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
     margin-bottom: 20px;
 }
 
@@ -111,6 +101,7 @@ button {
     align-items: center;
     justify-content: space-around;
 }
+
 
 .block-btns {
     font-size: 11px;
@@ -126,20 +117,41 @@ button {
     border: 2px solid var(--green-background-btn);
 }
 
-.block-btns:hover {
+.block-btns:hover:enabled {
     background: var(--color-white);
     color: var(--color-black);
     transition: var(--transition);
 }
 
 .block-btns.paste {
-    margin-left: 20px;
-    margin-right: 20px;
     background: var(--pasteBtn-background);
     border: 2px solid var(--pasteBtn-background);
 }
 
-.paste:hover {
+.block-btns.clear {
+    border: 2px solid var(--red-btn);
+    background: var(--red-btn);
+}
+
+.block-btns.clear:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin .3s linear infinite;
+  vertical-align: middle;
+}
+
+.paste:hover:enabled {
     background: var(--color-white);
     color: var(--color-black);
     transition: var(--transition);
@@ -170,7 +182,6 @@ button {
 
 .contextBtn {
     min-width: var(--min-width-for-btn);
-    margin: 0 20px;
     background: var(--bordo-color);
     color: var(--color-white);
     padding: var(--padding-on-btn);
@@ -194,3 +205,59 @@ button {
     padding: var(--padding-on-btn);
     cursor: pointer;
 }
+
+.success-icon {
+  color: var(--color-white);
+  margin-right: 5px;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn .4s forwards;
+}
+
+@keyframes fadeIn {
+     to {
+        opacity: 1;
+     }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Styles for Show/hide image CGB */
+
+.showImageBtn {
+  position: fixed;
+  top: 21px;
+  right:  170px;
+  cursor: pointer;
+  border: 2px solid var(--bordo-color);
+  background: var(--bordo-color);
+  border-radius: var(--border-radius);
+  color: var(--color-white);
+  padding: var(--padding-on-btn);
+}
+
+.showImageBtn:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+  transition: var(--transition);
+}
+
+.hiddenImage {
+ opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.animatedImage {
+ opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+
