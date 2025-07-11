@@ -202,6 +202,18 @@
       }
     ]
   },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content/startphp_styles.css",
+        "content/linkifyjs/*.js"
+      ],
+      "matches": [
+        "https://www.prologistics.info/*",
+        "https://prolodev.prologistics.info/*"
+      ]
+    }
+  ],
   "permissions": [
     "tabs",
     "storage",

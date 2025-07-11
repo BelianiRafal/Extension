@@ -13,6 +13,16 @@ class IssueDTO {
   }
 }
 
+const body = document.querySelector("body");
+document.querySelector(".info_finish")?.remove();
+body.style.margin = "0";
+body.style.padding = "0";
+
+// Remove the unwanted text from body
+if (body.innerText.includes('string(21) "www.prologistics.info"')) {
+  body.innerHTML = body.innerHTML.replace(/string\(21\)\s*"www\.prologistics\.info"/g, "");
+}
+
 class Issues {
   api = {
     checklists: () =>
@@ -33,9 +43,9 @@ class Issues {
   board_id = "13";
   users = {
     Orlinski: "1196",
-    Polak: "1195",
     JurgowiakM: "1194",
-    Demczenko: "1193",
+		KaKazaniecki: "1193",
+		Oleksander: "1686",
     RKobus: "1204",
   };
   constructor() {
@@ -614,5 +624,283 @@ class Issues {
     }
   };
 }
+// uncomment below to enable floating menu functionality
+// // Floating Menu Implementation
+// class FloatingMenuManager {
+//   constructor() {
+//     this.isMenuVisible = true;
+//     this.init();
+//   }
+
+//   init() {
+//     // Wait for DOM to be ready
+//     if (document.readyState === 'loading') {
+//       document.addEventListener('DOMContentLoaded', () => this.setup());
+//     } else {
+//       this.setup();
+//     }
+//   }
+
+//   setup() {
+//     console.log('Setting up floating menu...');
+//     this.injectStyles();
+//     setTimeout(() => {
+//       this.transformMenu();
+//       this.createToggleButton();
+//       this.setupEventListeners();
+//     }, 100); // Small delay to ensure page is fully loaded
+//   }
+
+//   injectStyles() {
+//     // Check if styles are already injected
+//     if (document.getElementById('floating-menu-styles')) return;
+
+//     try {
+//       const link = document.createElement('link');
+//       link.id = 'floating-menu-styles';
+//       link.rel = 'stylesheet';
+//       link.href = chrome.runtime.getURL('content/startphp_styles.css');
+//       document.head.appendChild(link);
+//       console.log('Floating menu styles injected');
+//     } catch (error) {
+//       console.error('Error injecting styles:', error);
+//     }
+//   }
+
+//   transformMenu() {
+//     const leftMenu = document.querySelector('.leftSideMenu');
+//     if (!leftMenu) {
+//       console.warn('Left menu not found');
+//       return;
+//     }
+
+//     console.log('Transforming menu...');
+
+//     // Clone the menu content
+//     const menuContent = leftMenu.cloneNode(true);
+    
+//     // Hide the original menu
+//     leftMenu.classList.add('original-hidden');
+    
+//     // Create floating menu container
+//     const floatingMenu = document.createElement('div');
+//     floatingMenu.className = 'leftSideMenu floating-menu';
+//     floatingMenu.id = 'floating-left-menu';
+    
+//     // Transfer content
+//     floatingMenu.innerHTML = menuContent.innerHTML;
+    
+//     // Clean up the content (remove inline styles that conflict)
+//     this.cleanMenuContent(floatingMenu);
+    
+//     // Append to body
+//     document.body.appendChild(floatingMenu);
+    
+//     this.floatingMenu = floatingMenu;
+//     console.log('Floating menu created and added to page');
+//   }
+
+//   cleanMenuContent(menu) {
+//     console.log('Cleaning menu content and hiding disabled items...');
+    
+//     // Remove nowrap attribute and conflicting styles
+//     menu.removeAttribute('nowrap');
+    
+//     // First pass: identify and hide disabled menu items
+//     const links = menu.querySelectorAll('a');
+//     const disabledElements = [];
+    
+//     links.forEach(link => {
+//       // Enhanced disabled link detection
+//       const linkStyle = link.getAttribute('style') || '';
+//       const computedStyle = window.getComputedStyle(link);
+      
+//       const isDisabled = linkStyle.includes('color:gray') || 
+//                         linkStyle.includes('color: gray') ||
+//                         linkStyle.includes('pointer-events: none') ||
+//                         linkStyle.includes('pointer-events:none') ||
+//                         linkStyle.includes('cursor: default') ||
+//                         linkStyle.includes('cursor:default') ||
+//                         computedStyle.pointerEvents === 'none' ||
+//                         computedStyle.color === 'gray' ||
+//                         computedStyle.cursor === 'default';
+      
+//       if (isDisabled) {
+//         console.log('Hiding disabled menu item:', link.textContent.trim());
+//         link.style.display = 'none';
+//         disabledElements.push(link);
+//         return;
+//       }
+
+//       // Clean all nbsp entities and whitespace from active links
+//       const linkText = link.innerHTML;
+      
+//       // Remove all &nbsp; entities and replace with proper spacing
+//       const cleanText = linkText
+//         .replace(/&nbsp;/g, '') // Remove all &nbsp; entities
+//         .replace(/\s+/g, ' ')   // Replace multiple spaces with single space
+//         .trim();               // Remove leading/trailing whitespace
+      
+//       link.innerHTML = cleanText;
+      
+//       // Apply indentation based on original nesting level
+//       const nbspCount = (linkText.match(/&nbsp;/g) || []).length;
+//       if (nbspCount >= 4) {
+//         link.style.paddingLeft = '20px';
+//         link.style.fontSize = '12px';
+//       }
+//     });
+
+//     // Second pass: clean up orphaned elements around disabled items
+//     this.cleanupOrphanedElements(menu, disabledElements);
+
+//     // Clean up any script or unwanted elements
+//     const scripts = menu.querySelectorAll('script');
+//     scripts.forEach(script => script.remove());
+    
+//     // Additional cleanup: remove any remaining &nbsp; entities from the entire menu
+//     menu.innerHTML = menu.innerHTML
+//       .replace(/&nbsp;/g, ' ')           // Replace all &nbsp; with spaces
+//       .replace(/\s+/g, ' ')              // Replace multiple spaces with single space
+//       .replace(/>\s+</g, '><')           // Remove spaces between tags
+//       .replace(/^\s+|\s+$/g, '');        // Remove leading/trailing whitespace
+    
+//     console.log(`Menu cleanup complete. Hidden ${disabledElements.length} disabled items.`);
+//   }
+
+//   cleanupOrphanedElements(menu, disabledElements) {
+//     // Remove all BR tags completely
+//     const brTags = menu.querySelectorAll('br');
+//     brTags.forEach(br => br.remove());
+    
+//     // Clean up text nodes and whitespace
+//     const allNodes = [];
+//     const walker = document.createTreeWalker(
+//       menu,
+//       NodeFilter.SHOW_ALL,
+//       null,
+//       false
+//     );
+    
+//     let node;
+//     while (node = walker.nextNode()) {
+//       allNodes.push(node);
+//     }
+
+//     // Process text nodes - remove empty ones and clean whitespace
+//     allNodes.forEach(node => {
+//       if (node.nodeType === Node.TEXT_NODE) {
+//         const text = node.textContent;
+        
+//         // Remove empty text nodes or those with only whitespace/nbsp
+//         if (!text || text.trim() === '' || text.match(/^[\s&nbsp;]*$/)) {
+//           node.remove();
+//           return;
+//         }
+        
+//         // Clean remaining text nodes
+//         const cleanText = text
+//           .replace(/&nbsp;/g, ' ')  // Replace &nbsp; with regular space
+//           .replace(/\s+/g, ' ')     // Replace multiple spaces with single space
+//           .trim();                  // Remove leading/trailing whitespace
+        
+//         if (cleanText) {
+//           node.textContent = cleanText;
+//         } else {
+//           node.remove();
+//         }
+//       }
+//     });
+    
+//     // Remove any remaining empty elements
+//     const emptyElements = menu.querySelectorAll('*:empty:not(input):not(img):not(br)');
+//     emptyElements.forEach(el => {
+//       if (el.tagName !== 'INPUT' && el.tagName !== 'IMG' && el.tagName !== 'SELECT') {
+//         el.remove();
+//       }
+//     });
+//   }
+
+//   createToggleButton() {
+//     // Remove existing button if any
+//     const existingButton = document.getElementById('menu-toggle-btn');
+//     if (existingButton) {
+//       existingButton.remove();
+//     }
+
+//     const toggleButton = document.createElement('button');
+//     toggleButton.className = 'menu-toggle-button menu-visible';
+//     toggleButton.id = 'menu-toggle-btn';
+//     toggleButton.innerHTML = `
+//       <div class="hamburger">
+//         <span></span>
+//         <span></span>
+//         <span></span>
+//       </div>
+//     `;
+//     toggleButton.setAttribute('aria-label', 'Toggle navigation menu');
+//     toggleButton.setAttribute('title', 'Toggle menu');
+    
+//     document.body.appendChild(toggleButton);
+//     this.toggleButton = toggleButton;
+//     console.log('Toggle button created');
+//   }
+
+//   setupEventListeners() {
+//     if (!this.toggleButton || !this.floatingMenu) return;
+
+//     this.toggleButton.addEventListener('click', (e) => {
+//       e.preventDefault();
+//       e.stopPropagation();
+//       this.toggleMenu();
+//     });
+
+//     // Keyboard support
+//     document.addEventListener('keydown', (e) => {
+//       if (e.key === 'Escape' && this.isMenuVisible) {
+//         this.hideMenu();
+//       }
+//     });
+
+//     console.log('Event listeners set up');
+//   }
+
+//   toggleMenu() {
+//     if (this.isMenuVisible) {
+//       this.hideMenu();
+//     } else {
+//       this.showMenu();
+//     }
+//   }
+
+//   hideMenu() {
+//     if (!this.floatingMenu || !this.toggleButton) return;
+    
+//     this.floatingMenu.classList.add('hidden');
+//     this.toggleButton.classList.remove('menu-visible');
+//     this.isMenuVisible = false;
+//     console.log('Menu hidden');
+//   }
+
+//   showMenu() {
+//     if (!this.floatingMenu || !this.toggleButton) return;
+    
+//     this.floatingMenu.classList.remove('hidden');
+//     this.toggleButton.classList.add('menu-visible');
+//     this.isMenuVisible = true;
+//     console.log('Menu shown');
+//   }
+// }
+
+// // Initialize the floating menu when page loads
+// let floatingMenuManager;
+
+// // Check if we're on the right page before initializing
+// if (window.location.href.includes('start.php')) {
+//   console.log('Initializing floating menu for start.php page');
+//   floatingMenuManager = new FloatingMenuManager();
+// } else {
+//   console.log('Not on start.php page, skipping floating menu initialization');
+// }
 
 new Issues();
