@@ -91,37 +91,34 @@ const app = {
     this.initDesktop();
   },
 
-  getTemplates(fn) {
-    return fn(TEMPLATES);
-  },
-
   initDesktop() {
     this.showMobile = getButton("input[class=mobile-show]", "input[value='Show Mobile Banners']", "block", ui);
     this.hideMobile = getButton("input[class=mobile-hide]", "input[value='Hide mobile Banners']", "none", ui);
 
     this.textareas = document.querySelectorAll("textarea[name^=html]");
     this.bannerText = document.querySelectorAll("textarea[name^=banner_text]");
+    this.textareas_mobile = document.querySelectorAll("textarea[name^=mobile_html]");
 
-    if (!this.textareas && !this.bannerText) {
+    if (!this.textareas && !this.bannerText && !this.textareas_mobile) {
       new Notification("Desktop textareas not found.");
       return;
     }
 
     this.initUI(ui);
     this.addListeners();
-    this.createPasteAllBtn();
+    this.setTemplateBtn();
     createContextBtn();
     createOpenButton();
     hideImage();
   },
 
   initMobile() {
-    this.textareas_mobile = document.querySelectorAll("textarea[name^=mobile_html]");
-    if (!this.textareas_mobile) {
-      new Notification("Mobile textareas not found.");
-      return;
-    }
-    this.initMobileUI();
+    // this.textareas_mobile = document.querySelectorAll("textarea[name^=mobile_html]");
+    // if (!this.textareas_mobile) {
+    //   new Notification("Mobile textareas not found.");
+    //   return;
+    // }
+    // this.initMobileUI();
   },
 
   addListeners() {
@@ -157,45 +154,40 @@ const app = {
     return _nodes;
   },
 
-  createClearAllBtn(_nodes, banner_text, deviceType) {
+  createClearAllBtn(_nodes, banner_text) {
     return this.ui.createButton({
       classname: "block-btns clear",
-      title: "Clear All " + deviceType,
+      title: "Clear All",
       onClick: (ev) => {
         const loader = new Loader(ev.currentTarget);
 
         //Modal after click Clear All button
-        swalFireModal(
-          "Wow!",
-          "Are you sure you want to clear the textarea for " + deviceType,
-          "warning",
-          "Clear",
-          "#d9534f",
-          true
-        ).then((result) => {
-          if (result.isConfirmed) {
-            loader.showLoader();
-            for (let i = 0; i < _nodes.length; i++) {
-              const item = _nodes[i];
-              if (item.value.trim().length === 0) {
-                swalFireModal("", `The textarea value for ${deviceType} is empty!`, "warning", false);
-                return loader.hideLoader();
+        swalFireModal("Wow!", "Are you sure you want to clear all textarea?", "warning", "Clear", "#d9534f", true).then(
+          (result) => {
+            if (result.isConfirmed) {
+              loader.showLoader();
+              for (let i = 0; i < _nodes.length; i++) {
+                const item = _nodes[i];
+                if (item.value.trim().length === 0) {
+                  swalFireModal("", `The textarea value is empty!`, "warning", false);
+                  return loader.hideLoader();
+                }
               }
-            }
-            _nodes.forEach((item) => {
-              item.value = "";
-            });
+              _nodes.forEach((item) => {
+                item.value = "";
+              });
 
-            banner_text.forEach((item) => {
-              item.value = "";
-            });
-            swalFireModal("Clear!", "", "success", false);
-            return loader.hideLoader();
-          } else {
-            swalFireModal("Textarea are not clear!", "", "error", false);
-            return loader.hideLoader();
+              banner_text.forEach((item) => {
+                item.value = "";
+              });
+              swalFireModal("Clear!", "", "success", false);
+              return loader.hideLoader();
+            } else {
+              swalFireModal("Textarea are not clear!", "", "error", false);
+              return loader.hideLoader();
+            }
           }
-        });
+        );
       },
     });
   },
@@ -224,10 +216,10 @@ const app = {
   },
 
   //Set template button
-  createPasteAllBtn(_nodes, banner_text, deviceType) {
+  setTemplateBtn(_nodes, banner_text) {
     return this.ui.createButton({
       classname: "block-btns paste",
-      title: "Set template " + deviceType,
+      title: "Set template ",
       onClick: (ev) => {
         if (!state.context) {
           swalFireModal("Pls provide context!", "", "warning", false);
@@ -236,63 +228,59 @@ const app = {
 
         const loader = new Loader(ev.currentTarget);
         loader.showLoader();
-        let checkTemplate = "";
 
         //Usage for message in Swal
         let checkNodename = "";
 
+        //Find banners desktop
         let checkDesktop = document.querySelectorAll('tr[id^="trcheckrow"] video[name="media"]');
-        
         if (checkDesktop.length === 0) {
           checkDesktop = document.querySelectorAll('tr[id^="trcheckrow"] img');
         }
-
         if (!checkDesktop.length) return loader.hideLoader();
-
-        //Check if filetype === img return img, else mp4
-        checkDesktop.forEach((elem) => {
-          elem.nodeName === "IMG" ? (checkTemplate = "x1") : (checkTemplate = "x3");
-          elem.nodeName === "IMG" ? (checkNodename = "IMG") : (checkNodename = "MP4");
-        });
 
         //Find banners mobile
         let checkMobiles = document.querySelector("tr.mobile_banners");
-
         if (checkMobiles) {
           checkMobiles = getMediaMobile(checkMobiles);
         }
-
         if (!checkMobiles.length) return loader.hideLoader();
 
-        const htmlSelect = this.getTemplates((temp) => {
-          return temp.filter((item) => item.is_active && item[checkTemplate + deviceType]);
+        const checkAll = [...checkDesktop, ...checkMobiles];
+
+        checkAll.forEach((elem) => {
+          elem.nodeName === "IMG" ? (checkNodename = "IMG") : (checkNodename = "MP4");
         });
 
-        this.checkVideoMp4(_nodes, banner_text, htmlSelect, loader, checkDesktop, checkMobiles, checkNodename);
+        this.checkVideoMp4(_nodes, banner_text, loader, checkDesktop, checkMobiles, checkNodename);
       },
     });
   },
 
-  async checkVideoMp4(_nodes, banner_text, elem, loader, checkDesktop, checkMobiles, checkNodename) {
+  async checkVideoMp4(_nodes, banner_text, loader, checkDesktop, checkMobiles, checkNodename) {
     this.desktopVideosOrImgArray = [];
     this.mobileVideosOrImgArray = [];
+
+    console.log(checkMobiles);
 
     //Check width of video or img
     //if condition is not met, then swal modal is show
     const promptArrDesktop = await getStateArray(checkDesktop, "desktop", this.desktopVideosOrImgArray);
-    const desktopLengthMismatch = _nodes.length !== promptArrDesktop.length;
+    const desktopLengthMismatch = this.textareas.length !== promptArrDesktop.length;
 
     const promptArrMobile = await getStateArray(checkMobiles, "mobile", this.mobileVideosOrImgArray);
-    const mobileLengthMismatch = _nodes.length !== promptArrMobile.length;
+    const mobileLengthMismatch = this.textareas_mobile.length !== promptArrMobile.length;
+
+    console.log('promptMobile:', promptArrMobile);
 
     let agreeToProceed = true;
     if (desktopLengthMismatch || mobileLengthMismatch) {
       let message = "";
       if (desktopLengthMismatch) {
-        message += `Desktop ${checkNodename}: ${promptArrDesktop.length} need ${_nodes.length}.\n`;
+        message += `Desktop ${checkNodename}: ${promptArrDesktop.length} need ${this.textareas.length}.\n`;
       }
       if (mobileLengthMismatch) {
-        message += `Mobile ${checkNodename}: ${promptArrMobile.length} need ${_nodes.length}.\n`;
+        message += `Mobile ${checkNodename}: ${promptArrMobile.length} need ${this.textareas_mobile.length}.\n`;
       }
       message += `Paste code?`;
       const result = await swalFireModal("Oops...!", message, "warning", "Pasted code", "", true);
@@ -306,14 +294,9 @@ const app = {
       }
 
       //Function check nodes length and if agree updated true, then fill textareas and banner textareas
-      const conclusionDesktop = await iterationElementFn(promptArrDesktop, _nodes, banner_text, elem, agreeToProceed);
-      if (!conclusionDesktop) {
-        loader.hideLoader();
-        return false;
-      }
-
-      const conclusionMobile = await iterationElementFn(promptArrMobile, _nodes, banner_text, elem, agreeToProceed);
-      if (!conclusionMobile) {
+      const conclusionDesktop = await iterationElementFn(promptArrDesktop, this.textareas, banner_text,  agreeToProceed, "Desktop");
+      const conclusionMobile = await iterationElementFn(promptArrMobile, this.textareas_mobile, banner_text, agreeToProceed, "Mobile");
+      if (!conclusionMobile && !conclusionDesktop) {
         loader.hideLoader();
         return false;
       }
@@ -325,9 +308,9 @@ const app = {
   },
 
   //Fullfill template button
-  createFulfillAllNodes(_nodes, context, deviceType) {
+  createFulfillAllNodes(_nodes) {
     return this.ui.createButton({
-      title: "Fulfill all " + deviceType,
+      title: "Fulfill all",
       classname: "block-btns",
       onClick: (ev) => {
         if (!state.context) {
@@ -339,23 +322,7 @@ const app = {
         loader.showLoader();
 
         setTimeout(() => {
-          for (const { parent } of _nodes) {
-            if (parent.value.trim().length <= 10) {
-              swalFireModal(
-                "",
-                "Pls select template for" + parent.name + ". Minimum length 10 symbols.",
-                "warning",
-                false
-              );
-              continue;
-            }
-            parent.value = this.handleFullFillTemplate(parent, context);
-            parent.dispatchEvent(new Event("change"));
-          }
-
-          //fill banner text area
           this.createFillBannerText();
-
           loader.hideLoader();
         }, 1000);
       },
@@ -380,7 +347,7 @@ const app = {
     this.ui.AddButtonToContainer(node, "blockItem2");
   },
 
-  attachPasteAllFill({ parent }, node) {
+  attachSetTemplateBtn({ parent }, node) {
     this.ui.AddButtonToContainer(node, "blockItem2");
   },
 
@@ -390,20 +357,20 @@ const app = {
 
   initUI(ui) {
     this.ui = ui.init();
-    this.fulfillNodes = this.createFulfillNodes(this.textareas, this.languageAttributeToSlugDesktop);
+    const allTextareas = [...this.textareas, ...this.textareas_mobile];
 
-    this.pasteAllBtn = this.createPasteAllBtn(this.fulfillNodes, this.bannerText, "Desktop");
+    this.fulfillNodes = this.createFulfillNodes(allTextareas, this.languageAttributeToSlugDesktop);
+
+    this.pasteAllBtn = this.setTemplateBtn(this.fulfillNodes, this.bannerText);
 
     this.fulfillAllNodeDesktop = this.createFulfillAllNodes(
       this.fulfillNodes,
-      this.languageAttributeToSlugDesktop,
-      "Desktop"
     );
 
-    this.clearAllNodes = this.createClearAllBtn(this.textareas, this.bannerText, "Desktop");
+    this.clearAllNodes = this.createClearAllBtn(allTextareas, this.bannerText);
 
     if (this.fulfillNodes.length > 0) {
-      this.attachPasteAllFill(this.fulfillNodes[0], this.pasteAllBtn);
+      this.attachSetTemplateBtn(this.fulfillNodes[0], this.pasteAllBtn);
       this.attachFulfillAllNode(this.fulfillNodes[0], this.fulfillAllNodeDesktop);
       this.attachClearAll(this.clearAllNodes);
     }

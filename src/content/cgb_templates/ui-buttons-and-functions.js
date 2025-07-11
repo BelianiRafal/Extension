@@ -298,17 +298,31 @@ function createOpenButton() {
 }
 
 //Find mobile selector video or img and return need type
-async function iterationElementFn(stateArr, nodes, banner_text, elem, agreeUpdated) {
+async function iterationElementFn(stateArr, nodes, banner_text, agreeUpdated, typeForTemplate) {
   const localArr = [];
   localArr.length = 0;
   localArr.push(...stateArr);
 
-  if (nodes.length === localArr.length || agreeUpdated) {
+  let checkTemplate = "";
+
+  stateArr.forEach((elem) => {
+    elem.nodeName === "IMG" ? (checkTemplate = "x1") : (checkTemplate = "x3");
+  });
+
+  const htmlSelect = getTemplates((temp) => {
+    return temp.filter((item) => item.is_active && item[checkTemplate + typeForTemplate]);
+  });
+
+
+  if (nodes === localArr.length || agreeUpdated) {
     nodes.forEach((item) => {
-      item.parent.value = elem[0].html;
+
+      console.log(item);
+
+      item.value = htmlSelect[0].html;
     });
     banner_text.forEach((item) => {
-      item.value = elem[0].banner_text;
+      item.value = htmlSelect[0].banner_text;
     });
     return true;
   }
@@ -364,8 +378,7 @@ function getMediaMobile(trElement, selector = "video[name='media']") {
   return media;
 }
 
-
-//Modal 
+//Modal
 function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCancel) {
   return Swal.fire({
     title: title,

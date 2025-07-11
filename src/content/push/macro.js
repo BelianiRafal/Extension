@@ -1,7 +1,7 @@
 (function () {
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-  const escKeyEvent = new KeyboardEvent('keydown', {
-    key: 'Escape',
+  const escKeyEvent = new KeyboardEvent("keydown", {
+    key: "Escape",
     keyCode: 27,
     which: 27,
     bubbles: true,
@@ -9,14 +9,10 @@
 
   // Helper do szukania selecta językowego
   function getLangSelect() {
-    const selects = Array.from(document.querySelectorAll('select'));
+    const selects = Array.from(document.querySelectorAll("select"));
     for (let s of selects) {
       const opts = Array.from(s.options);
-      if (
-        opts.length > 5 &&
-        opts.some(o => o.value === 'pl') &&
-        opts.some(o => o.value === 'de')
-      ) {
+      if (opts.length > 5 && opts.some((o) => o.value === "pl") && opts.some((o) => o.value === "de")) {
         return s;
       }
     }
@@ -25,12 +21,12 @@
 
   // Helper do filtrowania opcji językowych (pomija puste)
   function getLangOptions(select) {
-    return Array.from(select.options).filter(opt => opt.value);
+    return Array.from(select.options).filter((opt) => opt.value);
   }
 
   // UI: Dodaj oba buttony
   function addMacroButtons() {
-    if (document.getElementById('push-macro-btn')) return;
+    if (document.getElementById("push-macro-btn")) return;
 
     // Wspólna animacja SVG
     const spinnerSVG = `
@@ -45,81 +41,121 @@
       </span>`;
 
     // Button SEND
-    const btnSend = document.createElement('button');
-    btnSend.id = 'push-macro-btn';
+    const btnSend = document.createElement("button");
+    btnSend.id = "push-macro-btn";
     btnSend.innerHTML = `<span class="btnText">Start sending</span>${spinnerSVG}`;
     Object.assign(btnSend.style, styleBase, styleGreen, {
-      bottom: '32px',
-      right: '32px',
+      // bottom: "32px",
+      // right: "32px",
+      top: "120px",
+      right: "20px",
     });
 
+    if (btnSend) {
+      disabledButton(btnSend, true);
+    }
+
     // Button TEST
-    const btnTest = document.createElement('button');
-    btnTest.id = 'push-test-btn';
+    const btnTest = document.createElement("button");
+    btnTest.id = "push-test-btn";
     btnTest.innerHTML = `<span class="btnText">Start testing</span>${spinnerSVG}`;
     Object.assign(btnTest.style, styleBase, styleBlue, {
-      bottom: '90px',
-      right: '32px',
+      // bottomt: "90px",
+      // right: "32px",
+      top: "60px",
+      right: "20px",
     });
+
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "btn-container";
 
     // Obsługa kliknięcia SEND
     btnSend.onclick = async function () {
-      toggleBtnState(btnSend, true, "Wysyłanie...");
-      await runPushMacro({
-        getButton: () => document.querySelector("input[type='submit'][name='submit'][value='Send']"),
-        getStatusEl: () => btnSend.querySelector('.btnText'),
-        getSpinnerEl: () => btnSend.querySelector('.macro-spinner'),
-        onlyRandom: false,
+      Swal.fire({
+        title: "Woooow",
+        text: "Did you send yourself the test?",
+        icon: "question",
+        showCancelButton: true,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          toggleBtnState(btnSend, true, "Wysyłanie...");
+          await runPushMacro({
+            getButton: () => document.querySelector("input[type='submit'][name='submit'][value='Send']"),
+            getStatusEl: () => btnSend.querySelector(".btnText"),
+            getSpinnerEl: () => btnSend.querySelector(".macro-spinner"),
+            onlyRandom: false,
+          });
+          toggleBtnState(btnSend, false, "Gotowe!");
+        }
       });
-      toggleBtnState(btnSend, false, "Gotowe!");
     };
 
     // Obsługa kliknięcia TEST
     btnTest.onclick = async function () {
-      toggleBtnState(btnTest, true, "Testuję...");
+      await toggleBtnState(btnTest, true, "Testuję...");
+      disabledButton(btnSend, false);
       await runPushMacro({
         getButton: () => document.querySelector("input#test[value='Test']"),
-        getStatusEl: () => btnTest.querySelector('.btnText'),
-        getSpinnerEl: () => btnTest.querySelector('.macro-spinner'),
+        getStatusEl: () => btnTest.querySelector(".btnText"),
+        getSpinnerEl: () => btnTest.querySelector(".macro-spinner"),
         onlyRandom: true,
       });
       toggleBtnState(btnTest, false, "Gotowe!");
     };
 
-    document.body.appendChild(btnSend);
-    document.body.appendChild(btnTest);
+    btnContainer.append(btnSend);
+    btnContainer.append(btnTest);
+
+    document.body.append(btnContainer);
+  }
+
+  async function disabledButton(btn, isDisabled) {
+    if (isDisabled) {
+      btn.disabled = isDisabled;
+      btn.style.opacity = "0.5";
+      btn.style.pointerEvents = "none";
+    } else {
+      btn.disabled = isDisabled;
+      btn.style.opacity = "1";
+      btn.style.pointerEvents = "auto";
+    }
   }
 
   // Styl wspólny + warianty
   const styleBase = {
-    position: 'fixed',
-    padding: '16px 32px',
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: '1.2rem',
-    border: 'none',
-    borderRadius: '2em',
-    boxShadow: '0 4px 16px rgba(0,0,0,0.09)',
+    position: "fixed",
+    padding: "16px 32px",
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: "1.2rem",
+    border: "none",
+    borderRadius: "2em",
+    boxShadow: "0 4px 16px rgba(0,0,0,0.09)",
     zIndex: 9999,
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '8px',
-    transition: 'background 0.2s',
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    transition: "background 0.2s",
   };
   const styleGreen = {
-    background: 'linear-gradient(90deg, #34d399 0%, #059669 100%)',
+    background: "linear-gradient(90deg, #34d399 0%, #059669 100%)",
   };
   const styleBlue = {
-    background: 'linear-gradient(90deg, #60a5fa 0%, #2563eb 100%)',
+    background: "linear-gradient(90deg, #60a5fa 0%, #2563eb 100%)",
   };
 
   // Blokuje/odblokowuje button, animuje, zmienia napis
-  function toggleBtnState(btn, disabled, msg) {
+  async function toggleBtnState(btn, disabled, msg) {
     btn.disabled = disabled;
-    btn.querySelector('.btnText').textContent = msg;
-    btn.querySelector('.macro-spinner').style.display = disabled ? "inline-block" : "none";
-    if (!disabled) setTimeout(() => btn.querySelector('.btnText').textContent = btn.id === "push-macro-btn" ? "Start sending" : "Start testing", 2000);
+    btn.querySelector(".btnText").textContent = msg;
+    btn.querySelector(".macro-spinner").style.display = disabled ? "inline-block" : "none";
+    if (!disabled)
+      setTimeout(
+        () =>
+          (btn.querySelector(".btnText").textContent = btn.id === "push-macro-btn" ? "Start sending" : "Start testing"),
+        2000
+      );
   }
 
   // MAKRO: logika główna (uniwersalna dla obu przycisków)
@@ -143,7 +179,7 @@
       const option = toProcess[i];
       select.value = option.value;
       select.dispatchEvent(new Event("change"));
-      getStatusEl().textContent = `${option.textContent} (${i+1}/${total})`;
+      getStatusEl().textContent = `${option.textContent} (${i + 1}/${total})`;
 
       await delay(1000);
 

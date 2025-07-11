@@ -64,35 +64,33 @@ const TEMPLATES = [
       bg_color: "#ffffff",
     },
     html: `
-    <style> 
-#cgb.xyGContainer {
-  max-width: 1224px;
-  overflow: hidden;
+          <style> 
+      #cgb.xyGContainer {
+        max-width: 1224px;
+        overflow: hidden;
 
-}
-#cgb .textBanner {
-  font-size: min(19px, 2.6vw);
-  font-weight: 600;
-}
+      }
+      #cgb .textBanner {
+        font-size: min(19px, 2.6vw);
+        font-weight: 600;
+      }
 
-#cgb .textBannerContainer {
-  padding-top: min(24px, 2vw);
-  padding-bottom: min(24px, 2vw);
-  padding-left: min(12px, 1vw);
-}
-</style>
-  <a href="[[banner_category_url]]">
-    <div id="cgb" class="xyGContainer">
-      <div class="textBannerContainer" style="background-color:[[banner_background_desktop]];">
-        <p class="textBanner" style="margin: 0;">
-          {{{Offer_text}}}
-        </p>
-      </div>
-      <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
-        <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
-      </video>
-    </div>
-  </a>`,
+      #cgb .textBannerContainer {
+        padding-top: min(24px, 2vw);
+        padding-bottom: min(24px, 2vw);
+        padding-left: min(12px, 1vw);
+      }
+      </style>
+        <a href="[[banner_category_url]]">
+          <div id="cgb" class="xyGContainer">
+            <div class="textBannerContainer" style="background-color:[[banner_background_desktop]];">
+              [[banner_text]]
+            </div>
+            <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
+              <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
+            </video>
+          </div>
+        </a>`,
     banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
   {
@@ -107,32 +105,30 @@ const TEMPLATES = [
     },
     html: `
     <style> 
-#cgb.xyGContainer {
-  max-width: 1224px;
-}
-#cgb .textBanner {
-  font-size: min(19px, 3.6vw);
-  font-weight: 600;
-}
+      #cgb.xyGContainer {
+        max-width: 1224px;
+      }
+      #cgb .textBanner {
+        font-size: min(19px, 3.6vw);
+        font-weight: 600;
+      }
 
-#cgb .textBannerContainer {
-  padding-top: min(24px, 4vw);
-  padding-bottom: min(24px, 4vw);
-  padding-left: min(12px, 2vw);
-}
-</style>
-<a href="[[banner_category_url]]">
-  <div id="cgb" class="xyGContainer">
-    <div class="textBannerContainer" style="background-color:[[banner_background_mobile]];">
-      <p class="textBanner" style="margin: 0;">
-        {{{Offer_text}}}
-      </p>
-    </div>
-    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
-      <source src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
-    </video>
-  </div>
-</a>`,
+      #cgb .textBannerContainer {
+        padding-top: min(24px, 4vw);
+        padding-bottom: min(24px, 4vw);
+        padding-left: min(12px, 2vw);
+      }
+      </style>
+      <a href="[[banner_category_url]]">
+        <div id="cgb" class="xyGContainer">
+          <div class="textBannerContainer" style="background-color:[[banner_background_mobile]];">
+            [[banner_text]]
+          </div>
+          <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
+            <source src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
+          </video>
+        </div>
+      </a>`,
     banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
   {
@@ -161,11 +157,7 @@ const TEMPLATES = [
         <a href="[[banner_category_url]]"> 
           <div id="cgb" class="cgbContainer" style="background-color:[[banner_background_desktop]];">
             <div class="textContainer1" style="color:[[banner_text_color]];"> 
-              <p class="xyHeader1"> 
-              {{{Offert_part_1}}} </br> {{{Offert_part_2}}}
-              </p> 
-              <p class="xyHeader3">{{{Offert_part_3}}}</p> 
-              <span class="xyCTA">{{Cta}}</span> 
+             [[banner_text]] 
             </div> 
               <video style="max-width: 100%; vertical-align: middle; min-width: 61%;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true"> 
               <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4"> 
@@ -203,11 +195,7 @@ const TEMPLATES = [
     <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
     <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
     <div style="padding: 10px 5px 10px 0px;"> 
-    <p class="xyHeader1"> 
-   {{{Offert_part_1}}} <br> {{{Offert_part_2}}}
-    </p> 
-    <p class="xyHeader3">{{{Offert_part_3}}}</p> 
-    <span class="xyCTA">{{Cta}}</span> 
+    [[banner_text]]
     </div> 
     <div style="width:100%"> 
     <video playsinline autoplay loop muted disableremoteplayback="true" style="max-width: 100%; vertical-align: middle;"> 
