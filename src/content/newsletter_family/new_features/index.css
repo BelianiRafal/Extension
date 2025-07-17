@@ -23,3 +23,24 @@
 #results_table td {
   transition: all 1s;
 }
+
+
+.action-btn {
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	padding: 4px 8px;
+	background: #7e7e7e;
+	color: rgb(238, 238, 238);
+	text-align: left;
+	word-break: keep-all;
+}
+
+#results_table .translation-not-found {
+	background-color: #ffcccc !important;
+	color: #8b0000 !important;
+	font-weight: bold !important;
+	padding: 2px 4px;
+	border-radius: 3px;
+	display: inline-block;
+}
