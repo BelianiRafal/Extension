@@ -197,16 +197,6 @@ const app = {
       const template = textarea.value;
       const name = textarea.name;
 
-      // console.log(state.context);
-
-      // const stateKey = Object.values(state.context);
-
-      // console.log("Ключи", stateKey[0]);
-
-      // console.log(context[name]);
-
-      // console.log('Template', template);
-
       if (name in context && context[name] in state.context) {
         const _template = Mustache.render(template, state.context[context[name]]);
         return _template;
@@ -227,10 +217,10 @@ const app = {
       classname: "block-btns paste",
       title: "Set template ",
       onClick: (ev) => {
-        // if (!state.context) {
-        //   swalFireModal("Pls provide context!", "", "warning", false);
-        //   return;
-        // }
+        if (!state.context) {
+          swalFireModal("Pls provide context!", "", "warning", false);
+          return;
+        }
 
         const loader = new Loader(ev.currentTarget);
         loader.showLoader();

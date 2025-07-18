@@ -39,7 +39,7 @@ const TEMPLATES = [
       bg_color: "#ffffff",
       video_src: "https://www.pictureserver.net/pic_storage/pic/d8/1e/english_src_banner_picid_11256_image.mp4?ver=1",
     },
-    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1224px;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
+    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1440px !important;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
   },
   {
     title: "Mobile Offer",
@@ -51,7 +51,7 @@ const TEMPLATES = [
       bg_color: "#ffffff",
       video_src: "https://www.pictureserver.net/pic_storage/pic/d8/1e/english_src_banner_picid_11256_image.mp4?ver=1",
     },
-    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1224px;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
+    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1440px !important;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
   },
   {
     title: "Desktop Offer row x1 MP4",
@@ -66,7 +66,7 @@ const TEMPLATES = [
     html: `
       <style> 
       #cgb.xyGContainer {
-        max-width: 1224px;
+        max-width: 1440px !important;
         overflow: hidden;
 
       }
@@ -106,7 +106,7 @@ const TEMPLATES = [
     html: `
     <style> 
       #cgb.xyGContainer {
-        max-width: 1224px;
+        max-width: 1440px !important;
       }
       #cgb .textBanner {
         font-size: min(19px, 3.6vw);
@@ -225,7 +225,7 @@ const TEMPLATES = [
     html: `
     <style> 
       #cgb.xyGContainer {
-        max-width: 1224px;
+        max-width: 1440px !important;
         padding:0 min(12px, 1vw);
       }
       #cgb .textBanner {
@@ -261,7 +261,7 @@ const TEMPLATES = [
     html: `
     <style> 
       #cgb.xyGContainer {
-        max-width: 1224px;
+        max-width: 1440px !important;
         padding:0 min(12px, 2vw);
       }
       #cgb .textBanner {
