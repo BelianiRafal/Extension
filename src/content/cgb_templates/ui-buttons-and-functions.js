@@ -302,22 +302,25 @@ async function iterationElementFn(stateArr, nodes, banner_text, agreeUpdated, ty
   const localArr = [];
   localArr.length = 0;
   localArr.push(...stateArr);
-
   let checkTemplate = "";
+  let checkTypeBanner = '';
+
+  const checkVal = hasObjValue(state.context);
+  console.log(checkVal);
 
   stateArr.forEach((elem) => {
-    elem.nodeName === "IMG" ? (checkTemplate = "x1") : (checkTemplate = "x3");
+    elem.nodeName === "IMG" ? (checkTypeBanner = "Img") : (checkTypeBanner = "Mp4");
   });
 
+  checkVal ? (checkTemplate = "x1") : (checkTemplate = "x3");
+
   const htmlSelect = getTemplates((temp) => {
-    return temp.filter((item) => item.is_active && item[checkTemplate + typeForTemplate]);
+    return temp.filter((item) => item.is_active && item[checkTemplate + typeForTemplate + checkTypeBanner]);
   });
 
 
   if (nodes === localArr.length || agreeUpdated) {
     nodes.forEach((item) => {
-
-      console.log(item);
 
       item.value = htmlSelect[0].html;
     });
@@ -376,6 +379,12 @@ function getMediaMobile(trElement, selector = "video[name='media']") {
   }
 
   return media;
+}
+
+function hasObjValue(obj) {
+  const firstKey = Object.keys(obj)[0];
+  const firstValue = obj[firstKey];
+  return 'Offer_text' in firstValue;
 }
 
 //Modal
