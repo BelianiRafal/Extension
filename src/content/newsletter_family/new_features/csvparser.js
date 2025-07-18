@@ -89,24 +89,83 @@ const resultsTable = () => {
 
   // Nice-looking merged data table
   // @wiki: https://datatables.net/
-  new DataTable("#results_table", {
+  const dataTable = new DataTable("#results_table", {
     data: mergedTables,
     paging: false, // one giant table! let's go!!!!!! we love tables <3
     // scrollY: 400,
     columns: [
       { data: "shop", title: "Shop" },
       { data: "slug", title: "Slug" },
-      { data: "newsID", title: "NSLT ID" },
-      { data: "SL", title: "Subject Line" },
-      { data: "contentId", title: "LP ID" },
-      { data: "contentShopId", title: "LP SHOP ID" },
-      { data: "PT", title: "Page Title" },
+      { data: "newsID", title: "NSLT ID", visible: false },
+      { 
+        data: "SL", 
+        title: "Subject Line",
+        render: function (data, type, row) {
+          if (type === 'display' && data === 'TRANSLATION_NOT_FOUND') {
+            return `<span class="translation-not-found">${data}</span>`;
+          }
+          return data;
+        }
+      },
+      {
+        data: null,
+        title: "Set Subject Line",
+        orderable: false,
+        render: function (data, type, row) {
+          return `<button class="action-btn set-subject-btn" data-action="newsletter" data-slug="${row.slug}" data-row-id="${row.newsID}">Set ${row.slug} SL</button>`;
+        }
+      },
+      { data: "contentId", title: "LP ID", visible: false },
+      { data: "contentShopId", title: "LP SHOP ID", visible: false },
+      { 
+        data: "PT", 
+        title: "Page Title",
+        render: function (data, type, row) {
+          if (type === 'display' && data === 'TRANSLATION_NOT_FOUND') {
+            return `<span class="translation-not-found">${data}</span>`;
+          }
+          return data;
+        }
+      },
+      {
+        data: null,
+        title: "Set Page Title",
+        orderable: false,
+        render: function (data, type, row) {
+          return `<button class="action-btn set-title-btn" data-action="landing-page" data-slug="${row.slug}" data-row-id="${row.contentId}">Set ${row.slug} PT</button>`;
+        }
+      },
       { data: "activate_from_date", title: "From (Date)" },
-      { data: "activate_from_time", title: "From (Time)" },
+      { data: "activate_from_time", title: "From (Time)", visible: false },
       { data: "deactivate_from_date", title: "To (Date)" },
-      { data: "deactivate_from_time", title: "To (Time)" },
+      { data: "deactivate_from_time", title: "To (Time)", visible: false },
       { data: "name", title: "Path" },
     ],
+  });
+
+  // Add event delegation for action buttons
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('action-btn')) {
+      const action = event.target.getAttribute('data-action');
+      const slug = event.target.getAttribute('data-slug');
+      
+      if (action && slug) {
+        // Check if sendToBackend is available
+        if (typeof window.sendToBackend === 'function') {
+          window.sendToBackend(action, slug);
+        } else {
+          console.error('sendToBackend function not available, retrying in 100ms...');
+          // Retry after a short delay
+          setTimeout(() => {
+            if (typeof window.sendToBackend === 'function') {
+              window.sendToBackend(action, slug);
+            } else {
+              alert('sendToBackend function not available. Please reload the page.');
+            }
+          }, 100);
+        }
+      }
+    }
   });
 };
 

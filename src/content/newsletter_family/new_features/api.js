@@ -1,4 +1,4 @@
-const sendToBackend = async (type) => {
+const sendToBackend = async (type, targetSlug = null) => {
   if (!type) return alert(`Type (landing-page/newsletter) is unset!`);
   if (!nsltTableData)
     return alert(`Newsletter table data incorrectly scraped!`);
@@ -8,12 +8,26 @@ const sendToBackend = async (type) => {
       `You probably forgot to upload CSV file!\nMerged tables not found, check console for errors!`
     );
 
-  const rowsArray = Array.from(results_table.rows);
+  const resultsTable = document.getElementById('results_table');
+  if (!resultsTable) {
+    return alert('Results table not found!');
+  }
+  
+  const rowsArray = Array.from(resultsTable.rows);
+  
+  // If targetSlug is provided, process only that row, otherwise process all rows
+  const rowsToProcess = targetSlug 
+    ? mergedTables.filter(row => row.slug === targetSlug)
+    : mergedTables;
 
-  for (const row of mergedTables) {
+  if (targetSlug && rowsToProcess.length === 0) {
+    return alert(`Row with slug "${targetSlug}" not found!`);
+  }
+
+  for (const row of rowsToProcess) {
     const slug = row.slug;
-    const targetRow = rowsArray.find((row) => {
-      const slugCell = row.getElementsByTagName("td")[1];
+    const targetRow = rowsArray.find((tableRow) => {
+      const slugCell = tableRow.getElementsByTagName("td")[1];
       return slugCell && slugCell.textContent.trim() === slug;
     });
 
@@ -47,6 +61,9 @@ const sendToBackend = async (type) => {
     });
   }, 1500);
 };
+
+// Export sendToBackend into "window" so we can use it everywhere
+window.sendToBackend = sendToBackend;
 
 const getNewsletterId = (shop, language, newsID) => {
   logger.debug(`${shop} ${language} ${newsID}`);

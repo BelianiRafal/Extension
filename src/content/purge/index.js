@@ -107,4 +107,8 @@ function setup() {
   });
 }
 
+<<<<<<< HEAD
 setup();
+=======
+setup();
+>>>>>>> 1b0f885f8d9825b06daa4522ca874e6c3d96aba0

@@ -2,7 +2,11 @@
   "author": {
     "email": "demczenko@beliani.co.uk"
   },
+<<<<<<< HEAD
   "name": "Alex CGB",
+=======
+  "name": "Prolo power tool-DEVMODE 2",
+>>>>>>> 1b0f885f8d9825b06daa4522ca874e6c3d96aba0
   "version": "2.0.0",
   "manifest_version": 3,
   "description": "Make prolo great again!",
@@ -16,6 +20,17 @@
     {
       "matches": ["https://www.prologistics.info/newsletter_preview.html?id=*"],
       "js": ["./content/mustache/index.js", "./content/pages/my_page.js"]
+    },
+		{
+      "matches": [
+        "https://www.prologistics.info/purge.php",
+        "https://prolodev.prologistics.info/purge.php"
+      ],
+      "js": [
+        "./content/purge/index.js",
+        "./content/newsletter_family/new_features/log.js"
+      ],
+      "run_at": "document_idle"
     },
     {
       "matches": [
@@ -177,6 +192,18 @@
       }
     ]
   },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content/startphp_styles.css",
+        "content/linkifyjs/*.js"
+      ],
+      "matches": [
+        "https://www.prologistics.info/*",
+        "https://prolodev.prologistics.info/*"
+      ]
+    }
+  ],
   "permissions": [
     "tabs",
     "storage",

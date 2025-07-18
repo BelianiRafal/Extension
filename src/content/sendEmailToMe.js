@@ -70,6 +70,7 @@ function fetchAvailableIds() {
           title: "Send to: " + email,
         }),
       );
+			// @TODO: add check if user !== "rafal" ? rafal mail : justyna mail
       rootNode.insertAdjacentElement(
         "afterend",
         createSendEmailBtn({
