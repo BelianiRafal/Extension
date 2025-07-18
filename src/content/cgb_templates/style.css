@@ -1,0 +1,275 @@
+:root {
+    --green-background-btn: #328a35;
+    --pasteBtn-background: #fd9000;
+    --bordo-color: #750000;
+    --red-btn: #d9534f;
+    --color-white: #fff;
+    --color-black: #000;
+
+    --padding-on-btn: 10px 15px;
+    --min-width-for-btn: 125px;
+    --border-radius: 5px;
+    --transition: all .2s linear;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    border: none;
+}
+
+.block-btns-main {
+    position:fixed; 
+    top:50px; 
+    right: -100%;
+    width:420px;
+    z-index: 99;
+    height: 230px; 
+    background: linear-gradient(to bottom left, #d2d2d2, #d2d2d2 50%, #f0cab4);;
+    border-radius: 5px;
+    box-shadow: 2px 1px 10px #000;
+    transition: right .4s ease;
+}
+
+.block-btns-main.active {
+    right: 15px;
+}
+
+.block-btns-container {
+    position: relative;
+}
+
+.openButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: var(--padding-on-btn);
+    border-radius: var(--border-radius);
+    background: var(--green-background-btn);
+    color: var(--color-white);
+    border: 2px solid var(--green-background-btn);
+    cursor: pointer;
+}
+
+.openButton:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+.closeBtn {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border-radius: 2px;
+    background: var(--red-btn);
+    color: var(--color-white);
+    border: 1px solid var(--red-btn);
+    cursor: pointer;
+}
+
+.closeBtn:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+.block-btns-text {
+    margin: 10px 0px 0px 10px;
+}
+
+.block-item1 {
+    display: flex;
+    justify-content: space-around;
+    margin: 25px 0 20px 0;
+}
+
+.block-item2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.block-item3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.block-btns {
+    position: relative;
+    font-size: 11px;
+    min-width: var(--min-width-for-btn);
+    margin-bottom: 20px;
+    padding: var(--padding-on-btn);
+    background: var(--green-background-btn);
+    border: none;
+    border-radius: var(--border-radius);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid var(--green-background-btn);
+}
+
+.block-btns:hover:enabled {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+.block-btns.paste {
+    background: var(--pasteBtn-background);
+    border: 2px solid var(--pasteBtn-background);
+}
+
+.block-btns.clear {
+    border: 2px solid var(--red-btn);
+    background: var(--red-btn);
+}
+
+.block-btns.clear:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+.block-logo {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 40px;
+    filter: blur(0.4px);
+    cursor: pointer;
+}
+
+
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin .3s linear infinite;
+  vertical-align: middle;
+}
+
+.paste:hover:enabled {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+.block-select {
+    max-width: var(--min-width-for-btn);
+    margin-bottom: 20px;
+    padding: var(--padding-on-btn);
+    
+}
+
+.newUpdateBtn {
+    min-width: var(--min-width-for-btn);
+    padding: var(--padding-on-btn);
+    background-color: var(--green-background-btn); 
+    color: var(--color-white); 
+    border: 2px solid var(--green-background-btn); 
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.newUpdateBtn:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+.contextBtn {
+    min-width: var(--min-width-for-btn);
+    background: var(--bordo-color);
+    color: var(--color-white);
+    padding: var(--padding-on-btn);
+    border: 2px solid var(--bordo-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+.contextBtn:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: var(--transition);
+}
+
+.mobile-hide, .mobile-show {
+    min-width: var(--min-width-for-btn);
+}
+
+.hideShowBtn {
+    max-width: 130px;
+    padding: var(--padding-on-btn);
+    cursor: pointer;
+}
+
+.success-icon {
+  color: var(--color-white);
+  margin-right: 5px;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn .4s forwards;
+}
+
+@keyframes fadeIn {
+     to {
+        opacity: 1;
+     }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Styles for Show/hide image CGB */
+
+.showImageBtn {
+  position: fixed;
+  top: 21px;
+  right:  170px;
+  cursor: pointer;
+  border: 2px solid var(--bordo-color);
+  background: var(--bordo-color);
+  border-radius: var(--border-radius);
+  color: var(--color-white);
+  padding: var(--padding-on-btn);
+}
+
+.showImageBtn:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+  transition: var(--transition);
+}
+
+.hiddenImage {
+ opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.animatedImage {
+ opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+
