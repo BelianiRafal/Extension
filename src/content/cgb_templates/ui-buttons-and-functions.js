@@ -125,9 +125,8 @@ function createContextBtn() {
       Papa.parse(file, {
         complete: (results) => {
           const data = convertToObject(results.data);
-          console.log(data);
           state.context = data;
-          new Notification("File: " + file.name + " has been added to context.");
+          swalFireModal(`Context ${file.name} is added`, "", "success", false);
           input.value = null;
           dialog.style.display = "none";
           dialog.close();
@@ -299,17 +298,34 @@ function createOpenButton() {
 }
 
 //Find mobile selector video or img and return need type
-async function iterationElementFn(stateArr, nodes, banner_text, elem, agreeUpdated) {
+async function iterationElementFn(stateArr, nodes, banner_text, agreeUpdated, typeForTemplate) {
   const localArr = [];
   localArr.length = 0;
   localArr.push(...stateArr);
+  let checkTemplate = "";
+  let checkTypeBanner = '';
 
-  if (nodes.length === localArr.length || agreeUpdated) {
+  const checkVal = hasObjValue(state.context);
+  console.log(checkVal);
+
+  stateArr.forEach((elem) => {
+    elem.nodeName === "IMG" ? (checkTypeBanner = "Img") : (checkTypeBanner = "Mp4");
+  });
+
+  checkVal ? (checkTemplate = "x1") : (checkTemplate = "x3");
+
+  const htmlSelect = getTemplates((temp) => {
+    return temp.filter((item) => item.is_active && item[checkTemplate + typeForTemplate + checkTypeBanner]);
+  });
+
+
+  if (nodes === localArr.length || agreeUpdated) {
     nodes.forEach((item) => {
-      item.parent.value = elem[0].html;
+
+      item.value = htmlSelect[0].html;
     });
     banner_text.forEach((item) => {
-      item.value = elem[0].banner_text;
+      item.value = htmlSelect[0].banner_text;
     });
     return true;
   }
@@ -327,7 +343,7 @@ async function getStateArray(iterArr, deviceTypeLowercase, stateArr) {
           const width = video.offsetWidth;
           let isValid = false;
           if (deviceTypeLowercase === "desktop") {
-            isValid = width > 950;
+            isValid = width > 950 || width > 750;
           } else if (deviceTypeLowercase === "mobile") {
             isValid = width < 800;
           }
@@ -365,8 +381,13 @@ function getMediaMobile(trElement, selector = "video[name='media']") {
   return media;
 }
 
+function hasObjValue(obj) {
+  const firstKey = Object.keys(obj)[0];
+  const firstValue = obj[firstKey];
+  return 'Offer_text' in firstValue;
+}
 
-//Modal 
+//Modal
 function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCancel) {
   return Swal.fire({
     title: title,

@@ -39,7 +39,7 @@ const TEMPLATES = [
       bg_color: "#ffffff",
       video_src: "https://www.pictureserver.net/pic_storage/pic/d8/1e/english_src_banner_picid_11256_image.mp4?ver=1",
     },
-    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1224px;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
+    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1440px !important;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
   },
   {
     title: "Mobile Offer",
@@ -51,55 +51,53 @@ const TEMPLATES = [
       bg_color: "#ffffff",
       video_src: "https://www.pictureserver.net/pic_storage/pic/d8/1e/english_src_banner_picid_11256_image.mp4?ver=1",
     },
-    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1224px;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
+    html: '<style> \n#cgb.xyGContainer {\n  max-width: 1440px !important;\n}\n#cgb .textBanner {\n  font-size: min(19px, 2.6vw);\n  font-weight: 600;\n}\n\n#cgb .textBannerContainer {\n  padding-top: min(24px, 4vw);\n  padding-bottom: min(24px, 4vw);\n  padding-left: min(12px, 2vw);\n}\n</style>\n<div id="cgb" class="xyGContainer">\n  <div class="textBannerContainer" style="background-color:{{{bg_color}}};">\n    <p class="textBanner" style="margin: 0;">\n      {{{Offer_text}}}\n    </p>\n  </div>\n  <a href="/{{{category_href}}}">\n    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >\n      <source src="{{{video_src}}}" type="video/mp4">\n    </video>\n  </a>\n</div>',
   },
   {
     title: "Desktop Offer row x1 MP4",
     description: "Desktop banner with:\n2 rows.\nTitle first row\nGraphic second row.",
     is_active: true,
-    x1Desktop: true,
+    x1DesktopMp4: true,
     fallback: {
       Offer_text: "Offer_text",
       category_href: "sofas",
       bg_color: "#ffffff",
     },
     html: `
-    <style> 
-#cgb.xyGContainer {
-  max-width: 1224px;
-  overflow: hidden;
+      <style> 
+      #cgb.xyGContainer {
+        max-width: 1440px !important;
+        overflow: hidden;
 
-}
-#cgb .textBanner {
-  font-size: min(19px, 2.6vw);
-  font-weight: 600;
-}
+      }
+      #cgb .textBanner {
+        font-size: min(19px, 2.6vw);
+        font-weight: 600;
+      }
 
-#cgb .textBannerContainer {
-  padding-top: min(24px, 2vw);
-  padding-bottom: min(24px, 2vw);
-  padding-left: min(12px, 1vw);
-}
-</style>
-  <a href="[[banner_category_url]]">
-    <div id="cgb" class="xyGContainer">
-      <div class="textBannerContainer" style="background-color:[[banner_background_desktop]];">
-        <p class="textBanner" style="margin: 0;">
-          {{{Offer_text}}}
-        </p>
-      </div>
-      <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
-        <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
-      </video>
-    </div>
-  </a>`,
+      #cgb .textBannerContainer {
+        padding-top: min(24px, 2vw);
+        padding-bottom: min(24px, 2vw);
+        padding-left: min(12px, 1vw);
+      }
+      </style>
+        <a href="[[banner_category_url]]">
+          <div id="cgb" class="xyGContainer">
+            <div class="textBannerContainer" style="background-color:[[banner_background_desktop]];">
+              [[banner_text]]
+            </div>
+            <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
+              <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
+            </video>
+          </div>
+        </a>`,
     banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
   {
     title: "Mobile Offer row x1 MP4",
     description: "Mobile banner with:\n2 rows.\nTitle first row\nGraphic second row.",
     is_active: true,
-    x1Mobile: true,
+    x1MobileMp4: true,
     fallback: {
       Offer_text: "Offer_text",
       category_href: "sofas",
@@ -107,38 +105,36 @@ const TEMPLATES = [
     },
     html: `
     <style> 
-#cgb.xyGContainer {
-  max-width: 1224px;
-}
-#cgb .textBanner {
-  font-size: min(19px, 3.6vw);
-  font-weight: 600;
-}
+      #cgb.xyGContainer {
+        max-width: 1440px !important;
+      }
+      #cgb .textBanner {
+        font-size: min(19px, 3.6vw);
+        font-weight: 600;
+      }
 
-#cgb .textBannerContainer {
-  padding-top: min(24px, 4vw);
-  padding-bottom: min(24px, 4vw);
-  padding-left: min(12px, 2vw);
-}
-</style>
-<a href="[[banner_category_url]]">
-  <div id="cgb" class="xyGContainer">
-    <div class="textBannerContainer" style="background-color:[[banner_background_mobile]];">
-      <p class="textBanner" style="margin: 0;">
-        {{{Offer_text}}}
-      </p>
-    </div>
-    <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
-      <source src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
-    </video>
-  </div>
-</a>`,
+      #cgb .textBannerContainer {
+        padding-top: min(24px, 4vw);
+        padding-bottom: min(24px, 4vw);
+        padding-left: min(12px, 2vw);
+      }
+      </style>
+      <a href="[[banner_category_url]]">
+        <div id="cgb" class="xyGContainer">
+          <div class="textBannerContainer" style="background-color:[[banner_background_mobile]];">
+            [[banner_text]]
+          </div>
+          <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
+            <source src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" type="video/mp4">
+          </video>
+        </div>
+      </a>`,
     banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
   {
     title: "Cgb desktop row x3 MP4",
     is_active: true,
-    x3Desktop: true,
+    x3DesktopMp4: true,
     fallback: {
       Offert_part_1: "Up to 50% off",
       Offert_part_2: "all blankets & throws",
@@ -161,11 +157,7 @@ const TEMPLATES = [
         <a href="[[banner_category_url]]"> 
           <div id="cgb" class="cgbContainer" style="background-color:[[banner_background_desktop]];">
             <div class="textContainer1" style="color:[[banner_text_color]];"> 
-              <p class="xyHeader1"> 
-              {{{Offert_part_1}}} </br> {{{Offert_part_2}}}
-              </p> 
-              <p class="xyHeader3">{{{Offert_part_3}}}</p> 
-              <span class="xyCTA">{{Cta}}</span> 
+             [[banner_text]] 
             </div> 
               <video style="max-width: 100%; vertical-align: middle; min-width: 61%;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true"> 
               <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4"> 
@@ -181,7 +173,7 @@ const TEMPLATES = [
   {
     title: "Cgb mobile row x3 MP4",
     is_active: true,
-    x3Mobile: true,
+    x3MobileMp4: true,
     fallback: {
       Offert_part_1: "Up to 50% off",
       Offert_part_2: "all blankets & throws",
@@ -193,30 +185,25 @@ const TEMPLATES = [
 
     html: `
     <style> 
-    #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
-    #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
-    #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
-    #cgb .xyHeader3 { font-size: 11px; text-decoration: none; margin: 0 0 3px 0; } 
+      #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
+      #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
+      #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
+      #cgb .xyHeader3 { font-size: 11px; text-decoration: none; margin: 0 0 3px 0; } 
     </style> 
 
 
-    <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
-    <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
-    <div style="padding: 10px 5px 10px 0px;"> 
-    <p class="xyHeader1"> 
-   {{{Offert_part_1}}} <br> {{{Offert_part_2}}}
-    </p> 
-    <p class="xyHeader3">{{{Offert_part_3}}}</p> 
-    <span class="xyCTA">{{Cta}}</span> 
-    </div> 
-    <div style="width:100%"> 
-    <video playsinline autoplay loop muted disableremoteplayback="true" style="max-width: 100%; vertical-align: middle;"> 
-    <source src="{imageurl src='mobilebanner' picid=$banner->id ext=$banner->ext}" type="video/mp4"> 
-    </video> 
-    </div> 
-    </div> 
-    </a> `,
-
+      <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
+      <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
+      <div style="padding: 10px 5px 10px 0px;"> 
+      [[banner_text]]
+      </div> 
+      <div style="width:100%"> 
+      <video playsinline autoplay loop muted disableremoteplayback="true" style="max-width: 100%; vertical-align: middle;"> 
+      <source src="{imageurl src='mobilebanner' picid=$banner->id ext=$banner->ext}" type="video/mp4"> 
+      </video> 
+      </div> 
+      </div> 
+      </a> `,
     banner_text: `
       <p class="xyHeader1">{{{Offert_part_1}}}</br>{{{Offert_part_2}}}</p>
       <p class="xyHeader3">{{{Offert_part_3}}}</p>
@@ -224,80 +211,85 @@ const TEMPLATES = [
     `,
   },
 
-  //IMG
+  //TEMPLATE FOR BANNER IMG====================================
   {
     title: "Desktop Offer row x1 IMG",
     description: "Desktop banner with:\n2 rows.\nTitle first row\nGraphic second row.",
     is_active: true,
+    x1DesktopImg: true,
     fallback: {
       Offer_text: "Offer_text",
       category_href: "sofas",
       bg_color: "#ffffff",
     },
-    html: `<style> 
-#cgb.xyGContainer {
-  max-width: 1224px;
-  padding:0 min(12px, 1vw);
-}
-#cgb .textBanner {
-  font-size: min(19px, 2.6vw);
-  font-weight: 600;
-}
+    html: `
+    <style> 
+      #cgb.xyGContainer {
+        max-width: 1440px !important;
+        padding:0 min(12px, 1vw);
+      }
+      #cgb .textBanner {
+        font-size: min(19px, 2.6vw);
+        font-weight: 600;
+      }
 
-#cgb .textBannerContainer {
-  padding-top: min(24px, 2vw);
-  padding-bottom: min(24px, 2vw);
-}
-</style>
-  <a href="[[banner_category_url]]" style="display: block; text-decoration: none; color: [[banner_text_color]];">
-  <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_desktop]];">
-    <div class="textBannerContainer">
-      <p class="textBanner" style="margin: 0;">
-        {{{Offer_text}}}
-      </p>
-    </div>
-    <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" />
-  </div>
-</a>`,
+      #cgb .textBannerContainer {
+        padding-top: min(24px, 2vw);
+        padding-bottom: min(24px, 2vw);
+      }
+      </style>
+        <a href="[[banner_category_url]]" style="display: block; text-decoration: none; color: [[banner_text_color]];">
+        <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_desktop]];">
+          <div class="textBannerContainer">
+          [[banner_text]]
+          </div>
+          <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" />
+        </div>
+      </a>`,
+      banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
   {
     title: "Mobile Offer row x1 IMG",
     description: "Mobile banner with:\n2 rows.\nTitle first row\nGraphic second row.",
     is_active: true,
+    x1MobileImg: true,
     fallback: {
       Offer_text: "Offer_text",
       category_href: "sofas",
       bg_color: "#ffffff",
     },
-    html: `<style> 
-#cgb.xyGContainer {
-  max-width: 1224px;
-  padding:0 min(12px, 2vw);
-}
-#cgb .textBanner {
-  font-size: min(19px, 3.6vw);
-  font-weight: 600;
-}
+    html: `
+    <style> 
+      #cgb.xyGContainer {
+        max-width: 1440px !important;
+        padding:0 min(12px, 2vw);
+      }
+      #cgb .textBanner {
+        font-size: min(19px, 3.6vw);
+        font-weight: 600;
+      }
 
-#cgb .textBannerContainer {
-  padding-top: min(24px, 4vw);
-  padding-bottom: min(24px, 4vw);
-}
-</style>
-<a href="[[banner_category_url]]" style="display: block; text-decoration: none; color: [[banner_text_color]];">
-  <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_mobile]];">
-    <div class="textBannerContainer">
-      <p class="textBanner" style="margin: 0;">
-        {{{Offer_text}}}
-      </p>
-    </div>
-    <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" />
-  </div>
-</a>`,
+      #cgb .textBannerContainer {
+        padding-top: min(24px, 4vw);
+        padding-bottom: min(24px, 4vw);
+      }
+      </style>
+      <a href="[[banner_category_url]]" style="display: block; text-decoration: none; color: [[banner_text_color]];">
+        <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_mobile]];">
+          <div class="textBannerContainer">
+           [[banner_text]]
+          </div>
+          <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" />
+        </div>
+      </a>`,
+      banner_text: `<p class="textBanner" style="margin: 0;">{{Offer_text}}</p>`,
   },
+
+
   {
     title: "Cgb desktop row x3 IMG",
     is_active: true,
+    x3DesktopImg: true,
     fallback: {
       Offert_part_1: "Up to 50% off",
       Offert_part_2: "all blankets & throws",
@@ -306,7 +298,8 @@ const TEMPLATES = [
       category_href: "sofas",
       bg_color: "#ffffff",
     },
-    html: `<style> 
+    html: `
+    <style> 
         #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; } 
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
@@ -319,19 +312,21 @@ const TEMPLATES = [
         <a href="[[banner_category_url]]"> 
             <div id="cgb" class="cgbContainer" style="background-color:[[banner_background_desktop]];">
               <div class="textContainer1" style="color:[[banner_text_color]];"> 
-                <p class="xyHeader1"> 
-                  {{{Offert_part_1}}} </br> {{{Offert_part_2}}}
-                </p> 
-                <p class="xyHeader3">{{{Offert_part_3}}}</p> 
-                <span class="xyCTA">{{Cta}}</span> 
+               [[banner_text]]
             </div> 
             <img style="max-width: 100%; vertical-align: middle; min-width: 61%;" src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" />
           </div> 
         </a>`,
+        banner_text: `
+          <p class="xyHeader1">{{{Offert_part_1}}}</br>{{{Offert_part_2}}}</p>
+          <p class="xyHeader3">{{{Offert_part_3}}}</p>
+          <span class="xyCTA">{{Cta}}</span>
+    `,
   },
   {
     title: "Cgb mobile row x3 IMG",
     is_active: true,
+    x3MobileImg: true,
     fallback: {
       Offert_part_1: "Up to 50% off",
       Offert_part_2: "all blankets & throws",
@@ -341,28 +336,30 @@ const TEMPLATES = [
       bg_color: "#ffffff",
     },
 
-    html: `<style> 
-    #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
-    #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
-    #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
-    #cgb .xyHeader3 { font-size: 11px; text-decoration: none; margin: 0 0 3px 0; } 
-    </style> 
+    html: `
+      <style> 
+        #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
+        #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
+        #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
+        #cgb .xyHeader3 { font-size: 11px; text-decoration: none; margin: 0 0 3px 0; } 
+        </style> 
 
 
-    <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
-      <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
-        <div style="padding: 10px 5px 10px 0px;"> 
-          <p class="xyHeader1"> 
-            {{{Offert_part_1}}} <br> {{{Offert_part_2}}}
-          </p> 
-          <p class="xyHeader3">{{{Offert_part_3}}}</p> 
-          <span class="xyCTA">{{Cta}}</span> 
-        </div> 
-        <div style="width:100%"> 
-          <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" />
-        </div> 
-      </div> 
-    </a> `,
+        <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
+          <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
+            <div style="padding: 10px 5px 10px 0px;"> 
+              [[banner_text]]
+            </div> 
+            <div style="width:100%"> 
+              <img style="max-width: 100%; vertical-align: middle;" src="{imageurl src="mobilebanner" picid=$banner->id ext=$banner->ext}" />
+            </div> 
+          </div> 
+        </a> `,
+        banner_text: `
+          <p class="xyHeader1">{{{Offert_part_1}}}</br>{{{Offert_part_2}}}</p>
+          <p class="xyHeader3">{{{Offert_part_3}}}</p>
+          <span class="xyCTA">{{Cta}}</span>
+    `,
   },
   {
     title: "Cgb desktop BW",
