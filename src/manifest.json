@@ -172,10 +172,13 @@
         "https://prolodev.prologistics.info/push_notifications.php"
       ],
       "js": [
+        "./libraries/sweetalert2.min.js",
+
         "./content/helpers/CSVfns.js",
         "./content/uploadCSV.js",
         "./content/push/macro.js"
-      ]
+      ],
+      "css": ["./libraries/sweetalert2.min.css"]
     },
     {
       "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
