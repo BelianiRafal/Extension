@@ -1,8 +1,9 @@
 ## LIBRARIES IN USE
 [Linkify JS](https://linkify.js.org/) \
 [Papa Parse](https://www.papaparse.com/docs) \
-[Mustache](https://github.com/janl/mustache.js)
-[Dexie](https://dexie.org/)
+[Mustache](https://github.com/janl/mustache.js) \
+[Dexie](https://dexie.org/) \
+[Sweetalert](https://sweetalert2.github.io/)
 
 ## HOW EXTENSION WORK
 1. In manifest.json file need to define content_scripts.
