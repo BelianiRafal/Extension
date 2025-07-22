@@ -191,13 +191,18 @@ const fulfillBody = {
               },
             );
 
+						// prevent slug to become "plpl" or "ukuk" etc.
+						// should be "pl" or "uk" ...
+						// @fixes chde, befr, benl, chit etc. behavior
+						const slugForUrls = languageSlug !== sellerSlug ? combinedSlug : languageSlug;
+
             const payload = {
               ...strings,
               ...slug_components,
               ...selectedContextValue[combinedSlug],
               ...DEFAULT_VARIABLES,
-              // Overwrite slug, id, origin for DEFAULT_VARIABLES from selecte_template/index.js
-              slug: languageSlug,
+              // Overwrite slug and origin for DEFAULT_VARIABLES from selecte_template/index.js
+              slug: slugForUrls,
               origin,
               id,
             };
