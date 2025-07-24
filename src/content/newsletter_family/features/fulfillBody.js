@@ -194,7 +194,14 @@ const fulfillBody = {
 						// prevent slug to become "plpl" or "ukuk" etc.
 						// should be "pl" or "uk" ...
 						// @fixes chde, befr, benl, chit etc. behavior
-						const slugForUrls = languageSlug !== sellerSlug ? combinedSlug : languageSlug;
+            let slugForUrls;
+
+            if (sellerSlug === "at" && languageSlug === "de") {
+              slugForUrls = "at";
+            } else {
+              slugForUrls =
+                languageSlug !== sellerSlug ? combinedSlug : languageSlug;
+            }
 
             const payload = {
               ...strings,
