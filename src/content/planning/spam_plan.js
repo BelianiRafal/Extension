@@ -28,20 +28,6 @@ function addRemovalToolUI() {
   const container = document.createElement("div");
   container.id = "spam-removal-tool";
 
-  // Styl panelu
-  container.style.position = "fixed";
-  container.style.top = "10px";
-  container.style.right = "10px";
-  container.style.zIndex = "9999";
-  container.style.width = "320px";
-  container.style.padding = "14px 10px 10px 10px";
-  container.style.backgroundColor = "#f1f1f1";
-  container.style.border = "1px solid #ddd";
-  container.style.borderRadius = "4px";
-  container.style.boxShadow = "0 2px 10px rgba(0,0,0,0.2)";
-  container.style.fontFamily = "sans-serif";
-  container.style.fontSize = "15px";
-
   // Nagłówek
   const title = document.createElement("h3");
   title.textContent = "Narzędzie do usuwania starych wpisów";
@@ -58,34 +44,19 @@ function addRemovalToolUI() {
 
   // Kontenery na przyciski
   const buttonContainer = document.createElement("div");
-  buttonContainer.style.display = "flex";
-  buttonContainer.style.justifyContent = "space-between";
-  buttonContainer.style.marginBottom = "10px";
+  buttonContainer.className = 'container-button';
 
   // Przycisk testowy
   const testButton = document.createElement("button");
+  testButton.className = 'test-button';
   testButton.textContent = "Testuj";
-  testButton.style.flex = "1";
-  testButton.style.marginRight = "5px";
-  testButton.style.padding = "6px 12px";
-  testButton.style.backgroundColor = "#4CAF50";
-  testButton.style.color = "white";
-  testButton.style.border = "none";
-  testButton.style.borderRadius = "4px";
-  testButton.style.cursor = "pointer";
   testButton.onclick = () => findAndRemoveEntries(true);
   buttonContainer.appendChild(testButton);
 
   // Przycisk wykonawczy
   const executeButton = document.createElement("button");
+  executeButton.className = 'execute-button'
   executeButton.textContent = "Usuń wpisy";
-  executeButton.style.flex = "1";
-  executeButton.style.padding = "6px 12px";
-  executeButton.style.backgroundColor = "#f44336";
-  executeButton.style.color = "white";
-  executeButton.style.border = "none";
-  executeButton.style.borderRadius = "4px";
-  executeButton.style.cursor = "pointer";
   executeButton.onclick = () => findAndRemoveEntries(false);
   buttonContainer.appendChild(executeButton);
 
@@ -93,25 +64,14 @@ function addRemovalToolUI() {
 
   // Log toggle
   const logToggle = document.createElement("a");
+  logToggle.className = 'log-button';
   logToggle.textContent = "Pokaż logi";
   logToggle.href = "#";
-  logToggle.style.display = "block";
-  logToggle.style.textAlign = "center";
-  logToggle.style.marginBottom = "5px";
-  logToggle.style.color = "#0066cc";
-  logToggle.style.textDecoration = "none";
 
   const logArea = document.createElement("div");
+  logArea.className = 'logarea';
   logArea.id = "removal-log";
-  logArea.style.display = "none";
-  logArea.style.padding = "10px";
-  logArea.style.backgroundColor = "#fff";
-  logArea.style.border = "1px solid #ddd";
-  logArea.style.borderRadius = "4px";
-  logArea.style.maxHeight = "200px";
-  logArea.style.overflowY = "auto";
-  logArea.style.fontFamily = "monospace";
-  logArea.style.fontSize = "12px";
+
 
   logToggle.onclick = function (e) {
     e.preventDefault();
@@ -127,24 +87,30 @@ function addRemovalToolUI() {
   container.appendChild(logToggle);
   container.appendChild(logArea);
 
+  const openButton = document.createElement("button");
+  openButton.textContent = "Open Remove tool";
+  openButton.className = 'open-button';
+
+  openButton.addEventListener("click", () => {
+    container.classList.add("active");
+    openButton.style.display = 'none';
+  })
+
   // Przycisk zamykania
   const closeButton = document.createElement("button");
   closeButton.textContent = "×";
   closeButton.title = "Zamknij panel";
-  closeButton.style.position = "absolute";
-  closeButton.style.top = "5px";
-  closeButton.style.right = "5px";
-  closeButton.style.background = "none";
-  closeButton.style.border = "none";
-  closeButton.style.fontSize = "20px";
-  closeButton.style.cursor = "pointer";
-  closeButton.style.color = "#999";
+  closeButton.className = 'close-button';
   closeButton.onclick = function () {
-    container.style.display = "none";
-  };
+    container.classList.remove('active');
+    setTimeout(() => {
+      openButton.style.display = 'block';
+    }, 400);
+  };  
   container.appendChild(closeButton);
 
   document.body.appendChild(container);
+  document.body.appendChild(openButton);
 }
 
 // Funkcja do logowania komunikatów
@@ -168,9 +134,7 @@ function logMessage(message, isError = false) {
 // Główna funkcja kasowania
 function findAndRemoveEntries(dryRun = true) {
   const cutoffDate = getCutoffDate();
-  logMessage(
-    `${dryRun ? "Tryb testowy" : "Wykonywanie usuwania"} dla daty granicznej: ${cutoffDate}`,
-  );
+  logMessage(`${dryRun ? "Tryb testowy" : "Wykonywanie usuwania"} dla daty granicznej: ${cutoffDate}`);
 
   const rows = document.querySelectorAll("tr");
   logMessage(`Znaleziono ${rows.length} wierszy w tabeli.`);
@@ -199,9 +163,7 @@ function findAndRemoveEntries(dryRun = true) {
           date: dateText,
           row: rowIndex,
         });
-        logMessage(
-          `Wiersz ${rowIndex}: Znaleziono przycisk "Inactive" dla daty ${dateText}`,
-        );
+        logMessage(`Wiersz ${rowIndex}: Znaleziono przycisk "Inactive" dla daty ${dateText}`);
       }
     }
   });
@@ -221,11 +183,7 @@ function findAndRemoveEntries(dryRun = true) {
     return;
   }
 
-  if (
-    !confirm(
-      `Czy na pewno chcesz usunąć ${buttonsToClick.length} wpisów z datą ≤ ${cutoffDate}?`,
-    )
-  ) {
+  if (!confirm(`Czy na pewno chcesz usunąć ${buttonsToClick.length} wpisów z datą ≤ ${cutoffDate}?`)) {
     logMessage("Operacja anulowana przez użytkownika.");
     return;
   }
@@ -236,18 +194,13 @@ function findAndRemoveEntries(dryRun = true) {
       try {
         item.button.click();
         logMessage(
-          `Kliknięto przycisk dla wiersza ${item.row} z datą ${item.date} (${index + 1} z ${buttonsToClick.length})`,
+          `Kliknięto przycisk dla wiersza ${item.row} z datą ${item.date} (${index + 1} z ${buttonsToClick.length})`
         );
       } catch (error) {
-        logMessage(
-          `Błąd podczas klikania przycisku w wierszu ${item.row}: ${error.message}`,
-          true,
-        );
+        logMessage(`Błąd podczas klikania przycisku w wierszu ${item.row}: ${error.message}`, true);
       }
       if (index === buttonsToClick.length - 1) {
-        logMessage(
-          'Zakończono klikanie wszystkich przycisków "Inactive" dla wybranych dat.',
-        );
+        logMessage('Zakończono klikanie wszystkich przycisków "Inactive" dla wybranych dat.');
       }
     }, index * delay);
   });
@@ -256,9 +209,7 @@ function findAndRemoveEntries(dryRun = true) {
 // Inicjalizacja na stronie spam_plan.php
 function handleSpamPlanPage() {
   if (window.location.href.includes("spam_plan.php")) {
-    console.log(
-      "Extension: Wykryto stronę spam_plan.php - inicjalizacja narzędzia do usuwania wpisów",
-    );
+    console.log("Extension: Wykryto stronę spam_plan.php - inicjalizacja narzędzia do usuwania wpisów");
     addRemovalToolUI();
   }
 }
@@ -269,10 +220,7 @@ window.addEventListener("load", handleSpamPlanPage);
 if (typeof MutationObserver !== "undefined") {
   const observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
-      if (
-        mutation.type === "childList" &&
-        !document.getElementById("spam-removal-tool")
-      ) {
+      if (mutation.type === "childList" && !document.getElementById("spam-removal-tool")) {
         handleSpamPlanPage();
       }
     });
