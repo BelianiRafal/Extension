@@ -1,10 +1,10 @@
 function getUserEmail() {
   const scriptData = [...document.body.querySelectorAll("script")].find(
-    (item) => item.textContent.includes("pushHost"),
+    (item) => item.textContent.includes("pushHost")
   );
   try {
     const user_data = JSON.parse(
-      scriptData.textContent.split(";")[3].split("=")[1],
+      scriptData.textContent.split(";")[3].split("=")[1]
     );
     return user_data.email;
   } catch (error) {
@@ -13,12 +13,12 @@ function getUserEmail() {
   }
 }
 
-const click = document.querySelector("[name='sendtest']");
-const rootNode = document.querySelector("#test_customer");
+const sendTestButton = document.querySelector("[name='sendtest']");
+const testCustomerInput = document.querySelector("#test_customer");
 
 if (
   window.location.href.includes(
-    "https://www.prologistics.info/news_email.php?id=",
+    "https://www.prologistics.info/news_email.php?id="
   )
 ) {
   fetchAvailableIds();
@@ -45,7 +45,7 @@ function fetchAvailableIds() {
       method: "GET",
       mode: "cors",
       credentials: "include",
-    },
+    }
   )
     .then((data) => data.text())
     .then((response) => {
@@ -55,41 +55,107 @@ function fetchAvailableIds() {
         id: item.getAttribute("id"),
         title: item.textContent,
       };
-      if (!rootNode) return;
+      if (!testCustomerInput) return;
       const emails = user_data.title.split(" ");
       const email = emails[emails.length - 1];
-      rootNode.insertAdjacentElement(
-        "afterend",
+
+      const sendToUsersObject = {
+        "TL+Managers": {
+          JChmielewska:
+            "Shop#2478629: Justyna Chmielewska chmielewska@beliani.fr",
+          RKobus: "Shop#4280939: Rafał Kobus rafal.kobus@beliani.net",
+        },
+
+        HTML: {
+          KOrliński: "Shop#2684834: Kamil Orliński orlinski@beliani.fr",
+
+          MJurgowiak: "Shop#3046437:   michal.jurgowiak@beliani.com",
+
+          OHrytsaienko:
+            "Shop#6239531: Oleksander Hrytsaienko oleksander.hrytsaienko@beliani.net",
+
+          KKazaniecki:
+            "Shop#6239524: Kamil Kazaniecki kamil.kazaniecki@beliani.net",
+        },
+
+        "Marketing+Graphics": {
+          DRojek: "Shop#3183799: Dominika Rojek dominika.rojek@beliani.com",
+        },
+      };
+
+      const flexContainer = document.createElement("div");
+      flexContainer.style = `
+        display: flex;
+        align-items: center;
+        background: rgb(210, 210, 210);
+        gap: 0.5rem;
+        padding: 1rem;
+        box-shadow: 2px 2px black;
+        border-radius: .5rem;
+        margin-top: 0.5rem;
+        justify-content: center;
+      `;
+
+      const selectLabel = document.createElement("label");
+      selectLabel.textContent = "Send to: ";
+
+      const selectUserToSendEmail = document.createElement("select");
+
+      flexContainer.appendChild(selectLabel);
+      flexContainer.appendChild(selectUserToSendEmail);
+
+      Object.entries(sendToUsersObject).forEach(([groupName, usersObj]) => {
+        const optgroup = document.createElement("optgroup");
+        optgroup.label = groupName;
+        Object.entries(usersObj).forEach(([userKey, userValue]) => {
+          const option = document.createElement("option");
+          option.value = userValue;
+
+          const optionEmail = userValue.trim().split(" ").pop();
+          option.textContent = optionEmail;
+          optgroup.appendChild(option);
+        });
+        selectUserToSendEmail.appendChild(optgroup);
+      });
+
+      selectUserToSendEmail.addEventListener("change", function (e) {
+        const selected = e.target.value;
+        let customerId = "-" + selected.split(":")[0].replace("Shop#", "");
+        const emailMatch = selected.trim().split(" ").pop();
+        if (emailMatch && emailMatch.includes("@")) {
+          if (
+            !confirm(`Are you sure you want to send test to ${emailMatch}?`)
+          ) {
+            return;
+          }
+        }
+        setTestCustomerAndSend(selected, customerId);
+      });
+
+      testCustomerInput.insertAdjacentElement("afterend", flexContainer);
+
+      flexContainer.insertAdjacentElement(
+        "beforeend",
         createSendEmailBtn({
           onClick: () => {
             const mailTo = `Shop#${user_data.id.replace("-", "")}:${email}`;
-            document.querySelector("#test_customer").value = mailTo;
-            document.querySelector("#test_customer_id").value = user_data.id;
-            click.click();
+            setTestCustomerAndSend(mailTo, user_data.id);
           },
-          title: "Send to: " + email,
-        }),
+          title: `${email}`,
+        })
       );
-			// @TODO: add check if user !== "rafal" ? rafal mail : justyna mail
-      rootNode.insertAdjacentElement(
-        "afterend",
-        createSendEmailBtn({
-          onClick: () => {
-            const mailTo = `Shop#4280939: Rafał Kobus rafal.kobus@beliani.net`;
-            document.querySelector("#test_customer").value = mailTo;
-            document.querySelector("#test_customer_id").value = "-4280939";
-            click.click();
-          },
-          title: "Send to: rafal.kobus@beliani.net",
-        }),
-      );
+
+      function setTestCustomerAndSend(mailTo, customerId) {
+        testCustomerInput.value = mailTo;
+        document.querySelector("#test_customer_id").value = customerId;
+        sendTestButton.click();
+      }
     });
 }
 
 function createSendEmailBtn({ onClick, title }) {
   const button = document.createElement("button");
   button.type = "button";
-  button.style = "font-size: 11px; margin-left: 1rem;";
   button.textContent = title;
   button.onclick = onClick;
   return button;
