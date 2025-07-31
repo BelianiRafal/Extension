@@ -4,7 +4,7 @@
 .openPlaningBtn {
   position: fixed;
   top: 20px;
-  right: 200px;
+  right: 175px;
   padding: 10px 15px;
   border-radius: 5px;
   background: #fd9000;
@@ -16,8 +16,8 @@
 
 .planing-mainBlock {
   position: fixed;
-  top: 100px;
-  left: 100px;
+  top: 20px;
+  right: 20px;
   display: block;
   width: 450px;
   height: 250px;
@@ -25,6 +25,16 @@
   background: linear-gradient(to bottom left, #d2d2d2, #d2d2d2 50%, #f0cab4);;
   border-radius: 10px;
   z-index: 9999;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-500px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+}
+
+.planing-mainBlock.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .open-button {
@@ -40,18 +50,50 @@
   transition: background 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
-.setDateBtn {
+.closeBtn {
+  position: absolute;
+  top: 8px;
+  right: 7px;
+  width: 22px;
+  height: 22px;
+  border-radius: 2px;
+  background: #c91f19;
+  color: #fff;
+  border: 1px solid #c91f19;
+  cursor: pointer;
+  transition: background 0.3s color 0.3s;
+}
+
+.closeBtn:hover {
+  background: #fff;
+  color: #000;
+}
+
+
+
+.btn.setDateBtn {
   background: #7811f7;
-  padding: 8px 10px;
   border: 1px solid #7811f7;
+}
+
+.btn{
+  min-width: 130px;
+  padding: 8px 10px;
   color: #fff;
   cursor: pointer;
+  background: #4CAF50;
+  border: 1px solid #4CAF50;
   transition: background 0.3s, box-shadow 0.3s, color 0.3s;
   border-radius: 5px;
 }
 
+.btn.colorRowBtn {
+  background: #750000;
+  border: 1px solid #750000;
+}
 
-.open-button:hover, .openPlaningBtn:hover, .setDateBtn:hover {
+
+.open-button:hover, .openPlaningBtn:hover, .setDateBtn:hover:enabled, .btn:hover:enabled {
   background: #fff;
   color: #000;
   box-shadow: 1px 1px 10px #000;
@@ -59,12 +101,18 @@
 
 .planing-container {
   height: 100%;
+  padding: 0 15px;
+}
+
+.btn-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
 }
 
 .alert-span {
+  display: none;
   opacity: 0;
   text-align: center;
   margin-top: 10px;
@@ -74,12 +122,23 @@
   transition: opacity .3s ease;
 }
 
+.planing-text {
+  margin: 30px 0 15px 15px;
+  overflow: hidden;
+}
+
 .alert-span.show {
+  display: block;
   opacity: 1;
   animation: shake 0.6s ease;
 }
 
 
+
+.stopLengthText, .currentNumberText {
+  font-size: 16px;
+  font-weight: bold;
+}
 
 @keyframes shake {
  0% { transform: translateX(0) }
@@ -89,12 +148,33 @@
  100% { transform: translateX(0) }
 }
 
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin .3s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes fadeIn {
+     to {
+        opacity: 1;
+     }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .input-container {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   justify-content: space-between;
-  padding: 0 15px;
 }
 
 .input {
@@ -108,14 +188,6 @@
 .input.input-forDate {
   /* margin-left: 10px; */
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -197,8 +269,6 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   font-family: sans-serif;
   font-size: 15px;
-
-
   opacity: 0;
   transform: translateY(-100px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -213,6 +283,19 @@
 
 tr.active td {
   background: #cecece !important;
+  transition: background .5s ease;
+}
+
+.bracketsRow {
+  font-size: 13px;
+  background: #ffe599 !important;
+  transition: background .5s ease, font-size .5s ease;
+}
+
+tr.clicked-color td{
+  background: #ffe599 !important;
+  transition: background .5s ease;
+
 }
 
 

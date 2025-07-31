@@ -1,17 +1,10 @@
-//Добавить кнопку, которая просто будет подсвечивать строки
-//Стилизовать блок с инпутом и кнопкой
+//Если у кого-то есть Sunday, проверять ИД или по первому значению CHDE
+
 //Разбить на более мелкие функции
-//Функция клика по кнопке через каждые 0.5 секунду
 
-const user = {
-  OleHrytsa: "Oleksander Hrytsaienko",
-  RKobus: "Rafał Kobus",
-  JurgowiakM: "Michał Jurgowiak",
-  KaKazaniecki: "Kamil Kazaniecki",
-  Orlinski: "Kamil Orliński",
-};
+//В конце рабочей логики добавить mytime из функции
 
-const target = document.body.getAttribute("data-user");
+const table = document.querySelectorAll('[aria-live="polite"] tr');
 let targetName = "";
 
 if (target in user) {
@@ -21,25 +14,124 @@ if (target in user) {
   console.log("sorry");
 }
 
-datebtn.addEventListener("click", () => {
-  alertSpan.classList.remove("show");
-  // const myTime = getTime();
+datebtn.addEventListener("click", (ev) => {
+  const loader = new Loader(ev.currentTarget, 1000);
 
-  const myTime = "2025-05-30";
-  const childNodesArray = [];
+  loader.showLoader();
+  showCurrentStop.disabled = true;
+  startClick.disabled = true;
+
+  alertSpan.classList.remove("show");
+
   let newDateValue;
   let newTimeValue;
 
   if (inputForDate.value === "" && inputForTime.value === "") {
-      alertSpan.classList.add('show');
+    alertSpan.classList.add("show");
+    loader.hideLoader();
     return false;
   } else {
-    console.log(inputForDate.value);
     newDateValue = inputForDate.value;
     newTimeValue = inputForTime.value;
   }
 
-  const table = document.querySelectorAll('[aria-live="polite"] tr');
+  sortedTableToCurrent((apply = true), newDateValue, newTimeValue, loader);
+});
+
+showCurrentStop.addEventListener("click", () => {
+  stopLengthText.classList.remove("active");
+  const stopBtn = document.querySelectorAll("input[type='button'][value='STOP']");
+
+  stopBtn.forEach((item) => {
+    item.style.background = "yellow";
+  });
+
+  typographyText(`STOP: ${stopBtn.length} buttons`, stopLengthText);
+});
+
+colorTargetRow.addEventListener("click", () => {
+  const currentColorTarget = sortedTableToCurrent((apply = false));
+  let arrInputForColor = [];
+
+  currentColorTarget.forEach((item) => {
+    item.classList.remove("active");
+    // item.classList.toggle("bracketsRow");
+
+    return arrInputForColor.push(
+      ...item.querySelectorAll("input[type='text'][name='plan_date']"),
+      ...item.querySelectorAll("input[type='text'][name='plan_time']")
+    );
+  });
+
+  typographyText(`Row: ${currentColorTarget.length}`, currentNumberText);
+
+  filteredInput(arrInputForColor);
+});
+
+startClick.addEventListener("click", async () => {
+  const getStarted = sortedTableToCurrent((apply = false));
+
+  const originalConfirm = window.confirm;
+  const originalChangeSpamPlan = window.changeSpamPlan;
+
+  try {
+    window.confirm = () => true;
+
+    window.changeSpamPlan = function () {
+      console.log("changeSpamPlan called with:", arguments);
+      return originalChangeSpamPlan.apply(this, arguments);
+    };
+
+    for (let i = 0; i < getStarted.length; i++) {
+      const item = getStarted[i];
+      const currentButton = item.querySelector("input[type='button'][id^='finished']");
+
+      if (!currentButton) {
+        console.warn(`Button not found in item ${i}`);
+        continue;
+      }
+
+      console.log(`Processing button ${currentButton.id} (Current value: ${currentButton.value})`);
+
+      try {
+        currentButton.dispatchEvent(new MouseEvent("mouseover"));
+        currentButton.dispatchEvent(new MouseEvent("mousedown"));
+        currentButton.focus();
+
+        currentButton.click();
+
+        item.classList.add("clicked-color");
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Проверяем изменилось ли значение
+        console.log(`Button ${currentButton.id} new value: ${currentButton.value}`);
+      } catch (error) {
+        console.error(`Error clicking button ${currentButton.id}:`, error);
+      }
+    }
+  } catch (error) {
+    console.error("Global error:", error);
+  } finally {
+    window.confirm = originalConfirm;
+    window.changeSpamPlan = originalChangeSpamPlan;
+
+    Swal.fire({
+      title: "Good job!",
+      text: "Planning is ready! Page will be reload",
+      icon: "success",
+    }).then((result) => {
+      if (result.isConfirmed) return location.reload();
+    });
+
+    item.classList.remove("clicked-color");
+  }
+});
+
+function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader) {
+  const myTime = "2025-05-30";
+  const matchedRow = [];
+
+  let found = false;
 
   table.forEach((row) => {
     const tablerRow = row.querySelectorAll("td");
@@ -50,26 +142,37 @@ datebtn.addEventListener("click", () => {
         const dateText = dateId?.textContent.trim();
 
         const targetUserTime = dateText.split(" ")[0] === myTime;
-
         if (targetUserTime) {
-          row.classList.add("active");
+          matchedRow.push(row);
 
+          if (apply) {
+            row.classList.remove("bracketsRow");
+            row.classList.add("active");
 
-          const planDateInput = row.querySelectorAll("input[type='text'][name='plan_date']");
-          const planTimeInput = row.querySelectorAll("input[type='text'][name='plan_time']");
+            const planDateInput = row.querySelectorAll("input[type='text'][name='plan_date']");
+            const planTimeInput = row.querySelectorAll("input[type='text'][name='plan_time']");
 
-          changeDateTimeValue(planDateInput, newDateValue);
-          changeDateTimeValue(planTimeInput, newTimeValue);
+            changeDateTimeValue(planDateInput, newDateValue);
+            changeDateTimeValue(planTimeInput, newTimeValue);
 
+            setTimeout(() => {
+              loader.hideLoader();
+              showCurrentStop.disabled = false;
+              startClick.disabled = false;
+              row.classList.remove("active");
+            }, 6000);
+
+            found = true;
+          }
+          return true;
         }
       }
+      return false;
     });
   });
-  // alert("Page will been reload");
-  // setTimeout(() => {
-  //   location.reload();
-  // }, 7000);
-});
+
+  return apply ? found : matchedRow;
+}
 
 function getTime() {
   const now = new Date();
@@ -90,3 +193,19 @@ function changeDateTimeValue(elem, newValue) {
     item.dispatchEvent(new Event("change", { bubbles: true }));
   });
 }
+
+function filteredInput(elem) {
+  return elem.forEach((item) => {
+    return item.classList.toggle("bracketsRow");
+  });
+}
+
+openPlaningTool.addEventListener('click', () => {
+  mainBlock.classList.add('active');
+})
+
+closeButton.addEventListener("click", () => {
+  mainBlock.classList.remove("active");
+})
+
+
