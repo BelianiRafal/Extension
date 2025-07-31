@@ -1,4 +1,4 @@
-function setup() {
+function setupPurge() {
   const urlsTextarea = document.querySelector('textarea[name="urls"]');
   const domainSelect = document.querySelector('select[name="domain"]');
   const purgeButton = document.querySelector(
@@ -9,7 +9,8 @@ function setup() {
   if (!domainSelect) return logger.error("Domain select not found.");
   if (!purgeButton) return logger.error("Purge button not found.");
 
-  // Tworzenie przycisku
+  urlsTextarea.style = `min-height: 200px; min-width: 300px;`;
+
   const purgeAllShopsButton = document.createElement("input");
   purgeAllShopsButton.type = "submit";
   purgeAllShopsButton.name = "PurgeAllShops";
@@ -17,7 +18,155 @@ function setup() {
   purgeAllShopsButton.id = "purgeAllShopsButton";
   purgeButton.insertAdjacentElement("afterend", purgeAllShopsButton);
 
-  // Tworzenie tabeli logów na dole strony
+  const saveUrlsButton = document.createElement("button");
+  saveUrlsButton.textContent = "Save URL(s)";
+  saveUrlsButton.style = `
+		margin-left: 0.5rem;
+    font-family: Arial;
+    font-size: 11px;`;
+
+  purgeAllShopsButton.insertAdjacentElement("afterend", saveUrlsButton);
+
+  saveUrlsButton.addEventListener("click", function () {
+    const urlsValue = urlsTextarea.value.trim();
+    if (!urlsValue) return alert("No URLs to save.");
+    let savedUrls = JSON.parse(localStorage.getItem("purgeSavedUrls") || "[]");
+    const urlsArr = urlsValue
+      .split(/\r?\n/)
+      .map((u) => u.trim())
+      .filter(Boolean);
+    let added = 0;
+    urlsArr.forEach((url) => {
+      if (!savedUrls.includes(url)) {
+        savedUrls.push(url);
+        added++;
+      }
+    });
+    if (added > 0) {
+      localStorage.setItem("purgeSavedUrls", JSON.stringify(savedUrls));
+      alert(`Saved ${added} new URL(s)!`);
+      renderSavedUrlsSelect();
+    } else {
+      alert("These URL(s) are already saved.");
+    }
+  });
+
+  let savedUrlsSelect;
+  function renderSavedUrlsSelect() {
+    if (savedUrlsSelect) savedUrlsSelect.remove();
+    if (window._insertBtn) window._insertBtn.remove();
+    const savedUrls = JSON.parse(
+      localStorage.getItem("purgeSavedUrls") || "[]"
+    );
+    if (savedUrls.length === 0) return;
+    savedUrlsSelect = document.createElement("select");
+    savedUrlsSelect.multiple = true;
+    savedUrlsSelect.size = Math.min(savedUrls.length, 6);
+    savedUrlsSelect.style = `height: 100%; width: 100%;`;
+    savedUrls.forEach((url) => {
+      const opt = document.createElement("option");
+      opt.value = url;
+      opt.textContent = url.length > 80 ? url.slice(0, 80) + "..." : url;
+      savedUrlsSelect.appendChild(opt);
+    });
+    savedUrlsSelect.addEventListener("dblclick", insertSelectedUrls);
+
+    function createBtn(text, onClick) {
+      const btn = document.createElement("button");
+      btn.textContent = text;
+      btn.style = `
+				width: 100%;
+				margin-top: 0.5rem;
+				height: 100%;
+				font-family: Arial;
+				display: block;
+				font-size: 11px;`;
+      btn.addEventListener("click", onClick);
+      return btn;
+    }
+
+    const insertBtn = createBtn("Insert Selected URL(s)", insertSelectedUrls);
+    window._insertBtn = insertBtn;
+    const removeSelectedBtn = createBtn(
+      "Delete selected from saved",
+      function () {
+        if (!savedUrlsSelect) return;
+        const selected = Array.from(savedUrlsSelect.selectedOptions).map(
+          (opt) => opt.value
+        );
+        if (!selected.length) return alert("Select URLs to delete.");
+        let savedUrls = JSON.parse(
+          localStorage.getItem("purgeSavedUrls") || "[]"
+        );
+        savedUrls = savedUrls.filter((url) => !selected.includes(url));
+        localStorage.setItem("purgeSavedUrls", JSON.stringify(savedUrls));
+        alert("Deleted selected URLs.");
+        renderSavedUrlsSelect();
+      }
+    );
+    const clearBtn = createBtn("Clear Saved URLs", function () {
+      if (confirm("Are you sure you want to remove all saved URLs?")) {
+        localStorage.removeItem("purgeSavedUrls");
+        renderSavedUrlsSelect();
+      }
+    });
+
+    const controls = [savedUrlsSelect, insertBtn, removeSelectedBtn, clearBtn];
+
+    const textareaTd = urlsTextarea.closest("td");
+    if (textareaTd && textareaTd.parentElement) {
+      let nextTd = textareaTd.nextElementSibling;
+      if (nextTd && nextTd.classList.contains("multiselect-td")) {
+        nextTd.innerHTML = "";
+        controls.forEach((ctrl) => nextTd.appendChild(ctrl));
+      } else {
+        const multiTd = document.createElement("td");
+        multiTd.className = "multiselect-td";
+        multiTd.style = `
+					vertical-align: top;
+					height: 100%`;
+
+        controls.forEach((ctrl) => multiTd.appendChild(ctrl));
+        textareaTd.parentElement.insertBefore(multiTd, textareaTd.nextSibling);
+      }
+    } else {
+      saveUrlsButton.insertAdjacentElement("afterend", savedUrlsSelect);
+      controls.slice(1).reduce((prev, curr) => {
+        prev.insertAdjacentElement("afterend", curr);
+        return curr;
+      }, savedUrlsSelect);
+    }
+  }
+
+  function insertSelectedUrls() {
+    if (!savedUrlsSelect) return;
+    const selected = Array.from(savedUrlsSelect.selectedOptions).map(
+      (opt) => opt.value
+    );
+    if (selected.length) {
+      let current = urlsTextarea.value.trim();
+      let toAppend = selected.join("\n");
+      if (current) {
+        const currentSet = new Set(
+          current
+            .split(/\r?\n/)
+            .map((u) => u.trim())
+            .filter(Boolean)
+        );
+        selected.forEach((url) => {
+          if (!currentSet.has(url)) {
+            current += "\n" + url;
+          }
+        });
+        urlsTextarea.value = current;
+      } else {
+        urlsTextarea.value = toAppend;
+      }
+    }
+  }
+
+  renderSavedUrlsSelect();
+
   let logTable = document.getElementById("purge-log-table");
   if (!logTable) {
     logTable = document.createElement("table");
@@ -58,7 +207,6 @@ function setup() {
     const urlsValue = urlsTextarea.value.trim();
     if (!urlsValue) return logger.error("No URLs provided.");
 
-    // Czyścimy stare logi
     logTbody.innerHTML = "";
 
     const domains = Array.from(domainSelect.options).map((opt) => opt.value);
@@ -107,4 +255,4 @@ function setup() {
   });
 }
 
-setup();
+setupPurge();
