@@ -149,7 +149,7 @@ const TEMPLATES = [
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
         #cgb .xyHeader3{ font-size: 20px; margin: 0 0 18px 0; } 
-        #cgb .textContainer1 { padding-left: min(24px, 2vw); min-width: 37%; flex: 0 1 37%; } 
+        #cgb .textContainer1 { padding-left: min(24px, 2vw); min-width: 38%; flex: 0 1 38%; } 
         @media screen and (max-width: 1200px){ #cgb .xyHeader1{ font-size: 32px; } #cgb .xyHeader3{ font-size: 18px; } #cgb .xyCTA{ font-size: 18px; } } 
         @media screen and (max-width: 800px){ #cgb .xyHeader1{ font-size: 30px; } #cgb .xyHeader3{ font-size: 14px; } #cgb .xyCTA{ font-size: 14px; } } 
         @media screen and (max-width: 650px){ #cgb .xyHeader1{ font-size: 20px; } } 
@@ -159,7 +159,7 @@ const TEMPLATES = [
             <div class="textContainer1" style="color:[[banner_text_color]];"> 
              [[banner_text]] 
             </div> 
-              <video style="max-width: 100%; vertical-align: middle; min-width: 61%;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true"> 
+              <video style="max-width: 100%; vertical-align: middle; min-width: 60%;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true"> 
               <source src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" type="video/mp4"> 
               </video>
           </div> 
@@ -304,7 +304,7 @@ const TEMPLATES = [
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
         #cgb .xyHeader3{ font-size: 20px; margin: 0 0 18px 0; } 
-        #cgb .textContainer1 { padding-left: min(24px, 2vw); min-width: 37%; flex: 0 1 37%; } 
+        #cgb .textContainer1 { padding-left: min(24px, 2vw); min-width: 38%; flex: 0 1 38%; } 
         @media screen and (max-width: 1200px){ #cgb .xyHeader1{ font-size: 32px; } #cgb .xyHeader3{ font-size: 18px; } #cgb .xyCTA{ font-size: 18px; } } 
         @media screen and (max-width: 800px){ #cgb .xyHeader1{ font-size: 30px; } #cgb .xyHeader3{ font-size: 14px; } #cgb .xyCTA{ font-size: 14px; } } 
         @media screen and (max-width: 650px){ #cgb .xyHeader1{ font-size: 20px; } } 
@@ -314,7 +314,7 @@ const TEMPLATES = [
               <div class="textContainer1" style="color:[[banner_text_color]];"> 
                [[banner_text]]
             </div> 
-            <img style="max-width: 100%; vertical-align: middle; min-width: 61%;" src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" />
+            <img style="max-width: 100%; vertical-align: middle; min-width: 60%;" src="{imageurl src="banner" picid=$banner->id ext=$banner->ext}" />
           </div> 
         </a>`,
         banner_text: `
