@@ -12,6 +12,7 @@ function setupPurge() {
   urlsTextarea.style = `min-height: 200px; min-width: 300px;`;
 
   const purgeAllShopsButton = document.createElement("input");
+	purgeAllShopsButton.style.marginLeft = "0.5rem";
   purgeAllShopsButton.type = "submit";
   purgeAllShopsButton.name = "PurgeAllShops";
   purgeAllShopsButton.value = "Purge All Shops";
@@ -20,6 +21,8 @@ function setupPurge() {
 
   const saveUrlsButton = document.createElement("button");
   saveUrlsButton.textContent = "Save URL(s)";
+	// prevents the button from submitting the form
+	saveUrlsButton.type = "button";
   saveUrlsButton.style = `
 		margin-left: 0.5rem;
     font-family: Arial;
@@ -74,6 +77,9 @@ function setupPurge() {
     function createBtn(text, onClick) {
       const btn = document.createElement("button");
       btn.textContent = text;
+
+			// prevents the button from submitting the form
+			btn.type = "button";
       btn.style = `
 				width: 100%;
 				margin-top: 0.5rem;
