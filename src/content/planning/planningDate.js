@@ -1,38 +1,48 @@
-//Если у кого-то есть Sunday, проверять ИД или по первому значению CHDE
-
-//Разбить на более мелкие функции
-
-//В конце рабочей логики добавить mytime из функции
 
 const table = document.querySelectorAll('[aria-live="polite"] tr');
 let targetName = "";
 
+let canceledState = false;
+
 if (target in user) {
   targetName = user[target];
-  console.log(targetName);
 } else {
-  console.log("sorry");
+  swalFireModal('┐(￣ヘ￣;)┌', "User not found", "error", "", "", false);
 }
 
-datebtn.addEventListener("click", (ev) => {
-  const loader = new Loader(ev.currentTarget, 1000);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    canceledState = true;
+  }
+});
 
+datebtn.addEventListener("click", async (ev) => {
+  ev.preventDefault();
+
+  alertSpan.classList.remove("show");
+  const loader = new Loader(ev.currentTarget, 1000);
   loader.showLoader();
+
   showCurrentStop.disabled = true;
   startClick.disabled = true;
 
-  alertSpan.classList.remove("show");
-
   let newDateValue;
   let newTimeValue;
+  const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
 
-  if (inputForDate.value === "" && inputForTime.value === "") {
+  if (inputForDate.value === "" || inputForTime.value === "" || !timeRegex.test(inputForTime.value)) {
     alertSpan.classList.add("show");
     loader.hideLoader();
     return false;
   } else {
-    newDateValue = inputForDate.value;
-    newTimeValue = inputForTime.value;
+    const result = await swalFireModal("", "Are the date and time correct?", "question", "", "", true);
+    if (result.isConfirmed) {
+      newDateValue = inputForDate.value;
+      newTimeValue = inputForTime.value;
+    } else {
+      loader.hideLoader();
+      return false;
+    }
   }
 
   sortedTableToCurrent((apply = true), newDateValue, newTimeValue, loader);
@@ -49,26 +59,8 @@ showCurrentStop.addEventListener("click", () => {
   typographyText(`STOP: ${stopBtn.length} buttons`, stopLengthText);
 });
 
-colorTargetRow.addEventListener("click", () => {
-  const currentColorTarget = sortedTableToCurrent((apply = false));
-  let arrInputForColor = [];
-
-  currentColorTarget.forEach((item) => {
-    item.classList.remove("active");
-    // item.classList.toggle("bracketsRow");
-
-    return arrInputForColor.push(
-      ...item.querySelectorAll("input[type='text'][name='plan_date']"),
-      ...item.querySelectorAll("input[type='text'][name='plan_time']")
-    );
-  });
-
-  typographyText(`Row: ${currentColorTarget.length}`, currentNumberText);
-
-  filteredInput(arrInputForColor);
-});
-
 startClick.addEventListener("click", async () => {
+  canceledState = false;
   const getStarted = sortedTableToCurrent((apply = false));
 
   const originalConfirm = window.confirm;
@@ -83,28 +75,22 @@ startClick.addEventListener("click", async () => {
     };
 
     for (let i = 0; i < getStarted.length; i++) {
-      const item = getStarted[i];
-      const currentButton = item.querySelector("input[type='button'][id^='finished']");
-
-      if (!currentButton) {
-        console.warn(`Button not found in item ${i}`);
-        continue;
+      if (canceledState) {
+        swalFireModal("Action canceled", "", "error", "", "", false);
+        break;
       }
 
-      console.log(`Processing button ${currentButton.id} (Current value: ${currentButton.value})`);
+      const item = getStarted[i];
+      const currentButton = item.querySelector("input[type='button'][id^='finished']");
 
       try {
         currentButton.dispatchEvent(new MouseEvent("mouseover"));
         currentButton.dispatchEvent(new MouseEvent("mousedown"));
         currentButton.focus();
-
         currentButton.click();
 
         item.classList.add("clicked-color");
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Проверяем изменилось ли значение
-        console.log(`Button ${currentButton.id} new value: ${currentButton.value}`);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
       } catch (error) {
         console.error(`Error clicking button ${currentButton.id}:`, error);
       }
@@ -115,22 +101,44 @@ startClick.addEventListener("click", async () => {
     window.confirm = originalConfirm;
     window.changeSpamPlan = originalChangeSpamPlan;
 
-    Swal.fire({
-      title: "Good job!",
-      text: "Planning is ready! Page will be reload",
-      icon: "success",
-    }).then((result) => {
+    if (!canceledState) {
+      const result = await swalFireModal(
+        "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
+        "Planning is ready! Page will be reload",
+        "success",
+        "",
+        false
+      );
       if (result.isConfirmed) return location.reload();
-    });
 
-    item.classList.remove("clicked-color");
+      item.classList.remove("clicked-color");
+    }
   }
 });
 
-function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader) {
-  const myTime = "2025-05-30";
-  const matchedRow = [];
+colorTargetRow.addEventListener("click", (ev) => {
+  const loader = new Loader(ev.currentTarget, 1000);
+  const currentColorTarget = sortedTableToCurrent((apply = false), null, null, loader);
 
+  let arrInputForColor = [];
+
+  currentColorTarget.forEach((item) => {
+    item.classList.remove("active");
+
+    return arrInputForColor.push(
+      ...item.querySelectorAll("input[type='text'][name='plan_date']"),
+      ...item.querySelectorAll("input[type='text'][name='plan_time']")
+    );
+  });
+
+  typographyText(`Row: ${currentColorTarget.length} packages`, currentNumberText);
+
+  filteredInput(arrInputForColor);
+});
+
+function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader) {
+  const myTime = getTime();
+  const matchedRow = [];
   let found = false;
 
   table.forEach((row) => {
@@ -155,21 +163,38 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
             changeDateTimeValue(planDateInput, newDateValue);
             changeDateTimeValue(planTimeInput, newTimeValue);
 
-            setTimeout(() => {
-              loader.hideLoader();
-              showCurrentStop.disabled = false;
-              startClick.disabled = false;
-              row.classList.remove("active");
-            }, 6000);
-
             found = true;
+
           }
           return true;
+        }else {
+          swalFireModal('┐(￣ヘ￣;)┌', "Your packs were not found", "error", "", "", false);
+          loader.hideLoader();
+          return false;
         }
       }
       return false;
     });
   });
+
+  if (found && matchedRow) {
+    setTimeout(() => {
+      loader.hideLoader();
+      showCurrentStop.disabled = false;
+      startClick.disabled = false;
+
+      Swal.fire({
+        title: "Date and time set!",
+        text: "The page will be reloaded.",
+        icon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        return location.reload();
+      });
+
+    }, 7000);
+  }
 
   return apply ? found : matchedRow;
 }
@@ -199,13 +224,3 @@ function filteredInput(elem) {
     return item.classList.toggle("bracketsRow");
   });
 }
-
-openPlaningTool.addEventListener('click', () => {
-  mainBlock.classList.add('active');
-})
-
-closeButton.addEventListener("click", () => {
-  mainBlock.classList.remove("active");
-})
-
-
