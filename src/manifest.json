@@ -182,8 +182,9 @@
     },
     {
       "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
-      "js": ["./content/emoji/content.js", "./content/issue/content.js"],
-      "css": ["./content/emoji/styles.css"]
+      "js": ["./content/emoji/content.js", "./content/issue/content.js", 
+             "./content/issue/layout.js"],
+      "css": ["./content/emoji/styles.css", "./libraries/gridstack.min.css"]
     },
     {
       "matches": [
@@ -191,6 +192,14 @@
         "https://prolodev.prologistics.info/spam_plan.php*"
       ],
       "js": ["./content/planning/spam_plan.js"]
+    },
+    {
+      "matches": [
+        "https://www.prologistics.info/react/reports_page/customers_newsletter/*",
+        "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/*"
+      ],
+      "js": ["./content/send_nslt/content.js"],
+      "css": ["./content/send_nslt/ui.css"]
     }
   ],
   "background": {

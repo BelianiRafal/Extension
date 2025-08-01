@@ -1,0 +1,169 @@
+:root {
+  --gs-bg:#fff;
+  --gs-border:rgba(0,0,0,.12);
+  --gs-radius:8px;
+  --gs-shadow:0 4px 14px rgba(0,0,0,0.06);
+  --gs-accent:#2563eb;
+  --gs-accent-light:rgba(37,99,235,0.1);
+  --gs-transition:.16s ease;
+  --gs-font:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --gs-gap:8px;
+  --gs-padding:6px;
+}
+
+/* ---- kontener gridu ---- */
+.gs-grid {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gs-gap);
+  padding: var(--gs-padding);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--gs-font);
+  background: transparent;
+}
+
+/* ---- widgety / okienka ---- */
+.gs-item {
+  position: relative;
+  background: var(--gs-bg);
+  border: 1px solid var(--gs-border);
+  border-radius: var(--gs-radius);
+  box-shadow: var(--gs-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 160px;
+  min-height: 100px;
+  flex: 0 0 auto;
+  transition: transform var(--gs-transition), box-shadow .2s ease;
+  cursor: default;
+  user-select: none;
+  will-change: transform;
+}
+
+/* rozmiary reagujące można nadawać przez data-atributy */
+.gs-item[data-w="1"] { flex: 0 0 calc(25% - var(--gs-gap)); }
+.gs-item[data-w="2"] { flex: 0 0 calc(50% - var(--gs-gap)); }
+.gs-item[data-w="3"] { flex: 0 0 calc(75% - var(--gs-gap)); }
+.gs-item[data-h="small"] { min-height: 80px; }
+.gs-item[data-h="large"] { min-height: 220px; }
+
+/* nagłówek / uchwyt drag */
+.gs-handle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font-weight: 600;
+  background: rgba(247,247,250,1);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  cursor: grab;
+  user-select: none;
+  flex: 0 0 auto;
+}
+
+/* zawartość wewnętrzna */
+.gs-content {
+  padding: 10px 12px;
+  flex: 1;
+  overflow: auto;
+}
+
+/* resize "uchwyt" prawy-dolny */
+.gs-item:after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  width: 12px;
+  height: 12px;
+  background: rgba(0,0,0,0.15);
+  border-radius: 2px;
+  cursor: se-resize;
+  pointer-events: all;
+}
+
+/* stany interaktywne */
+.gs-item.dragging,
+.gs-item.resizing {
+  opacity: .95;
+  z-index: 900;
+  outline: 2px dashed var(--gs-accent);
+  box-shadow: 0 12px 32px rgba(37,99,235,0.25);
+}
+
+.gs-item:hover {
+  transform: translateY(-1px);
+}
+
+.gs-item:focus-within {
+  outline: 2px solid #4f46e5;
+}
+
+/* placeholder przy dragowaniu */
+.gs-placeholder {
+  background: var(--gs-accent-light);
+  border: 2px dashed var(--gs-accent);
+  border-radius: 6px;
+  min-height: 60px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+}
+
+/* przycisk resetu layoutu (opcjonalny) */
+.gs-reset {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  background: var(--gs-accent);
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: var(--gs-radius);
+  cursor: pointer;
+  font-size: 13px;
+  box-shadow: 0 6px 20px rgba(37,99,235,0.25);
+}
+
+/* pomocnicze struktury wewnątrz widgetów */
+.row {
+  display: flex;
+  gap: 8px;
+}
+.column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* drobny uchwyt ikonowy */
+.handle-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  background: radial-gradient(circle at 30% 30%, rgba(0,0,0,0.2) 20%, transparent 60%);
+  border-radius: 2px;
+}
+
+/* efekt zapisu / potwierdzenia */
+.gs-item.saved {
+  animation: gs-highlight 1s ease;
+}
+@keyframes gs-highlight {
+  from { box-shadow: 0 0 0 3px rgba(16,185,129,0.6); }
+  to { box-shadow: var(--gs-shadow); }
+}
+
+/* responsywność: wąskie widoki -> kolumnowo */
+@media (max-width:800px) {
+  .gs-grid {
+    flex-direction: column;
+  }
+  .gs-item {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+}

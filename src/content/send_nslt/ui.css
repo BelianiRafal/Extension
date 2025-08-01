@@ -1,0 +1,44 @@
+/* ---------- ui.css ---------- */
+#batcher-show-btn {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 10000;
+  padding: 8px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#batcher-panel {
+  display: none;
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  z-index: 10000;
+  width: 240px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  padding: 12px;
+  border-radius: 6px;
+  font-family: sans-serif;
+}
+#batcher-panel h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+#batcher-panel label {
+  display: block;
+  margin-bottom: 8px;
+}
+#batcher-panel input { width: 100%; }
+#batcher-panel button {
+  margin-right: 6px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#batcher-start { background: #28a745; color: white; }
+#batcher-close { background: transparent; color: #666; float: right; font-size: 14px; }
