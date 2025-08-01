@@ -52,6 +52,7 @@ function fulFill() {
       "Beliani FI": defaultServers,
       "Beliani NO": defaultServers,
       "Beliani SK": defaultServers,
+      "Beliani RO": defaultServers,
     };
     if (!seller) {
       throw new Error("Seller not found.");

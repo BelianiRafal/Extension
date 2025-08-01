@@ -1,7 +1,8 @@
 class Loader {
-  constructor(buttonEl) {
+  constructor(buttonEl, timeload) {
     this.loadBtn = buttonEl;
     this.originalHtml = null;
+    this.timeLoad = timeload ?? 2000;
   }
 
   showLoader() {
@@ -26,7 +27,7 @@ class Loader {
       setTimeout(() => {
         this.loadBtn.innerHTML = this.originalHtml;
         this.loadBtn.disabled = false;
-      }, 2000);
+      }, this.timeLoad);
     }
   }
 }

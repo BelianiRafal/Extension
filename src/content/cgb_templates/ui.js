@@ -18,9 +18,35 @@ window.ui = {
     return btn;
   },
 
-  createBlockForButton() {
-    this.userName = document.body.getAttribute("data-user");
+  typographyText(text, element) {
+    let index = 0;
+    const currentText = text;
 
+    const typeInterval = setInterval(() => {
+      element.textContent = currentText.slice(0, index + 1);
+      index++;
+
+      if (index === currentText.length) return clearInterval(typeInterval);
+    }, 100);
+  },
+
+  setCurrentName() {
+    const currentUserName = document.body.getAttribute("data-user");
+
+    const user = {
+      OleHrytsa: "Oleksander Hrytsaienko",
+      RKobus: "Rafał Kobus",
+      JurgowiakM: "Michał Jurgowiak",
+      KaKazaniecki: "Kamil Kazaniecki",
+      Orlinski: "Kamil Orliński",
+    };
+
+    const splitTarget = user[currentUserName].split(" ")[0];
+
+    return splitTarget;
+  },
+
+  createBlockForButton() {
     this.buttonsBlock = document.createElement("div");
     this.buttonsBlockContainer = document.createElement("div");
     this.blockItem1 = document.createElement("div");
@@ -71,7 +97,8 @@ window.ui = {
 
     this.blockItem3.append(this.blockLink);
 
-    // this.blockText.textContent = "Banners buttons";
+    this.userName = this.setCurrentName();
+
     this.blockText.textContent = `Hi, ${this.userName} ` + "(⌐■_■)";
     this.blockText.className = "block-btns-text";
 
