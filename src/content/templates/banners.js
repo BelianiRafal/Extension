@@ -186,9 +186,9 @@ const TEMPLATES = [
     html: `
     <style> 
       #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
-      #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
-      #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
-      #cgb .xyHeader3 { font-size: 11px; text-decoration: none; margin: 0 0 3px 0; } 
+      #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 12px; } 
+      #cgb .xyHeader1 { font-size: 26px; line-height: 1.2; margin: 0 0 5px 0; } 
+      #cgb .xyHeader3 { font-size: 12px; text-decoration: none; margin: 0 0 3px 0; } 
     </style> 
 
 
@@ -339,9 +339,9 @@ const TEMPLATES = [
     html: `
       <style> 
         #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
-        #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 11px; } 
-        #cgb .xyHeader1 { font-size: 25px; line-height: 36px; margin: 0 0 5px 0; } 
-        #cgb .xyHeader3 { font-size: 11px; text-decoration: none; margin: 0 0 3px 0; } 
+        #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 12px; } 
+        #cgb .xyHeader1 { font-size: 26px; line-height: 1.2; margin: 0 0 5px 0; } 
+        #cgb .xyHeader3 { font-size: 12px; text-decoration: none; margin: 0 0 3px 0; } 
         </style> 
 
 
