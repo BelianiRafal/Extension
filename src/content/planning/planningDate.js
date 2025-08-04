@@ -1,4 +1,3 @@
-
 const table = document.querySelectorAll('[aria-live="polite"] tr');
 let targetName = "";
 
@@ -7,7 +6,7 @@ let canceledState = false;
 if (target in user) {
   targetName = user[target];
 } else {
-  swalFireModal('┐(￣ヘ￣;)┌', "User not found", "error", "", "", false);
+  swalFireModal("┐(￣ヘ￣;)┌", "User not found", "error", "", "", false);
 }
 
 document.addEventListener("keydown", (e) => {
@@ -138,6 +137,7 @@ colorTargetRow.addEventListener("click", (ev) => {
 
 function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader) {
   const myTime = getTime();
+  // const myTime = '2025-05-30';
   const matchedRow = [];
   let found = false;
 
@@ -164,18 +164,19 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
             changeDateTimeValue(planTimeInput, newTimeValue);
 
             found = true;
-
           }
           return true;
-        }else {
-          swalFireModal('┐(￣ヘ￣;)┌', "Your packs were not found", "error", "", "", false);
-          loader.hideLoader();
-          return false;
         }
       }
       return false;
     });
   });
+
+  if (matchedRow.length === 0) {
+    swalFireModal("┐(￣ヘ￣;)┌", "Your packs were not found", "error", "", "", false);
+    loader.hideLoader();
+    return false;
+  }
 
   if (found && matchedRow) {
     setTimeout(() => {
@@ -192,7 +193,6 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
       }).then(() => {
         return location.reload();
       });
-
     }, 7000);
   }
 
