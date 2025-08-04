@@ -78,7 +78,7 @@
 
 .btn{
   min-width: 130px;
-  padding: 8px 10px;
+  padding: 10px 15px;
   color: #fff;
   cursor: pointer;
   background: #4CAF50;
@@ -90,6 +90,16 @@
 .btn.colorRowBtn {
   background: #750000;
   border: 1px solid #750000;
+  min-width: 200px;
+}
+
+.btn.currentStopBtn {
+  min-width: 200px;
+}
+
+.btn.startClickBtn {
+  background: #d9534f;
+  border: 1px solid #d9534f;
 }
 
 
@@ -117,7 +127,7 @@
   text-align: center;
   margin-top: 10px;
   font-size: 16px;
-  color: red;
+  color: #c91f19;
   font-weight: bold;
   transition: opacity .3s ease;
 }
@@ -132,8 +142,6 @@
   opacity: 1;
   animation: shake 0.6s ease;
 }
-
-
 
 .stopLengthText, .currentNumberText {
   font-size: 16px;
@@ -185,8 +193,8 @@
   font-size: 12px;
 }
 
-.input.input-forDate {
-  /* margin-left: 10px; */
+.input.input-forTime {
+  display: none;
 }
 
 

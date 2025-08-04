@@ -16,15 +16,15 @@ const closeButton = createDomElement("button", "closeBtn", "X", mainBlock);
 
 const mainContainer = createDomElement("div", "planing-container", null, mainBlock);
 const inputContainer = createDomElement("div", "input-container", null, mainContainer);
-const alertSpan = createDomElement("span", "alert-span", "Please incorrect time and date!", mainContainer);
 const btnContainer = createDomElement("div", "btn-container", null, mainContainer);
+const alertSpan = createDomElement("span", "alert-span", "Please incorrect date!", mainContainer);
 
 const inputForDate = createDomElement("input", "input input-forDate", null, inputContainer, "Set Date", "date");
-const inputForTime = createDomElement("input", "input input-forTime", null, inputContainer, "Set Time", "text");
-
 const datebtn = createDomElement("button", "btn setDateBtn", "Set date and time", inputContainer);
+const startClick = createDomElement("button", "btn startClickBtn", "Started click", inputContainer);
+
 const colorTargetRow = createDomElement("button", "btn colorRowBtn", "Set color row", btnContainer);
-const startClick = createDomElement("button", "btn startClickBtn", "Started click", btnContainer);
+
 const showCurrentStop = createDomElement("button", "btn currentStopBtn", "Show current stop", btnContainer);
 
 const stopLengthText = createDomElement("p", "stopLengthText", null, mainContainer);
@@ -42,13 +42,22 @@ function typographyText(text, element) {
   }, 100);
 }
 
-function createDomElement(selector, className, textContent, mainElement, placeholder = null, inputType = null) {
+function createDomElement(
+  selector,
+  className,
+  textContent,
+  mainElement,
+  placeholder = null,
+  inputType = null,
+  btnValue = null
+) {
   const domElement = document.createElement(selector);
   domElement.className = className;
 
   if (textContent) domElement.textContent = textContent;
   if (placeholder) domElement.placeholder = placeholder;
   if (inputType) domElement.type = inputType;
+  if (btnValue) domElement.value = btnValue;
 
   mainElement.append(domElement);
 
@@ -63,6 +72,18 @@ function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCan
     confirmButtonText: confirmText || "Ok",
     confirmButtonColor: btnColor || "#328a35",
     showCancelButton: needCancel,
+  });
+}
+
+function swalFireWithTimer(title, text, timer) {
+  return Swal.fire({
+    title: title,
+    text: text,
+    icon: "success",
+    showConfirmButton: false,
+    timer: timer || 1500,
+  }).then(() => {
+    return location.reload();
   });
 }
 

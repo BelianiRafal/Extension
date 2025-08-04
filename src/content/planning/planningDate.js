@@ -22,22 +22,21 @@ datebtn.addEventListener("click", async (ev) => {
   const loader = new Loader(ev.currentTarget, 1000);
   loader.showLoader();
 
-  showCurrentStop.disabled = true;
   startClick.disabled = true;
 
   let newDateValue;
   let newTimeValue;
   const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
 
-  if (inputForDate.value === "" || inputForTime.value === "" || !timeRegex.test(inputForTime.value)) {
+  if (inputForDate.value === "") {
     alertSpan.classList.add("show");
     loader.hideLoader();
     return false;
   } else {
-    const result = await swalFireModal("", "Are the date and time correct?", "question", "", "", true);
+    const result = await swalFireModal("", "Are the date is correct?", "question", "", "", true);
     if (result.isConfirmed) {
       newDateValue = inputForDate.value;
-      newTimeValue = inputForTime.value;
+      newTimeValue = "07:00";
     } else {
       loader.hideLoader();
       return false;
@@ -101,15 +100,7 @@ startClick.addEventListener("click", async () => {
     window.changeSpamPlan = originalChangeSpamPlan;
 
     if (!canceledState) {
-      const result = await swalFireModal(
-        "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧",
-        "Planning is ready! Page will be reload",
-        "success",
-        "",
-        false
-      );
-      if (result.isConfirmed) return location.reload();
-
+      swalFireWithTimer("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧", "Planning is ready! Page will be reload", 2500);
       item.classList.remove("clicked-color");
     }
   }
@@ -137,7 +128,7 @@ colorTargetRow.addEventListener("click", (ev) => {
 
 function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader) {
   const myTime = getTime();
-  // const myTime = '2025-05-30';
+
   const matchedRow = [];
   let found = false;
 
@@ -181,18 +172,8 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
   if (found && matchedRow) {
     setTimeout(() => {
       loader.hideLoader();
-      showCurrentStop.disabled = false;
       startClick.disabled = false;
-
-      Swal.fire({
-        title: "Date and time set!",
-        text: "The page will be reloaded.",
-        icon: "success",
-        showConfirmButton: false,
-        timer: 1500,
-      }).then(() => {
-        return location.reload();
-      });
+      swalFireWithTimer("Date and time set!", "The page will be reloaded.", 2500);
     }, 7000);
   }
 
