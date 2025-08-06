@@ -1,13 +1,24 @@
+
+
 const table = document.querySelectorAll('[aria-live="polite"] tr');
 let targetName = "";
+let canceledState;
+let checkState = JSON.parse(localStorage.getItem("checked") || false);
+const checkBtn = document.getElementById("cbx-46");
+checkBtn.checked = checkState;
 
-let canceledState = false;
+let forSundayRow = [];
 
 if (target in user) {
   targetName = user[target];
 } else {
   swalFireModal("┐(￣ヘ￣;)┌", "User not found", "error", "", "", false);
 }
+
+sundayCheck.addEventListener("change", (ev) => {
+  checkState = ev.target.checked;
+  localStorage.setItem("checked", checkBtn.checked);
+});
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
@@ -26,7 +37,6 @@ datebtn.addEventListener("click", async (ev) => {
 
   let newDateValue;
   let newTimeValue;
-  const timeRegex = /^([01]\d|2[0-3]):[0-5]\d$/;
 
   if (inputForDate.value === "") {
     alertSpan.classList.add("show");
@@ -64,44 +74,31 @@ startClick.addEventListener("click", async () => {
   const originalConfirm = window.confirm;
   const originalChangeSpamPlan = window.changeSpamPlan;
 
+  const filteredRows = getStarted.filter((row) => {
+    const subjectText = findSubjectText(row);
+    return !subjectLines.some((item) => item.subject === subjectText);
+  });
+
+  const proceesRows = checkState ? getStarted : filteredRows;
+
   try {
     window.confirm = () => true;
-
     window.changeSpamPlan = function () {
       console.log("changeSpamPlan called with:", arguments);
       return originalChangeSpamPlan.apply(this, arguments);
     };
 
-    for (let i = 0; i < getStarted.length; i++) {
-      if (canceledState) {
-        swalFireModal("Action canceled", "", "error", "", "", false);
-        break;
-      }
+    await rowToStart(proceesRows);
 
-      const item = getStarted[i];
-      const currentButton = item.querySelector("input[type='button'][id^='finished']");
-
-      try {
-        currentButton.dispatchEvent(new MouseEvent("mouseover"));
-        currentButton.dispatchEvent(new MouseEvent("mousedown"));
-        currentButton.focus();
-        currentButton.click();
-
-        item.classList.add("clicked-color");
-        await new Promise((resolve) => setTimeout(resolve, 1500));
-      } catch (error) {
-        console.error(`Error clicking button ${currentButton.id}:`, error);
-      }
-    }
   } catch (error) {
     console.error("Global error:", error);
   } finally {
+    checkState && localStorage.clear();
     window.confirm = originalConfirm;
     window.changeSpamPlan = originalChangeSpamPlan;
 
     if (!canceledState) {
       swalFireWithTimer("(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧", "Planning is ready! Page will be reload", 2500);
-      item.classList.remove("clicked-color");
     }
   }
 });
@@ -110,51 +107,49 @@ colorTargetRow.addEventListener("click", (ev) => {
   const loader = new Loader(ev.currentTarget, 1000);
   const currentColorTarget = sortedTableToCurrent((apply = false), null, null, loader);
 
-  let arrInputForColor = [];
-
-  currentColorTarget.forEach((item) => {
-    item.classList.remove("active");
-
-    return arrInputForColor.push(
-      ...item.querySelectorAll("input[type='text'][name='plan_date']"),
-      ...item.querySelectorAll("input[type='text'][name='plan_time']")
-    );
-  });
-
-  typographyText(`Row: ${currentColorTarget.length} packages`, currentNumberText);
-
-  filteredInput(arrInputForColor);
+  if (checkBtn.checked) {
+    addedInputToArray(currentColorTarget, "sundayRow", (sunday = true));
+  } else {
+    const filteredRows = currentColorTarget.filter((row) => {
+      const subjectText = findSubjectText(row);
+      return !subjectLines.some((item) => item.subject === subjectText);
+    });
+    addedInputToArray(filteredRows, "bracketsRow", (sunday = false));
+  }
 });
 
 function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader) {
   const myTime = getTime();
 
   const matchedRow = [];
+  const sundayMatchedRow = [];
   let found = false;
 
   table.forEach((row) => {
     const tablerRow = row.querySelectorAll("td");
 
-    const targetUser = Array.from(tablerRow).some((elem, index) => {
+    Array.from(tablerRow).some((elem, index) => {
       if (elem.textContent.includes(targetName)) {
-        const dateId = tablerRow[index + 1];
-        const dateText = dateId?.textContent.trim();
+        const targetUserTime = checkTargetUserTime(tablerRow, index, myTime);
 
-        const targetUserTime = dateText.split(" ")[0] === myTime;
         if (targetUserTime) {
-          matchedRow.push(row);
+          const subjectText = findSubjectText(row);
+          const sundayRows = subjectLines.find((text) => text.subject === subjectText);
+
+          const applySundayRows = sundayRows && checkState;
+          const newRow = !sundayRows && !checkState;
+
+          sundayRows && checkState ? sundayMatchedRow.push(row) : matchedRow.push(row);
 
           if (apply) {
-            row.classList.remove("bracketsRow");
-            row.classList.add("active");
-
-            const planDateInput = row.querySelectorAll("input[type='text'][name='plan_date']");
-            const planTimeInput = row.querySelectorAll("input[type='text'][name='plan_time']");
-
-            changeDateTimeValue(planDateInput, newDateValue);
-            changeDateTimeValue(planTimeInput, newTimeValue);
-
-            found = true;
+            if (applySundayRows) {
+              filteredCurrentRow(row, newDateValue, newTimeValue);
+              found = true;
+            }
+            if (newRow) {
+              filteredCurrentRow(row, newDateValue, newTimeValue);
+              found = true;
+            }
           }
           return true;
         }
@@ -174,10 +169,10 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
       loader.hideLoader();
       startClick.disabled = false;
       swalFireWithTimer("Date and time set!", "The page will be reloaded.", 2500);
-    }, 7000);
+    }, 5000);
   }
-
-  return apply ? found : matchedRow;
+  const finalMatch = sundayMatchedRow.length > 0 ? sundayMatchedRow : matchedRow;
+  return apply ? found : finalMatch;
 }
 
 function getTime() {
@@ -191,6 +186,12 @@ function getTime() {
   return `${yyyy}-${mm}-${dd}`;
 }
 
+function checkTargetUserTime(tablerRow, index, myTime) {
+  const dateId = tablerRow[index + 1];
+  const dateText = dateId?.textContent.trim();
+  return dateText.split(" ")[0] === myTime;
+}
+
 function changeDateTimeValue(elem, newValue) {
   return elem.forEach((item) => {
     item.value = newValue;
@@ -200,8 +201,62 @@ function changeDateTimeValue(elem, newValue) {
   });
 }
 
-function filteredInput(elem) {
+function addInputClass(elem, cssSelector) {
   return elem.forEach((item) => {
-    return item.classList.toggle("bracketsRow");
+    return item.classList.toggle(cssSelector);
   });
+}
+
+function addedInputToArray(arr, cssClass, sunday) {
+  let arrInputForColor = [];
+
+  arr.forEach((item) => {
+    arrInputForColor.push(
+      ...item.querySelectorAll("input[type='text'][name='plan_date']"),
+      ...item.querySelectorAll("input[type='text'][name='plan_time']")
+    );
+  });
+
+  typographyText(`${sunday ? "Sunday row:" : "Row:"}` + " " + `${arr.length} packages`, currentNumberText);
+  addInputClass(arrInputForColor, cssClass);
+}
+
+function findSubjectText(row) {
+  const findSubject = row.querySelectorAll("td a");
+  return findSubject[2]?.textContent.trim();
+}
+
+async function rowToStart(row) {
+  for (let i = 0; i < row.length; i++) {
+    if (canceledState) {
+      swalFireModal("Action canceled", "", "error", "", "", false);
+      break;
+    }
+
+    const item = row[i];
+    const currentButton = item.querySelector("input[type='button'][id^='finished']");
+
+    try {
+      currentButton.dispatchEvent(new MouseEvent("mouseover"));
+      currentButton.dispatchEvent(new MouseEvent("mousedown"));
+      currentButton.focus();
+      currentButton.click();
+
+      item.classList.add("clicked-color");
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+}
+
+function filteredCurrentRow(item, newDateValue, newTimeValue) {
+  item.classList.remove("bracketsRow");
+  item.classList.add("active");
+
+  const planDateInput = item.querySelectorAll("input[type='text'][name='plan_date']");
+  const planTimeInput = item.querySelectorAll("input[type='text'][name='plan_time']");
+
+  changeDateTimeValue(planDateInput, newDateValue);
+  changeDateTimeValue(planTimeInput, newTimeValue);
 }

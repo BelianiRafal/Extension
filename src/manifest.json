@@ -192,6 +192,7 @@
         "https://prolodev.prologistics.info/spam_plan.php*"
       ],
       "js": [ "./libraries/sweetalert2.min.js",
+              "./content/planning/subjectLineDB.js",
               "./content/planning/planning-ui.js",
               "./content/cgb_templates/loader.js",
          

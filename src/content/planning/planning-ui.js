@@ -27,8 +27,21 @@ const colorTargetRow = createDomElement("button", "btn colorRowBtn", "Set color 
 
 const showCurrentStop = createDomElement("button", "btn currentStopBtn", "Show current stop", btnContainer);
 
-const stopLengthText = createDomElement("p", "stopLengthText", null, mainContainer);
 const currentNumberText = createDomElement("p", "currentNumberText", null, mainContainer);
+const stopLengthText = createDomElement("p", "stopLengthText", null, mainContainer);
+
+const sundayCheck = createDomElement("div", "sundayCheck", null, btnContainer);
+
+sundayCheck.innerHTML = `
+<div class="checkbox-wrapper-46" style="font-size:15px;">
+  <input class="inp-cbx" id="cbx-46" type="checkbox" />
+  <label class="cbx" for="cbx-46"><span>
+    <svg width="12px" height="10px" viewbox="0 0 12 10">
+      <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+    </svg></span><span style="font-weight:bold;">SUNDAY</span>
+  </label>
+</div>
+`;
 
 function typographyText(text, element) {
   let index = 0;
@@ -39,7 +52,7 @@ function typographyText(text, element) {
     index++;
 
     if (index === currentText.length) return clearInterval(typeInterval);
-  }, 100);
+  }, 50);
 }
 
 function createDomElement(

@@ -81,8 +81,8 @@
   padding: 10px 15px;
   color: #fff;
   cursor: pointer;
-  background: #4CAF50;
-  border: 1px solid #4CAF50;
+  background: #328a35;
+  border: 1px solid #328a35;
   transition: background 0.3s, box-shadow 0.3s, color 0.3s;
   border-radius: 5px;
 }
@@ -119,6 +119,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 15px;
+  position:relative;
 }
 
 .alert-span {
@@ -197,11 +198,99 @@
   display: none;
 }
 
+.checkbox-wrapper-46 input[type="checkbox"] {
+  display: none;
+  visibility: hidden;
+}
+
+.checkbox-wrapper-46 .cbx {
+  margin: auto;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+.checkbox-wrapper-46 .cbx span {
+  display: inline-block;
+  vertical-align: middle;
+  transform: translate3d(0, 0, 0);
+}
+.checkbox-wrapper-46 .cbx span:first-child {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  transform: scale(1);
+  vertical-align: middle;
+  border: 1px solid #9098A9;
+  transition: all 0.2s ease;
+}
+.checkbox-wrapper-46 .cbx span:first-child svg {
+  position: absolute;
+  top: 3px;
+  left: 2px;
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 16px;
+  stroke-dashoffset: 16px;
+  transition: all 0.3s ease;
+  transition-delay: 0.1s;
+  transform: translate3d(0, 0, 0);
+}
+.checkbox-wrapper-46 .cbx span:first-child:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: #328a35;
+  display: block;
+  transform: scale(0);
+  opacity: 1;
+  border-radius: 50%;
+}
+.checkbox-wrapper-46 .cbx span:last-child {
+  padding-left: 8px;
+}
+.checkbox-wrapper-46 .cbx:hover span:first-child {
+  border-color: #328a35;
+}
+
+.checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child {
+  background: #328a35;
+  border-color: #328a35;
+  animation: wave-46 0.4s ease;
+}
+.checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child svg {
+  stroke-dashoffset: 0;
+}
+.checkbox-wrapper-46 .inp-cbx:checked + .cbx span:first-child:before {
+  transform: scale(3.5);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.sundayCheck {
+  position: absolute;
+  top: 65px;
+  right: 15px;
+}
+
+.stopLengthText, .currentNumberText {
+  margin-bottom: 15px;
+}
+
+.showNumberText {
+  position: relative;
+}
 
 
 
-
-
+@keyframes wave-46 {
+  50% {
+    transform: scale(0.9);
+  }
+}
 
 /* Style for Remove tool */
 
@@ -226,7 +315,7 @@
   flex: 1;
   margin-right: 5px;
   padding: 6px 12px;
-  background-color: #4CAF50;
+  background-color: #43df48;
   color: white;
   border: none;
   border-radius: 4px;
@@ -290,14 +379,19 @@
 }
 
 tr.active td {
-  background: #cecece !important;
+  background: #e9e1e1 !important;
   transition: background .5s ease;
 }
 
-.bracketsRow {
+.bracketsRow, .sundayRow {
   font-size: 13px;
   background: #ffe599 !important;
   transition: background .5s ease, font-size .5s ease;
+}
+
+.sundayRow {
+  background: #328a35 !important;
+  color: #fff8dc;
 }
 
 tr.clicked-color td{
