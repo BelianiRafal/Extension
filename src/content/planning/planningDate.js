@@ -55,13 +55,13 @@ setDateBtn.addEventListener("click", async (ev) => {
 
   if (!currentRows) {
     loader.hideLoader();
-    swalFireModal("┐(￣ヘ￣;)┌", "Sunday packs is not defined", "error", "", "", false);
+    swalFireModal("┐(￣ヘ￣;)┌", "Your packs is not defined", "error", "", "", false);
     startClick.disabled = true;
     return false;
   }
 
   if (checkBtn.checked) {
-      const sundayRows = currentRows.filter((row) => {
+    const sundayRows = currentRows.filter((row) => {
       const subjectText = findSubjectText(row);
       return subjectLines.some((item) => item.subject === subjectText);
     });
@@ -86,8 +86,9 @@ showCurrentStop.addEventListener("click", () => {
   typographyText(`STOP: ${stopBtn.length} buttons`, stopLengthText);
 });
 
-startClick.addEventListener("click", async () => {
+startClick.addEventListener("click", async (ev) => {
   canceledState = false;
+  const loader = new Loader(ev.currentTarget, 1000);
   const getStarted = sortedTableToCurrent((apply = false));
 
   const originalConfirm = window.confirm;
