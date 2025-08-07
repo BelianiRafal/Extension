@@ -1,12 +1,9 @@
-
-
 const table = document.querySelectorAll('[aria-live="polite"] tr');
 let targetName = "";
 let canceledState;
 let checkState = JSON.parse(localStorage.getItem("checked") || false);
 const checkBtn = document.getElementById("cbx-46");
 checkBtn.checked = checkState;
-
 let forSundayRow = [];
 
 if (target in user) {
@@ -26,7 +23,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-datebtn.addEventListener("click", async (ev) => {
+setDateBtn.addEventListener("click", async (ev) => {
   ev.preventDefault();
 
   alertSpan.classList.remove("show");
@@ -42,18 +39,40 @@ datebtn.addEventListener("click", async (ev) => {
     alertSpan.classList.add("show");
     loader.hideLoader();
     return false;
-  } else {
-    const result = await swalFireModal("", "Are the date is correct?", "question", "", "", true);
-    if (result.isConfirmed) {
-      newDateValue = inputForDate.value;
-      newTimeValue = "07:00";
-    } else {
+  }
+
+  const result = await swalFireModal("", "Are the date is correct?", "question", "", "", true);
+
+  if (!result.isConfirmed) {
+    loader.hideLoader();
+    return false;
+  }
+
+  newDateValue = inputForDate.value;
+  newTimeValue = "07:00";
+
+  const currentRows = sortedTableToCurrent((apply = true), newDateValue, newTimeValue, loader);
+
+  if (!currentRows) {
+    loader.hideLoader();
+    swalFireModal("┐(￣ヘ￣;)┌", "Sunday packs is not defined", "error", "", "", false);
+    startClick.disabled = true;
+    return false;
+  }
+
+  if (checkBtn.checked) {
+      const sundayRows = currentRows.filter((row) => {
+      const subjectText = findSubjectText(row);
+      return subjectLines.some((item) => item.subject === subjectText);
+    });
+
+    if (sundayRows.length === 0 && !sundayRows) {
       loader.hideLoader();
+      swalFireModal("┐(￣ヘ￣;)┌", "Sunday packs is not defined", "error", "", "", false);
+      startClick.disabled = true;
       return false;
     }
   }
-
-  sortedTableToCurrent((apply = true), newDateValue, newTimeValue, loader);
 });
 
 showCurrentStop.addEventListener("click", () => {
@@ -89,7 +108,6 @@ startClick.addEventListener("click", async () => {
     };
 
     await rowToStart(proceesRows);
-
   } catch (error) {
     console.error("Global error:", error);
   } finally {
@@ -108,7 +126,16 @@ colorTargetRow.addEventListener("click", (ev) => {
   const currentColorTarget = sortedTableToCurrent((apply = false), null, null, loader);
 
   if (checkBtn.checked) {
-    addedInputToArray(currentColorTarget, "sundayRow", (sunday = true));
+    const sundayRows = currentColorTarget.filter((row) => {
+      const subjectText = findSubjectText(row);
+      return subjectLines.some((item) => item.subject === subjectText);
+    });
+
+    if (sundayRows.length > 0) {
+      addedInputToArray(currentColorTarget, "sundayRow", (sunday = true));
+    } else {
+      swalFireModal("┐(￣ヘ￣;)┌", "Sunday packs is not defined", "error", "", "", false);
+    }
   } else {
     const filteredRows = currentColorTarget.filter((row) => {
       const subjectText = findSubjectText(row);
@@ -136,8 +163,8 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
           const subjectText = findSubjectText(row);
           const sundayRows = subjectLines.find((text) => text.subject === subjectText);
 
-          const applySundayRows = sundayRows && checkState;
-          const newRow = !sundayRows && !checkState;
+          const applySundayRows = sundayRows && checkBtn.checked;
+          const newRow = !sundayRows && !checkBtn.checked;
 
           sundayRows && checkState ? sundayMatchedRow.push(row) : matchedRow.push(row);
 

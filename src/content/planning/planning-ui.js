@@ -20,7 +20,7 @@ const btnContainer = createDomElement("div", "btn-container", null, mainContaine
 const alertSpan = createDomElement("span", "alert-span", "Please incorrect date!", mainContainer);
 
 const inputForDate = createDomElement("input", "input input-forDate", null, inputContainer, "Set Date", "date");
-const datebtn = createDomElement("button", "btn setDateBtn", "Set date and time", inputContainer);
+const setDateBtn = createDomElement("button", "btn setDateBtn", "Set date and time", inputContainer);
 const startClick = createDomElement("button", "btn startClickBtn", "Started click", inputContainer);
 
 const colorTargetRow = createDomElement("button", "btn colorRowBtn", "Set color row", btnContainer);
