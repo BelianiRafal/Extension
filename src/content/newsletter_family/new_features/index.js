@@ -101,7 +101,7 @@ const processNewsletterTableData = () => {
     return logger.error("No data found in newsletter family table.");
 
   // debug console log using table function
-  logger.debug("Data from Newsletter Family Table: ", { table: nsltTableData });
+  // logger.debug("Data from Newsletter Family Table: ", { table: nsltTableData });
 
   setupNewsEmailUIElements();
 };
