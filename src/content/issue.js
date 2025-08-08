@@ -144,7 +144,7 @@ class Issues {
     button.textContent = "My tasks";
     button.addEventListener("click", () => {
       const filtered_issues = this.issues.issue_list.filter((item) => {
-        if (this.user.name === item.solving_user_name) {
+        if (this.user === item.solving_resp_username) {
           return true;
         }
 
