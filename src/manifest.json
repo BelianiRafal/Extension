@@ -25,7 +25,16 @@
       "matches": ["https://www.prologistics.info/newsletter_preview.html?id=*"],
       "js": ["./content/mustache/index.js", "./content/pages/my_page.js"]
     },
-		{
+    {
+      "matches": [
+        "https://prolodev.prologistics.info/*",
+        "https://www.prologistics.info/*",
+				"https://www.prologistics.info/start.php"
+      ],
+      "js": ["./content/autoTimeStamp.js"],
+      "run_at": "document_idle"
+    },
+    {
       "matches": [
         "https://www.prologistics.info/purge.php",
         "https://prolodev.prologistics.info/purge.php"
