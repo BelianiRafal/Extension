@@ -1,4 +1,6 @@
-// Mapowanie po etykiecie języka (tekście opcji) -> IANA TZ...
+// content.js — Time Zone by Language (bez logiki daty)
+console.log("[AutoTZ] content.js loaded");
+
 const LABEL_TO_TZ = {
   bulgarian:"Europe/Sofia", czech:"Europe/Prague", danish:"Europe/Copenhagen", dutch:"Europe/Amsterdam",
   english:"Europe/London", estonian:"Europe/Tallinn", finnish:"Europe/Helsinki", french:"Europe/Paris",
@@ -10,25 +12,9 @@ const LABEL_TO_TZ = {
   spanish:"Europe/Madrid", swedish:"Europe/Stockholm", turkish:"Europe/Istanbul"
 };
 
-console.log("[AutoTZ v1.5] loaded…");
-
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-
-function q(sel){ return document.querySelector(sel); }
-
-// Zawsze pobieraj świeże węzły z DOM…
-function getLangSelect(){ return q("#language"); }
-function getTzSelect(){ return q("#timezone"); }
-
-function readLangLabel() {
-  const lang = getLangSelect();
-  if (!lang) return {val:null, label:null};
-  const val = (lang.value||"").toLowerCase();
-  const opt = lang.selectedOptions && lang.selectedOptions[0];
-  const label = (opt?.textContent||"").trim().toLowerCase();
-  console.log(`[AutoTZ] readLangLabel → value="${val}" label="${label}"…`);
-  return {val, label};
-}
+const q = s => document.querySelector(s);
+const getLang = () => q("#language");
+const getTZ   = () => q("#timezone");
 
 function findTzOption(select, targetTz){
   if (!select) return null;
@@ -40,94 +26,76 @@ function findTzOption(select, targetTz){
       || null;
 }
 
-function fireAll(select){
-  select.dispatchEvent(new Event("input",{bubbles:true}));
-  select.dispatchEvent(new Event("change",{bubbles:true}));
+function fireAll(el){
+  el.dispatchEvent(new Event("input",{bubbles:true}));
+  el.dispatchEvent(new Event("change",{bubbles:true}));
 }
 
-function setTimezoneHard(targetTz){
-  const tzSel = getTzSelect();
-  if (!tzSel) { console.warn("[AutoTZ] #timezone not found…"); return false; }
-  const opt = findTzOption(tzSel, targetTz);
-  if (!opt) { console.warn("[AutoTZ] no option for", targetTz, "…"); return false; }
+function applyTZForLabel(label) {
+  const tzSel = getTZ(); if (!tzSel) return false;
+  const targetTz = LABEL_TO_TZ[label] || (()=>{try{return Intl.DateTimeFormat().resolvedOptions().timeZone;}catch{return null;}})();
+  if (!targetTz) return false;
 
-  // ustawienie „twarde” + eventy…
-  Array.from(tzSel.options).forEach(o => o.selected = (o === opt));
-  tzSel.selectedIndex = Array.from(tzSel.options).indexOf(opt);
-  const before = tzSel.value;
-  tzSel.value = opt.value;
-  fireAll(tzSel);
-  try { if (typeof window.setDateTimeValue === "function") setTimeout(()=>window.setDateTimeValue(),0); } catch {}
-  console.log(`[AutoTZ] TZ set "${before}" → "${tzSel.value}" (${opt.textContent.trim()})…`);
+  const opt = findTzOption(tzSel, targetTz);
+  if (!opt) { console.warn("[AutoTZ] no tz option for", targetTz); return false; }
+
+  if (tzSel.value !== opt.value) {
+    const before = tzSel.value;
+    Array.from(tzSel.options).forEach(o=>o.selected=(o===opt));
+    tzSel.selectedIndex = Array.from(tzSel.options).indexOf(opt);
+    tzSel.value = opt.value;
+    fireAll(tzSel);
+    try { if (typeof window.setDateTimeValue === "function") setTimeout(()=>window.setDateTimeValue(),0); } catch {}
+    console.log(`[AutoTZ] TZ "${before}" → "${tzSel.value}"`);
+  } else {
+    console.log("[AutoTZ] TZ already correct:", tzSel.value);
+  }
+
+  // powiadom setDate.js
+  window.dispatchEvent(new CustomEvent("AutoTZ:tzApplied", {
+    detail: { tz: tzSel.value, label }
+  }));
   return true;
 }
 
-let lastApplied = {label:null, tz:null};
-
-// Główna logika ustawiania…
-async function applyForCurrentLanguage(reason="manual"){
-  const {label} = readLangLabel();
-  if (!label) return;
-  const targetTz = LABEL_TO_TZ[label] || (()=>{ try{
-    const lt = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    console.warn("[AutoTZ] fallback to local tz:", lt, "…"); return lt;
-  }catch{return null;}})();
-  if (!targetTz) return;
-
-  const tzSel = getTzSelect();
-  const opt = tzSel && findTzOption(tzSel, targetTz);
-  if (!tzSel || !opt) { console.warn("[AutoTZ] missing tz select/option…"); return; }
-
-  // jeżeli już ustawione i zgadza się z mapą — nic nie rób…
-  if (tzSel.value === opt.value && lastApplied.label === label) {
-    console.log(`[AutoTZ] already correct for "${label}" → ${targetTz}…`);
-    return;
-  }
-
-  console.log(`[AutoTZ] apply (reason=${reason}) → label="${label}" → ${targetTz}…`);
-  setTimezoneHard(targetTz);
-  lastApplied = {label, tz:targetTz};
+function readLabel() {
+  return (getLang()?.selectedOptions?.[0]?.textContent || "").trim().toLowerCase() || null;
 }
 
-// Delegacja zdarzeń: łapiemy zmiany gdziekolwiek, także po podmianie węzłów…
-document.addEventListener("change", (e)=>{
-  if (e && e.target && e.target.id === "language") {
-    console.log("[AutoTZ] document change from #language → will apply in 500ms…");
-    setTimeout(()=>applyForCurrentLanguage("change"), 500);
-  }
-}, true);
+function initTZ() {
+  // init
+  const lab = readLabel(); if (lab) setTimeout(()=>applyTZForLabel(lab), 100);
 
-document.addEventListener("input", (e)=>{
-  if (e && e.target && e.target.id === "language") {
-    console.log("[AutoTZ] document input from #language → will apply in 500ms…");
-    setTimeout(()=>applyForCurrentLanguage("input"), 500);
-  }
-}, true);
+  // reaguj na zmianę języka (delegacja)
+  document.addEventListener("change", (e)=>{
+    if (e?.target?.id === "language") {
+      const label = readLabel(); if (!label) return;
+      console.log("[AutoTZ] language change → apply TZ in 500ms");
+      setTimeout(()=>applyTZForLabel(label), 500);
+    }
+  }, true);
+  document.addEventListener("input", (e)=>{
+    if (e?.target?.id === "language") {
+      const label = readLabel(); if (!label) return;
+      console.log("[AutoTZ] language input → apply TZ in 500ms");
+      setTimeout(()=>applyTZForLabel(label), 500);
+    }
+  }, true);
 
-// Watchdog co 750 ms — jeśli language ≠ lastApplied.label albo TZ nie pasuje do mapy, popraw…
-setInterval(()=>{
-  const langSel = getLangSelect();
-  const tzSel   = getTzSelect();
-  if (!langSel || !tzSel) return;
+  // prosty watchdog
+  setInterval(()=>{
+    const label = readLabel(); const tzSel = getTZ(); if (!label || !tzSel) return;
+    const should = LABEL_TO_TZ[label]; if (!should) return;
+    const opt = findTzOption(tzSel, should);
+    if (opt && tzSel.value !== opt.value) {
+      console.log("[AutoTZ] watchdog: fix TZ");
+      applyTZForLabel(label);
+    }
+  }, 1000);
+}
 
-  const {label} = readLangLabel();
-  const shouldTz = label ? (LABEL_TO_TZ[label] || null) : null;
-  const opt = shouldTz ? findTzOption(tzSel, shouldTz) : null;
-
-  if (!label) return;
-  if (!opt) return;
-
-  const mismatch = tzSel.value !== opt.value || lastApplied.label !== label;
-  if (mismatch) {
-    console.log("[AutoTZ] watchdog correcting →", {label, shouldTz, current: tzSel.value}, "…");
-    setTimezoneHard(shouldTz);
-    lastApplied = {label, tz:shouldTz};
-  }
-}, 750);
-
-// Start: lekki delay, żeby ich init się domknął…
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", ()=>setTimeout(()=>applyForCurrentLanguage("init"), 100), {once:true});
+  document.addEventListener("DOMContentLoaded", initTZ, {once:true});
 } else {
-  setTimeout(()=>applyForCurrentLanguage("init"), 100);
+  initTZ();
 }
