@@ -89,6 +89,7 @@ function fetchAvailableIds() {
           JChmielewska:
             "Shop#2478629: Justyna Chmielewska chmielewska@beliani.fr",
           RKobus: "Shop#4280939: Rafał Kobus rafal.kobus@beliani.net",
+					NHrehorowicz: "Shop#2927041: Natalia Hrehorowicz natalia.hrehorowicz@beliani.it"
         },
 
         HTML: {
