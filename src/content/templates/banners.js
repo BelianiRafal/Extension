@@ -301,7 +301,7 @@ const TEMPLATES = [
     html: `
     <style> 
         #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; } 
-        #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 20px; } 
+        #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 400; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
         #cgb .xyHeader3{ font-size: 20px; margin: 0 0 18px 0; } 
         #cgb .textContainer1 { padding-left: min(24px, 2vw); min-width: 38%; flex: 0 1 38%; } 
@@ -339,7 +339,7 @@ const TEMPLATES = [
     html: `
       <style> 
         #cgb.xyzGridContainer { display: flex; align-items: start; padding-left: 20px; flex-direction: column; width: 100%; } 
-        #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 500; font-size: 12px; } 
+        #cgb .xyCTA { text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 400; font-size: 12px; } 
         #cgb .xyHeader1 { font-size: 26px; line-height: 1.2; margin: 0 0 5px 0; } 
         #cgb .xyHeader3 { font-size: 12px; text-decoration: none; margin: 0 0 3px 0; } 
         </style> 
