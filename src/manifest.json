@@ -214,7 +214,7 @@
     },
     {
       "matches": ["https://www.sendtric.com/*"],
-      "js": ["./content/timer/content.js"]
+      "js": ["./content/timer/content.js","./content/timer/setDate.js"]
     }
   ],
   "background": {
