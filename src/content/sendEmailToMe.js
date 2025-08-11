@@ -1,16 +1,38 @@
-function getUserEmail() {
-  const scriptData = [...document.body.querySelectorAll("script")].find(
-    (item) => item.textContent.includes("pushHost")
+// function getUserEmail() {
+
+//   const scriptData = [...document.body.querySelectorAll("script")].find(
+//     (item) => item.textContent.includes("pushHost")
+//   );
+
+//   try {
+//     const user_data = JSON.parse(
+//       scriptData.textContent.split(";")[3].split("=")[1]
+//     );
+
+// 		console.log("user_data parsed", user_data, user_data.email);
+//     return user_data.email;
+//   } catch (error) {
+//     console.error(error.message);
+//     return document.cookie.split(";")[2].split("=")[1];
+//   }
+// }
+
+
+function getUserData() {
+  const script = [...document.querySelectorAll('script')].find(
+    s => s.textContent.includes('var LOGGED_USER')
   );
-  try {
-    const user_data = JSON.parse(
-      scriptData.textContent.split(";")[3].split("=")[1]
-    );
-    return user_data.email;
-  } catch (error) {
-    console.error(error.message);
-    return document.cookie.split(";")[2].split("=")[1];
-  }
+  if (!script) return null;
+
+  // extract everything between the first {}
+  const match = script.textContent.match(/var\s+LOGGED_USER\s*=\s*({[\s\S]*?});/);
+	let user_data = JSON.parse(match[1]);
+
+  return user_data;
+}
+
+function getUserEmail() {
+	return getUserData().email;
 }
 
 const sendTestButton = document.querySelector("[name='sendtest']");
@@ -25,6 +47,9 @@ if (
 }
 
 function fetchAvailableIds() {
+
+	console.log(getUserEmail())
+
   fetch(
     `https://www.prologistics.info/getCustomer.php?input=${getUserEmail()}`,
     {
@@ -39,7 +64,7 @@ function fetchAvailableIds() {
         "sec-fetch-mode": "cors",
         "sec-fetch-site": "same-origin",
       },
-      referrer: "https://www.prologistics.info/news_email.php?id=22892",
+      referrer: "https://www.prologistics.info/news_email.php?id=35743",
       referrerPolicy: "strict-origin-when-cross-origin",
       body: null,
       method: "GET",
@@ -134,6 +159,8 @@ function fetchAvailableIds() {
 
       testCustomerInput.insertAdjacentElement("afterend", flexContainer);
 
+			// console.log(getUserEmail(), item, user_data);
+
       flexContainer.insertAdjacentElement(
         "beforeend",
         createSendEmailBtn({
@@ -141,6 +168,7 @@ function fetchAvailableIds() {
             const mailTo = `Shop#${user_data.id.replace("-", "")}:${email}`;
             setTestCustomerAndSend(mailTo, user_data.id);
           },
+					// title: "nie klikaj"
           title: `${email}`,
         })
       );
