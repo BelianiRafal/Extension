@@ -379,7 +379,7 @@
 }
 
 tr.active td {
-  background: #e9e1e1 !important;
+  background: #dad4d4 !important;
   transition: background .5s ease;
 }
 

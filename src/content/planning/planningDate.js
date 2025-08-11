@@ -66,7 +66,7 @@ setDateBtn.addEventListener("click", async (ev) => {
       return subjectLines.some((item) => item.subject === subjectText);
     });
 
-    if (sundayRows.length === 0 && !sundayRows) {
+    if (sundayRows.length === 0) {
       loader.hideLoader();
       swalFireModal("┐(￣ヘ￣;)┌", "Sunday packs is not defined", "error", "", "", false);
       startClick.disabled = true;
@@ -125,6 +125,8 @@ colorTargetRow.addEventListener("click", (ev) => {
   const loader = new Loader(ev.currentTarget, 1000);
   const currentColorTarget = sortedTableToCurrent((apply = false), null, null, loader);
 
+
+
   if (checkBtn.checked) {
     const sundayRows = currentColorTarget.filter((row) => {
       const subjectText = findSubjectText(row);
@@ -147,9 +149,7 @@ colorTargetRow.addEventListener("click", (ev) => {
 
 function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader) {
   const myTime = getTime();
-
-  const matchedRow = [];
-  const sundayMatchedRow = [];
+  const resultRows = [];
   let found = false;
 
   table.forEach((row) => {
@@ -161,19 +161,12 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
 
         if (targetUserTime) {
           const subjectText = findSubjectText(row);
-          const sundayRows = subjectLines.find((text) => text.subject === subjectText);
+          const isSunday = subjectLines.some((text) => text.subject === subjectText);
 
-          const applySundayRows = sundayRows && checkBtn.checked;
-          const newRow = !sundayRows && !checkBtn.checked;
+          if ((checkBtn.checked && isSunday) || (!checkBtn.checked && !isSunday)) {
+            resultRows.push(row);
 
-          sundayRows && checkState ? sundayMatchedRow.push(row) : matchedRow.push(row);
-
-          if (apply) {
-            if (applySundayRows) {
-              filteredCurrentRow(row, newDateValue, newTimeValue);
-              found = true;
-            }
-            if (newRow) {
+            if (apply) {
               filteredCurrentRow(row, newDateValue, newTimeValue);
               found = true;
             }
@@ -185,21 +178,21 @@ function sortedTableToCurrent(apply = false, newDateValue, newTimeValue, loader)
     });
   });
 
-  if (matchedRow.length === 0) {
+  if (resultRows.length === 0) {
     swalFireModal("┐(￣ヘ￣;)┌", "Your packs were not found", "error", "", "", false);
-    loader.hideLoader();
+    loader?.hideLoader();
     return false;
   }
 
-  if (found && matchedRow) {
+  if (found) {
     setTimeout(() => {
-      loader.hideLoader();
+      loader?.hideLoader();
       startClick.disabled = false;
       swalFireWithTimer("Date and time set!", "The page will be reloaded.", 2500);
     }, 5000);
   }
-  const finalMatch = sundayMatchedRow.length > 0 ? sundayMatchedRow : matchedRow;
-  return apply ? found : finalMatch;
+
+  return apply ? found : resultRows;
 }
 
 function getTime() {
@@ -270,7 +263,7 @@ async function rowToStart(row) {
       currentButton.click();
 
       item.classList.add("clicked-color");
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 700));
     } catch (error) {
       console.error(error);
     }
