@@ -52,7 +52,7 @@
     const style = document.createElement('style');
     style.textContent = `
       #autotz-panel {
-        position: fixed; right: 16px; bottom: 16px; z-index: 2147483647;
+        position: fixed; right: 16px; top: 16px; z-index: 2147483647;
         background: #eaffea; border: 2px solid #21ba45; color: #1a6f35;
         padding: 10px 12px; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.15);
         font-family: inherit; min-width: 240px;
