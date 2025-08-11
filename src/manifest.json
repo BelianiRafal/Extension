@@ -211,6 +211,10 @@
             ],
       "css":[ "./libraries/sweetalert2.min.css",
               "./content/planning/style.css"]
+    },
+    {
+      "matches": ["https://www.sendtric.com/*"],
+      "js": ["./content/timer/content.js"]
     }
   ],
   "background": {
