@@ -42,3 +42,27 @@
 }
 #batcher-start { background: #28a745; color: white; }
 #batcher-close { background: transparent; color: #666; float: right; font-size: 14px; }
+
+
+
+.newBtn, .secondBtn {
+  position: fixed;
+  top: 20px;
+  right: 300px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.secondBtn {
+  background: violet;
+  color: #cecece;
+  right: 400px;
+}
+
+.newBtn:hover, .secondBtn:hover {
+  background: #fff;
+  color: #000;
+  box-shadow: 1px 1px 10px #000;
+  transition: all .3s ease;
+}

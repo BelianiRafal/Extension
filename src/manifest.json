@@ -213,6 +213,15 @@
               "./content/planning/style.css"]
     },
     {
+      "matches": [
+        "https://prolodev.prologistics.info/*",
+        "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/"
+        
+      ],
+      "js":["./content/send_nslt/send.js"],
+      "css": ["./content/send_nslt/style.css"]
+    },
+    {
       "matches": ["https://www.sendtric.com/*"],
       "js": ["./content/timer/content.js","./content/timer/setDate.js"]
     }
@@ -263,3 +272,4 @@
     "https://prolodev.prologistics.info/*"
   ]
 }
+
