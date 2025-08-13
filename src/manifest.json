@@ -223,7 +223,7 @@
     },
     {
       "matches": ["https://www.sendtric.com/*"],
-      "js": ["./content/timer/content.js","./content/timer/setDate.js"]
+      "js": ["./content/timer/content.js","./content/timer/setDate.js","./content/timer/setColor.js"]
     }
   ],
   "background": {
