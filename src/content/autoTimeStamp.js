@@ -27,32 +27,26 @@ toggleAutoAcceptButton.onclick = () => {
 document.querySelector("#timesheet_div").after(toggleAutoAcceptButton);
 
 function handleTimestampConfirm() {
-  const alertifyHeaders = document.querySelectorAll(".ajs-header");
+  const alertifyModals = document.querySelectorAll(".ajs-dialog");
 
-  if (alertifyHeaders.length < 2) return;
+  alertifyModals.forEach((timestampAlert, index) => {
+    if (
+      timestampAlert.querySelector(".ajs-header").innerText.trim() !==
+      "Login Confirmation"
+    )
+      return;
+    timestampAlert.querySelector(".ajs-ok").click();
 
-  // skip weird empty alertify element
-  const timestampAlert = alertifyHeaders[1];
-
-  // check if this is the correct alert
-  if (!timestampAlert) return;
-  if (timestampAlert.innerText.trim() !== "Login Confirmation") return;
-
-  // extract the "YES" button
-  const yesButton =
-    timestampAlert?.nextElementSibling?.nextElementSibling?.children?.[1]
-      ?.children?.[1];
-
-  yesButton.click();
-
-  // remove observer since we are logged in
-  if (window.__loginConfObserver) {
-    window.__loginConfObserver.disconnect();
-  }
+    // remove observer since we are logged in
+    if (window.__loginConfObserver) {
+      window.__loginConfObserver.disconnect();
+    }
+  });
 }
 
 window.__loginConfObserver = new MutationObserver(() => {
-  if (localStorage.getItem("autoAcceptLogin") === 'true') handleTimestampConfirm();
+  if (localStorage.getItem("autoAcceptLogin") === "true")
+    handleTimestampConfirm();
 });
 
 window.__loginConfObserver.observe(document.body, {
@@ -60,4 +54,5 @@ window.__loginConfObserver.observe(document.body, {
   subtree: true,
 });
 
-if (localStorage.getItem("autoAcceptLogin") === 'true') handleTimestampConfirm();
+if (localStorage.getItem("autoAcceptLogin") === "true")
+  handleTimestampConfirm();
