@@ -1,0 +1,75 @@
+/* ====== CZYTELNOŚĆ KART ====== */
+:root{
+  --rk-card-bg:#fff;
+  --rk-card-border:#e5e7eb;
+  --rk-text:#0f172a;
+  --rk-muted:#64748b;
+  --rk-accent-today:#c0392b;
+  --rk-accent-soon:#d9534f;
+  --rk-accent-neutral:#d1d5db;
+}
+
+/* baza karty */
+.column-module__tasksList__2tkoi [data-rbd-draggable-id]{
+  background:var(--rk-card-bg) !important;
+  border:1px solid var(--rk-card-border) !important;
+  border-radius:12px !important;
+  box-shadow:none !important;
+  padding:10px !important;
+  margin:10px 8px !important;
+  position:relative;
+}
+
+/* cienki pasek statusu zamiast czerwonej ramki */
+[data-rbd-draggable-id].rk-accent::before{
+  content:"";
+  position:absolute; inset:0 auto 0 0;
+  width:4px; border-radius:12px 0 0 12px;
+  background:var(--rk-accent-neutral);
+}
+[data-rbd-draggable-id][data-rk-due="soon"].rk-accent::before{ background:var(--rk-accent-soon); }
+[data-rbd-draggable-id][data-rk-due="today"].rk-accent::before{ background:var(--rk-accent-today); }
+
+/* tytuł + meta */
+.rk-title{
+  font-size:14px; font-weight:700; color:var(--rk-text);
+  margin:4px 0 6px 0; line-height:1.25;
+}
+.rk-meta{
+  display:flex; align-items:center; gap:8px;
+  font-size:12.5px; color:var(--rk-muted); margin-bottom:4px;
+}
+
+/* tagi ograniczone do 1–2 + „+N” */
+.rk-chip-line{ display:flex; gap:6px; flex-wrap:wrap; margin-top:4px; }
+.rk-chip{
+  background:#eef2f7; color:#111; border-radius:999px;
+  padding:2px 8px; font-size:12px; font-weight:600;
+}
+.rk-chip--prio{ color:#fff; }
+[data-rk-priority="High"] .rk-chip--prio{ background:#e74c3c; }
+[data-rk-priority="Medium"] .rk-chip--prio{ background:#f39c12; }
+[data-rk-priority="Low"] .rk-chip--prio{ background:#2e86c1; }
+.rk-more-pill{
+  padding:1px 8px; border-radius:999px; background:#e5e7eb; color:#111;
+  font-size:12px; font-weight:600; cursor:pointer;
+}
+
+/* progres + „due” w jednej linii */
+.rk-progress{ display:flex; align-items:center; gap:8px; margin-top:6px; }
+.rk-bar{ flex:1; height:6px; background:#edf2f7; border-radius:999px; overflow:hidden; }
+.rk-bar__fill{ height:100%; width:0; background:#60a5fa; transition:width .25s; }
+.rk-progress__label{ font-size:12px; color:var(--rk-muted); white-space:nowrap; }
+
+/* badge terminu po prawej w wierszu tytułu */
+.rk-due-badge{
+  position:absolute; right:10px; top:10px; font-size:11.5px; font-weight:700;
+  background:#f1f5f9; color:#0f172a; padding:2px 8px; border-radius:999px;
+}
+[data-rk-due="soon"] .rk-due-badge{ background:#fee2e2; color:#7f1d1d; }
+[data-rk-due="today"] .rk-due-badge{ background:#fecaca; color:#7f1d1d; }
+
+/* tryb kompaktowy – minimalnie ciaśniej, ale z zachowaniem tytułu */
+.rk-compact [data-rbd-draggable-id]{ padding:8px !important; margin:8px 6px !important; }
+.rk-compact .rk-title{ font-size:13px; }
+.rk-compact .rk-progress{ margin-top:4px; }
