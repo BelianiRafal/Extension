@@ -192,8 +192,8 @@
     {
       "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
       "js": ["./content/emoji/content.js", "./content/issue/content.js", 
-             "./content/issue/layout.js", "./content/kanbanTable/content.js","./content/issue/style.js"],
-      "css": ["./content/emoji/styles.css", "./libraries/gridstack.min.css","./content/kanbanTable/style.css","./content/issue/style.css"]
+             "./content/issue/layout.js", "./content/kanbanTable/content.js"],
+      "css": ["./content/emoji/styles.css", "./libraries/gridstack.min.css","./content/kanbanTable/style.css"]
     },
     {
       "matches": [
