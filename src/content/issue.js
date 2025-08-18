@@ -45,7 +45,7 @@ class Issues {
     Orlinski: "1196",
     JurgowiakM: "1194",
 		KaKazaniecki: "1193",
-		Oleksander: "1686",
+		OleHrytsa: "1686",
     RKobus: "1204",
   };
   constructor() {
@@ -116,7 +116,7 @@ class Issues {
     let isMyIssue = false;
     if ("issue_type" in issue) {
       isMyIssue = issue.issue_type.find(
-        (item) => item.id === this.users[this.user.username],
+        (item) => item.id === this.users[this.user?.username ?? this.user],
       );
     }
     return isMyIssue;
