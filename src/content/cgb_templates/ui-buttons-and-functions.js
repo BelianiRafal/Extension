@@ -306,7 +306,6 @@ async function iterationElementFn(stateArr, nodes, banner_text, agreeUpdated, ty
   let checkTypeBanner = '';
 
   const checkVal = hasObjValue(state.context);
-  console.log(checkVal);
 
   stateArr.forEach((elem) => {
     elem.nodeName === "IMG" ? (checkTypeBanner = "Img") : (checkTypeBanner = "Mp4");
