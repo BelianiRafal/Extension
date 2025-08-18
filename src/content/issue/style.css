@@ -1,0 +1,231 @@
+/* ===========================
+   GLOBAL / BAZA
+   =========================== */
+html, body { scroll-behavior: smooth; }
+#app, .rightSideBlock, #fulltable, .panel {
+  font-family: Inter, Roboto, Arial, sans-serif;
+}
+.panel { border-radius: 10px; border: 1px solid #e8eaef; box-shadow: 0 1px 0 rgba(16,24,40,.04); }
+.panel-heading {
+  background: linear-gradient(180deg,#f8fafc 0,#f2f4f7 100%);
+  border-bottom: 1px solid #eaecf0;
+  padding: 10px 14px; font-weight: 600;
+}
+.panel-body { padding: 12px 14px; }
+
+/* ===========================
+   STICKY BAR v2 (SMART)
+   =========================== */
+#issue-sticky{
+  position: sticky; top: 0; z-index: 9999;
+  display: grid; grid-template-columns: 1fr auto; gap: 10px;
+  align-items: start; padding: 10px 14px 8px;
+  background:#fffffff2; backdrop-filter: blur(6px) saturate(1.1);
+  border-bottom: 1px solid #e5e7eb;
+}
+#issue-sticky .row1{ display:flex; align-items:center; gap:10px; min-height:32px; }
+#issue-sticky .subject{ font-size:16px; font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#issue-sticky .tags{ display:flex; flex-wrap:wrap; gap:6px; }
+#issue-sticky .tag{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:5px 10px; border-radius:999px; border:1px solid #e5e7eb;
+  background:#f8fafc; font-weight:700; font-size:12px;
+}
+#issue-sticky .tag .dot{ width:8px; height:8px; border-radius:999px; background:#94a3b8; }
+#issue-sticky .status-open .dot{ background:#16a34a; }
+#issue-sticky .status-closed .dot{ background:#ef4444; }
+#issue-sticky .priority-high{ border-color:#fde68a; background:#fffbeb; }
+#issue-sticky .priority-medium{ border-color:#bfdbfe; background:#eff6ff; }
+#issue-sticky .priority-low{ border-color:#dcfce7; background:#f0fdf4; }
+#issue-sticky .stat-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  background:#f1f5f9; border:1px solid #e5e7eb; border-radius:999px;
+  padding:5px 10px; font-weight:700; font-size:12px;
+}
+#issue-sticky .stat-badge strong{ font-variation-settings:"wght" 750; }
+
+/* Nawigacja pod paskiem */
+#issue-sticky .nav{
+  grid-column: 1 / -1;
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;
+}
+.rk-navbtn{
+  appearance:none; border:1px solid #e5e7eb; background:#fff;
+  border-radius:999px; padding:6px 10px; font-weight:700; font-size:12px;
+  transition: background .15s ease, transform .05s ease; cursor:pointer;
+}
+.rk-navbtn:hover{ background:#f8fafc; }
+.rk-navbtn:active{ transform:translateY(1px); }
+.rk-navbtn .count{
+  margin-left:6px; background:#111827; color:#fff; border-radius:999px;
+  padding:0 6px; font-size:11px;
+}
+
+/* Ukryj mniej ważne tagi na węższych ekranach */
+@media (max-width: 1100px){
+  #issue-sticky .tags .tag[data-hide-on-narrow="1"]{ display:none; }
+}
+
+/* delikatny cień podczas scrolla */
+body.rk-scrolling #issue-sticky{ box-shadow:0 8px 20px -16px rgba(0,0,0,.28); }
+
+/* kotwice sekcji – by sticky nie zakrywał nagłówków */
+.rk-anchor{ position: relative; scroll-margin-top: 70px; }
+
+/* ===========================
+   PRZYCISKI (uniwersalne)
+   =========================== */
+button, .def_btn, .action_buttons {
+  --btn-bg:#2563eb; --btn-bg-h:#1d4ed8; --btn-txt:#fff;
+  appearance:none; border:0; border-radius:10px;
+  padding:10px 14px; font-weight:700; color:var(--btn-txt);
+  background:var(--btn-bg); box-shadow:0 1px 0 rgba(16,24,40,.08);
+  transition: transform .04s ease, background .15s ease, box-shadow .15s ease;
+}
+button:hover, .def_btn:hover, .action_buttons:hover { background: var(--btn-bg-h); }
+button:active, .def_btn:active, .action_buttons:active { transform: translateY(1px); }
+
+.btn-outline{
+  --btn-bg:#fff; --btn-txt:#111827;
+  color:var(--btn-txt); background:var(--btn-bg);
+  border:1px solid #e5e7eb;
+}
+.btn-danger{ --btn-bg:#ef4444; --btn-bg-h:#dc2626; }
+.btn-success{ --btn-bg:#16a34a; --btn-bg-h:#15803d; }
+.btn-neutral{ --btn-bg:#111827; --btn-bg-h:#0b1220; }
+
+/* naturalne odstępy między przyciskami */
+button + button, .def_btn + .def_btn, .action_buttons + .action_buttons { margin-left: 8px; }
+
+/* ===========================
+   COMMENTS – czytelność + fullscreen
+   =========================== */
+.comments-wrap { margin-top: 8px; }
+.comments-toolbar{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 12px; background:#f8fafc; border:1px solid #e5e7eb; border-radius:10px;
+}
+#comments-fullscreen-btn{ cursor:pointer; }
+
+.comments-table, .comments-list{ width:100%; border-collapse:collapse; table-layout:fixed; }
+.comments-table tr:nth-child(odd), .comments-list .row:nth-child(odd){ background:#fcfcfd; }
+.comments-table td, .comments-table th{
+  padding:8px 10px; border-bottom:1px solid #eef2f7; vertical-align:top; word-break:break-word;
+}
+.comment-author{ font-weight:700; color:#111827; }
+.comment-date{ color:#64748b; font-size:12px; }
+.comment-body a{ text-decoration:underline; }
+
+/* fullscreen */
+body.comments-fullscreen .container, 
+body.comments-fullscreen #app { max-width:none; }
+body.comments-fullscreen .comments-section{
+  position: fixed; inset: 56px 0 0 0; background:#fff; z-index:9998;
+  padding:14px 18px; overflow:auto; border-top:1px solid #e5e7eb;
+}
+
+/* ===========================
+   CHECKLIST – animowane checkboxy
+   =========================== */
+.checklist .item{
+  display:flex; align-items:flex-start; gap:10px;
+  padding:8px 10px; border-radius:10px; border:1px solid transparent;
+  transition: background .2s ease, border-color .2s ease;
+}
+.checklist .item:hover{ background:#f8fafc; border-color:#eef2f7; }
+
+.checklist input[type="checkbox"]{
+  appearance:none; width:18px; height:18px; border-radius:6px;
+  border:1.5px solid #cbd5e1; display:inline-grid; place-content:center;
+  transition: border-color .2s ease, background .2s ease, transform .15s ease;
+}
+.checklist input[type="checkbox"]::after{
+  content:""; width:10px; height:10px; transform:scale(0); transition:transform .18s ease;
+  clip-path: polygon(14% 44%, 0 59%, 41% 100%, 100% 26%, 84% 12%, 39% 74%);
+  background:#fff;
+}
+.checklist input[type="checkbox"]:checked{
+  background:#16a34a; border-color:#16a34a; box-shadow:0 0 0 3px #dcfce7 inset;
+}
+.checklist input[type="checkbox"]:checked::after{ transform:scale(1); }
+
+/* ===========================
+   INPUTY (React / Material)
+   =========================== */
+.MuiAutocomplete-root .MuiInputBase-root,
+.Select-control{ border-radius:10px !important; border-color:#e5e7eb !important; }
+.date-picker-new-module__button__1y7xN{ border-radius:10px; }
+
+/* ===== Comments table sizing ===== */
+.comments-table{
+  table-layout: fixed;         /* stały układ kolumn */
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.comments-table th,
+.comments-table td{
+  vertical-align: top;
+  padding: 6px 8px;
+}
+
+/* 1) Date */
+.comments-table th:nth-child(1),
+.comments-table td:nth-child(1){
+  width: 160px;                /* wąsko, ale czytelnie */
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  color: #334155;
+}
+
+/* 2) Author */
+.comments-table th:nth-child(2),
+.comments-table td:nth-child(2){
+  width: 200px;                /* wąska kolumna autora */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 3) Comment – NAJSZERSZA, może się zawijać */
+.comments-table th:nth-child(3),
+.comments-table td:nth-child(3){
+  width: auto;                 /* bierze całą pozostałą szerokość */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* 4) Delete / techniczne checkboxy na końcu */
+.comments-table th:last-child,
+.comments-table td:last-child{
+  width: 56px;                 /* malutka kolumna akcji */
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Jeżeli system dorzuca dodatkową kolumnę przed „Delete” (np. status),
+   zostaw ostatnią NAPRAWDĘ wąską, a przedostatnią też zawężamy */
+.comments-table th:nth-last-child(2),
+.comments-table td:nth-last-child(2){
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive – na węższych ekranach jeszcze ciaśniej */
+@media (max-width: 1400px){
+  .comments-table th:nth-child(1),
+  .comments-table td:nth-child(1){ width: 140px; }
+  .comments-table th:nth-child(2),
+  .comments-table td:nth-child(2){ width: 180px; }
+}
+@media (max-width: 1200px){
+  .comments-table th:nth-child(1),
+  .comments-table td:nth-child(1){ width: 120px; }
+  .comments-table th:nth-child(2),
+  .comments-table td:nth-child(2){ width: 160px; }
+  .comments-table th:last-child,
+  .comments-table td:last-child{ width: 48px; }
+}
