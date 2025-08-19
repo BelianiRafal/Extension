@@ -31,7 +31,7 @@
         "https://www.prologistics.info/*",
 				"https://www.prologistics.info/start.php"
       ],
-      "js": ["./content/autoTimeStamp.js"],
+      "js": ["./content/autoTimeStamp.js", "./content/login/content.js"],
       "run_at": "document_idle"
     },
     {
