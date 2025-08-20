@@ -172,7 +172,9 @@
       "js": [
         "./content/linkifyjs/linkify.js",
         "./content/linkifyjs/linkify-html.min.js",
-        "./content/issue.js"
+        "./content/issue.js",
+        "./content/issue/checklistWatcher.dom.js",
+        "./content/issue/checklistWatcher.api.js"
       ]
     },
     {
