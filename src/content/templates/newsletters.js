@@ -1396,7 +1396,7 @@ const TEMPLATES = [
                                   ><img
                                     alt=""
                                     loading="lazy"
-                                    src="{{picture_server_url}}{{slug}}{{Campaign_src_1}}_mb.png?ver=2"
+                                    src="{{picture_server_url}}{{slug}}{{Campaign_src_1}}_mb.png?ver=3"
                                     style="vertical-align: middle; max-width: 100%"
                                 /></a>
                               </td>

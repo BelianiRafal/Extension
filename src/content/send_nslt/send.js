@@ -1,7 +1,7 @@
 //TODO
 
 // 1. Сделать блок где будут указывать ИД кампаний
-// 2. Логика для правильного указания ид в поле выбора и шопа. 
+// 2. Логика для правильного указания ид в поле выбора и шопа.
 //    Может брать из Гжешика и сравнивать с обьекта idForOpen ???
 
 // 3. После загрузки на одной странице, переходить к другой, когда будет последняя - редирект на спам
@@ -19,6 +19,12 @@ secondBtn.className = "secondBtn";
 secondBtn.textContent = "SECOND BTN";
 
 document.body.append(secondBtn);
+
+const thirtyBtn = document.createElement("button");
+thirtyBtn.className = "thirtyBtn";
+thirtyBtn.textContent = "THIRTY BTN";
+
+document.body.append(thirtyBtn);
 
 const url = "https://www.prologistics.info/react/reports_page/customers_newsletter/?filter_id=";
 const redirectUrl = "https://prolodev.prologistics.info/spam_plan.php";
@@ -81,6 +87,7 @@ button.addEventListener("click", () => {
       console.warn("Пока нет доступа:", e);
     }
   }, 500);
+
 });
 
 secondBtn.addEventListener("click", () => {
@@ -129,7 +136,8 @@ secondBtn.addEventListener("click", () => {
           console.log("Спиннер виден!");
         } else {
           console.log("SPinner end");
-          window.location.href = redirectUrl;
+          // window.location.href = redirectUrl;
+          // chrome.runtime.sendMessage({ action: "nextTab" });
         }
       }, 1000);
     });
@@ -139,3 +147,8 @@ secondBtn.addEventListener("click", () => {
 
   console.log(found);
 });
+
+
+thirtyBtn.addEventListener('click', () => {
+  chrome.runtime.sendMessage({ action: "nextTab" });
+})

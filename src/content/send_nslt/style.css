@@ -45,7 +45,7 @@
 
 
 
-.newBtn, .secondBtn {
+.newBtn, .secondBtn, .thirtyBtn {
   position: fixed;
   top: 20px;
   right: 300px;
@@ -58,6 +58,12 @@
   background: violet;
   color: #cecece;
   right: 400px;
+}
+
+.thirtyBtn {
+  background: green;
+  color: #cecece;
+  right: 200px;
 }
 
 .newBtn:hover, .secondBtn:hover {
