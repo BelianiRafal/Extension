@@ -71,7 +71,7 @@ const TEMPLATES = [
 
       }
       #cgb .textBanner {
-        font-size: min(22px, 2.6vw);
+        font-size: min(19px, 2.6vw);
         font-weight: 600;
       }
 
