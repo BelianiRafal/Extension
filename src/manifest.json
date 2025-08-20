@@ -216,13 +216,28 @@
     },
     {
       "matches": [
-        "https://prolodev.prologistics.info/*",
-        "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/"
-        
+        "https://prolodev.prologistics.info/shop_promo_partners.php*"
       ],
       "js":["./content/send_nslt/send.js"],
       "css": ["./content/send_nslt/style.css"]
     },
+     {
+      "matches": [
+        "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/"
+      ],
+      "js":["./content/send_nslt/customer_page/customer.js"],
+      "css": ["./content/send_nslt/style.css"]
+    },
+
+
+
+
+
+
+
+
+
+
     {
       "matches": ["https://www.sendtric.com/*"],
       "js": ["./content/timer/content.js","./content/timer/setDate.js","./content/timer/setColor.js"]
