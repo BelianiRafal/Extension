@@ -8,52 +8,6 @@
 //  Автоматический клик или ручной, подумать что оставляем и протестировать
 //  Посмотреть какой-то интересный дизайн блока, добавить алерты как всегда.
 
-// const button = document.createElement("button");
-// button.className = "newBtn";
-// button.textContent = "NEW BTN";
-// document.body.append(button);
-
-const overlay = document.createElement('div');
-overlay.className = 'overlay';
-
-const closeCard = document.createElement('button');
-closeCard.textContent = 'x';
-closeCard.className = 'closeBtn';
-
-const idForInput = document.createElement('input');
-idForInput.type = 'text';
-idForInput.className = 'mainInput';
-idForInput.placeholder = 'Id for CHDE campaign';
-
-const closeBtn = document.createElement
-
-const mainCard = document.createElement('div');
-mainCard.className = 'mainCard'
-
-const mainCardContainer = document.createElement('div');
-mainCardContainer.className = 'mainCard-container';
-
-
-const button = document.createElement("button");
-button.className = "Btn";
-button.innerHTML = `<div class="sign">
-<svg viewBox="0 0 512 512">
-<path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
-</path></svg></div>
-<div class="text">Customers</div>`;
-
-const startBtn = document.createElement('button');
-startBtn.className = 'startBtn';
-startBtn.innerHTML = `<span data-text="Send">Send</span>`;
-
-mainCardContainer.append(idForInput);
-mainCardContainer.append(startBtn);
-mainCardContainer.append(closeCard);
-mainCard.append(mainCardContainer);
-document.body.append(mainCard);
-document.body.append(button);
-document.body.append(overlay);
-
 const url = "https://www.prologistics.info/react/reports_page/customers_newsletter/?filter_id=";
 const redirectUrl = "https://prolodev.prologistics.info/spam_plan.php";
 const id = "11607";
@@ -88,18 +42,19 @@ const filterBtn = Array.from(document.querySelectorAll("div button span")).find(
 );
 const filterDiv = filterBtn?.closest("div");
 
-closeCard.addEventListener('click', () => {
+closeCard.addEventListener("click", () => {
+  spanText.classList.remove("show");
   mainCard.classList.add("implode-animation");
   setTimeout(() => {
-    mainCard.classList.remove('implode-animation');
-    mainCard.classList.remove('explode-animation');
-    overlay.classList.remove('active');
+    mainCard.classList.remove("implode-animation");
+    mainCard.classList.remove("explode-animation");
+    overlay.classList.remove("active");
   }, 800);
-})
+});
 
 button.addEventListener("click", () => {
-  overlay.classList.add('active');
-  mainCard.classList.add('explode-animation');
+  overlay.classList.add("active");
+  mainCard.classList.add("explode-animation");
   // const newWindow = window.open(
   //   "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/",
   //   "_blank"
@@ -126,6 +81,146 @@ button.addEventListener("click", () => {
   //     console.warn("Пока нет доступа:", e);
   //   }
   // }, 500);
-
-
 });
+
+startBtn.addEventListener("click", () => {
+  spanText.classList.remove("show");
+
+  if (idForInput.value === "") {
+    spanText.classList.add("show");
+
+    return;
+  }
+
+  // const newWindow = window.open(
+  //   "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/",
+  //   "_blank"
+  // );
+
+  openMailTable(idForInput.value);
+});
+
+//34616
+
+function openMailTable(valueId) {
+  const ids = [];
+  const newsMailWindow = window.open(`https://prolodev.prologistics.info/news_email.php?id=${valueId}`, "_blank");
+
+  const waitForMail = setInterval(() => {
+    try {
+      const doc = newsMailWindow.document;
+      if (!doc || doc.readyState !== "complete") return;
+
+      const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
+
+      if (tableMain.length > 0) {
+        tableMain.forEach((item, index) => {
+          const url = item.href;
+
+          const valueInLink = url.match(/id=(\d+)/);
+          const id = valueInLink[1];
+
+          if (index === 0 || index === 1 || index === 6) {
+            ids.push(id, id);
+          } else {
+            ids.push(id);
+          }
+          return ids;
+        });
+
+        ids.splice(5, 2);
+        console.log(ids);
+        clearInterval(waitForMail);
+        newsMailWindow.close();
+
+        openCustomerFilter();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, 500);
+}
+
+function openCustomerFilter() {
+  const newWindow = window.open(
+    "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/",
+    "_blank"
+  );
+
+  const waitForFilter = setInterval(() => {
+    try {
+      const doc = newWindow.document;
+      if (!doc) return;
+
+      // Ищем кнопку Filter
+      const filterBtn = Array.from(doc.querySelectorAll("div button span")).find(
+        (span) => span.textContent.trim() === "Filter"
+      );
+
+      if (filterBtn) {
+        clearInterval(waitForFilter);
+
+        const filterDiv = filterBtn.closest("div");
+        console.log("Нашли Filter:", filterDiv);
+        filterDiv.click();
+
+        setTimeout(() => {
+          clickToTransferButton(doc);
+          console.log('click');
+        }, 2000);
+      }
+
+
+    } catch (e) {
+      console.warn("Пока нет доступа:", e);
+    }
+  }, 500);
+}
+
+function clickToTransferButton(windowPage) {
+  //Code from Second button
+    const blockWithId = windowPage.querySelectorAll('[id^="undefined--undefined-"]');
+    const blockDiv = blockWithId[26];
+    const nextDiv = blockDiv.querySelectorAll("div");
+    nextDiv[0].children[1].click();
+
+    const spanItem = windowPage.querySelectorAll('span[role="menuitem"]');
+
+    const found = Array.from(spanItem).find((elem) => {
+      return elem.textContent.trim().split(" ")[0] === "34589:";
+    });
+    const muiButton = windowPage.querySelector("button[type='button'][label='Transfer to batch file']");
+
+    if (found && muiButton) {
+      found.click();
+
+      setTimeout(() => {
+        muiButton.click();
+      }, 1000);
+
+      let spinnerVisible = false;
+
+      const observer = new MutationObserver((mutations, obs) => {
+        const overlay = windowPage.querySelector('div[name="blockOverlay"]');
+        const spinnerContainer = overlay ? overlay.querySelector("span") : null;
+        const hasSpinner = spinnerContainer && spinnerContainer.children.length > 0;
+
+        if (hasSpinner && !spinnerVisible) {
+          spinnerVisible = true;
+          console.log("Спиннер виден!");
+        }
+
+        if (!hasSpinner && spinnerVisible) {
+          spinnerVisible = false;
+          console.log("SPinner end");
+          obs.disconnect();
+          // thirtyBtn.click();
+        }
+      });
+
+      observer.observe(windowPage.body, { childList: true, subtree: true });
+    }
+
+    console.log(found);
+  
+}

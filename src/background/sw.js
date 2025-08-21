@@ -204,9 +204,7 @@ chrome.runtime.onMessage.addListener(async (message, sender) => {
       }
     });
 
-    if (sameDomainTabs.length <= 1) {
-      return;
-    }
+    if (sameDomainTabs.length <= 1) return;
 
     let currentIndex = sameDomainTabs.findIndex((t) => t.id === currentTab.id);
 
