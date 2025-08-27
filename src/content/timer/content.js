@@ -66,6 +66,7 @@ function readLabel() {
 
 function initTZ() {
   document.querySelector("input#guest-email").value = "x@x.x"
+  document.querySelector("input#accept_terms_n_policies").checked = true;
 
   // init
   const lab = readLabel(); if (lab) setTimeout(()=>applyTZForLabel(lab), 100);
@@ -117,7 +118,7 @@ function createCopyURLButton() {
   copyURLBtn.textContent = "Copy SRC"
   copyURLBtn.style.marginRight = "8px"
   copyURLBtn.onclick = extractURL;
-  copyButton.before(copyURLBtn)
+  document.querySelector("#autotz-generate").after(copyURLBtn)
   clearInterval(x)
 }
 
