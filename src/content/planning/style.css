@@ -380,7 +380,7 @@
 
 tr.active td {
   background: #dad4d4 !important;
-  transition: background .5s ease;
+  transition: background .1s linear;
 }
 
 .bracketsRow, .sundayRow {

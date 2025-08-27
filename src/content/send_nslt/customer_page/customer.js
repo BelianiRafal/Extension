@@ -10,52 +10,64 @@ thirtyBtn.textContent = "THIRTY BTN";
 
 document.body.append(thirtyBtn);
 
-// secondBtn.addEventListener("click", () => {
-//   const blockWithId = document.querySelectorAll('[id^="undefined--undefined-"]');
-//   const blockDiv = blockWithId[26];
-//   const nextDiv = blockDiv.querySelectorAll("div");
-//   nextDiv[0].children[1].click();
+secondBtn.addEventListener("click", () => {
+  const blockWithId = document.querySelectorAll('[id^="undefined--undefined-"]');
+  const blockDiv = blockWithId[26];
 
-//   const spanItem = document.querySelectorAll('span[role="menuitem"]');
+  console.log(blockDiv);
+  // const nextDiv = blockDiv.querySelectorAll("div");
+  // nextDiv[0].children[1].click();
 
-//   const found = Array.from(spanItem).find((elem) => {
-//     return elem.textContent.trim().split(" ")[0] === "34587:";
-//   });
-//   const muiButton = document.querySelector("button[type='button'][label='Transfer to batch file']");
+  const spanItem = document.querySelectorAll('span[role="menuitem"]');
 
-//   if (found && muiButton) {
-//     found.click();
+  const found = Array.from(spanItem).find((elem) => {
+    return elem.textContent.trim().split(" ")[0] === "34587:";
+  });
+  const muiButton = document.querySelector("button[type='button'][label='Transfer to batch file']");
 
-//     setTimeout(() => {
-//       muiButton.click();
-//     }, 1000);
+  // if (found && muiButton) {
+  //   found.click();
 
-//     let spinnerVisible = false;
+  //   setTimeout(() => {
+  //     muiButton.click();
+  //   }, 1000);
 
-//     const observer = new MutationObserver((mutations, obs) => {
-//       const overlay = document.querySelector('div[name="blockOverlay"]');
-//       const spinnerContainer = overlay ? overlay.querySelector("span") : null;
-//       const hasSpinner = spinnerContainer && spinnerContainer.children.length > 0;
+  //   let spinnerVisible = false;
 
-//       if (hasSpinner && !spinnerVisible) {
-//         spinnerVisible = true;
-//         console.log("Спиннер виден!");
-//       }
+  //   const observer = new MutationObserver((mutations, obs) => {
+  //     const overlay = document.querySelector('div[name="blockOverlay"]');
+  //     const spinnerContainer = overlay ? overlay.querySelector("span") : null;
+  //     const hasSpinner = spinnerContainer && spinnerContainer.children.length > 0;
 
-//       if (!hasSpinner && spinnerVisible) {
-//         spinnerVisible = false;
-//         console.log("SPinner end");
-//         obs.disconnect();
-//         thirtyBtn.click();
-//       }
-//     });
+  //     if (hasSpinner && !spinnerVisible) {
+  //       spinnerVisible = true;
+  //       console.log("Спиннер виден!");
+  //     }
 
-//     observer.observe(document.body, { childList: true, subtree: true });
-//   }
+  //     if (!hasSpinner && spinnerVisible) {
+  //       spinnerVisible = false;
+  //       console.log("SPinner end");
+  //       obs.disconnect();
+  //       thirtyBtn.click();
+  //     }
+  //   });
 
-//   console.log(found);
-// });
+  //   observer.observe(document.body, { childList: true, subtree: true });
+  // }
+
+  console.log(found);
+});
 
 thirtyBtn.addEventListener("click", () => {
-  chrome.runtime.sendMessage({ action: "nextTab" });
+  
+
+  const useSaved = Array.from(document.querySelectorAll('[id^="undefined--undefined-"]'));
+  console.log(useSaved[23].children[0].children[1].outerText);
+
+  // if (useSaved) {
+  //   let nameSaveSettings = useSaved[23].children[0].outerText;
+  //   saveNameText.innerHTML += nameSaveSettings;
+  // }
+
+  
 });

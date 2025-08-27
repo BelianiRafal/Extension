@@ -209,8 +209,9 @@ chrome.runtime.onMessage.addListener(async (message, sender) => {
     let currentIndex = sameDomainTabs.findIndex((t) => t.id === currentTab.id);
 
     if (currentIndex === sameDomainTabs.length - 1) {
-      chrome.tabs.create({
-        url: "https://prolodev.prologistics.info/spam_plan.php",
+      chrome.scripting.executeScript({
+        target: { tabId: currentTab.id },
+        func: () => alert("End for function!"),
       });
       return;
     }
@@ -219,5 +220,26 @@ chrome.runtime.onMessage.addListener(async (message, sender) => {
     let nextTab = sameDomainTabs[nextIndex];
 
     chrome.tabs.update(nextTab.id, { active: true });
+  }
+});
+
+let firstTabId = null;
+let lastTabId = null;
+
+chrome.runtime.onMessage.addListener((message, sender) => {
+  if (message.action === "setFirstTab") {
+    firstTabId = sender.tab.id;
+  }
+
+  if (message.action === "setLastTab") {
+    lastTabId = sender.tab.id;
+  }
+
+  if (message.action === "goToFirstTab" && firstTabId) {
+    chrome.tabs.update(firstTabId, { active: true });
+  }
+
+  if (message.action === "goToLastTab" && lastTabId) {
+    chrome.tabs.update(lastTabId, { active: true });
   }
 });

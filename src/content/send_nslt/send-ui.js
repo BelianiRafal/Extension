@@ -34,11 +34,33 @@ const spanText = document.createElement("span");
 spanText.textContent = "Please paste corrected id";
 spanText.className = "spanAlertText";
 
+let saveNameText = document.createElement("span");
+saveNameText.textContent = "";
+saveNameText.className = "saveSettingsName";
+
 mainCardContainer.append(idForInput);
 mainCardContainer.append(startBtn);
 mainCardContainer.append(closeCard);
 mainCard.append(mainCardContainer);
 mainCard.append(spanText);
+mainCard.append(saveNameText);
 document.body.append(mainCard);
 document.body.append(button);
 document.body.append(overlay);
+
+function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCancel) {
+  return Swal.fire({
+    title: title,
+    text: message,
+    icon: iconStyle,
+    confirmButtonText: confirmText || "Ok",
+    confirmButtonColor: btnColor || "#328a35",
+    showCancelButton: needCancel,
+  });
+}
+
+// const secondBtn = document.createElement("button");
+// secondBtn.className = "secondBtn";
+// secondBtn.textContent = "SECOND BTN";
+
+// document.body.append(secondBtn);

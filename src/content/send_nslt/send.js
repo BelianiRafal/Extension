@@ -1,18 +1,22 @@
 //TODO
-
-//  Логика для правильного указания ид в поле выбора и шопа.
-//   Может брать из Гжешика и сравнивать с обьекта idForOpen ???
-
+//Проверка если кампания создана больше чем 8 дней
 //  После загрузки на одной странице, переходить к другой, когда будет последняя - редирект на спам
-//  Первая кнопка будет на стартовом экране, вторая уже на самой странице с фильтром
-//  Автоматический клик или ручной, подумать что оставляем и протестировать
-//  Посмотреть какой-то интересный дизайн блока, добавить алерты как всегда.
 
 const url = "https://www.prologistics.info/react/reports_page/customers_newsletter/?filter_id=";
-const redirectUrl = "https://prolodev.prologistics.info/spam_plan.php";
+
+const customerUrl = "https://www.prologistics.info/react/reports_page/customers_newsletter/";
+
+// const customerUrl = "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/";
+
+// const planingUrl = "https://prolodev.prologistics.info/spam_plan.php";
+const planingUrl = "https://www.prologistics.info/spam_plan.php";
+
+// const newsEmailUrl = "https://prolodev.prologistics.info/news_email.php?id=";
+const newsEmailUrl = "https://www.prologistics.info/news_email.php?id=";
+
 const id = "11607";
 
-const idForOpen = {
+const shopId = {
   CHDE: 11607,
   "CHDE-RICARDO": 11606,
   CHFR: 11604,
@@ -37,6 +41,11 @@ const idForOpen = {
   UK: 11621,
 };
 
+const idForOpen = [
+  11607, 11606, 11604, 11605, 46175, 11619, 11608, 11609, 11618, 11616, 11612, 11615, 11610, 11614, 79358, 11620, 11617,
+  1323241, 11603, 165840, 11613, 11621,
+];
+
 const filterBtn = Array.from(document.querySelectorAll("div button span")).find(
   (span) => span.textContent.trim() === "Filter"
 );
@@ -52,59 +61,36 @@ closeCard.addEventListener("click", () => {
   }, 800);
 });
 
-button.addEventListener("click", () => {
+button.addEventListener("click", async () => {
   overlay.classList.add("active");
   mainCard.classList.add("explode-animation");
-  // const newWindow = window.open(
-  //   "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/",
-  //   "_blank"
-  // );
-
-  // const waitForFilter = setInterval(() => {
-  //   try {
-  //     const doc = newWindow.document;
-  //     if (!doc) return;
-
-  //     // Ищем кнопку Filter
-  //     const filterBtn = Array.from(doc.querySelectorAll("div button span")).find(
-  //       (span) => span.textContent.trim() === "Filter"
-  //     );
-
-  //     if (filterBtn) {
-  //       clearInterval(waitForFilter);
-
-  //       const filterDiv = filterBtn.closest("div");
-  //       console.log("Нашли Filter:", filterDiv);
-  //       filterDiv.click();
-  //     }
-  //   } catch (e) {
-  //     console.warn("Пока нет доступа:", e);
-  //   }
-  // }, 500);
 });
 
-startBtn.addEventListener("click", () => {
+startBtn.addEventListener("click", async () => {
   spanText.classList.remove("show");
+  const value = idForInput.value;
 
-  if (idForInput.value === "") {
+  if (value === "") {
     spanText.classList.add("show");
-
     return;
   }
 
-  // const newWindow = window.open(
-  //   "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/",
-  //   "_blank"
-  // );
-
-  openMailTable(idForInput.value);
+  const result = await swalFireModal(`Campaing id "${value}" is correct?`, ``, "question", "", "", true);
+  if (result.isConfirmed) {
+    openMailTable(value);
+    chrome.runtime.sendMessage({ action: "setFirstTab" });
+  } else {
+    return false;
+  }
 });
 
 //34616
+//prod id = 36664
 
 function openMailTable(valueId) {
   const ids = [];
-  const newsMailWindow = window.open(`https://prolodev.prologistics.info/news_email.php?id=${valueId}`, "_blank");
+  // const idsDev = [34626, 34627, 34628, 34629];
+  const newsMailWindow = window.open(`${newsEmailUrl + valueId}`, "_blank");
 
   const waitForMail = setInterval(() => {
     try {
@@ -116,7 +102,6 @@ function openMailTable(valueId) {
       if (tableMain.length > 0) {
         tableMain.forEach((item, index) => {
           const url = item.href;
-
           const valueInLink = url.match(/id=(\d+)/);
           const id = valueInLink[1];
 
@@ -128,12 +113,14 @@ function openMailTable(valueId) {
           return ids;
         });
 
+        //Remove id for BEFR/BENL
         ids.splice(5, 2);
         console.log(ids);
+
         clearInterval(waitForMail);
         newsMailWindow.close();
 
-        openCustomerFilter();
+        openCustomerFilter(ids, 0);
       }
     } catch (e) {
       console.log(e);
@@ -141,86 +128,132 @@ function openMailTable(valueId) {
   }, 500);
 }
 
-function openCustomerFilter() {
-  const newWindow = window.open(
-    "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/",
-    "_blank"
-  );
+function openCustomerFilter(ids, index = 0) {
+  if (index >= ids.length) {
+    // window.open(planingUrl, "_blank");
+    swalFireModal(`Woooow`, `Your id is already!`, "success", "", "", false);
+    console.log("END");
+    return;
+  }
 
+  // const customerOpenId = [11618, 11616, 11612, 11615];
+  chrome.runtime.sendMessage({ action: "goToFirstTab" });
+
+  const newWindow = window.open(`${customerUrl}?filter_id=${idForOpen[index]}`, "_blank");
   const waitForFilter = setInterval(() => {
     try {
       const doc = newWindow.document;
-      if (!doc) return;
+      if (!doc && doc.readyState !== "complete") return;
 
-      // Ищем кнопку Filter
+      const useSaved = Array.from(doc.querySelectorAll('[id^="undefined--undefined-"]'));
+      console.log(useSaved[23].children[0].children[1].outerText);
+
+      //Находим имя для сохранения
+
+      if (useSaved) {
+        let nameSaveSettings = useSaved[23].children[0].outerText;
+        saveNameText.innerHTML += nameSaveSettings;
+      }
+
       const filterBtn = Array.from(doc.querySelectorAll("div button span")).find(
         (span) => span.textContent.trim() === "Filter"
       );
 
-      if (filterBtn) {
+      if (filterBtn && useSaved) {
         clearInterval(waitForFilter);
 
         const filterDiv = filterBtn.closest("div");
         console.log("Нашли Filter:", filterDiv);
-        filterDiv.click();
-
         setTimeout(() => {
-          clickToTransferButton(doc);
-          console.log('click');
-        }, 2000);
+          filterDiv.click();
+
+          // setTimeout(() => {
+          //    clickToTransferButton(doc, index, ids);
+          // }, 1000)
+        }, 1000);
       }
-
-
     } catch (e) {
-      console.warn("Пока нет доступа:", e);
+      console.warn("Not access", e);
     }
   }, 500);
 }
 
-function clickToTransferButton(windowPage) {
-  //Code from Second button
-    const blockWithId = windowPage.querySelectorAll('[id^="undefined--undefined-"]');
-    const blockDiv = blockWithId[26];
-    const nextDiv = blockDiv.querySelectorAll("div");
+async function clickToTransferButton(windowPage, index, ids) {
+  // Code from Second button
+  const blockWithId = await waitTransferElement(windowPage, '[id^="undefined--undefined-"]', 27);
+  const blockDiv = blockWithId[26];
+  const nextDiv = blockDiv.querySelectorAll("div");
+
+  if (nextDiv.length && nextDiv[0].children[1]) {
     nextDiv[0].children[1].click();
+  }
 
-    const spanItem = windowPage.querySelectorAll('span[role="menuitem"]');
+  const spanItem = await windowPage.querySelectorAll('span[role="menuitem"]');
 
-    const found = Array.from(spanItem).find((elem) => {
-      return elem.textContent.trim().split(" ")[0] === "34589:";
-    });
-    const muiButton = windowPage.querySelector("button[type='button'][label='Transfer to batch file']");
+  console.log(ids[index]);
 
-    if (found && muiButton) {
-      found.click();
+  const found = Array.from(spanItem).find((elem) => {
+    return elem.textContent.trim().startsWith(`${ids[index]}:`);
+  });
 
-      setTimeout(() => {
-        muiButton.click();
-      }, 1000);
+  const muiButton = windowPage.querySelector("button[type='button'][label='Transfer to batch file']");
 
-      let spinnerVisible = false;
+  if (found && muiButton) {
+    found.click();
 
-      const observer = new MutationObserver((mutations, obs) => {
-        const overlay = windowPage.querySelector('div[name="blockOverlay"]');
-        const spinnerContainer = overlay ? overlay.querySelector("span") : null;
-        const hasSpinner = spinnerContainer && spinnerContainer.children.length > 0;
+    setTimeout(() => {
+      muiButton.click();
+    }, 500);
 
-        if (hasSpinner && !spinnerVisible) {
-          spinnerVisible = true;
-          console.log("Спиннер виден!");
-        }
+    let spinnerVisible = false;
+    watchToLoader(windowPage, index, spinnerVisible, ids);
+  }
 
-        if (!hasSpinner && spinnerVisible) {
-          spinnerVisible = false;
-          console.log("SPinner end");
-          obs.disconnect();
-          // thirtyBtn.click();
-        }
-      });
+  console.log("final found:", found);
+}
 
-      observer.observe(windowPage.body, { childList: true, subtree: true });
+function watchToLoader(windowPage, index, spinnerVisible, ids) {
+  const observer = new MutationObserver((mutations, obs) => {
+    const overlay = windowPage.querySelector('div[name="blockOverlay"]');
+    const spinnerContainer = overlay ? overlay.querySelector("span") : null;
+    const hasSpinner = spinnerContainer && spinnerContainer.children.length > 0;
+
+    if (hasSpinner && !spinnerVisible) {
+      spinnerVisible = true;
+      console.log("Спиннер виден!");
+      // openCustomerFilter(ids, index + 1);
     }
 
-    console.log(found);
-  
+    if (!hasSpinner && spinnerVisible) {
+      spinnerVisible = false;
+
+      console.log("SHop id =>", objVal);
+
+      console.log("SPinner end");
+      // openCustomerFilter(ids, index + 1);
+      // chrome.runtime.sendMessage({ action: "nextTab" });
+
+      obs.disconnect();
+    }
+  });
+
+  observer.observe(windowPage.body, { childList: true, subtree: true });
+}
+
+function waitTransferElement(page, selector, count, wait = 5000) {
+  return new Promise((resolve, reject) => {
+    const start = Date.now();
+
+    const timer = setInterval(() => {
+      const element = page.querySelectorAll(selector);
+
+      if (element.length >= count) {
+        console.log("Element is find");
+        clearInterval(timer);
+        resolve(element);
+      } else {
+        console.log("Wait...");
+      }
+    }, 200);
+  });
 }
