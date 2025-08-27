@@ -1,5 +1,5 @@
 // content.js — Time Zone by Language (bez logiki daty)
-console.log("[AutoTZ] content.js loaded");
+// console.log("[AutoTZ] content.js loaded");
 
 const LABEL_TO_TZ = {
   bulgarian:"Europe/Sofia", czech:"Europe/Prague", danish:"Europe/Copenhagen", dutch:"Europe/Amsterdam",
@@ -37,7 +37,9 @@ function applyTZForLabel(label) {
   if (!targetTz) return false;
 
   const opt = findTzOption(tzSel, targetTz);
-  if (!opt) { console.warn("[AutoTZ] no tz option for", targetTz); return false; }
+  if (!opt) { 
+    //console.warn("[AutoTZ] no tz option for", targetTz);
+    return false; }
 
   if (tzSel.value !== opt.value) {
     const before = tzSel.value;
@@ -46,9 +48,9 @@ function applyTZForLabel(label) {
     tzSel.value = opt.value;
     fireAll(tzSel);
     try { if (typeof window.setDateTimeValue === "function") setTimeout(()=>window.setDateTimeValue(),0); } catch {}
-    console.log(`[AutoTZ] TZ "${before}" → "${tzSel.value}"`);
+    // console.log(`[AutoTZ] TZ "${before}" → "${tzSel.value}"`);
   } else {
-    console.log("[AutoTZ] TZ already correct:", tzSel.value);
+    // console.log("[AutoTZ] TZ already correct:", tzSel.value);
   }
 
   // powiadom setDate.js
@@ -63,6 +65,8 @@ function readLabel() {
 }
 
 function initTZ() {
+  document.querySelector("input#guest-email").value = "x@x.x"
+
   // init
   const lab = readLabel(); if (lab) setTimeout(()=>applyTZForLabel(lab), 100);
 
@@ -70,14 +74,14 @@ function initTZ() {
   document.addEventListener("change", (e)=>{
     if (e?.target?.id === "language") {
       const label = readLabel(); if (!label) return;
-      console.log("[AutoTZ] language change → apply TZ in 500ms");
+      // console.log("[AutoTZ] language change → apply TZ in 500ms");
       setTimeout(()=>applyTZForLabel(label), 500);
     }
   }, true);
   document.addEventListener("input", (e)=>{
     if (e?.target?.id === "language") {
       const label = readLabel(); if (!label) return;
-      console.log("[AutoTZ] language input → apply TZ in 500ms");
+      // console.log("[AutoTZ] language input → apply TZ in 500ms");
       setTimeout(()=>applyTZForLabel(label), 500);
     }
   }, true);
@@ -88,7 +92,7 @@ function initTZ() {
     const should = LABEL_TO_TZ[label]; if (!should) return;
     const opt = findTzOption(tzSel, should);
     if (opt && tzSel.value !== opt.value) {
-      console.log("[AutoTZ] watchdog: fix TZ");
+      // console.log("[AutoTZ] watchdog: fix TZ");
       applyTZForLabel(label);
     }
   }, 1000);
@@ -98,4 +102,39 @@ if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initTZ, {once:true});
 } else {
   initTZ();
+}
+
+let copyButton;
+let copyURLBtn;
+const x = setInterval(createCopyURLButton, 1000)
+
+function createCopyURLButton() {
+  copyButton = document.querySelector("button[title='Click to copy code']")
+  if (!copyButton) return;
+  if (copyURLBtn) return;
+
+  copyURLBtn = document.createElement("button")
+  copyURLBtn.textContent = "Copy SRC"
+  copyURLBtn.style.marginRight = "8px"
+  copyURLBtn.onclick = extractURL;
+  copyButton.before(copyURLBtn)
+  clearInterval(x)
+}
+
+async function extractURL() {
+  copyButton.click();
+
+  try {
+    const clipboardText = await navigator.clipboard.readText();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(clipboardText, 'text/html');
+
+    const imageUrl = doc.querySelector('img').src;
+
+    navigator.clipboard.writeText(imageUrl);
+
+  } catch (error) {
+    console.error(error);
+  }
 }
