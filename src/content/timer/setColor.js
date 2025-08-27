@@ -199,8 +199,9 @@
       })
 
       document.querySelector("button#autotz-generate").addEventListener("click", () => {
-        document.querySelector("button#sendtric-button").removeAttribute("disabled");
-        document.querySelector("button#sendtric-button").click();
+        const generateButton = document.querySelector("button#sendtric-button");
+        if (generateButton.getAttribute("disabled")) generateButton.removeAttribute("disabled");
+        generateButton.click();
       })
 
       // jeśli user zmieni kolor „po stronie” → zmirroruj panel
@@ -219,7 +220,7 @@
           applyBg(want, 'watchdog');
         }
         document.querySelector("header")?.remove()
-        document.querySelector(".laptop-and-phone-placeholder-div")?.remove()
+        document.querySelector(".laptop-and-phone-placeholder-div").style.display = "none"
       }, 1200);
 
     } catch (e) {
