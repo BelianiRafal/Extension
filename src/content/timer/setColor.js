@@ -1,7 +1,7 @@
 // setColor.js — domyślne kolory + niebieski panel do Background z polem HEX (IIFE)
 (() => {
   'use strict';
-  console.log('[AutoTZ] setColor.js v2 loaded');
+  // console.log('[AutoTZ] setColor.js v2 loaded');
 
   const BG_KEY = 'AutoTZ:bgColor';
   const qs = (s) => document.querySelector(s);
@@ -28,7 +28,7 @@
       const { r, g, b } = toRGB(hex);
       btn.style.setProperty('--tw-color', `rgb(${r}, ${g}, ${b})`);
     }
-    console.log(`[AutoTZ] set ${id} = ${hex}`);
+    // console.log(`[AutoTZ] set ${id} = ${hex}`);
     return true;
   }
 
@@ -104,7 +104,7 @@
     }
     sessionStorage.setItem(BG_KEY, hex);
     setPickerColor('bg-color-id', hex);
-    console.log(`[AutoTZ] BG -> ${hex} (${reason})`);
+    // console.log(`[AutoTZ] BG -> ${hex} (${reason})`);
   }
 
   async function init() {
@@ -173,13 +173,13 @@
         const want = (sessionStorage.getItem(BG_KEY) || blue.value || '#000000').toLowerCase();
         const have = (pageBgInput?.value || '#000000').toLowerCase();
         if (want !== have) {
-          console.log('[AutoTZ] color watchdog → sync bg');
+          // console.log('[AutoTZ] color watchdog → sync bg');
           applyBg(want, 'watchdog');
         }
       }, 1200);
 
     } catch (e) {
-      console.warn('[AutoTZ] setColor init error:', e);
+      // console.warn('[AutoTZ] setColor init error:', e);
     }
   }
 

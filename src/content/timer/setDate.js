@@ -1,7 +1,7 @@
 // setDate.js — panel daty (niedziela 23:59) + sesyjna pamięć (IIFE)
 (() => {
   'use strict';
-  console.log('[AutoTZ] setDate.js loaded');
+  // console.log('[AutoTZ] setDate.js loaded');
 
   const STORE_KEY = 'AutoTZ:dateISO'; // YYYY-MM-DD
   const qs = (s) => document.querySelector(s);
@@ -93,7 +93,7 @@
     site.dispatchEvent(new Event('input',{bubbles:true}));
     site.dispatchEvent(new Event('change',{bubbles:true}));
     syncing = false;
-    console.log(`[AutoTZ] site #datetime = "${str}" (${reason})`);
+    // console.log(`[AutoTZ] site #datetime = "${str}" (${reason})`);
   }
 
   function initValue() {
@@ -121,7 +121,7 @@
       const isoSite = parseFromSite(getSiteDT().value);
       const isoWant = input.value;
       if (isoSite !== isoWant) {
-        console.log('[AutoTZ] page changed #datetime → restoring from panel');
+        // console.log('[AutoTZ] page changed #datetime → restoring from panel');
         applyToSite(isoWant, 'restore');
       }
     }, true);
