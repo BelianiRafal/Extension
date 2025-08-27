@@ -79,6 +79,9 @@ startBtn.addEventListener("click", async () => {
   if (result.isConfirmed) {
     openMailTable(value);
     chrome.runtime.sendMessage({ action: "setFirstTab" });
+
+    mainCardContainer.style.display = "none";
+    loaderBlock.style.display = "flex";
   } else {
     return false;
   }
@@ -131,6 +134,8 @@ function openMailTable(valueId) {
 function openCustomerFilter(ids, index = 0) {
   if (index >= ids.length) {
     // window.open(planingUrl, "_blank");
+    mainCardContainer.style.display = "flex";
+    loaderBlock.style.display = "";
     swalFireModal(`Woooow`, `Your id is already!`, "success", "", "", false);
     console.log("END");
     return;
@@ -140,37 +145,42 @@ function openCustomerFilter(ids, index = 0) {
   chrome.runtime.sendMessage({ action: "goToFirstTab" });
 
   const newWindow = window.open(`${customerUrl}?filter_id=${idForOpen[index]}`, "_blank");
+
+  const objectKey = Object.keys(shopId).find((key) => shopId[key] === idForOpen[index]);
+
+  console.log(objectKey);
+  console.log("index", idForOpen[index]);
+
   const waitForFilter = setInterval(() => {
     try {
       const doc = newWindow.document;
       if (!doc && doc.readyState !== "complete") return;
 
-      const useSaved = Array.from(doc.querySelectorAll('[id^="undefined--undefined-"]'));
-      console.log(useSaved[23].children[0].children[1].outerText);
+      // const useSaved = Array.from(doc.querySelectorAll('[id^="undefined--undefined-"]'));
+      // console.log(useSaved[23].children[0].children[1].outerText);
 
-      //Находим имя для сохранения
-
-      if (useSaved) {
-        let nameSaveSettings = useSaved[23].children[0].outerText;
-        saveNameText.innerHTML += nameSaveSettings;
-      }
+      //Находим имя для сохранени
 
       const filterBtn = Array.from(doc.querySelectorAll("div button span")).find(
         (span) => span.textContent.trim() === "Filter"
       );
 
-      if (filterBtn && useSaved) {
+      if (filterBtn && objectKey) {
         clearInterval(waitForFilter);
 
+        // saveNameText.innerHTML += objectKey + '<br>';
+        // saveNameStatus.textContent += 'NIXYA' + '<br>';
+
+        updateStatus(objectKey, "&#10060;");
         const filterDiv = filterBtn.closest("div");
         console.log("Нашли Filter:", filterDiv);
         setTimeout(() => {
           filterDiv.click();
 
-          // setTimeout(() => {
-          //    clickToTransferButton(doc, index, ids);
-          // }, 1000)
-        }, 1000);
+          setTimeout(() => {
+            clickToTransferButton(doc, index, ids, objectKey);
+          }, 1000);
+        }, 1300);
       }
     } catch (e) {
       console.warn("Not access", e);
@@ -178,7 +188,7 @@ function openCustomerFilter(ids, index = 0) {
   }, 500);
 }
 
-async function clickToTransferButton(windowPage, index, ids) {
+async function clickToTransferButton(windowPage, index, ids, objectKey) {
   // Code from Second button
   const blockWithId = await waitTransferElement(windowPage, '[id^="undefined--undefined-"]', 27);
   const blockDiv = blockWithId[26];
@@ -206,13 +216,13 @@ async function clickToTransferButton(windowPage, index, ids) {
     }, 500);
 
     let spinnerVisible = false;
-    watchToLoader(windowPage, index, spinnerVisible, ids);
+    watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
   }
 
   console.log("final found:", found);
 }
 
-function watchToLoader(windowPage, index, spinnerVisible, ids) {
+function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
   const observer = new MutationObserver((mutations, obs) => {
     const overlay = windowPage.querySelector('div[name="blockOverlay"]');
     const spinnerContainer = overlay ? overlay.querySelector("span") : null;
@@ -221,15 +231,15 @@ function watchToLoader(windowPage, index, spinnerVisible, ids) {
     if (hasSpinner && !spinnerVisible) {
       spinnerVisible = true;
       console.log("Спиннер виден!");
-      // openCustomerFilter(ids, index + 1);
-    }
+      openCustomerFilter(ids, index + 1);
+    } else if (index === 4) return;
 
     if (!hasSpinner && spinnerVisible) {
       spinnerVisible = false;
 
-      console.log("SHop id =>", objVal);
-
       console.log("SPinner end");
+      updateStatus(objectKey, '&#9989;');
+      // saveNameStatus.textContent += 'Gotowo SUka' + '<br>';
       // openCustomerFilter(ids, index + 1);
       // chrome.runtime.sendMessage({ action: "nextTab" });
 
@@ -251,9 +261,40 @@ function waitTransferElement(page, selector, count, wait = 5000) {
         console.log("Element is find");
         clearInterval(timer);
         resolve(element);
-      } else {
-        console.log("Wait...");
+      } else if(Date.now - start > wait) {
+        console.log('Big time for wait');
+        reject(element);
+        clearInterval(timer);
       }
+
+      console.log('wait...');
     }, 200);
   });
+}
+
+function updateStatus(key, status) {
+  let line = document.querySelector(`[data-key="${key}"]`);
+
+  if (!line) {
+    line = document.createElement("div");
+    line.dataset.key = key;
+    line.className = "saveNameData";
+
+    const keySpan = document.createElement("span");
+    keySpan.textContent = key;
+    keySpan.style.display = "inline-block";
+    keySpan.className = 'saveNameText';
+
+    const statusSpan = document.createElement("span");
+    statusSpan.classList.add("status-cell");
+    statusSpan.textContent = status;
+
+    line.appendChild(keySpan);
+    line.appendChild(statusSpan);
+
+    saveNameBlock.appendChild(line);
+  } else {
+    // обновляем статус, если строка уже есть
+    line.querySelector(".status-cell").textContent = status;
+  }
 }

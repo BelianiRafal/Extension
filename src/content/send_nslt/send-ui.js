@@ -34,16 +34,44 @@ const spanText = document.createElement("span");
 spanText.textContent = "Please paste corrected id";
 spanText.className = "spanAlertText";
 
-let saveNameText = document.createElement("span");
+const spanLoader = document.createElement('span');
+spanLoader.className = 'loaderEye';
+
+const loaderText = document.createElement('p');
+loaderText.className = 'loaderText';
+loaderText.textContent = 'Please wait';
+
+const loaderBlock = document.createElement('div');
+loaderBlock.className = 'loaderBlock';
+
+loaderBlock.append(spanLoader);
+loaderBlock.append(loaderText);
+
+let saveNameText = document.createElement("p");
 saveNameText.textContent = "";
 saveNameText.className = "saveSettingsName";
+
+let saveNameStatus = document.createElement('p');
+saveNameStatus.textContent = '';
+saveNameStatus.className = 'saveStatusName';
+
+const saveNameBlock = document.createElement('div');
+saveNameBlock.className = 'saveNameBlock';
+
+//Статус загрузки
+// saveNameBlock.append(saveNameText);
+// saveNameBlock.append(saveNameStatus);
+
 
 mainCardContainer.append(idForInput);
 mainCardContainer.append(startBtn);
 mainCardContainer.append(closeCard);
+
 mainCard.append(mainCardContainer);
 mainCard.append(spanText);
-mainCard.append(saveNameText);
+mainCard.append(loaderBlock);
+mainCard.append(saveNameBlock);
+
 document.body.append(mainCard);
 document.body.append(button);
 document.body.append(overlay);
