@@ -69,11 +69,44 @@
     const wrap = document.createElement('div');
     wrap.id = 'autotz-bg-wrap';
     wrap.innerHTML = `
-      <label for="autotz-bgcolor">Background color</label>
+      <label for="autotz-bgcolor">Background color:</label>
       <div class="autotz-bg-row">
         <input id="autotz-bgcolor" type="color" />
         <input id="autotz-bghex" type="text" placeholder="#RRGGBB" maxlength="7" spellcheck="false" />
       </div>
+      <label for="autotz-language-selector">Language:</label>
+      <select id="autotz-language-selector">
+        <option value="bg">Bulgarian</option>
+        <option value="cs">Czech</option>
+        <option value="da">Danish</option>
+        <option value="nl">Dutch</option>
+        <option value="en" selected>English</option>
+        <option value="et">Estonian</option>
+        <option value="fi">Finnish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="el">Greek</option>
+        <option value="he">Hebrew</option>
+        <option value="hu">Hungarian</option>
+        <option value="is">Icelandic</option>
+        <option value="it">Italian</option>
+        <option value="ja">Japanese</option>
+        <option value="kn">Korean</option>
+        <option value="lv">Latvian</option>
+        <option value="lt">Lithuanian</option>
+        <option value="no">Norwegian</option>
+        <option value="pl">Polish</option>
+        <option value="pt">Portuguese</option>
+        <option value="ro">Romanian</option>
+        <option value="ru">Russian</option>
+        <option value="csl">Simplified Chinese</option>
+        <option value="sr">Serbian</option>
+        <option value="sk">Slovak</option>
+        <option value="es">Spanish</option>
+        <option value="sv">Swedish</option>
+        <option value="tr">Turkish</option>
+      </select>
+      <button id="autotz-generate" style="margin: 0 4px;">Generate</button>
     `;
     panel.appendChild(wrap);
     return { color: wrap.querySelector('#autotz-bgcolor'), hex: wrap.querySelector('#autotz-bghex') };
@@ -161,6 +194,16 @@
         }
       });
 
+      document.querySelector("#autotz-language-selector").addEventListener('change', (e) => {
+        document.querySelector("select#language").value = e.target.value
+      })
+
+      document.querySelector("button#autotz-generate").addEventListener("click", () => {
+        const generateButton = document.querySelector("button#sendtric-button");
+        if (generateButton.getAttribute("disabled")) generateButton.removeAttribute("disabled");
+        generateButton.click();
+      })
+
       // jeśli user zmieni kolor „po stronie” → zmirroruj panel
       pageBgInput?.addEventListener('change', () => {
         const val = pageBgInput.value;
@@ -176,6 +219,8 @@
           // console.log('[AutoTZ] color watchdog → sync bg');
           applyBg(want, 'watchdog');
         }
+        document.querySelector("header")?.remove()
+        document.querySelector(".laptop-and-phone-placeholder-div").style.display = "none"
       }, 1200);
 
     } catch (e) {
