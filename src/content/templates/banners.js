@@ -81,7 +81,7 @@ const TEMPLATES = [
         padding-left: min(12px, 1vw);
       }
       </style>
-        <a href="[[banner_category_url]]">
+        <a target="_blank" href="[[banner_category_url]]">
           <div id="cgb" class="xyGContainer">
             <div class="textBannerContainer" style="background-color:[[banner_background_desktop]];">
               [[banner_text]]
@@ -119,7 +119,7 @@ const TEMPLATES = [
         padding-left: min(12px, 2vw);
       }
       </style>
-      <a href="[[banner_category_url]]">
+      <a target="_blank" href="[[banner_category_url]]">
         <div id="cgb" class="xyGContainer">
           <div class="textBannerContainer" style="background-color:[[banner_background_mobile]];">
             [[banner_text]]
@@ -154,7 +154,7 @@ const TEMPLATES = [
         @media screen and (max-width: 800px){ #cgb .xyHeader1{ font-size: 30px; } #cgb .xyHeader3{ font-size: 14px; } #cgb .xyCTA{ font-size: 14px; } } 
         @media screen and (max-width: 650px){ #cgb .xyHeader1{ font-size: 20px; } } 
         </style> 
-        <a href="[[banner_category_url]]"> 
+        <a target="_blank" href="[[banner_category_url]]"> 
           <div id="cgb" class="cgbContainer" style="background-color:[[banner_background_desktop]];">
             <div class="textContainer1" style="color:[[banner_text_color]];"> 
              [[banner_text]] 
@@ -192,7 +192,7 @@ const TEMPLATES = [
     </style> 
 
 
-      <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
+      <a href="[[banner_category_url]]" target="_blank" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
       <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
       <div style="padding: 10px 5px 10px 0px;"> 
       [[banner_text]]
@@ -238,7 +238,7 @@ const TEMPLATES = [
         padding-bottom: min(24px, 2vw);
       }
       </style>
-        <a href="[[banner_category_url]]" style="display: block; text-decoration: none; color: [[banner_text_color]];">
+        <a href="[[banner_category_url]]" target="_blank" style="display: block; text-decoration: none; color: [[banner_text_color]];">
         <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_desktop]];">
           <div class="textBannerContainer">
           [[banner_text]]
@@ -274,7 +274,7 @@ const TEMPLATES = [
         padding-bottom: min(24px, 4vw);
       }
       </style>
-      <a href="[[banner_category_url]]" style="display: block; text-decoration: none; color: [[banner_text_color]];">
+      <a href="[[banner_category_url]]" target="_blank" style="display: block; text-decoration: none; color: [[banner_text_color]];">
         <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_mobile]];">
           <div class="textBannerContainer">
            [[banner_text]]
@@ -309,7 +309,7 @@ const TEMPLATES = [
         @media screen and (max-width: 800px){ #cgb .xyHeader1{ font-size: 30px; } #cgb .xyHeader3{ font-size: 14px; } #cgb .xyCTA{ font-size: 14px; } } 
         @media screen and (max-width: 650px){ #cgb .xyHeader1{ font-size: 20px; } } 
         </style> 
-        <a href="[[banner_category_url]]"> 
+        <a target="_blank" href="[[banner_category_url]]"> 
             <div id="cgb" class="cgbContainer" style="background-color:[[banner_background_desktop]];">
               <div class="textContainer1" style="color:[[banner_text_color]];"> 
                [[banner_text]]
@@ -345,7 +345,7 @@ const TEMPLATES = [
         </style> 
 
 
-        <a href="[[banner_category_url]]" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
+        <a href="[[banner_category_url]]" target="_blank" class="xyCTA" style="display: block; text-decoration: none; color: [[banner_text_color]];"> 
           <div id="cgb" class="xyzGridContainer" style="background-color:[[banner_background_mobile]];"> 
             <div style="padding: 10px 5px 10px 0px;"> 
               [[banner_text]]
