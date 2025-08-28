@@ -294,25 +294,15 @@
 
                 await sleep(700);
 
-                copyButton.click();
-
-                await sleep(1000);
-
-                let newSrc = undefined;
-
-                try {
-                  const clipboardText = await navigator.clipboard.readText();
-
-                  const parser = new DOMParser();
-                  const doc = parser.parseFromString(clipboardText, 'text/html');
-
-                  newSrc = doc.querySelector('img').src;
-                } catch (error) {
+                const img = document.querySelector("img[alt='Email Live Countdown Timer']");
+                if (!img) {
                   saved = false;
-                  console.warn("   × Error reading clipboard, please keep focus on this site --- waiting 10s");
-                  await sleep(10000)
+                  console.warn("   × Error reading image source --- waiting 5s");
+                  await sleep(5000)
                   continue;
                 }
+                
+                let newSrc = img.src;
 
                 if (newSrc === "https://www.sendtric.com/wp-content/uploads/2023/08/timerplaceholder.gif") {
                   saved = false;

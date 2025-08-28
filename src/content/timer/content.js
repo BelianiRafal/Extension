@@ -123,19 +123,9 @@ function createCopyURLButton() {
 }
 
 async function extractURL() {
-  copyButton.click();
-
-  try {
-    const clipboardText = await navigator.clipboard.readText();
-
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(clipboardText, 'text/html');
-
-    const imageUrl = doc.querySelector('img').src;
-
+  const img = document.querySelector("img[alt='Email Live Countdown Timer']");
+  if (img) {
+    const imageUrl = img.src;
     navigator.clipboard.writeText(imageUrl);
-
-  } catch (error) {
-    console.error(error);
   }
 }
