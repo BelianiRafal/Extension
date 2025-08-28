@@ -2,6 +2,53 @@
 (() => {
   'use strict';
   // console.log('[AutoTZ] setColor.js v2 loaded');
+  let langToSelectValue = {
+    CHDE:  "de",
+    CHFR:  "fr",
+    FR:    "fr",
+    DE:    "de",
+    UK:    "en",
+    AT:    "de",
+    ES:    "es",
+    PL:    "pl",
+    NL:    "nl",
+    PT:    "pt",
+    IT:    "it",
+    SE:    "sv",
+    HU:    "hu",
+    DK:    "da",
+    CZ:    "cs",
+    FI:    "fi",
+    NO:    "no",
+    SK:    "sk",
+    BENL:  "nl",
+    BEFR:  "fr",
+    RO:    "ro",
+  };
+
+  let generatedTimers = {
+    CHDE:  null,
+    CHFR:  null,
+    FR:    null,
+    DE:    null,
+    UK:    null,
+    AT:    null,
+    ES:    null,
+    PL:    null,
+    NL:    null,
+    PT:    null,
+    IT:    null,
+    SE:    null,
+    HU:    null,
+    DK:    null,
+    CZ:    null,
+    FI:    null,
+    NO:    null,
+    SK:    null,
+    BENL:  null,
+    BEFR:  null,
+    RO:    null,
+  }
 
   const BG_KEY = 'AutoTZ:bgColor';
   const qs = (s) => document.querySelector(s);
@@ -73,6 +120,9 @@
       <div class="autotz-bg-row">
         <input id="autotz-bgcolor" type="color" />
         <input id="autotz-bghex" type="text" placeholder="#RRGGBB" maxlength="7" spellcheck="false" />
+      </div>
+      <div class="autotz-bg-row">
+        <button id="autotz-gen-all">Generate All</button>
       </div>
       <label for="autotz-language-selector">Language:</label>
       <select id="autotz-language-selector">
@@ -194,24 +244,232 @@
         }
       });
 
-      document.querySelector("#autotz-language-selector").addEventListener('change', (e) => {
+      const autoTzLangSelector = document.querySelector("#autotz-language-selector");
+      const autoTzGenerateButton = document.querySelector("button#autotz-generate")
+      const autoTzGenerateALLButton = document.querySelector("button#autotz-gen-all")
+
+      autoTzLangSelector.addEventListener('change', (e) => {
         document.querySelector("select#language").value = e.target.value
       })
 
-      document.querySelector("button#autotz-generate").addEventListener("click", () => {
+      autoTzGenerateButton.addEventListener("click", () => {
         const generateButton = document.querySelector("button#sendtric-button");
         if (generateButton.getAttribute("disabled")) generateButton.removeAttribute("disabled");
         generateButton.click();
       })
 
-      // jeśli user zmieni kolor „po stronie” → zmirroruj panel
+      function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+      autoTzGenerateALLButton.addEventListener("click", tryToGenerateAllAtOnce);
+
+      let lastSaved, isRunning;
+
+
+
+      function tryToGenerateAllAtOnce() {
+        if (isRunning) return;
+
+        const keys = Object.keys(langToSelectValue);
+        const entries = Object.entries(langToSelectValue);
+
+        (async () => {
+          if (isRunning) return;
+          isRunning = true;
+          try {
+            for (const slug of keys) {
+              const language = langToSelectValue[slug];
+              console.log(`--- STARTED GENERATING TIMER FOR: ${slug} [${language}]`);
+
+              let saved = false;
+              const maxAttempts = 15;
+              for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+                console.log(`  → Attempt ${attempt}. for ${slug}:`);
+
+                if (autoTzLangSelector) {
+                  autoTzLangSelector.value = language;
+                  autoTzLangSelector.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+
+                autoTzGenerateButton.click();
+
+                await sleep(700);
+
+                copyButton.click();
+
+                await sleep(1000);
+
+                let newSrc = undefined;
+
+                try {
+                  const clipboardText = await navigator.clipboard.readText();
+
+                  const parser = new DOMParser();
+                  const doc = parser.parseFromString(clipboardText, 'text/html');
+
+                  newSrc = doc.querySelector('img').src;
+                } catch (error) {
+                  saved = false;
+                  console.warn("   × Error reading clipboard, please keep focus on this site --- waiting 10s");
+                  await sleep(10000)
+                  continue;
+                }
+
+                if (newSrc === "https://www.sendtric.com/wp-content/uploads/2023/08/timerplaceholder.gif") {
+                  saved = false;
+                  console.warn("   × Placeholder src found --- waiting 5s");
+                  await sleep(5000);
+                  continue;
+                }
+
+                if (lastSaved === newSrc) {
+                  saved = false;
+                  console.warn("   × Duplicate src found --- waiting 3s (might be captcha)");
+                  await sleep(3000)
+                  continue;
+                }
+
+                generatedTimers[slug] = newSrc;
+                lastSaved = newSrc;
+                console.log(`   ⩗ Saved new unique src for ${slug}: ${newSrc}`);
+                saved = true;
+                break;
+              }
+
+              if (!saved) console.warn(`   × Could not generate valid unique src for ${slug}`);
+
+              await sleep(1000);
+            }
+
+            console.log('-'.repeat(80));
+            console.log("💨 Wygenerowane timery:")
+            console.log(generatedTimers);
+
+            const container = document.querySelector('.result-div-for-code') || document.body;
+            const existing = document.getElementById('results_table');
+            if (existing) existing.remove();
+
+            const table = document.createElement('table');
+            table.id = 'results_table';
+            table.className = 'stripe';
+
+            const thead = document.createElement('thead');
+            thead.innerHTML = '<tr><th>SLUG</th><th>Timer SRC</th></tr>';
+            table.appendChild(thead);
+
+            const prevId = 'autotz-timer-preview';
+            let preview = document.getElementById(prevId);
+            if (preview) preview.remove();
+
+            const styleTag = document.getElementById('autotz-timer-preview-style') || document.createElement('style');
+            styleTag.id = 'autotz-timer-preview-style';
+            styleTag.textContent = `
+              #${prevId} { position: absolute; z-index: 99999; display: none; pointer-events: none; background: #fff; border: 1px solid rgba(0,0,0,0.12); padding: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); border-radius: 6px; }
+              #${prevId} img { max-width: 320px; max-height: 240px; display:block; }
+            `;
+            document.head.appendChild(styleTag);
+
+            preview = document.createElement('div');
+            preview.id = prevId;
+            document.body.appendChild(preview);
+
+            const tbody = document.createElement('tbody');
+            for (const slug of Object.keys(generatedTimers)) {
+              const src = generatedTimers[slug];
+
+              const tr = document.createElement('tr');
+              const tdSlug = document.createElement('td'); tdSlug.textContent = slug;
+              const tdSrc = document.createElement('td');
+
+              if (src) {
+                const a = document.createElement('a');
+                a.href = src; a.target = '_blank'; a.rel = 'noopener noreferrer';
+                a.textContent = src;
+                a.style.wordBreak = 'break-all';
+
+                a.addEventListener('mouseenter', (ev) => {
+                  preview.innerHTML = '';
+                  const img = document.createElement('img');
+                  img.src = src; img.alt = slug;
+                  preview.appendChild(img);
+                  preview.style.display = 'block';
+                  const rect = a.getBoundingClientRect();
+                  const top = window.scrollY + rect.bottom + 8;
+                  const left = window.scrollX + rect.left;
+                  preview.style.top = top + 'px';
+                  preview.style.left = left + 'px';
+                });
+                
+                a.addEventListener('mousemove', (ev) => {
+                  const left = window.scrollX + ev.clientX + 12;
+                  const top = window.scrollY + ev.clientY + 12;
+                  preview.style.top = top + 'px';
+                  preview.style.left = left + 'px';
+                });
+
+                a.addEventListener('mouseleave', () => {
+                  preview.style.display = 'none';
+                });
+
+                tdSrc.appendChild(a);
+              } else {
+                tdSrc.textContent = '';
+              }
+
+              tr.appendChild(tdSlug);
+              tr.appendChild(tdSrc);
+              tbody.appendChild(tr);
+            }
+
+            table.appendChild(tbody);
+            container.appendChild(table);
+
+            // add textarea with full generatedTimers JSON for copy-paste (includes nulls)
+            const existingTa = document.getElementById('autotz-generated-json');
+            if (existingTa) existingTa.remove();
+            const taWrap = document.createElement('div');
+            taWrap.style.marginTop = '12px';
+            const taLabel = document.createElement('label');
+            taLabel.textContent = 'Generated timers (JSON):';
+            taLabel.htmlFor = 'autotz-generated-json';
+            taLabel.style.display = 'block';
+            taLabel.style.fontWeight = '600';
+            taLabel.style.marginBottom = '6px';
+
+            const ta = document.createElement('textarea');
+            ta.id = 'autotz-generated-json';
+            ta.rows = 10;
+            ta.style.width = '100%';
+            ta.style.boxSizing = 'border-box';
+            try {
+              ta.value = JSON.stringify(generatedTimers, null, 2);
+            } catch (e) {
+              ta.value = String(generatedTimers);
+            }
+
+            taWrap.appendChild(taLabel);
+            taWrap.appendChild(ta);
+            container.appendChild(taWrap);
+
+            if (typeof DataTable === 'function') {
+              try {
+                new DataTable('#results_table', { paging: false });
+              } catch (err) {
+                console.warn('DataTable init failed:', err);
+              }
+            }
+          } finally {
+            isRunning = false;
+          }
+
+        })();
+      }
+
       pageBgInput?.addEventListener('change', () => {
         const val = pageBgInput.value;
         const norm = normalizeHex(val);
         if (norm) applyBg(norm, 'page');
       }, true);
 
-      // watchdog — trzymaj zgodność (panel ↔ strona)
       setInterval(() => {
         const want = (sessionStorage.getItem(BG_KEY) || blue.value || '#000000').toLowerCase();
         const have = (pageBgInput?.value || '#000000').toLowerCase();

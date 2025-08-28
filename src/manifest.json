@@ -29,7 +29,7 @@
       "matches": [
         "https://prolodev.prologistics.info/*",
         "https://www.prologistics.info/*",
-				"https://www.prologistics.info/start.php"
+        "https://www.prologistics.info/start.php"
       ],
       "js": ["./content/autoTimeStamp.js", "./content/login/content.js"],
       "run_at": "document_idle"
@@ -203,20 +203,27 @@
         "https://prolodev.prologistics.info/spam_plan.php*"
       ],
       "js": [ "./libraries/sweetalert2.min.js",
-              "./content/planning/subjectLineDB.js",
-              "./content/planning/planning-ui.js",
-              "./content/cgb_templates/loader.js",
+        "./content/planning/subjectLineDB.js",
+        "./content/planning/planning-ui.js",
+        "./content/cgb_templates/loader.js",
          
- 
-              "./content/planning/spam_plan.js",
-              "./content/planning/planningDate.js"
-            ],
+
+        "./content/planning/spam_plan.js",
+        "./content/planning/planningDate.js"
+      ],
       "css":[ "./libraries/sweetalert2.min.css",
               "./content/planning/style.css"]
     },
     {
       "matches": ["https://www.sendtric.com/*"],
-      "js": ["./content/timer/content.js","./content/timer/setDate.js","./content/timer/setColor.js"]
+      "js": [
+        "./libraries/jquery.min.js",
+        "./content/timer/content.js",
+        "./content/timer/setDate.js",
+        "./content/timer/setColor.js",
+        "./libraries/datatable.min.js"
+      ],
+      "css": ["./libraries/datatable.min.css"]
     }
   ],
   "background": {
