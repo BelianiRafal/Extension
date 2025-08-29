@@ -39,7 +39,7 @@ spanLoader.className = 'loaderEye';
 
 const loaderText = document.createElement('p');
 loaderText.className = 'loaderText';
-loaderText.textContent = 'Please wait';
+loaderText.textContent = ' Please wait, we insert ID';
 
 const loaderBlock = document.createElement('div');
 loaderBlock.className = 'loaderBlock';

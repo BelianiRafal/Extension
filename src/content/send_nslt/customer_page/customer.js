@@ -59,6 +59,10 @@ secondBtn.addEventListener("click", () => {
 });
 
 thirtyBtn.addEventListener("click", () => {
-  
+  const registeredSeller = document.querySelectorAll(".panel-body");
+  const nextElement = registeredSeller[0].children[1].children[3];
+  const findArea = Array.from(nextElement.querySelectorAll('[id^="undefined--undefined-"]'));
+  const clickArea = findArea[0].children[0].children[1];
 
+  console.log(findArea);
 });

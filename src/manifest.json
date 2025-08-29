@@ -209,12 +209,6 @@
       "css": ["./libraries/sweetalert2.min.css", "./content/send_nslt/style.css"]
     },
     {
-      "matches": ["https://www.prologistics.info/react/reports_page/customers_newsletter*"],
-      "js": [
-              "./content/send_nslt/customer_page/customer.js"],
-      "css": [ "./content/send_nslt/style.css"]
-    },
-    {
       "matches": ["https://www.sendtric.com/*"],
       "js": [
         "./libraries/jquery.min.js",

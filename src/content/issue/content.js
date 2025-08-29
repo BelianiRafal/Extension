@@ -22,9 +22,9 @@
       }
     } else {
       // Jeśli nie znajduje elementów, spróbuj innego podejścia
-      console.log(
-        "Nie znaleziono elementów z dokładną klasą, szukam alternatywnie...",
-      );
+      // console.log(
+      //   "Nie znaleziono elementów z dokładną klasą, szukam alternatywnie...",
+      // );
 
       // Szukaj elementów które mają w nazwie klasy fragment "issue-module__container"
       const alternativeTargets = document.querySelectorAll(
@@ -62,7 +62,7 @@
 
       // Użyj debounce aby nie wykonywać zbyt często
       timeoutId = setTimeout(() => {
-        console.log("Wykryto zmiany w DOM - próba nadpisania stylu");
+        // console.log("Wykryto zmiany w DOM - próba nadpisania stylu");
         applyStyleOverride();
       }, 100);
     });

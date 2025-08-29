@@ -1,19 +1,7 @@
-//TODO
-//Проверка если кампания создана больше чем 8 дней
-//  После загрузки на одной странице, переходить к другой, когда будет последняя - редирект на спам
-
 const url = "https://www.prologistics.info/react/reports_page/customers_newsletter/?filter_id=";
-
 const customerUrl = "https://www.prologistics.info/react/reports_page/customers_newsletter/";
-
-// const customerUrl = "https://prolodev.prologistics.info/react/reports_page/customers_newsletter/";
-
-// const planingUrl = "https://prolodev.prologistics.info/spam_plan.php";
 const planingUrl = "https://www.prologistics.info/spam_plan.php";
-
-// const newsEmailUrl = "https://prolodev.prologistics.info/news_email.php?id=";
 const newsEmailUrl = "https://www.prologistics.info/news_email.php?id=";
-
 const id = "11607";
 
 const shopId = {
@@ -40,11 +28,6 @@ const shopId = {
   ES: 11613,
   UK: 11621,
 };
-
-// const idForOpen = [
-//   11607, 11606, 11604, 11605, 46175, 11619, 11608, 11609, 11618, 11616, 11612, 11615, 11610, 11614, 79358, 11620, 11617,
-//   1323241, 11603, 165840, 11613, 11621,
-// ];
 
 closeCard.addEventListener("click", () => {
   spanText.classList.remove("show");
@@ -115,18 +98,18 @@ function openMailTable(valueId) {
         clearInterval(waitForMail);
         newsMailWindow.close();
         openCustomerFilter(ids, 0);
+
       } else if (Date.now() - startTimer > 10000) {
-        console.log("Data is not defined!");
         clearInterval(waitForMail);
         newsMailWindow.close();
-        swalFireModal("┐(￣ヘ￣;)┌", "We did not find id your campaign", "error", "", "", false);
+        swalFireModal("┐(￣ヘ￣;)┌", "We did not response for your campaign, repeat again", "error", "", "", false);
         startOrStopLoader(false);
+
       } else if (!resultTime) {
         clearInterval(waitForMail);
-        console.log("Over 8 day");
-        console.log(resultTime);
         swalFireModal("┐(￣ヘ￣;)┌", "Date your campaign over 8 days or does not exist", "error", "", "", false);
         startOrStopLoader(false);
+        newsMailWindow.close();
       }
     } catch (e) {
       console.log(e);
@@ -138,18 +121,18 @@ function openCustomerFilter(ids, index = 0) {
   if (index >= ids.length) {
     startOrStopLoader(false);
     swalFireModal(`Woooow`, `Your id is already!`, "success", "", "", false);
-    console.log("END");
+    idForInput.value = '';
     return;
   }
 
   const valuesForOpen = Object.values(shopId);
 
-  // chrome.runtime.sendMessage({ action: "goToFirstTab" });
+  chrome.runtime.sendMessage({ action: "goToFirstTab" });
   const newWindow = window.open(`${customerUrl}?filter_id=${valuesForOpen[index]}`, "_blank");
   const objectKey = Object.keys(shopId).find((key) => shopId[key] === valuesForOpen[index]);
 
-  console.log(objectKey);
-  console.log("index", valuesForOpen[index]);
+  // console.log(objectKey);
+  // console.log("index", valuesForOpen[index]);
 
   const waitForFilter = setInterval(() => {
     try {
@@ -219,7 +202,7 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
     watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
   }
 
-  console.log("final found:", found);
+  // console.log("final found:", found);
 }
 
 function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
@@ -230,7 +213,7 @@ function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
 
     if (hasSpinner && !spinnerVisible) {
       spinnerVisible = true;
-      console.log("Спиннер виден!");
+      // console.log("Спиннер виден!");
 
       setTimeout(() => {
         openCustomerFilter(ids, index + 1);
@@ -239,7 +222,7 @@ function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
 
     if (!hasSpinner && spinnerVisible) {
       spinnerVisible = false;
-      console.log("SPinner end");
+      // console.log("SPinner end");
       updateStatus(objectKey, "&#9989;");
       obs.disconnect();
     }
@@ -292,7 +275,6 @@ function updateStatus(key, status) {
 
     saveNameBlock.appendChild(line);
   } else {
-    // обновляем статус, если строка уже есть
     line.querySelector(".status-cell").innerHTML = status;
   }
 }
@@ -305,7 +287,7 @@ function startOrStopLoader(status = false) {
   } else {
     mainCardContainer.style.display = "flex";
     loaderBlock.style.display = "none";
-    saveNameBlock.style.display = "none";
+    saveNameBlock.style.display = "flex";
   }
 }
 
