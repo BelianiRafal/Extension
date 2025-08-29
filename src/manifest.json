@@ -193,7 +193,7 @@
       "css": ["./libraries/sweetalert2.min.css", "./content/planning/style.css"]
     },
     {
-      "matches": ["https://www.prologistics.info/shop_promo_partners.php*"],
+      "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
       "js": ["./libraries/sweetalert2.min.js", 
               "./content/send_nslt/send-ui.js", 
               "./content/send_nslt/send.js"],

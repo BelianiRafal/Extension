@@ -264,7 +264,7 @@ async function rowToStart(row) {
       currentButton.click();
 
       item.classList.add("clicked-color");
-      await new Promise((resolve) => setTimeout(resolve, 700));
+      await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
       console.error(error);
     }

@@ -61,13 +61,4 @@ secondBtn.addEventListener("click", () => {
 thirtyBtn.addEventListener("click", () => {
   
 
-  const useSaved = Array.from(document.querySelectorAll('[id^="undefined--undefined-"]'));
-  console.log(useSaved[23].children[0].children[1].outerText);
-
-  // if (useSaved) {
-  //   let nameSaveSettings = useSaved[23].children[0].outerText;
-  //   saveNameText.innerHTML += nameSaveSettings;
-  // }
-
-  
 });

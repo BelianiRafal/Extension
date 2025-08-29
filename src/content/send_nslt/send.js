@@ -41,15 +41,10 @@ const shopId = {
   UK: 11621,
 };
 
-const idForOpen = [
-  11607, 11606, 11604, 11605, 46175, 11619, 11608, 11609, 11618, 11616, 11612, 11615, 11610, 11614, 79358, 11620, 11617,
-  1323241, 11603, 165840, 11613, 11621,
-];
-
-const filterBtn = Array.from(document.querySelectorAll("div button span")).find(
-  (span) => span.textContent.trim() === "Filter"
-);
-const filterDiv = filterBtn?.closest("div");
+// const idForOpen = [
+//   11607, 11606, 11604, 11605, 46175, 11619, 11608, 11609, 11618, 11616, 11612, 11615, 11610, 11614, 79358, 11620, 11617,
+//   1323241, 11603, 165840, 11613, 11621,
+// ];
 
 closeCard.addEventListener("click", () => {
   spanText.classList.remove("show");
@@ -69,8 +64,9 @@ button.addEventListener("click", async () => {
 startBtn.addEventListener("click", async () => {
   spanText.classList.remove("show");
   const value = idForInput.value;
+  const regex = /[a-zA-Z]|\d{7,}/;
 
-  if (value === "") {
+  if (value === "" || regex.test(value)) {
     spanText.classList.add("show");
     return;
   }
@@ -80,29 +76,26 @@ startBtn.addEventListener("click", async () => {
     openMailTable(value);
     chrome.runtime.sendMessage({ action: "setFirstTab" });
 
-    mainCardContainer.style.display = "none";
-    loaderBlock.style.display = "flex";
+    startOrStopLoader(true);
   } else {
     return false;
   }
 });
 
-//34616
-//prod id = 36664
-
 function openMailTable(valueId) {
   const ids = [];
-  // const idsDev = [34626, 34627, 34628, 34629];
   const newsMailWindow = window.open(`${newsEmailUrl + valueId}`, "_blank");
+  const startTimer = Date.now();
 
   const waitForMail = setInterval(() => {
     try {
       const doc = newsMailWindow.document;
       if (!doc || doc.readyState !== "complete") return;
+      const resultTime = differenceTime(doc);
 
       const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
 
-      if (tableMain.length > 0) {
+      if (tableMain.length > 0 && resultTime) {
         tableMain.forEach((item, index) => {
           const url = item.href;
           const valueInLink = url.match(/id=(\d+)/);
@@ -119,11 +112,21 @@ function openMailTable(valueId) {
         //Remove id for BEFR/BENL
         ids.splice(5, 2);
         console.log(ids);
-
         clearInterval(waitForMail);
         newsMailWindow.close();
-
         openCustomerFilter(ids, 0);
+      } else if (Date.now() - startTimer > 10000) {
+        console.log("Data is not defined!");
+        clearInterval(waitForMail);
+        newsMailWindow.close();
+        swalFireModal("┐(￣ヘ￣;)┌", "We did not find id your campaign", "error", "", "", false);
+        startOrStopLoader(false);
+      } else if (!resultTime) {
+        clearInterval(waitForMail);
+        console.log("Over 8 day");
+        console.log(resultTime);
+        swalFireModal("┐(￣ヘ￣;)┌", "Date your campaign over 8 days or does not exist", "error", "", "", false);
+        startOrStopLoader(false);
       }
     } catch (e) {
       console.log(e);
@@ -133,54 +136,53 @@ function openMailTable(valueId) {
 
 function openCustomerFilter(ids, index = 0) {
   if (index >= ids.length) {
-    // window.open(planingUrl, "_blank");
-    mainCardContainer.style.display = "flex";
-    loaderBlock.style.display = "";
+    startOrStopLoader(false);
     swalFireModal(`Woooow`, `Your id is already!`, "success", "", "", false);
     console.log("END");
     return;
   }
 
-  // const customerOpenId = [11618, 11616, 11612, 11615];
-  chrome.runtime.sendMessage({ action: "goToFirstTab" });
+  const valuesForOpen = Object.values(shopId);
 
-  const newWindow = window.open(`${customerUrl}?filter_id=${idForOpen[index]}`, "_blank");
-
-  const objectKey = Object.keys(shopId).find((key) => shopId[key] === idForOpen[index]);
+  // chrome.runtime.sendMessage({ action: "goToFirstTab" });
+  const newWindow = window.open(`${customerUrl}?filter_id=${valuesForOpen[index]}`, "_blank");
+  const objectKey = Object.keys(shopId).find((key) => shopId[key] === valuesForOpen[index]);
 
   console.log(objectKey);
-  console.log("index", idForOpen[index]);
+  console.log("index", valuesForOpen[index]);
 
   const waitForFilter = setInterval(() => {
     try {
       const doc = newWindow.document;
       if (!doc && doc.readyState !== "complete") return;
 
-      // const useSaved = Array.from(doc.querySelectorAll('[id^="undefined--undefined-"]'));
-      // console.log(useSaved[23].children[0].children[1].outerText);
-
-      //Находим имя для сохранени
+      const registeredSeller = doc.querySelectorAll(".panel-body");
+      const nextElement = registeredSeller[0].children[1].children[3];
+      const findArea = Array.from(nextElement.querySelectorAll('[id^="undefined--undefined-"]'));
+      const clickArea = findArea[0].children[0].children[1];
 
       const filterBtn = Array.from(doc.querySelectorAll("div button span")).find(
         (span) => span.textContent.trim() === "Filter"
       );
 
-      if (filterBtn && objectKey) {
+      if (filterBtn && objectKey && clickArea) {
         clearInterval(waitForFilter);
-
-        // saveNameText.innerHTML += objectKey + '<br>';
-        // saveNameStatus.textContent += 'NIXYA' + '<br>';
-
         updateStatus(objectKey, "&#10060;");
+
+        clickArea.click();
+        setTimeout(() => {
+          clickArea.click();
+        }, 200);
+
         const filterDiv = filterBtn.closest("div");
-        console.log("Нашли Filter:", filterDiv);
+        console.log("Find filter:", filterDiv);
         setTimeout(() => {
           filterDiv.click();
 
           setTimeout(() => {
             clickToTransferButton(doc, index, ids, objectKey);
           }, 1000);
-        }, 1300);
+        }, 1500);
       }
     } catch (e) {
       console.warn("Not access", e);
@@ -199,9 +201,7 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
   }
 
   const spanItem = await windowPage.querySelectorAll('span[role="menuitem"]');
-
   console.log(ids[index]);
-
   const found = Array.from(spanItem).find((elem) => {
     return elem.textContent.trim().startsWith(`${ids[index]}:`);
   });
@@ -231,18 +231,16 @@ function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
     if (hasSpinner && !spinnerVisible) {
       spinnerVisible = true;
       console.log("Спиннер виден!");
-      openCustomerFilter(ids, index + 1);
-    } else if (index === 4) return;
+
+      setTimeout(() => {
+        openCustomerFilter(ids, index + 1);
+      }, 2000);
+    }
 
     if (!hasSpinner && spinnerVisible) {
       spinnerVisible = false;
-
       console.log("SPinner end");
-      updateStatus(objectKey, '&#9989;');
-      // saveNameStatus.textContent += 'Gotowo SUka' + '<br>';
-      // openCustomerFilter(ids, index + 1);
-      // chrome.runtime.sendMessage({ action: "nextTab" });
-
+      updateStatus(objectKey, "&#9989;");
       obs.disconnect();
     }
   });
@@ -261,13 +259,13 @@ function waitTransferElement(page, selector, count, wait = 5000) {
         console.log("Element is find");
         clearInterval(timer);
         resolve(element);
-      } else if(Date.now - start > wait) {
-        console.log('Big time for wait');
+      } else if (Date.now - start > wait) {
+        console.log("Big time for wait");
         reject(element);
         clearInterval(timer);
       }
 
-      console.log('wait...');
+      console.log("wait...");
     }, 200);
   });
 }
@@ -283,11 +281,11 @@ function updateStatus(key, status) {
     const keySpan = document.createElement("span");
     keySpan.textContent = key;
     keySpan.style.display = "inline-block";
-    keySpan.className = 'saveNameText';
+    keySpan.className = "saveNameText";
 
     const statusSpan = document.createElement("span");
     statusSpan.classList.add("status-cell");
-    statusSpan.textContent = status;
+    statusSpan.innerHTML = status;
 
     line.appendChild(keySpan);
     line.appendChild(statusSpan);
@@ -295,6 +293,51 @@ function updateStatus(key, status) {
     saveNameBlock.appendChild(line);
   } else {
     // обновляем статус, если строка уже есть
-    line.querySelector(".status-cell").textContent = status;
+    line.querySelector(".status-cell").innerHTML = status;
   }
+}
+
+function startOrStopLoader(status = false) {
+  if (status) {
+    mainCardContainer.style.display = "none";
+    loaderBlock.style.display = "flex";
+    saveNameBlock.style.display = "flex";
+  } else {
+    mainCardContainer.style.display = "flex";
+    loaderBlock.style.display = "none";
+    saveNameBlock.style.display = "none";
+  }
+}
+
+function getMyTime() {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  const cutoff = new Date(now);
+  const yyyy = cutoff.getFullYear();
+  const mm = String(cutoff.getMonth() + 1).padStart(2, "0");
+  const dd = String(cutoff.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function differenceTime(doc) {
+  const myTime = getMyTime();
+  let result = "";
+
+  const firstAddedTime = doc.querySelectorAll('center table tbody tr input[type="submit"][name="update_body"]');
+  const timeTr = firstAddedTime[0].closest("tr").nextElementSibling;
+  console.log(timeTr);
+  const TimeTd = timeTr.querySelectorAll("td");
+  const timeName = TimeTd[1]?.innerText.split(" ")[3];
+
+  console.log("Name time -", timeName);
+  console.log("My time - ", myTime);
+
+  const nameDate = new Date(timeName);
+  const myDate = new Date(myTime);
+
+  const differenceInMs = myDate - nameDate;
+  const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
+
+  return (result = differenceInDays < 8);
 }

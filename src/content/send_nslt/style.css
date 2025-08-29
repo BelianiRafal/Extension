@@ -119,8 +119,11 @@ body {
 }
 
 .saveNameBlock {
-  display: flex;
+  display: none;
   flex-direction: column;
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .saveNameData {
@@ -135,7 +138,7 @@ body {
 .saveNameData::after {
   content: '';
   position: absolute;
-  top: 13px;
+  top: 18px;
   width: 80%;
   height: 2px;
   background: green;
@@ -148,8 +151,8 @@ body {
 
 .closeBtn {
   position: absolute;
-  top: -3px;
-  right: -3px;
+  top: -17px;
+  right: -2px;
   border: 1px solid rgb(255, 65, 65);
   background: rgb(255, 65, 65);
   color: #fff;
@@ -174,7 +177,8 @@ body {
   border-radius: 50%;
   cursor: pointer;
   position: fixed;
-  top: 20px;
+  top: 10px;
+  /* top: 20px; */
   right: 20px;
   overflow: hidden;
   transition-duration: .3s;

@@ -58,11 +58,6 @@ saveNameStatus.className = 'saveStatusName';
 const saveNameBlock = document.createElement('div');
 saveNameBlock.className = 'saveNameBlock';
 
-//Статус загрузки
-// saveNameBlock.append(saveNameText);
-// saveNameBlock.append(saveNameStatus);
-
-
 mainCardContainer.append(idForInput);
 mainCardContainer.append(startBtn);
 mainCardContainer.append(closeCard);
@@ -87,8 +82,3 @@ function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCan
   });
 }
 
-// const secondBtn = document.createElement("button");
-// secondBtn.className = "secondBtn";
-// secondBtn.textContent = "SECOND BTN";
-
-// document.body.append(secondBtn);
