@@ -61,7 +61,7 @@ function setupPurge() {
     const savedUrls = JSON.parse(
       localStorage.getItem("purgeSavedUrls") || "[]"
     );
-    if (savedUrls.length === 0) return;
+
     savedUrlsSelect = document.createElement("select");
     savedUrlsSelect.multiple = true;
     savedUrlsSelect.size = Math.min(savedUrls.length, 6);
@@ -116,6 +116,12 @@ function setupPurge() {
         renderSavedUrlsSelect();
       }
     });
+
+    if (savedUrls.length === 0) {
+      clearBtn.disabled = true;
+      removeSelectedBtn.disabled = true;
+      insertBtn.disabled = true;
+    }
 
     const controls = [savedUrlsSelect, insertBtn, removeSelectedBtn, clearBtn];
 

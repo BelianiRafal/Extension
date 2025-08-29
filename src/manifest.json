@@ -151,8 +151,7 @@
         "./content/linkifyjs/linkify.js",
         "./content/linkifyjs/linkify-html.min.js",
         "./content/issue.js",
-        "./content/issue/checklistWatcher.dom.js",
-        "./content/issue/checklistWatcher.api.js"
+        "./content/issue/nltrChecklistMap.bundle.js"
       ]
     },
     {
@@ -190,7 +189,17 @@
         "./content/planning/spam_plan.js",
         "./content/planning/planningDate.js"
       ],
-      "css": ["./libraries/sweetalert2.min.css", "./content/planning/style.css"]
+      "js": [ "./libraries/sweetalert2.min.js",
+        "./content/planning/subjectLineDB.js",
+        "./content/planning/planning-ui.js",
+        "./content/cgb_templates/loader.js",
+         
+
+        "./content/planning/spam_plan.js",
+        "./content/planning/planningDate.js"
+      ],
+      "css":[ "./libraries/sweetalert2.min.css",
+              "./content/planning/style.css"]
     },
     {
       "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
@@ -207,7 +216,14 @@
     },
     {
       "matches": ["https://www.sendtric.com/*"],
-      "js": ["./content/timer/content.js", "./content/timer/setDate.js", "./content/timer/setColor.js"]
+      "js": [
+        "./libraries/jquery.min.js",
+        "./content/timer/content.js",
+        "./content/timer/setDate.js",
+        "./content/timer/setColor.js",
+        "./libraries/datatable.min.js"
+      ],
+      "css": ["./libraries/datatable.min.css"]
     }
   ],
   "background": {
