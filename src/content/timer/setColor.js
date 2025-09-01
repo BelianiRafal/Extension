@@ -264,6 +264,38 @@
 
       let lastSaved, isRunning;
 
+      const timeZone = document.querySelector("#timezone")
+      const slugToTimeZone = { 
+        bg: "Europe/Sofia",
+        cs: "Europe/Prague",
+        da: "Europe/Copenhagen",
+        nl: "Europe/Amsterdam",
+        en: "Europe/London",
+        et: "Europe/Tallinn",
+        fi: "Europe/Helsinki",
+        fr: "Europe/Paris",
+        de: "Europe/Berlin",
+        el: "Europe/Athens",
+        he: "Asia/Jerusalem",
+        hu: "Europe/Budapest",
+        is: "Atlantic/Reykjavik",
+        it: "Europe/Rome",
+        ja: "Asia/Tokyo",
+        ko: "Asia/Seoul",
+        lv: "Europe/Riga",
+        lt: "Europe/Vilnius",
+        no: "Europe/Oslo",
+        pl: "Europe/Warsaw",
+        pt: "Europe/Lisbon",
+        ro: "Europe/Bucharest",
+        ru: "Europe/Moscow",
+        "csl": "Asia/Shanghai",
+        sr: "Europe/Belgrade",
+        sk: "Europe/Bratislava",
+        es: "Europe/Madrid",
+        sv: "Europe/Stockholm",
+        tr: "Europe/Istanbul",
+      }
 
 
       function tryToGenerateAllAtOnce() {
@@ -290,6 +322,17 @@
                   autoTzLangSelector.dispatchEvent(new Event('change', { bubbles: true }));
                 }
 
+                await sleep(2500);
+                
+                if (timeZone.value !== slugToTimeZone[langToSelectValue[slug]]) {
+                  // console.log(slug, slugToTimeZone)
+                  console.log(`Sendtric TZ: ${timeZone.value}, Needed TZ: ${slugToTimeZone[langToSelectValue[slug]]}`)
+                  saved = false;
+                  console.warn("   × Wrong timezone is set! --- waiting 3s");
+                  await sleep(3000);
+                  continue;
+                }
+                
                 autoTzGenerateButton.click();
 
                 await sleep(700);
