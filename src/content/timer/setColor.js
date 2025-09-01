@@ -297,7 +297,6 @@
         tr: "Europe/Istanbul",
       }
 
-
       function tryToGenerateAllAtOnce() {
         if (isRunning) return;
 
@@ -456,32 +455,65 @@
             table.appendChild(tbody);
             container.appendChild(table);
 
-            // add textarea with full generatedTimers JSON for copy-paste (includes nulls)
-            const existingTa = document.getElementById('autotz-generated-json');
-            if (existingTa) existingTa.remove();
-            const taWrap = document.createElement('div');
-            taWrap.style.marginTop = '12px';
-            const taLabel = document.createElement('label');
-            taLabel.textContent = 'Generated timers (JSON):';
-            taLabel.htmlFor = 'autotz-generated-json';
-            taLabel.style.display = 'block';
-            taLabel.style.fontWeight = '600';
-            taLabel.style.marginBottom = '6px';
+            function createTextArea(name, value, label) {
+              const existingTa = document.getElementById(name);
+              if (existingTa) existingTa.remove();
 
-            const ta = document.createElement('textarea');
-            ta.id = 'autotz-generated-json';
-            ta.rows = 10;
-            ta.style.width = '100%';
-            ta.style.boxSizing = 'border-box';
-            try {
-              ta.value = JSON.stringify(generatedTimers, null, 2);
-            } catch (e) {
-              ta.value = String(generatedTimers);
+              const textAreaWrapper = document.createElement('div');
+              textAreaWrapper.style.marginTop = '12px';
+              
+              const labelElement = document.createElement('label');
+              labelElement.textContent = label;
+              labelElement.htmlFor = name;
+              labelElement.style.display = 'block';
+              labelElement.style.fontWeight = '600';
+              labelElement.style.marginBottom = '6px';
+
+              const textArea = document.createElement('textarea');
+              textArea.id = name;
+              textArea.rows = 10;
+              textArea.style.width = '100%';
+              textArea.style.boxSizing = 'border-box';
+
+              textArea.value = value;
+
+              textAreaWrapper.appendChild(labelElement);
+              textAreaWrapper.appendChild(textArea);
+
+              return textAreaWrapper;
             }
 
-            taWrap.appendChild(taLabel);
-            taWrap.appendChild(ta);
-            container.appendChild(taWrap);
+            const jsonTA = createTextArea("autotz-generated-json", JSON.stringify(generatedTimers, null, 2), "Generated timers (JSON):");
+
+            const timersOrderedByCSVSlugs = {
+              uk: generatedTimers.UK,
+              pl: generatedTimers.PL,
+              de: generatedTimers.DE,
+              at: generatedTimers.AT,
+              chde: generatedTimers.CHDE,
+              nl: generatedTimers.NL,
+              fr: generatedTimers.FR,
+              chfr: generatedTimers.CHFR,
+              es: generatedTimers.ES,
+              pt: generatedTimers.PT,
+              it: generatedTimers.IT,
+              dk: generatedTimers.DK,
+              no: generatedTimers.NO,
+              fi: generatedTimers.FI,
+              se: generatedTimers.SE,
+              cz: generatedTimers.CZ,
+              sk: generatedTimers.SK,
+              hu: generatedTimers.HU,
+              ro: generatedTimers.RO
+            }
+            const csvTA = createTextArea("autotz-generated-csv", Object.entries(timersOrderedByCSVSlugs).map(([slug, timer]) => {
+              return `${timer}`
+            }).join("\n"), "Generated timers (CSV):");
+
+
+
+            container.appendChild(jsonTA);
+            container.appendChild(csvTA);
 
             if (typeof DataTable === 'function') {
               try {
