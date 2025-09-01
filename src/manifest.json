@@ -185,16 +185,6 @@
         "./content/planning/subjectLineDB.js",
         "./content/planning/planning-ui.js",
         "./content/cgb_templates/loader.js",
-
-        "./content/planning/spam_plan.js",
-        "./content/planning/planningDate.js"
-      ],
-      "js": [ "./libraries/sweetalert2.min.js",
-        "./content/planning/subjectLineDB.js",
-        "./content/planning/planning-ui.js",
-        "./content/cgb_templates/loader.js",
-         
-
         "./content/planning/spam_plan.js",
         "./content/planning/planningDate.js"
       ],
