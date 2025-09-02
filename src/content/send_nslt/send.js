@@ -44,25 +44,89 @@ button.addEventListener("click", async () => {
   mainCard.classList.add("explode-animation");
 });
 
-startBtn.addEventListener("click", async () => {
-  spanText.classList.remove("show");
-  const value = idForInput.value;
-  const regex = /[a-zA-Z]|\d{7,}/;
+// startBtn.addEventListener("click", async () => {
+//   spanText.classList.remove("show");
+//   const value = idForInput.value;
+//   const regex = /[a-zA-Z]|\d{7,}/;
 
-  if (value === "" || regex.test(value)) {
-    spanText.classList.add("show");
+//   if (value === "" || regex.test(value)) {
+//     spanText.classList.add("show");
+//     return;
+//   }
+
+//   const result = await swalFireModal(`Campaing id "${value}" is correct?`, ``, "question", "", "", true);
+//   if (result.isConfirmed) {
+//     openMailTable(value);
+//     chrome.runtime.sendMessage({ action: "setFirstTab" });
+//     startOrStopLoader(true);
+//   } else {
+//     return false;
+//   }
+// });
+
+getCampaignIdBtn.addEventListener("click", async () => {
+  const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
+  const getText = Array.from(findChecklistText).find((text) => {
+    return text.textContent.toLowerCase().trim().includes("newsletter testing");
+  });
+
+  const ulList = getText.nextSibling;
+  const ulItem = ulList.querySelectorAll('ul div li div [class^="jss"] a');
+  const hasCHDE = Array.from(ulItem).find((item) => {
+    return item.previousSibling.textContent.includes("CHDE");
+  });
+
+
+  //Тут сортируем есть ли еще чеклисты
+  //Сделать отдельную функцию для получения ид, если 2 чеклиста
+  //Добавь игру в камень ножницы.
+
+  const AB = Array.from(findChecklistText).filter((item) => {
+    return item.textContent.toLowerCase().trim().includes("newsletter testing");
+  });
+
+  const ABlist = AB.forEach((item) => {
+    const itemList = item.nextSibling;
+    const ulItem = itemList.querySelectorAll('ul div li div [class^="jss"] a');
+    const itemHasCHDE = Array.from(ulItem).find((item) => {
+      return item.previousSibling.textContent.includes("CHDE");
+    });
+
+    const chdeLinkId = itemHasCHDE.href.split("id=")[1];
+
+    //Назначаем кнопке значение с ид и кликаем по нужным, дальше нужно передать это значение
+    const abBtn = document.createElement('button');
+    abBtn.textContent = chdeLinkId;
+    abBtn.value = chdeLinkId;
+    mainCardContainer.append(abBtn);
+
+    abBtn.addEventListener('click', (e) => {
+      console.log(e.currentTarget.value);
+    })
+
+    getCampaignIdBtn.disabled = true;
+    
+  });
+
+  if (!hasCHDE) {
+    swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
     return;
   }
 
-  const result = await swalFireModal(`Campaing id "${value}" is correct?`, ``, "question", "", "", true);
-  if (result.isConfirmed) {
-    openMailTable(value);
-    chrome.runtime.sendMessage({ action: "setFirstTab" });
+  console.log("Ul list:", findChecklistText);
+  console.log("Get text:", getText);
 
-    startOrStopLoader(true);
-  } else {
-    return false;
-  }
+  const chdeLink = hasCHDE.href.split("id=")[1];
+  console.log("Link:", chdeLink);
+
+  // const result = await swalFireModal(`Campaing id "${chdeLink}" is correct?`, ``, "question", "", "", true);
+  // if (result.isConfirmed) {
+  //   openMailTable(value);
+  //   chrome.runtime.sendMessage({ action: "setFirstTab" });
+  //   startOrStopLoader(true);
+  // } else {
+  //   return false;
+  // }
 });
 
 function openMailTable(valueId) {
@@ -98,13 +162,11 @@ function openMailTable(valueId) {
         clearInterval(waitForMail);
         newsMailWindow.close();
         openCustomerFilter(ids, 0);
-
       } else if (Date.now() - startTimer > 10000) {
         clearInterval(waitForMail);
         newsMailWindow.close();
         swalFireModal("┐(￣ヘ￣;)┌", "We did not response for your campaign, repeat again", "error", "", "", false);
         startOrStopLoader(false);
-
       } else if (!resultTime) {
         clearInterval(waitForMail);
         swalFireModal("┐(￣ヘ￣;)┌", "Date your campaign over 8 days or does not exist", "error", "", "", false);
@@ -121,7 +183,7 @@ function openCustomerFilter(ids, index = 0) {
   if (index >= ids.length) {
     startOrStopLoader(false);
     swalFireModal(`Woooow`, `Your id is already!`, "success", "", "", false);
-    idForInput.value = '';
+    idForInput.value = "";
     return;
   }
 
@@ -130,9 +192,6 @@ function openCustomerFilter(ids, index = 0) {
   chrome.runtime.sendMessage({ action: "goToFirstTab" });
   const newWindow = window.open(`${customerUrl}?filter_id=${valuesForOpen[index]}`, "_blank");
   const objectKey = Object.keys(shopId).find((key) => shopId[key] === valuesForOpen[index]);
-
-  // console.log(objectKey);
-  // console.log("index", valuesForOpen[index]);
 
   const waitForFilter = setInterval(() => {
     try {
@@ -162,9 +221,9 @@ function openCustomerFilter(ids, index = 0) {
         setTimeout(() => {
           filterDiv.click();
 
-          setTimeout(() => {
-            clickToTransferButton(doc, index, ids, objectKey);
-          }, 1000);
+          // setTimeout(() => {
+          //   clickToTransferButton(doc, index, ids, objectKey);
+          // }, 1000);
         }, 1500);
       }
     } catch (e) {

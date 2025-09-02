@@ -10,6 +10,24 @@ idForInput.type = "number";
 idForInput.className = "mainInput";
 idForInput.placeholder = "Id for CHDE campaign";
 
+const getCampaignIdBtn = document.createElement("button");
+getCampaignIdBtn.innerHTML = `
+  <svg
+      viewBox="0 0 16 16"
+      class="bi bi-lightning-charge-fill"
+      fill="currentColor"
+      height="16"
+      width="16"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"
+      ></path></svg
+    >
+`;
+getCampaignIdBtn.className = "getCampaignId";
+getCampaignIdBtn.textContent = "Get id CHDE";
+
 const closeBtn = document.createElement;
 
 const mainCard = document.createElement("div");
@@ -34,15 +52,15 @@ const spanText = document.createElement("span");
 spanText.textContent = "Please paste corrected id";
 spanText.className = "spanAlertText";
 
-const spanLoader = document.createElement('span');
-spanLoader.className = 'loaderEye';
+const spanLoader = document.createElement("span");
+spanLoader.className = "loaderEye";
 
-const loaderText = document.createElement('p');
-loaderText.className = 'loaderText';
-loaderText.textContent = ' Please wait, we insert ID';
+const loaderText = document.createElement("p");
+loaderText.className = "loaderText";
+loaderText.textContent = " Please wait, we insert ID";
 
-const loaderBlock = document.createElement('div');
-loaderBlock.className = 'loaderBlock';
+const loaderBlock = document.createElement("div");
+loaderBlock.className = "loaderBlock";
 
 loaderBlock.append(spanLoader);
 loaderBlock.append(loaderText);
@@ -51,16 +69,17 @@ let saveNameText = document.createElement("p");
 saveNameText.textContent = "";
 saveNameText.className = "saveSettingsName";
 
-let saveNameStatus = document.createElement('p');
-saveNameStatus.textContent = '';
-saveNameStatus.className = 'saveStatusName';
+let saveNameStatus = document.createElement("p");
+saveNameStatus.textContent = "";
+saveNameStatus.className = "saveStatusName";
 
-const saveNameBlock = document.createElement('div');
-saveNameBlock.className = 'saveNameBlock';
+const saveNameBlock = document.createElement("div");
+saveNameBlock.className = "saveNameBlock";
 
-mainCardContainer.append(idForInput);
-mainCardContainer.append(startBtn);
+// mainCardContainer.append(idForInput);
+// mainCardContainer.append(startBtn);
 mainCardContainer.append(closeCard);
+mainCardContainer.append(getCampaignIdBtn);
 
 mainCard.append(mainCardContainer);
 mainCard.append(spanText);
@@ -81,4 +100,3 @@ function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCan
     showCancelButton: needCancel,
   });
 }
-
