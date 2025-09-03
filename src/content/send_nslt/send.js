@@ -29,6 +29,8 @@ const shopId = {
   UK: 11621,
 };
 
+// mainCard.style.backgroundImage = `url("${chrome.runtime.getURL('content/send_nslt/game/img/cactus-game.png')}")`;
+
 closeCard.addEventListener("click", () => {
   spanText.classList.remove("show");
   mainCard.classList.add("implode-animation");
@@ -76,6 +78,7 @@ getCampaignIdBtn.addEventListener("click", async () => {
     return item.previousSibling.textContent.includes("CHDE");
   });
 
+  const chdeLinkId = hasCHDE.href.split("id=")[1];
 
   //Тут сортируем есть ли еще чеклисты
   //Сделать отдельную функцию для получения ид, если 2 чеклиста
@@ -85,28 +88,50 @@ getCampaignIdBtn.addEventListener("click", async () => {
     return item.textContent.toLowerCase().trim().includes("newsletter testing");
   });
 
-  const ABlist = AB.forEach((item) => {
-    const itemList = item.nextSibling;
-    const ulItem = itemList.querySelectorAll('ul div li div [class^="jss"] a');
-    const itemHasCHDE = Array.from(ulItem).find((item) => {
-      return item.previousSibling.textContent.includes("CHDE");
-    });
+  // const ABlist = AB.forEach((item) => {
+  //   const itemList = item.nextSibling;
+  //   const ulItem = itemList.querySelectorAll('ul div li div [class^="jss"] a');
+  //   const itemHasCHDE = Array.from(ulItem).find((item) => {
+  //     return item.previousSibling.textContent.includes("CHDE");
+  //   });
+  //   const chdeLinkId = itemHasCHDE.href.split("id=")[1];
 
-    const chdeLinkId = itemHasCHDE.href.split("id=")[1];
+  //   //Назначаем кнопке значение с ид и кликаем по нужным, дальше нужно передать это значение
+  //   const abBtn = document.createElement("button");
+  //   abBtn.textContent = chdeLinkId;
+  //   abBtn.value = chdeLinkId;
+  //   abBtn.className = "abBtn";
+  //   ABbtnContainer.append(abBtn);
 
-    //Назначаем кнопке значение с ид и кликаем по нужным, дальше нужно передать это значение
-    const abBtn = document.createElement('button');
-    abBtn.textContent = chdeLinkId;
-    abBtn.value = chdeLinkId;
-    mainCardContainer.append(abBtn);
+  //   console.log("AB length", AB.length);
 
-    abBtn.addEventListener('click', (e) => {
-      console.log(e.currentTarget.value);
-    })
+  //   abBtn.addEventListener("click", async (e) => {
+  //     console.log(e.currentTarget.value);
 
-    getCampaignIdBtn.disabled = true;
-    
-  });
+  //     // const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
+  //     // if (result.isConfirmed) {
+  //     //   openMailTable(chdeLinkId);
+  //     //   chrome.runtime.sendMessage({ action: "setFirstTab" });
+  //     //   startOrStopLoader(true);
+  //     // } else {
+  //     //   getCampaignIdBtn.disabled = false;
+  //     //   return false;
+  //     // }
+  //   });
+
+  //   getCampaignIdBtn.disabled = true;
+  // });
+
+  if (AB.length === 1) {
+    const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
+    if (result.isConfirmed) {
+      openMailTable(chdeLinkId);
+      chrome.runtime.sendMessage({ action: "setFirstTab" });
+      startOrStopLoader(true);
+    } else {
+      return false;
+    }
+  }
 
   if (!hasCHDE) {
     swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
@@ -138,11 +163,9 @@ function openMailTable(valueId) {
     try {
       const doc = newsMailWindow.document;
       if (!doc || doc.readyState !== "complete") return;
-      const resultTime = differenceTime(doc);
-
       const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
 
-      if (tableMain.length > 0 && resultTime) {
+      if (tableMain.length > 0) {
         tableMain.forEach((item, index) => {
           const url = item.href;
           const valueInLink = url.match(/id=(\d+)/);
@@ -167,11 +190,6 @@ function openMailTable(valueId) {
         newsMailWindow.close();
         swalFireModal("┐(￣ヘ￣;)┌", "We did not response for your campaign, repeat again", "error", "", "", false);
         startOrStopLoader(false);
-      } else if (!resultTime) {
-        clearInterval(waitForMail);
-        swalFireModal("┐(￣ヘ￣;)┌", "Date your campaign over 8 days or does not exist", "error", "", "", false);
-        startOrStopLoader(false);
-        newsMailWindow.close();
       }
     } catch (e) {
       console.log(e);
@@ -221,9 +239,9 @@ function openCustomerFilter(ids, index = 0) {
         setTimeout(() => {
           filterDiv.click();
 
-          // setTimeout(() => {
-          //   clickToTransferButton(doc, index, ids, objectKey);
-          // }, 1000);
+          setTimeout(() => {
+            clickToTransferButton(doc, index, ids, objectKey);
+          }, 1000);
         }, 1500);
       }
     } catch (e) {
@@ -350,6 +368,7 @@ function startOrStopLoader(status = false) {
   }
 }
 
+//Find your time
 function getMyTime() {
   const now = new Date();
   now.setHours(0, 0, 0, 0);
@@ -361,6 +380,7 @@ function getMyTime() {
   return `${yyyy}-${mm}-${dd}`;
 }
 
+//Difference time
 function differenceTime(doc) {
   const myTime = getMyTime();
   let result = "";

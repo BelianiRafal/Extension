@@ -78,8 +78,12 @@ saveNameBlock.className = "saveNameBlock";
 
 // mainCardContainer.append(idForInput);
 // mainCardContainer.append(startBtn);
+const ABbtnContainer = document.createElement('div');
+ABbtnContainer.className = 'ABbtnContainer';
+
 mainCardContainer.append(closeCard);
 mainCardContainer.append(getCampaignIdBtn);
+mainCardContainer.append(ABbtnContainer);
 
 mainCard.append(mainCardContainer);
 mainCard.append(spanText);
