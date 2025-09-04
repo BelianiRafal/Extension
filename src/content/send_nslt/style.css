@@ -418,6 +418,104 @@ body {
   transform: scale(1);
 }
 
+/* GAME ====================== */
+
+.game-block {
+  display: none;
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 300px;
+  right: 170px;
+  background: #fff;
+  z-index: 999;
+  /* position: relative; */
+}
+
+.game-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: 1px solid green;
+  border-bottom: none;
+}
+
+.game-wrapper:after {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  border: 1.5px dashed #333;
+}
+
+.cactus {
+  position: absolute;
+  bottom: 0;
+  right: 20px; /* можно двигать */
+  width: 60px;   /* ширина картинки */
+  height: 6dvb;  /* высота картинки */
+  background-repeat: no-repeat;
+  background-size: contain; /* или cover */
+  /* animation: cactus 1s linear infinite; */
+}
+
+.dinosaur {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* animation: dinosaur .8s linear infinite; */
+}
+
+.dinosaur.animDino {
+  animation: dinosaur .8s linear infinite;
+}
+
+.cactus.animCactus {
+  animation: cactusGame .8s linear infinite
+}
+
+.closeGame {
+  position: absolute;
+  right: 0;
+  top: 9;
+}
+
+@keyframes cactus {
+  0% {
+    left: 630px;
+  }
+
+  100% {
+    left: -30px;
+  }
+}
+
+@keyframes dinosaur {
+  0% {
+    bottom: 0px;
+  }
+  30% {
+    bottom: 100px;
+  }
+  70%{
+    bottom: 100px;
+  }
+  100% {
+    bottom: 0px;
+  }
+
+}
+
+
+
 
     
 

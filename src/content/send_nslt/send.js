@@ -4,6 +4,8 @@ const planingUrl = "https://www.prologistics.info/spam_plan.php";
 const newsEmailUrl = "https://www.prologistics.info/news_email.php?id=";
 const id = "11607";
 
+//Test commit
+
 const shopId = {
   CHDE: 11607,
   "CHDE-RICARDO": 11606,
@@ -28,8 +30,6 @@ const shopId = {
   ES: 11613,
   UK: 11621,
 };
-
-// mainCard.style.backgroundImage = `url("${chrome.runtime.getURL('content/send_nslt/game/img/cactus-game.png')}")`;
 
 closeCard.addEventListener("click", () => {
   spanText.classList.remove("show");
@@ -278,8 +278,6 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
     let spinnerVisible = false;
     watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
   }
-
-  // console.log("final found:", found);
 }
 
 function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {

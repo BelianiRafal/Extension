@@ -28,8 +28,34 @@ getCampaignIdBtn.innerHTML = `
 getCampaignIdBtn.className = "getCampaignId";
 getCampaignIdBtn.textContent = "Get id CHDE";
 
-const closeBtn = document.createElement;
+// GAME UI =====================================
 
+const openGame = document.createElement('button');
+openGame.textContent = 'Open game';
+
+const gameBlock = document.createElement('div');
+gameBlock.className = 'game-block';
+
+const gameWrapper = document.createElement('div');
+gameWrapper.className = 'game-wrapper';
+
+const dinosaur = document.createElement('div');
+dinosaur.className = 'dinosaur';
+
+const cactus = document.createElement('div');
+cactus.className = 'cactus';
+
+const closeGame = document.createElement('button');
+closeGame.textContent = 'X';
+
+gameWrapper.append(closeGame);
+gameWrapper.append(dinosaur);
+gameWrapper.append(cactus);
+gameBlock.append(gameWrapper);
+
+// ======================================================
+
+const closeBtn = document.createElement;
 const mainCard = document.createElement("div");
 mainCard.className = "mainCard";
 
@@ -83,6 +109,7 @@ ABbtnContainer.className = 'ABbtnContainer';
 
 mainCardContainer.append(closeCard);
 mainCardContainer.append(getCampaignIdBtn);
+mainCardContainer.append(openGame);
 mainCardContainer.append(ABbtnContainer);
 
 mainCard.append(mainCardContainer);
@@ -90,6 +117,7 @@ mainCard.append(spanText);
 mainCard.append(loaderBlock);
 mainCard.append(saveNameBlock);
 
+document.body.append(gameBlock);
 document.body.append(mainCard);
 document.body.append(button);
 document.body.append(overlay);
@@ -104,3 +132,5 @@ function swalFireModal(title, message, iconStyle, confirmText, btnColor, needCan
     showCancelButton: needCancel,
   });
 }
+
+
