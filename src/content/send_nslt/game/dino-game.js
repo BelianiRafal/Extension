@@ -5,6 +5,7 @@ openGame.addEventListener('click', () => {
     gameBlock.style.display = 'block';
 })
 
+//tested
 
 closeGame.addEventListener('click', () => {
     gameBlock.style.display = 'none';

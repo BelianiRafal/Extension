@@ -4,7 +4,7 @@ const planingUrl = "https://www.prologistics.info/spam_plan.php";
 const newsEmailUrl = "https://www.prologistics.info/news_email.php?id=";
 const id = "11607";
 
-//Test commit
+//Tested commit
 
 const shopId = {
   CHDE: 11607,
