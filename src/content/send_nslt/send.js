@@ -4,8 +4,6 @@ const planingUrl = "https://www.prologistics.info/spam_plan.php";
 const newsEmailUrl = "https://www.prologistics.info/news_email.php?id=";
 const id = "11607";
 
-//Tested commit
-
 const shopId = {
   CHDE: 11607,
   "CHDE-RICARDO": 11606,
@@ -38,120 +36,55 @@ closeCard.addEventListener("click", () => {
     mainCard.classList.remove("implode-animation");
     mainCard.classList.remove("explode-animation");
     overlay.classList.remove("active");
+    document.body.classList.remove('noScroll');
   }, 800);
 });
 
-button.addEventListener("click", async () => {
+mainButtonStart.addEventListener("click", async () => {
+  const campaignLink = getIdForLink();
+  if (!campaignLink) {
+    swalFireModal("¯\\_(ツ)_/¯", `Newsletter checklist is not found`, "error", "", "", false);
+    return false;
+  }
+
   overlay.classList.add("active");
   mainCard.classList.add("explode-animation");
+  document.body.classList.add('noScroll');
+
+  const mainInformation = document.querySelectorAll('[id="virtualize-demo"]');
+  const subjectInformation = document.querySelectorAll('[id="Subject"]');
+  const subjectSplitText = subjectInformation[0].nextSibling.textContent.split("SL:")[0].trim();
+  const solvingUser = mainInformation[0].defaultValue;
+
+  const anotherSolving = document.querySelectorAll(".panel-body .row");
+  const anotherResult = anotherSolving[0].children[1].children[1].textContent.split("Solving user")[1];
+
+  solvingUserText.textContent = solvingUser ? solvingUser : anotherResult;
+  subjectText.textContent = subjectSplitText;
+  campaignIdText.textContent = `CHDE ID: ${campaignLink}`;
 });
 
-// startBtn.addEventListener("click", async () => {
-//   spanText.classList.remove("show");
-//   const value = idForInput.value;
-//   const regex = /[a-zA-Z]|\d{7,}/;
-
-//   if (value === "" || regex.test(value)) {
-//     spanText.classList.add("show");
-//     return;
-//   }
-
-//   const result = await swalFireModal(`Campaing id "${value}" is correct?`, ``, "question", "", "", true);
-//   if (result.isConfirmed) {
-//     openMailTable(value);
-//     chrome.runtime.sendMessage({ action: "setFirstTab" });
-//     startOrStopLoader(true);
-//   } else {
-//     return false;
-//   }
-// });
-
 getCampaignIdBtn.addEventListener("click", async () => {
-  const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
-  const getText = Array.from(findChecklistText).find((text) => {
-    return text.textContent.toLowerCase().trim().includes("newsletter testing");
-  });
+  const chdeLinkId = await getIdForLink();
 
-  const ulList = getText.nextSibling;
-  const ulItem = ulList.querySelectorAll('ul div li div [class^="jss"] a');
-  const hasCHDE = Array.from(ulItem).find((item) => {
-    return item.previousSibling.textContent.includes("CHDE");
-  });
-
-  const chdeLinkId = hasCHDE.href.split("id=")[1];
-
-  //Тут сортируем есть ли еще чеклисты
-  //Сделать отдельную функцию для получения ид, если 2 чеклиста
-  //Добавь игру в камень ножницы.
-
-  const AB = Array.from(findChecklistText).filter((item) => {
-    return item.textContent.toLowerCase().trim().includes("newsletter testing");
-  });
-
-  // const ABlist = AB.forEach((item) => {
-  //   const itemList = item.nextSibling;
-  //   const ulItem = itemList.querySelectorAll('ul div li div [class^="jss"] a');
-  //   const itemHasCHDE = Array.from(ulItem).find((item) => {
-  //     return item.previousSibling.textContent.includes("CHDE");
-  //   });
-  //   const chdeLinkId = itemHasCHDE.href.split("id=")[1];
-
-  //   //Назначаем кнопке значение с ид и кликаем по нужным, дальше нужно передать это значение
-  //   const abBtn = document.createElement("button");
-  //   abBtn.textContent = chdeLinkId;
-  //   abBtn.value = chdeLinkId;
-  //   abBtn.className = "abBtn";
-  //   ABbtnContainer.append(abBtn);
-
-  //   console.log("AB length", AB.length);
-
-  //   abBtn.addEventListener("click", async (e) => {
-  //     console.log(e.currentTarget.value);
-
-  //     // const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
-  //     // if (result.isConfirmed) {
-  //     //   openMailTable(chdeLinkId);
-  //     //   chrome.runtime.sendMessage({ action: "setFirstTab" });
-  //     //   startOrStopLoader(true);
-  //     // } else {
-  //     //   getCampaignIdBtn.disabled = false;
-  //     //   return false;
-  //     // }
-  //   });
-
-  //   getCampaignIdBtn.disabled = true;
-  // });
-
-  if (AB.length === 1) {
-    const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
-    if (result.isConfirmed) {
-      openMailTable(chdeLinkId);
-      chrome.runtime.sendMessage({ action: "setFirstTab" });
-      startOrStopLoader(true);
-    } else {
-      return false;
-    }
+  if (!chdeLinkId) {
+    swalFireModal("¯\\_(ツ)_/¯", `Newsletter checklist is not found`, "error", "", "", false);
+    return false;
   }
 
-  if (!hasCHDE) {
-    swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
-    return;
+  const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
+
+  if (result.isConfirmed) {
+    //Open page with Mailing templates
+    openMailTable(chdeLinkId);
+
+    //Return to main page
+    chrome.runtime.sendMessage({ action: "setFirstTab" });
+    startOrStopLoader(true);
+    informationBlock.style.display = 'none';
+  } else {
+    return false;
   }
-
-  console.log("Ul list:", findChecklistText);
-  console.log("Get text:", getText);
-
-  const chdeLink = hasCHDE.href.split("id=")[1];
-  console.log("Link:", chdeLink);
-
-  // const result = await swalFireModal(`Campaing id "${chdeLink}" is correct?`, ``, "question", "", "", true);
-  // if (result.isConfirmed) {
-  //   openMailTable(value);
-  //   chrome.runtime.sendMessage({ action: "setFirstTab" });
-  //   startOrStopLoader(true);
-  // } else {
-  //   return false;
-  // }
 });
 
 function openMailTable(valueId) {
@@ -181,7 +114,6 @@ function openMailTable(valueId) {
 
         //Remove id for BEFR/BENL
         ids.splice(5, 2);
-        console.log(ids);
         clearInterval(waitForMail);
         newsMailWindow.close();
         openCustomerFilter(ids, 0);
@@ -200,7 +132,7 @@ function openMailTable(valueId) {
 function openCustomerFilter(ids, index = 0) {
   if (index >= ids.length) {
     startOrStopLoader(false);
-    swalFireModal(`Woooow`, `Your id is already!`, "success", "", "", false);
+    swalFireModal(`Done`, `Your id is already!`, "success", "", "", false);
     idForInput.value = "";
     return;
   }
@@ -366,18 +298,6 @@ function startOrStopLoader(status = false) {
   }
 }
 
-//Find your time
-function getMyTime() {
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-
-  const cutoff = new Date(now);
-  const yyyy = cutoff.getFullYear();
-  const mm = String(cutoff.getMonth() + 1).padStart(2, "0");
-  const dd = String(cutoff.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-}
-
 //Difference time
 function differenceTime(doc) {
   const myTime = getMyTime();
@@ -399,4 +319,65 @@ function differenceTime(doc) {
   const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
 
   return (result = differenceInDays < 8);
+}
+
+function getIdForLink() {
+  const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
+  const getText = Array.from(findChecklistText).find((text) => {
+    return text.textContent.toLowerCase().trim().includes("newsletter testing");
+  });
+
+  if (!getText) {
+    swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
+    return;
+  }
+
+  const ulList = getText.nextSibling;
+  const ulItem = ulList.querySelectorAll('ul div li div [class^="jss"] a');
+  const hasCHDE = Array.from(ulItem).find((item) => {
+    return item.previousSibling.textContent.includes("CHDE");
+  });
+
+  if (!hasCHDE) {
+    swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
+    return;
+  }
+
+  const chdeLinkId = hasCHDE?.href?.split("id=")[1];
+
+  return chdeLinkId;
+}
+
+function getidForAB() {
+  //   const AB = Array.from(findChecklistText).filter((item) => {
+  //   return item.textContent.toLowerCase().trim().includes("newsletter testing");
+  // });
+  // const ABlist = AB.forEach((item) => {
+  //   const itemList = item.nextSibling;
+  //   const ulItem = itemList.querySelectorAll('ul div li div [class^="jss"] a');
+  //   const itemHasCHDE = Array.from(ulItem).find((item) => {
+  //     return item.previousSibling.textContent.includes("CHDE");
+  //   });
+  //   const chdeLinkId = itemHasCHDE.href.split("id=")[1];
+  //   //Назначаем кнопке значение с ид и кликаем по нужным, дальше нужно передать это значение
+  //   const abBtn = document.createElement("button");
+  //   abBtn.textContent = chdeLinkId;
+  //   abBtn.value = chdeLinkId;
+  //   abBtn.className = "abBtn";
+  //   ABbtnContainer.append(abBtn);
+  //   console.log("AB length", AB.length);
+  //   abBtn.addEventListener("click", async (e) => {
+  //     console.log(e.currentTarget.value);
+  //     // const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
+  //     // if (result.isConfirmed) {
+  //     //   openMailTable(chdeLinkId);
+  //     //   chrome.runtime.sendMessage({ action: "setFirstTab" });
+  //     //   startOrStopLoader(true);
+  //     // } else {
+  //     //   getCampaignIdBtn.disabled = false;
+  //     //   return false;
+  //     // }
+  //   });
+  //   getCampaignIdBtn.disabled = true;
+  // });
 }
