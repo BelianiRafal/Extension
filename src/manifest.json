@@ -171,11 +171,13 @@
     {
       "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
       "js": [
+        "./content/issue/addToCalendar.js",
         "./content/emoji/content.js",
         "./content/issue/content.js",
         "./content/issue/layout.js",
         "./content/kanbanTable/content.js"
       ],
+      "run_at": "document_idle",
       "css": ["./content/emoji/styles.css", "./libraries/gridstack.min.css", "./content/kanbanTable/style.css"]
     },
     {
@@ -232,7 +234,12 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["content/startphp_styles.css", "content/linkifyjs/*.js", "content/send_nslt/game/img/*"],
+      "resources": [
+        "content/issue/googleCalendar.svg",
+        "content/startphp_styles.css",
+        "content/linkifyjs/*.js",
+        "content/send_nslt/game/img/*"
+      ],
       "matches": ["https://www.prologistics.info/*", "https://prolodev.prologistics.info/*"]
     }
   ],
