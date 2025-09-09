@@ -1,0 +1,26 @@
+.mass-request-btn {
+  margin-top: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.mass-request-btn:hover {
+  background: #f6f6f6;
+}
+
+.mass-request-sent {
+  background: #e6ffed !important;
+  border-color: #6fd68a !important;
+}
+
+/* keep buttons compact on small view */
+@media (max-width: 480px) {
+  .mass-request-btn {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+}
