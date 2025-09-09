@@ -24,7 +24,7 @@ toggleAutoAcceptButton.onclick = () => {
   updateButtonStyle(); // Update button appearance after click
 };
 
-document.querySelector("#timesheet_div").after(toggleAutoAcceptButton);
+document.querySelector("#timesheet_div")?.after(toggleAutoAcceptButton);
 
 function handleTimestampConfirm() {
   const alertifyModals = document.querySelectorAll(".ajs-dialog");
