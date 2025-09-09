@@ -111,6 +111,7 @@
         "https://prolodev.prologistics.info/news_emails.php"
       ],
       "run_at": "document_idle",
+      "css": ["./css/news_emails.css"],
       "js": ["./content/multiselect/index.js", "./content/multiselect/select.js"]
     },
     {
