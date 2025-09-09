@@ -14,18 +14,55 @@
   display: flex;
 }
 
-#translations-wrapper,
-.translations-wrapper {
+/* Shared container for small bottom widgets so multiple bars can sit side-by-side */
+.shortlists-container {
   position: fixed;
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 99999;
-  width: 100%;
-  gap: 8px;
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* stack bars vertically */
+  gap: 8px;
+  justify-content: flex-end;
   align-items: center;
+  pointer-events: none; /* allow children to manage their own pointer events */
+  width: auto;
+  max-width: calc(100% - 32px);
+}
+
+.shortlist-wrapper {
+  pointer-events: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.shortlist-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 8px;
+  color: #222;
+}
+
+.list-link-icon {
+  display: inline-flex;
+  margin-top: 6px;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.listItem {
+  text-align: center;
 }
 
 .listItem {
