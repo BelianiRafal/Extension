@@ -20,8 +20,21 @@ body.style.padding = "0";
 
 // Remove the unwanted text from body
 if (body.innerText.includes('string(21) "www.prologistics.info"')) {
-  body.innerHTML = body.innerHTML.replace(/string\(21\)\s*"www\.prologistics\.info"/g, "");
+  body.innerHTML = body.innerHTML.replace(
+    /string\(21\)\s*"www\.prologistics\.info"/g,
+    ""
+  );
 }
+
+document.body.innerHTML = document.body.innerHTML
+  .replace(/Hello\s+[^!]+!/g, "")
+  .replace(
+    /The last time you login was\s*\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}/g,
+    ""
+  );
+
+document.querySelector("#fulltable")?.remove();
+// document.querySelector(".leftSideMenu").style.display = "none";
 
 class Issues {
   api = {
@@ -44,8 +57,8 @@ class Issues {
   users = {
     Orlinski: "1196",
     JurgowiakM: "1194",
-		KaKazaniecki: "1193",
-		OleHrytsa: "1686",
+    KaKazaniecki: "1193",
+    OleHrytsa: "1686",
     RKobus: "1204",
   };
   constructor() {
@@ -59,6 +72,12 @@ class Issues {
   total = 0;
 
   init = async () => {
+    document.querySelectorAll("table").forEach((table) => {
+      table.cellPadding = "0";
+      table.cellSpacing = "0";
+      table.border = "0";
+    });
+
     try {
       const issues = await this.getIssue(this.board_id, 1);
       this.issues = new IssueDTO(issues);
@@ -66,7 +85,7 @@ class Issues {
       this.renderToolBar();
       this.renderColumns(this.issues.issue_list);
 
-      this.tools.style = "display: flex; gap: 0.2rem; align-items: center;";
+      this.tools.className = "issues-tools";
       this.table.append(this.board_row);
 
       this.board.append(this.table);
@@ -99,7 +118,7 @@ class Issues {
       map[item.issue_board_column] = 1;
     }
 
-    this.table.style = "width: 100%";
+    this.table.className = "issues-table";
     this.board_row.innerHTML = "";
     this.board_row.append(...this.createColumns(board_columns, issue_list));
     board_columns = [];
@@ -107,6 +126,7 @@ class Issues {
   };
 
   renderToolBar = () => {
+    this.goToIndex();
     this.renderBoards();
     this.myTasks();
     this.allTasks();
@@ -116,7 +136,7 @@ class Issues {
     let isMyIssue = false;
     if ("issue_type" in issue) {
       isMyIssue = issue.issue_type.find(
-        (item) => item.id === this.users[this.user?.username ?? this.user],
+        (item) => item.id === this.users[this.user?.username ?? this.user]
       );
     }
     return isMyIssue;
@@ -130,6 +150,22 @@ class Issues {
     return isSunday;
   };
 
+  isCampaignBanners = (issue) => {
+    let isCampaignBanners = false;
+    if ("issue_type" in issue) {
+      isCampaignBanners = issue.issue_type.find((item) => item.id === "1192");
+    }
+    return isCampaignBanners;
+  };
+
+  isCGB = (issue) => {
+    let isCGB = false;
+    if ("issue_type" in issue) {
+      isCGB = issue.issue_type.find((item) => item.id === "1203");
+    }
+    return isCGB;
+  };
+
   isNewsletter = (issue) => {
     let isNewsletter = false;
     if ("issue_type" in issue) {
@@ -138,9 +174,21 @@ class Issues {
     return isNewsletter;
   };
 
+  goToIndex = () => {
+    const button = document.createElement("button");
+    button.className = "btn-task";
+    button.className = "btn-task";
+    button.textContent = "Open Home (/)";
+    button.addEventListener("click", () => {
+      window.open(`https://${window.location.hostname}/`, "_blank");
+    });
+
+    this.tools.append(button);
+  };
+
   myTasks = () => {
     const button = document.createElement("button");
-    button.style = "font-size: 1.2rem; margin-left: 0.4rem; padding: 0.2rem;";
+    button.className = "btn-task";
     button.textContent = "My tasks";
     button.addEventListener("click", () => {
       const filtered_issues = this.issues.issue_list.filter((item) => {
@@ -162,7 +210,7 @@ class Issues {
 
   allTasks = () => {
     const button = document.createElement("button");
-    button.style = "font-size: 1.2rem; margin-left: 0.4rem; padding: 0.2rem;";
+    button.className = "btn-task";
     button.textContent = "All tasks";
     button.addEventListener("click", () => {
       this.renderColumns(this.issues.issue_list);
@@ -173,11 +221,11 @@ class Issues {
 
   renderBoards = () => {
     const select = document.createElement("select");
-    select.style = "padding: 0.2rem; font-size: 1.2rem; border-radius: 0.2rem;";
+    select.className = "issues-select";
 
     const options = [];
     const entries = Object.entries(this.issues.issue_boards).filter(
-      (item) => item[1].inactive !== "1",
+      (item) => item[1].inactive !== "1"
     );
     for (const [board_id, { name, inactive }] of entries) {
       options.push(this.renderBoard({ id: board_id, name: name }));
@@ -204,11 +252,11 @@ class Issues {
 
   getUser = () => {
     const scriptData = [...document.body.querySelectorAll("script")].find(
-      (item) => item.textContent.includes("pushHost"),
+      (item) => item.textContent.includes("pushHost")
     );
     try {
       const user_data = JSON.parse(
-        scriptData.textContent.split(";")[3].split("=")[1],
+        scriptData.textContent.split(";")[3].split("=")[1]
       );
       return user_data;
     } catch (error) {
@@ -246,38 +294,171 @@ class Issues {
 
   createColumns = (board_columns, issue_list) => {
     const columns = [];
-    const sort_columns = board_columns.toSorted(
-      (a, b) => Number(a.ordering) - Number(b.ordering),
-    );
+    const preferred = [
+      "CAMPAIGN HTML",
+      "HTML TASKS",
+      "CENTRAL GRID BANNERS",
+      "CAMPAIGN GRAPHICS",
+      "CAMPAIGNS",
+      "GRAPHIC OTHER TASKS",
+      "PERFORMANCE MARKETING",
+    ];
+
+    const sort_columns = board_columns.toSorted((a, b) => {
+      const aTitle = (a.title || "").toString().toUpperCase().trim();
+      const bTitle = (b.title || "").toString().toUpperCase().trim();
+      const ai = preferred.indexOf(aTitle);
+      const bi = preferred.indexOf(bTitle);
+
+      // If either is in preferred list, use that order
+      if (ai !== -1 || bi !== -1) {
+        if (ai === -1) return 1; // b is preferred, a goes after
+        if (bi === -1) return -1; // a is preferred, b goes after
+        return ai - bi; // both preferred -> their index order
+      }
+
+      // Fallback: numeric ordering then title
+      const ao = Number(a.ordering || 0);
+      const bo = Number(b.ordering || 0);
+      if (ao !== bo) return ao - bo;
+      return aTitle.localeCompare(bTitle);
+    });
     for (const column of sort_columns) {
       const column_issues = issue_list.filter(
-        (item) => item.issue_board_column === column.id,
+        (item) => item.issue_board_column === column.id
       );
       columns.push(this.createColumn(column, column_issues));
     }
     return columns;
   };
 
+  getTranslationsChecklist = async (issue_id) => {
+    if (!issue_id) {
+      console.warn("getTranslationsChecklist: missing issue_id");
+      return null;
+    }
+    try {
+      const url = `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${issue_id}`;
+      const resp = await fetch(url, { credentials: "include" });
+      if (!resp.ok) {
+        console.warn("getTranslationsChecklist: fetch failed", resp.status);
+        return null;
+      }
+      const json = await resp.json();
+      const checklists = json?.checklists || [];
+      const translationsChecklist = checklists.find(
+        (c) => c.title && c.title.toLowerCase().includes("translations")
+      );
+      if (!translationsChecklist) {
+        console.info(
+          "getTranslationsChecklist: no translations checklist found"
+        );
+        return null;
+      }
+
+      const checkpoints = (translationsChecklist.checkpoints || []).map(
+        (cp) => ({ description: cp.description, done: cp.done === "1" })
+      );
+
+      const prev = document.getElementById("translations-checklist-panel");
+      if (prev) prev.remove();
+
+      const wrapper = document.createElement("div");
+      wrapper.id = "translations-checklist-panel";
+      wrapper.className = "translations-wrapper";
+
+      const title = document.createElement("div");
+      title.textContent = translationsChecklist.title;
+      title.className = "checklist-title";
+      wrapper.appendChild(title);
+
+      const listContainer = document.createElement("div");
+      listContainer.className = "listContainer expanded";
+
+      if (checkpoints.length === 0) {
+        const empty = document.createElement("span");
+        empty.className = "emptyMessage";
+        empty.textContent = "No checkpoints";
+        listContainer.appendChild(empty);
+      } else {
+        checkpoints.forEach((cp) => {
+          const item = document.createElement("div");
+          item.className = "listItem";
+
+          const lang = document.createElement("span");
+          lang.className = "langName";
+          lang.textContent = cp.description;
+
+          const status = document.createElement("span");
+          status.textContent = cp.done ? "✓" : "✕";
+          status.className = cp.done ? "done" : "disabled";
+
+          item.appendChild(lang);
+          item.appendChild(status);
+          listContainer.appendChild(item);
+        });
+      }
+
+      wrapper.appendChild(listContainer);
+      document.body.appendChild(wrapper);
+
+      return checkpoints;
+    } catch (error) {
+      console.error("getTranslationsChecklist error", error);
+      return null;
+    }
+  };
+
+  getTranslationsChecklistData = async (issue_id) => {
+    if (!issue_id) return null;
+    try {
+      const url = `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${issue_id}`;
+      const resp = await fetch(url, { credentials: "include" });
+      if (!resp.ok) return null;
+      const json = await resp.json();
+      const checklists = json?.checklists || [];
+      const translationsChecklist = checklists.find(
+        (c) => c.title && c.title.toLowerCase().includes("translations")
+      );
+      if (!translationsChecklist) return null;
+      const checkpoints = (translationsChecklist.checkpoints || []).map(
+        (cp) => ({ description: cp.description, done: cp.done === "1" })
+      );
+      return checkpoints;
+    } catch (e) {
+      return null;
+    }
+  };
+
   createColumn = (column, issue_list) => {
     const td = document.createElement("td");
-    td.style =
-      "vertical-align: top; padding-right: 1rem; background-color: #e7e7e7; padding: 1rem; margin-right: 0.2rem; border-radius: 0.6rem;";
+    td.className = "column-td";
 
     const columnTitle = document.createElement("p");
     columnTitle.textContent = column.title;
-    columnTitle.style =
-      "color: #172b4d; font-weight: 600; vertical-align: top; margin: 0; margin-bottom: 1rem;";
+    const columnExpand = document.createElement("button");
+    columnExpand.textContent = "Show All";
+    columnExpand.className = "btn-task";
+    columnExpand.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      const columnTitle = columnExpand.parentElement;
+      const columnDiv = columnTitle?.nextElementSibling;
+      if (!columnDiv || !columnDiv.classList) return;
+      const isFull = columnDiv.classList.toggle("full-height");
+      columnExpand.textContent = isFull ? "Collapse" : "Show All";
+    });
+    columnTitle.appendChild(columnExpand);
+    columnTitle.className = "column-title";
 
     const div = document.createElement("div");
-    div.style =
-      "display: flex; flex-direction: column; gap: 0.6rem; max-height: 80vh; overflow-y: auto;";
+    div.className = "column-div";
 
     const issueCards = [];
     // ASCENDING sort a -b
     const sort_issue = issue_list.toSorted(
       (a, b) =>
         Number(a.issue_board_column_ordering) -
-        Number(b.issue_board_column_ordering),
+        Number(b.issue_board_column_ordering)
     );
     for (const issue of sort_issue) {
       issueCards.push(this.createIssueCard(issue));
@@ -291,49 +472,79 @@ class Issues {
 
   createIssueCard = (issue) => {
     const div = document.createElement("div");
-    div.style =
-      "padding: 0.6rem; border-radius: 0.4rem; background-color: #ffffff; display: block; color: #626F86; position: relative; width: 240px; text-wrap: pretty; flex-shrink: 0; overflow-x: hidden;";
+    div.classList.add("issue-card");
     const isNS = this.isNewsletter(issue);
     if (isNS) {
-      div.style.background = isNS.color;
+      div.classList.add("newsletter-issue");
     }
 
     if (this.isMyIssue(issue)) {
-      div.style.border = "2px solid #ffbfa6";
+      console.log(`Twoje issue ${JSON.stringify(issue)}`);
+      div.classList.toggle("my-issue");
     }
 
     if (this.isSunday(issue)) {
-      div.style.background = "#b1d9b87a";
+      div.classList.toggle("sunday-issue");
+      div.classList.toggle("newsletter-issue");
+    }
+    if (this.isCampaignBanners(issue)) {
+      div.classList.toggle("campaign-banners-issue");
+    }
+    if (this.isCGB(issue)) {
+      div.classList.toggle("cgb-issue");
     }
 
     const a = document.createElement("a");
     a.href = "react/logs/issue_logs/" + issue.id;
     a.target = "_blank";
-    a.style = "color: #626F86; text-wrap: pretty;";
+    a.classList.add("issue-link");
 
     const progress = document.createElement("div");
-    progress.style = `position: absolute; top: 0; left: 0; right: 0; height: 3px; width: ${issue.checklists_progress}; background-color: #6c9ffb;`;
+    progress.classList.add("issue-progress");
+    progress.innerText = issue.checklists_progress;
+    progress.style.width = issue.checklists_progress;
 
     // CONTAINER BTN
     const containerBtns = document.createElement("div");
-    containerBtns.style = "display: flex; gap: .4rem;";
+    containerBtns.className = "container-btns";
 
     const comments_btn = document.createElement("button");
-    comments_btn.innerHTML =
-      '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-dot"><path d="M11.7 3H5a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2v-2.7"/><circle cx="18" cy="6" r="3"/></svg>';
-    comments_btn.style =
-      "border: none; background-color: #eeeeee; padding: 0.4rem; border-radius: 0.2rem; display: flex; gap: 4px; font-size: 12px; font-weight: 600; margin: 0; margin-bottom: 0.4rem; cursor: pointer;";
+    comments_btn.className = "btn-icon";
+    const commentsImg = document.createElement("img");
+    commentsImg.width = 12;
+    commentsImg.height = 12;
+    commentsImg.alt = "comments";
+    commentsImg.src = chrome.runtime.getURL(
+      "content/start.php/svg/message.svg"
+    );
+    comments_btn.appendChild(commentsImg);
     comments_btn.addEventListener("click", async (ev) => {
-      comments_btn.innerHTML =
-        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-dot"><path d="M11.7 3H5a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2v-2.7"/><circle cx="18" cy="6" r="3"/></svg>';
+      // reset to default icon
+      comments_btn.innerHTML = "";
+      const commentsImg2 = document.createElement("img");
+      commentsImg2.width = 12;
+      commentsImg2.height = 12;
+      commentsImg2.alt = "comments";
+      commentsImg2.src = chrome.runtime.getURL(
+        "content/start.php/svg/message.svg"
+      );
+      comments_btn.appendChild(commentsImg2);
       let comments = await this.loadIssue(ev, issue.id);
       // PING every 10 seconds messages
       setInterval(async () => {
         const new_comments = await this.loadIssue(ev, issue.id);
         if (new_comments.comments.length > comments.comments.length) {
           comments = new_comments;
-          comments_btn.innerHTML =
-            '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-square-dot"><path d="M11.7 3H5a2 2 0 0 0-2 2v16l4-4h12a2 2 0 0 0 2-2v-2.7"/><circle stroke="red" fill="red" cx="18" cy="6" r="3"/></svg>';
+          // show notification variant
+          comments_btn.innerHTML = "";
+          const commentsNotif = document.createElement("img");
+          commentsNotif.width = 12;
+          commentsNotif.height = 12;
+          commentsNotif.alt = "comments-notif";
+          commentsNotif.src = chrome.runtime.getURL(
+            "content/start.php/svg/message-notif.svg"
+          );
+          comments_btn.appendChild(commentsNotif);
         }
       }, 300_000);
       const unsub = this.showModal({ comments: comments.comments, issue });
@@ -341,26 +552,34 @@ class Issues {
     comments_btn.title = "Comments";
 
     const dropbox_btn = document.createElement("a");
-    dropbox_btn.innerHTML =
-      '<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.4 39.5" width="12" height="12"><style>.st0{fill:#0062ff}</style><path class="st0" d="M10.6 1.7L0 8.5l10.6 6.7 10.6-6.7zm21.2 0L21.2 8.5l10.6 6.7 10.6-6.7zM0 22l10.6 6.8L21.2 22l-10.6-6.8zm31.8-6.8L21.2 22l10.6 6.8L42.4 22zM10.6 31l10.6 6.8L31.8 31l-10.6-6.7z"/></svg>';
-    dropbox_btn.style =
-      "border: none; background-color: #eeeeee; padding: 0.4rem; border-radius: 0.2rem; display: flex; gap: 4px; font-size: 12px; font-weight: 600; margin: 0; margin-bottom: 0.4rem; cursor: pointer;";
+    dropbox_btn.className = "btn-icon";
+    const dropboxImg = document.createElement("img");
+    dropboxImg.width = 12;
+    dropboxImg.height = 12;
+    dropboxImg.alt = "dropbox";
+    dropboxImg.src = chrome.runtime.getURL("content/start.php/svg/dropbox.svg");
+    dropbox_btn.appendChild(dropboxImg);
     dropbox_btn.href = issue["Campaign dropbox"];
     dropbox_btn.target = "_blank";
     dropbox_btn.title = "Dropbox";
 
     const spreadsheet_btn = document.createElement("a");
-    spreadsheet_btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 242423 333333" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"><defs><mask id="c"><linearGradient id="a" gradientUnits="userSpaceOnUse" x1="200294" y1="91174.8" x2="200294" y2="176113"><stop offset="0" stop-opacity=".02" stop-color="#fff"/><stop offset="1" stop-opacity=".2" stop-color="#fff"/></linearGradient><path fill="url(#a)" d="M158015 84111h84558v99065h-84558z"/></mask><mask id="e"><radialGradient id="b" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="0" fx="0" fy="0"><stop offset="0" stop-opacity="0" stop-color="#fff"/><stop offset="1" stop-opacity=".098" stop-color="#fff"/></radialGradient><path fill="url(#b)" d="M-150-150h242723v333633H-150z"/></mask><radialGradient id="f" gradientUnits="userSpaceOnUse" cx="9696.85" cy="10000.4" r="166667" fx="9696.85" fy="10000.4"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff"/></radialGradient><linearGradient id="d" gradientUnits="userSpaceOnUse" x1="200294" y1="95125.2" x2="200294" y2="172162"><stop offset="0" stop-color="#263138"/><stop offset="1" stop-color="#263138"/></linearGradient></defs><g fill-rule="nonzero"><path d="M151513 0H22729C10227 0 1 10227 1 22728v287877c0 12505 10227 22728 22728 22728h196966c12505 0 22728-10224 22728-22728V90911l-53028-37880L151513 0z" fill="#0f9c57"/><path d="M60606 162880v109853h121216V162880H60606zm53032 94698H75757v-18938h37881v18938zm0-30301H75757v-18946h37881v18946zm0-30310H75757v-18936h37881v18936zm53030 60611h-37884v-18938h37884v18938zm0-30301h-37884v-18946h37884v18946zm0-30310h-37884v-18936h37884v18936z" fill="#f0f0f0"/><path mask="url(#c)" fill="url(#d)" d="M158165 84261l84258 84245V90911z"/><path d="M151513 0v68184c0 12557 10173 22727 22727 22727h68183L151513 0z" fill="#87cdac"/><path d="M22728 0C10226 0 0 10227 0 22729v1893C0 12123 10227 1894 22728 1894h128784V1H22728z" fill="#fff" fill-opacity=".2"/><path d="M219694 331443H22728C10226 331443 0 321213 0 308715v1890c0 12505 10227 22728 22728 22728h196966c12505 0 22728-10224 22728-22728v-1890c0 12499-10224 22728-22728 22728z" fill="#263138" fill-opacity=".2"/><path d="M174239 90911c-12554 0-22727-10170-22727-22727v1893c0 12557 10173 22727 22727 22727h68183v-1893h-68183z" fill="#263138" fill-opacity=".102"/><path d="M151513 0H22729C10227 0 1 10227 1 22729v287876c0 12505 10227 22728 22728 22728h196966c12505 0 22728-10224 22728-22728V90911L151513 0z" mask="url(#e)" fill="url(#f)"/></g></svg>`;
-    spreadsheet_btn.style =
-      "border: none; background-color: #eeeeee; padding: 0.4rem; border-radius: 0.2rem; display: flex; gap: 4px; font-size: 12px; font-weight: 600; margin: 0; margin-bottom: 0.4rem; cursor: pointer;";
+    spreadsheet_btn.className = "btn-icon";
+    const spreadsheetImg = document.createElement("img");
+    spreadsheetImg.width = 12;
+    spreadsheetImg.height = 12;
+    spreadsheetImg.alt = "spreadsheet";
+    spreadsheetImg.src = chrome.runtime.getURL(
+      "content/start.php/svg/spreadsheet.svg"
+    );
+    spreadsheet_btn.appendChild(spreadsheetImg);
     spreadsheet_btn.href = issue["Translation spreadsheet newsletter"];
     spreadsheet_btn.target = "_blank";
     spreadsheet_btn.title = "Spreadsheet";
 
     const sa_btn = document.createElement("a");
     sa_btn.innerHTML = "SA";
-    sa_btn.style =
-      "border: none; background-color: #eeeeee; padding: 0.4rem; border-radius: 0.2rem; display: flex; gap: 4px; font-size: 12px; font-weight: 600; font-size: 10px; margin: 0; margin-bottom: 0.4rem; cursor: pointer;";
+    sa_btn.className = "btn-icon";
     sa_btn.href = issue["SA Details link "];
     sa_btn.target = "_blank";
     sa_btn.title = "Sa details";
@@ -379,7 +598,7 @@ class Issues {
     }
 
     const issue_info = document.createElement("div");
-    issue_info.style = "display: flex; flex-direction: column; gap: 0.2rem;";
+    issue_info.className = "issue-info";
     // CONTAINER BTN
 
     const issueInfo = [
@@ -418,40 +637,74 @@ class Issues {
 
     const title = document.createElement("p");
     title.textContent = issue.issue;
-    title.style =
-      "font-size: 12px; font-weight: 500; margin: 0; margin-bottom: 1rem;";
+    title.className = "issue-title";
     a.append(title);
 
+    const missingTitleP = document.createElement("p");
+    missingTitleP.textContent = "Missing Translations:";
+    missingTitleP.className = "missing-trans-title";
+
+    const missingChipsP = document.createElement("p");
+    missingChipsP.className = "missing-chips";
+
     div.append(a);
-    if (issue.checklists_progress !== "-") {
+    if (
+      issue.checklists_progress !== "-" &&
+      issue.checklists_progress !== "0%"
+    ) {
       div.append(progress);
     }
     div.append(containerBtns);
     div.append(issue_info);
+    issue_info.append(missingTitleP);
+    issue_info.append(missingChipsP);
+
+    (async () => {
+      try {
+        if (!issue.__translations_checkpoints) {
+          issue.__translations_checkpoints =
+            await this.getTranslationsChecklistData(issue.id);
+        }
+        const cps = issue.__translations_checkpoints || [];
+        const missing = cps
+          .filter((cp) => !cp.done)
+          .map((cp) => cp.description.trim())
+          .filter(Boolean);
+        if (missing.length) {
+          missingChipsP.innerHTML = "";
+          missing.forEach((code) => {
+            const chip = document.createElement("span");
+            chip.className = "missingCode";
+            chip.textContent = `${code}`;
+            missingChipsP.appendChild(chip);
+          });
+        } else {
+          missingTitleP.textContent = "✔ Translations done!";
+          // missingChipsP.remove();
+        }
+      } catch (e) {}
+    })();
     return div;
   };
 
   createComment = (comment) => {
     const div = document.createElement("div");
-    div.style =
-      "padding: 0.6rem; border-radius: 0.4rem; background-color: #ffffff; color: #626F86; position: relative; word-break: break-word; border: 1px solid #ececec; overflow: hidden; flex-shrink: 0;";
+    div.className = "comment-card";
 
     const options = { defaultProtocol: "https", target: "_blank" };
     const parsed_content_with_links = linkifyHtml(comment.comment, options);
 
     const title = document.createElement("p");
     title.innerHTML = parsed_content_with_links.replaceAll("\n", "<br>");
-    title.style =
-      "font-size: 12px; font-weight: 500; margin: 0; margin-bottom: 1rem;";
+    title.className = "comment-title";
 
     const responsible_user = document.createElement("p");
     responsible_user.innerHTML = "User: " + comment.full_username;
-    responsible_user.style =
-      "font-size: 10px; font-weight: 400; margin: 0; margin-bottom: 0.6rem;";
+    responsible_user.className = "comment-user";
 
     const date = document.createElement("p");
     date.innerHTML = "Date: " + comment.create_date;
-    date.style = "font-size: 10px; font-weight: 400; margin: 0;";
+    date.className = "comment-date";
 
     div.append(title);
     div.append(responsible_user);
@@ -460,17 +713,22 @@ class Issues {
   };
 
   issueInfo({ title, description }) {
+    const row = document.createElement("div");
+    row.className = "issue-info-row";
+
     const _title = document.createElement("p");
     _title.textContent = title.value;
-    _title.style = "font-size: 10px; margin: 0;";
-    Object.assign(_title.style, title.style);
+    _title.className = "info-title";
+    if (title.style) Object.assign(_title.style, title.style);
 
     const _description = document.createElement("p");
     _description.textContent = description.value;
-    _description.style = "font-size: 12px; margin: 0;";
-    Object.assign(_description.style, description.style);
+    _description.className = "info-desc";
+    if (description.style) Object.assign(_description.style, description.style);
 
-    return [_title, _description];
+    row.appendChild(_title);
+    row.appendChild(_description);
+    return [row];
   }
 
   loadIssue = async (ev, issueId) => {
@@ -495,58 +753,52 @@ class Issues {
     document.body.style.overflow = "hidden";
 
     const overlay = document.createElement("div");
-    overlay.style =
-      "display: block; width: 100%; position: fixed; inset: 0; z-index: 10; background: #242424aa";
+    overlay.className = "modal-overlay";
 
     const div = document.createElement("div");
-    div.style =
-      "display: block; position: fixed; height: 100vh; right: 0; top: 0; width: 50vw; background: #ffffff; padding: 1rem; z-index: 100; display: flex; flex-direction: column; gap: 0.4rem; box-sizing: border-box;";
+    div.className = "modal-panel";
 
     const container = document.createElement("div");
-    container.style =
-      "display: flex; flex-direction: column; gap: 0.6rem; max-height: 90vh; overflow-y: auto; margin-top: 1rem; flex-grow: 1";
+    container.className = "modal-container";
 
     const header_container = document.createElement("div");
-    header_container.style =
-      "display: flex; justify-content: space-between; align-items: center;";
+    header_container.className = "modal-header";
 
     const title = document.createElement("a");
     title.target = "_blank";
     title.href = "react/logs/issue_logs/" + issue.id;
     title.textContent = issue.issue;
-    title.style = "font-size: 22px; font-weight: 500; color: #242424;";
+    title.className = "modal-title";
 
     const close_btn = document.createElement("button");
     close_btn.addEventListener("click", () => {
-      overlay.style = "display: none;";
-      div.style = "display: none;";
+      overlay.classList.add("hidden");
+      div.classList.add("hidden");
       document.body.style.overflow = "auto";
     });
-    close_btn.style = "font-size: 22px; background-color: none; border: none;";
+    close_btn.className = "close-btn";
     close_btn.textContent = "X";
 
     header_container.append(...[title, close_btn]);
 
     const message_container = document.createElement("div");
-    message_container.style =
-      "display: flex; gap: 0.4rem; flex-direction: column; text-align: left;";
+    message_container.className = "message-container";
 
     const error_message = document.createElement("p");
     error_message.textContent = "";
-    error_message.style = "font-size: 10px; color: #ff000030;";
+    error_message.className = "error-message";
 
     const textareaState = {};
     const textarea = document.createElement("textarea");
     textarea.rows = 10;
-    textarea.style =
-      "resize: none; width: 100%; border-radius: .4rem; padding: 0.2rem;";
+    textarea.className = "modal-textarea";
     textarea.addEventListener("change", (ev) => {
       error_message.textContent = "";
       textareaState.message = ev.target.value;
     });
 
     const send_message = document.createElement("button");
-    send_message.style = "width: 100%; padding: 0.4rem;";
+    send_message.className = "send-message-btn";
     send_message.textContent = "Send";
     send_message.addEventListener("click", async () => {
       if (textareaState.message.trim().length > 0) {
@@ -567,8 +819,8 @@ class Issues {
     message_container.append(send_message);
 
     overlay.addEventListener("click", () => {
-      overlay.style = "display: none;";
-      div.style = "display: none;";
+      overlay.classList.add("hidden");
+      div.classList.add("hidden");
       document.body.style.overflow = "auto";
     });
 
@@ -581,8 +833,8 @@ class Issues {
     document.body.append(overlay);
 
     return () => {
-      overlay.style = "display: none;";
-      div.style = "display: none;";
+      overlay.classList.add("hidden");
+      div.classList.add("hidden");
       document.body.style.overflow = "auto";
     };
   };
@@ -612,7 +864,7 @@ class Issues {
           method: "POST",
           mode: "cors",
           credentials: "include",
-        },
+        }
       );
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -624,6 +876,7 @@ class Issues {
     }
   };
 }
+
 // uncomment below to enable floating menu functionality
 // // Floating Menu Implementation
 // class FloatingMenuManager {
@@ -678,44 +931,44 @@ class Issues {
 
 //     // Clone the menu content
 //     const menuContent = leftMenu.cloneNode(true);
-    
+
 //     // Hide the original menu
 //     leftMenu.classList.add('original-hidden');
-    
+
 //     // Create floating menu container
 //     const floatingMenu = document.createElement('div');
 //     floatingMenu.className = 'leftSideMenu floating-menu';
 //     floatingMenu.id = 'floating-left-menu';
-    
+
 //     // Transfer content
 //     floatingMenu.innerHTML = menuContent.innerHTML;
-    
+
 //     // Clean up the content (remove inline styles that conflict)
 //     this.cleanMenuContent(floatingMenu);
-    
+
 //     // Append to body
 //     document.body.appendChild(floatingMenu);
-    
+
 //     this.floatingMenu = floatingMenu;
 //     console.log('Floating menu created and added to page');
 //   }
 
 //   cleanMenuContent(menu) {
 //     console.log('Cleaning menu content and hiding disabled items...');
-    
+
 //     // Remove nowrap attribute and conflicting styles
 //     menu.removeAttribute('nowrap');
-    
+
 //     // First pass: identify and hide disabled menu items
 //     const links = menu.querySelectorAll('a');
 //     const disabledElements = [];
-    
+
 //     links.forEach(link => {
 //       // Enhanced disabled link detection
 //       const linkStyle = link.getAttribute('style') || '';
 //       const computedStyle = window.getComputedStyle(link);
-      
-//       const isDisabled = linkStyle.includes('color:gray') || 
+
+//       const isDisabled = linkStyle.includes('color:gray') ||
 //                         linkStyle.includes('color: gray') ||
 //                         linkStyle.includes('pointer-events: none') ||
 //                         linkStyle.includes('pointer-events:none') ||
@@ -724,7 +977,7 @@ class Issues {
 //                         computedStyle.pointerEvents === 'none' ||
 //                         computedStyle.color === 'gray' ||
 //                         computedStyle.cursor === 'default';
-      
+
 //       if (isDisabled) {
 //         console.log('Hiding disabled menu item:', link.textContent.trim());
 //         link.style.display = 'none';
@@ -734,15 +987,15 @@ class Issues {
 
 //       // Clean all nbsp entities and whitespace from active links
 //       const linkText = link.innerHTML;
-      
+
 //       // Remove all &nbsp; entities and replace with proper spacing
 //       const cleanText = linkText
 //         .replace(/&nbsp;/g, '') // Remove all &nbsp; entities
 //         .replace(/\s+/g, ' ')   // Replace multiple spaces with single space
 //         .trim();               // Remove leading/trailing whitespace
-      
+
 //       link.innerHTML = cleanText;
-      
+
 //       // Apply indentation based on original nesting level
 //       const nbspCount = (linkText.match(/&nbsp;/g) || []).length;
 //       if (nbspCount >= 4) {
@@ -757,14 +1010,14 @@ class Issues {
 //     // Clean up any script or unwanted elements
 //     const scripts = menu.querySelectorAll('script');
 //     scripts.forEach(script => script.remove());
-    
+
 //     // Additional cleanup: remove any remaining &nbsp; entities from the entire menu
 //     menu.innerHTML = menu.innerHTML
 //       .replace(/&nbsp;/g, ' ')           // Replace all &nbsp; with spaces
 //       .replace(/\s+/g, ' ')              // Replace multiple spaces with single space
 //       .replace(/>\s+</g, '><')           // Remove spaces between tags
 //       .replace(/^\s+|\s+$/g, '');        // Remove leading/trailing whitespace
-    
+
 //     console.log(`Menu cleanup complete. Hidden ${disabledElements.length} disabled items.`);
 //   }
 
@@ -772,7 +1025,7 @@ class Issues {
 //     // Remove all BR tags completely
 //     const brTags = menu.querySelectorAll('br');
 //     brTags.forEach(br => br.remove());
-    
+
 //     // Clean up text nodes and whitespace
 //     const allNodes = [];
 //     const walker = document.createTreeWalker(
@@ -781,7 +1034,7 @@ class Issues {
 //       null,
 //       false
 //     );
-    
+
 //     let node;
 //     while (node = walker.nextNode()) {
 //       allNodes.push(node);
@@ -791,19 +1044,19 @@ class Issues {
 //     allNodes.forEach(node => {
 //       if (node.nodeType === Node.TEXT_NODE) {
 //         const text = node.textContent;
-        
+
 //         // Remove empty text nodes or those with only whitespace/nbsp
 //         if (!text || text.trim() === '' || text.match(/^[\s&nbsp;]*$/)) {
 //           node.remove();
 //           return;
 //         }
-        
+
 //         // Clean remaining text nodes
 //         const cleanText = text
 //           .replace(/&nbsp;/g, ' ')  // Replace &nbsp; with regular space
 //           .replace(/\s+/g, ' ')     // Replace multiple spaces with single space
 //           .trim();                  // Remove leading/trailing whitespace
-        
+
 //         if (cleanText) {
 //           node.textContent = cleanText;
 //         } else {
@@ -811,7 +1064,7 @@ class Issues {
 //         }
 //       }
 //     });
-    
+
 //     // Remove any remaining empty elements
 //     const emptyElements = menu.querySelectorAll('*:empty:not(input):not(img):not(br)');
 //     emptyElements.forEach(el => {
@@ -840,7 +1093,7 @@ class Issues {
 //     `;
 //     toggleButton.setAttribute('aria-label', 'Toggle navigation menu');
 //     toggleButton.setAttribute('title', 'Toggle menu');
-    
+
 //     document.body.appendChild(toggleButton);
 //     this.toggleButton = toggleButton;
 //     console.log('Toggle button created');
@@ -875,7 +1128,7 @@ class Issues {
 
 //   hideMenu() {
 //     if (!this.floatingMenu || !this.toggleButton) return;
-    
+
 //     this.floatingMenu.classList.add('hidden');
 //     this.toggleButton.classList.remove('menu-visible');
 //     this.isMenuVisible = false;
@@ -884,7 +1137,7 @@ class Issues {
 
 //   showMenu() {
 //     if (!this.floatingMenu || !this.toggleButton) return;
-    
+
 //     this.floatingMenu.classList.remove('hidden');
 //     this.toggleButton.classList.add('menu-visible');
 //     this.isMenuVisible = true;
@@ -903,4 +1156,7 @@ class Issues {
 //   console.log('Not on start.php page, skipping floating menu initialization');
 // }
 
-new Issues();
+const _issues_instance = new Issues();
+// expose helper for quick access
+window.getTranslationsChecklist = (id) =>
+  _issues_instance.getTranslationsChecklist(id);
