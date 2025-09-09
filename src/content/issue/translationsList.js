@@ -5,10 +5,10 @@ function getTranslationsList() {
   let translationsListElement;
 
   panelGroups.forEach((panelGroup) => {
-    let panelHeading = panelGroup.querySelector(".jss106");
+    let panelHeading = panelGroup.querySelector(".panel-heading");
     if (!panelHeading) return;
 
-    panelHeading = panelHeading.firstChild.textContent;
+    panelHeading = panelHeading.textContent;
     if (!String(panelHeading).toLowerCase().includes("translations")) return;
 
     const itemsList = panelGroup.querySelectorAll("ul li");
