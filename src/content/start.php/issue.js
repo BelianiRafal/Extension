@@ -479,7 +479,7 @@ class Issues {
     }
 
     if (this.isMyIssue(issue)) {
-      console.log(`Twoje issue ${JSON.stringify(issue)}`);
+      // console.log(`Twoje issue ${JSON.stringify(issue)}`);
       div.classList.toggle("my-issue");
     }
 
