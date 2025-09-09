@@ -1,0 +1,106 @@
+.listContainer {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 8px 12px;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  overflow-x: clip;
+  align-self: center;
+}
+
+.listContainer.expanded {
+  display: flex;
+}
+
+#translations-wrapper,
+.translations-wrapper {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  width: 100%;
+  gap: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.listItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+  background: transparent;
+}
+
+.toggleBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.langName {
+  font-size: 13px;
+  color: #222;
+}
+
+.emptyMessage {
+  color: #444;
+  font-size: 13px;
+}
+
+.toggleOriginalBtn {
+  margin-left: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.toggleOriginalBtn:hover {
+  background: #f6f6f6;
+}
+
+.listItem .done {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: #dff7e6;
+  color: #0a7f2b;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.listItem .disabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: #ffecec;
+  color: #a00;
+  font-weight: 700;
+  font-size: 13px;
+}

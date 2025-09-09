@@ -176,10 +176,11 @@
         "./content/emoji/content.js",
         "./content/issue/content.js",
         "./content/issue/layout.js",
+        "./content/issue/translationsList.js",
         "./content/kanbanTable/content.js"
       ],
       "run_at": "document_idle",
-      "css": ["./content/emoji/styles.css", "./libraries/gridstack.min.css", "./content/kanbanTable/style.css"]
+      "css": ["./content/emoji/styles.css", "./content/issue/translationsList.css", "./libraries/gridstack.min.css", "./content/kanbanTable/style.css"]
     },
     {
       "matches": ["https://www.prologistics.info/spam_plan.php*", "https://prolodev.prologistics.info/spam_plan.php*"],
