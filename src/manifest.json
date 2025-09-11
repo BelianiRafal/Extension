@@ -200,13 +200,18 @@
         "./content/emoji/content.js",
         "./content/issue/content.js",
         "./content/issue/layout.js",
-        "./content/issue/translationsList.js",
+        "./content/issue/floating-checklist/config.js",
+        "./content/issue/floating-checklist/utils.js",
+        "./content/issue/floating-checklist/data-processor.js",
+        "./content/issue/floating-checklist/state.js",
+        "./content/issue/floating-checklist/ui-components.js",
+        "./content/issue/floating-checklist/index.js",
         "./content/kanbanTable/content.js"
       ],
       "run_at": "document_idle",
       "css": [
+        "./content/issue/floating-checklist/styles.css",
         "./content/emoji/styles.css",
-        "./content/issue/translationsList.css",
         "./libraries/gridstack.min.css",
         "./content/kanbanTable/style.css"
       ]
@@ -275,11 +280,13 @@
   "web_accessible_resources": [
     {
       "resources": [
+        "content/start.php/start_php.css",
         "content/issue/googleCalendar.svg",
         "content/startphp_styles.css",
         "content/linkifyjs/*.js",
         "content/send_nslt/game/img/*",
-        "content/start.php/svg/*"
+        "content/start.php/svg/*",
+        "content/issue/floating-checklist/styles.css"
       ],
       "matches": [
         "https://www.prologistics.info/*",
