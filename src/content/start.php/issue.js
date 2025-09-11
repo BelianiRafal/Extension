@@ -18,6 +18,22 @@ document.querySelector(".info_finish")?.remove();
 body.style.margin = "0";
 body.style.padding = "0";
 
+// inject css - prolo messes normal styles after user log ins
+function injectStartCss() {
+  try {
+    const id = "prolo-start-css";
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = chrome.runtime.getURL("content/start.php/start_php.css");
+    document.head.appendChild(link);
+  } catch (err) {
+    console.warn("injectStartCss:", err?.message || err);
+  }
+}
+injectStartCss();
+
 // Remove the unwanted text from body
 if (body.innerText.includes('string(21) "www.prologistics.info"')) {
   body.innerHTML = body.innerHTML.replace(
@@ -26,12 +42,13 @@ if (body.innerText.includes('string(21) "www.prologistics.info"')) {
   );
 }
 
-document.body.innerHTML = document.body.innerHTML
-  .replace(/Hello\s+[^!]+!/g, "")
-  .replace(
-    /The last time you login was\s*\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}/g,
-    ""
-  );
+// prolo needs this string or won't let you log in xd
+// document.body.innerHTML = document.body.innerHTML
+//   .replace(/Hello\s+[^!]+!/g, "")
+//   .replace(
+//     /The last time you login was\s*\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}/g,
+//     ""
+//   );
 
 document.querySelector("#fulltable")?.remove();
 // document.querySelector(".leftSideMenu").style.display = "none";
