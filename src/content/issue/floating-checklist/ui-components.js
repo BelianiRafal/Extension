@@ -161,6 +161,7 @@ window.FloatingChecklistUIComponents = {
         chip.setAttribute("role", "button");
         chip.tabIndex = 0;
         chip.style.cursor = "pointer";
+        chip.title = `Click to request translation & mention ${s} in the comment`;
 
         const handler = this.createTranslationHandler(s);
         chip.addEventListener("click", handler);
