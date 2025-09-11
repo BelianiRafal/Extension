@@ -105,7 +105,7 @@ window.FloatingChecklistUIComponents = {
 
       if (needsTesting) {
         tchip.textContent = "🛠";
-        tchip.title = `testing needed for ${s}`;
+        tchip.title = `Click to request test & mention ${s} in the comment`;
         tchip.style.background = "linear-gradient(180deg,#8e44ad,#6f2f91)";
         tchip.style.cursor = "pointer";
         tchip.setAttribute("role", "button");
@@ -119,7 +119,7 @@ window.FloatingChecklistUIComponents = {
       } else {
         tchip.classList.add("chip-missing");
         tchip.textContent = "-";
-        tchip.title = "no testing needed";
+        tchip.title = "Testing already done or not needed!";
         tchip.style.cursor = "default";
       }
 
@@ -140,7 +140,7 @@ window.FloatingChecklistUIComponents = {
     if (!isPresent) {
       chip.classList.add("chip-missing");
       chip.textContent = "-";
-      chip.title = "missing";
+      chip.title = "Not Found";
       return chip;
     }
 
@@ -148,11 +148,11 @@ window.FloatingChecklistUIComponents = {
     if (doneState) {
       chip.classList.add("chip-true");
       chip.textContent = "✔";
-      chip.title = "true";
+      chip.title = "Click to mark as not done/not approved";
     } else {
       chip.classList.add("chip-false");
       chip.textContent = "✕";
-      chip.title = "false";
+      chip.title = "Click to mark as done/approved";
     }
 
     // Configure interactivity
@@ -169,7 +169,7 @@ window.FloatingChecklistUIComponents = {
         });
       } else {
         chip.style.cursor = "default";
-        chip.title = "translation completed";
+        chip.title = "Translation done!";
       }
     } else {
       chip.setAttribute("role", "button");
@@ -225,14 +225,14 @@ window.FloatingChecklistUIComponents = {
       chip.classList.remove("chip-true", "chip-false");
       chip.classList.add("chip-pending");
       chip.textContent = "⏱";
-      chip.title = "pending";
+      chip.title = "Pending...";
 
       if (!Array.isArray(entry.items) || entry.items.length === 0) {
         console.log("[checklist-debug] no checkpoint items for", s);
         chip.classList.remove("chip-pending");
         chip.classList.add("chip-missing");
         chip.textContent = "-";
-        chip.title = "missing";
+        chip.title = "Not Found!";
         return;
       }
 
@@ -278,16 +278,16 @@ window.FloatingChecklistUIComponents = {
         if (desiredDone) {
           chip.classList.add("chip-true");
           chip.textContent = "✔";
-          chip.title = "true";
+          chip.title = "Click to mark as not done/not approved";
         } else {
           chip.classList.add("chip-false");
           chip.textContent = "✕";
-          chip.title = "false";
+          chip.title = "Click to mark as done/approved";
         }
       } else {
         chip.classList.add(prevDone ? "chip-true" : "chip-false");
         chip.textContent = prevDone ? "✔" : "✕";
-        chip.title = "partial-failure";
+        chip.title = "Motyla noga, coś poszło not yes!";
         console.warn(
           "[checklist-debug] Partial/failure saving for slug",
           s,
