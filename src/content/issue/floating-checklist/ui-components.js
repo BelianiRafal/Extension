@@ -1,12 +1,81 @@
 // UI component creation functions
 window.FloatingChecklistUIComponents = {
-  createPanelHeader: function (floating) {
+  
+  // Helper function to check if a string is a URL
+  isUrl: function(string) {
+    try {
+      new URL(string);
+      return true;
+    } catch (_) {
+      return false;
+    }
+  },
+
+  // Helper function to create a link chip
+  createLinkChip: function(url, fieldName) {
+    const chip = document.createElement("button");
+    chip.classList.add("link-chip");
+    
+    // Add special classes based on field name
+    if (fieldName.toLowerCase().includes('spreadsheet')) {
+      chip.classList.add("spreadsheet");
+      chip.textContent = "📊 " + fieldName.replace(/spreadsheet|newsletter/gi, '').trim();
+    } else if (fieldName.toLowerCase().includes('figma')) {
+      chip.classList.add("figma");
+      chip.textContent = "🎨 Figma";
+    } else if (fieldName.toLowerCase().includes('dropbox')) {
+      chip.classList.add("dropbox");
+      chip.textContent = "📁 Dropbox";
+    } else if (fieldName.toLowerCase().includes('testing')) {
+      chip.classList.add("testing");
+      chip.textContent = "🧪 Testing";
+    } else if (fieldName.toLowerCase().includes('banner')) {
+      chip.textContent = "🖼️ Banners";
+    } else if (fieldName.toLowerCase().includes('details')) {
+      chip.textContent = "📋 Details";
+    } else {
+      chip.textContent = "🔗 " + fieldName.replace(/link|url/gi, '').trim();
+    }
+    
+    chip.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.open(url, '_blank');
+    });
+    
+    return chip;
+  },
+
+  createPanelHeader: function (floating, issueTitle = null, issueStatus = null) {
     const header = document.createElement("div");
     header.classList.add("checklist-header");
 
     const title = document.createElement("div");
     title.classList.add("checklist-title");
-    title.textContent = "Checklists";
+    
+    if (issueTitle && issueStatus) {
+      // Create title text
+      const titleText = document.createElement("span");
+      titleText.textContent = issueTitle;
+      title.appendChild(titleText);
+      
+      // Create status chip
+      const statusChip = document.createElement("span");
+      statusChip.classList.add("status-chip");
+      statusChip.textContent = issueStatus;
+      
+      // Set color based on status
+      if (issueStatus.toLowerCase() === 'open') {
+        statusChip.classList.add("status-open");
+      } else if (issueStatus.toLowerCase() === 'close') {
+        statusChip.classList.add("status-closed");
+      } else {
+        statusChip.classList.add("status-other");
+      }
+      
+      title.appendChild(statusChip);
+    } else {
+      title.textContent = "Checklists";
+    }
 
     const toggle = document.createElement("button");
     toggle.classList.add("toggle-btn");
@@ -298,4 +367,239 @@ window.FloatingChecklistUIComponents = {
       console.log("[checklist-debug] RESULTS for slug", s, results);
     };
   },
+
+  createNewsletterInfoSection: async function() {
+    const infoSection = document.createElement("div");
+    infoSection.classList.add("newsletter-info");
+    
+    // Get issue ID from URL
+    const issue_id = window.location.pathname.split("/").pop();
+    
+    try {
+      // Fetch issue data from API
+      const response = await fetch(
+        `https://${window.location.hostname}/api/issueLog/list/?page_id=${issue_id}&show_with_inactive=1`
+      );
+      
+      const data = await response.json();
+      const issueData = data.issue_list?.[0];
+      
+      if (issueData) {
+        // Issue Types
+        if (issueData.issue_type && issueData.issue_type.length > 0) {
+          const typesSection = document.createElement("div");
+          typesSection.classList.add("info-section");
+          
+          const typesLabel = document.createElement("div");
+          typesLabel.classList.add("info-label");
+          typesLabel.textContent = "Issue Types:";
+          
+          const typesValue = document.createElement("div");
+          typesValue.classList.add("info-value");
+          typesValue.textContent = issueData.issue_type.map(t => t.name).join(", ");
+          
+          typesSection.appendChild(typesLabel);
+          typesSection.appendChild(typesValue);
+          infoSection.appendChild(typesSection);
+        }
+        
+        // Board and Column
+        const boardSection = document.createElement("div");
+        boardSection.classList.add("info-section");
+        
+        const boardLabel = document.createElement("div");
+        boardLabel.classList.add("info-label");
+        boardLabel.textContent = "Board:";
+        
+        const boardValue = document.createElement("div");
+        boardValue.classList.add("info-value");
+        boardValue.textContent = `${issueData.issue_board_name || "Unknown"} → ${issueData.issue_board_column_name || "Unknown"}`;
+        
+        boardSection.appendChild(boardLabel);
+        boardSection.appendChild(boardValue);
+        infoSection.appendChild(boardSection);
+        
+        // Departments
+        if (issueData.department_id && issueData.department_id.length > 0) {
+          const deptSection = document.createElement("div");
+          deptSection.classList.add("info-section");
+          
+          const deptLabel = document.createElement("div");
+          deptLabel.classList.add("info-label");
+          deptLabel.textContent = "Departments:";
+          
+          const deptValue = document.createElement("div");
+          deptValue.classList.add("info-value");
+          deptValue.textContent = issueData.department_id.map(d => d.label).join(", ");
+          
+          deptSection.appendChild(deptLabel);
+          deptSection.appendChild(deptValue);
+          infoSection.appendChild(deptSection);
+        }
+        
+        // Solving Person
+        if (issueData.solving_user_name) {
+          const solvingSection = document.createElement("div");
+          solvingSection.classList.add("info-section");
+          
+          const solvingLabel = document.createElement("div");
+          solvingLabel.classList.add("info-label");
+          solvingLabel.textContent = "Solving Person:";
+          
+          const solvingValue = document.createElement("div");
+          solvingValue.classList.add("info-value");
+          
+          // Get current logged user from logout link
+          const logoutLink = document.querySelector('a[href="/logout.php"]');
+          let currentUser = null;
+          if (logoutLink) {
+            const logoutText = logoutLink.innerText || logoutLink.textContent;
+            currentUser = logoutText.replace("Logout ", "").trim();
+          }
+          
+          // Compare solving person with current user
+          const solvingPerson = issueData.solving_user_name.trim();
+          const isCurrentUser = currentUser && currentUser === solvingPerson;
+          
+          // Create solving person display with status indicator
+          const solvingContainer = document.createElement("div");
+          solvingContainer.style.display = "flex";
+          solvingContainer.style.alignItems = "center";
+          solvingContainer.style.gap = "6px";
+          
+          const solvingText = document.createElement("span");
+          solvingText.textContent = solvingPerson;
+          
+          const statusIndicator = document.createElement("span");
+          statusIndicator.style.fontSize = "14px";
+          statusIndicator.style.fontWeight = "bold";
+          
+          if (isCurrentUser) {
+            statusIndicator.textContent = "✔";
+            statusIndicator.style.color = "#4caf50";
+            statusIndicator.title = "You are assigned to solve this issue";
+          } else {
+            statusIndicator.textContent = "❌";
+            statusIndicator.style.color = "#f44336";
+            statusIndicator.title = "Someone else is assigned to solve this issue";
+          }
+          
+          solvingContainer.appendChild(solvingText);
+          solvingContainer.appendChild(statusIndicator);
+          solvingValue.appendChild(solvingContainer);
+          
+          solvingSection.appendChild(solvingLabel);
+          solvingSection.appendChild(solvingValue);
+          infoSection.appendChild(solvingSection);
+        }
+        
+        // Additional Fields - collect links first, display text fields normally
+        const links = [];
+        
+        if (issueData.additional_fields) {
+          for (const [fieldType, fields] of Object.entries(issueData.additional_fields)) {
+            if (fields && Array.isArray(fields)) {
+              for (const field of fields) {
+                if (field.value && field.value.trim()) {
+                  // Check if the field value is a URL
+                  if (this.isUrl(field.value)) {
+                    // Collect links for later display
+                    links.push({ url: field.value, name: field.name });
+                  } else {
+                    // Display non-URL fields normally
+                    const fieldSection = document.createElement("div");
+                    fieldSection.classList.add("info-section");
+                    
+                    const fieldLabel = document.createElement("div");
+                    fieldLabel.classList.add("info-label");
+                    fieldLabel.textContent = `${field.name}:`;
+                    
+                    const fieldValue = document.createElement("div");
+                    fieldValue.classList.add("info-value");
+                    fieldValue.textContent = field.value;
+                    
+                    fieldSection.appendChild(fieldLabel);
+                    fieldSection.appendChild(fieldValue);
+                    infoSection.appendChild(fieldSection);
+                  }
+                }
+              }
+            }
+          }
+        }
+        
+        // Display all links in one row at the end
+        if (links.length > 0) {
+          const linksSection = document.createElement("div");
+          linksSection.classList.add("info-section");
+          
+          const linksContainer = document.createElement("div");
+          linksContainer.classList.add("links-container");
+          
+          links.forEach(linkData => {
+            const linkChip = this.createLinkChip(linkData.url, linkData.name);
+            linksContainer.appendChild(linkChip);
+          });
+          
+          linksSection.appendChild(linksContainer);
+          infoSection.appendChild(linksSection);
+        }
+        
+        // Return both the info section and the issue data for header
+        return {
+          infoSection: infoSection,
+          issueTitle: issueData.issue || null,
+          issueStatus: issueData.status || null
+        };
+        
+      } else {
+        // Fallback: show error
+        const errorSection = document.createElement("div");
+        errorSection.classList.add("info-section");
+        
+        const errorLabel = document.createElement("div");
+        errorLabel.classList.add("info-label");
+        errorLabel.textContent = "Error:";
+        
+        const errorValue = document.createElement("div");
+        errorValue.classList.add("info-value");
+        errorValue.textContent = "No issue data found";
+        
+        errorSection.appendChild(errorLabel);
+        errorSection.appendChild(errorValue);
+        infoSection.appendChild(errorSection);
+        
+        return {
+          infoSection: infoSection,
+          issueTitle: null,
+          issueStatus: null
+        };
+      }
+      
+    } catch (error) {
+      console.error("Error fetching issue data:", error);
+      
+      // Fallback: show error
+      const errorSection = document.createElement("div");
+      errorSection.classList.add("info-section");
+      
+      const errorLabel = document.createElement("div");
+      errorLabel.classList.add("info-label");
+      errorLabel.textContent = "Error:";
+      
+      const errorValue = document.createElement("div");
+      errorValue.classList.add("info-value");
+      errorValue.textContent = "Failed to fetch issue data";
+      
+      errorSection.appendChild(errorLabel);
+      errorSection.appendChild(errorValue);
+      infoSection.appendChild(errorSection);
+      
+      return {
+        infoSection: infoSection,
+        issueTitle: null,
+        issueStatus: null
+      };
+    }
+  }
 };
