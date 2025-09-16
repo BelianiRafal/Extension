@@ -96,6 +96,23 @@ getCampaignIdBtn.textContent = "Start Sending";
 // gameBlock.append(gameWrapper);
 
 // END FOR GAME======================================================
+const customerLoaderText = document.createElement("p");
+customerLoaderText.className = "customerLoaderText";
+customerLoaderText.textContent = "Please wait...";
+
+const customerLoader = document.createElement("div");
+customerLoader.className = "loaderLol";
+
+const customerLoaderWrapper = document.createElement("div");
+customerLoaderWrapper.className = "customerLoaderWrapper";
+
+customerLoaderWrapper.append(customerLoader);
+customerLoaderWrapper.append(customerLoaderText);
+
+const customerTableBtn = document.createElement("button");
+customerTableBtn.innerHTML = `<span>Fetch customer</span>`
+// customerTableBtn.textContent = "Fetch customer";
+customerTableBtn.className = "customerFetch";
 
 const closeBtn = document.createElement;
 const mainCard = document.createElement("div");
@@ -167,6 +184,7 @@ informationBlock.append(campaignIdText);
 mainCardContainer.append(closeCard);
 mainCardContainer.append(getCampaignIdBtn);
 mainCardContainer.append(informationBlock);
+mainCardContainer.append(customerTableBtn);
 mainCardContainer.append(ABbtnContainer);
 
 mainCard.append(mainCardContainer);
