@@ -2,7 +2,7 @@
 window.FloatingChecklistMain = {
   existingPanel: null,
 
-  displayChecklists: function (checklists) {
+  displayChecklists: async function (checklists) {
     console.log("[display] Rendering checklists:", checklists);
 
     // Remove existing panel if present
@@ -11,31 +11,46 @@ window.FloatingChecklistMain = {
       this.existingPanel = null;
     }
 
-    // Check if we have valid data
+    // Check if we have valid data - but still show panel even if no checklists
     if (!checklists || typeof checklists !== "object") {
       console.error("[display] Invalid checklists data");
-      return;
+      checklists = {}; // Create empty object to continue
     }
 
     const keys = Object.keys(checklists);
-    if (keys.length === 0) {
-      console.warn("[display] No checklists to display");
-      return;
-    }
+    const hasChecklists = keys.length > 0;
 
-    // Extract all unique slugs
-    const allSlugs = new Set();
-    for (const listName of keys) {
-      const map = checklists[listName] || {};
-      for (const slug of Object.keys(map)) {
-        allSlugs.add(slug);
+    // Extract all unique slugs only if we have checklists
+    let slugs = [];
+    if (hasChecklists) {
+      const allSlugs = new Set();
+      for (const listName of keys) {
+        const map = checklists[listName] || {};
+        for (const slug of Object.keys(map)) {
+          allSlugs.add(slug);
+        }
       }
+      slugs = Array.from(allSlugs).sort();
     }
-    const slugs = Array.from(allSlugs).sort();
 
-    if (slugs.length === 0) {
-      console.warn("[display] No slugs found in checklists");
-      return;
+    if (!hasChecklists) {
+      console.warn(
+        "[display] No checklists to display, showing issue info only"
+      );
+    }
+
+    // Fetch newsletter info first to get issue title and status
+    let issueTitle = null;
+    let issueStatus = null;
+    let newsletterInfoResult = null;
+
+    try {
+      newsletterInfoResult =
+        await window.FloatingChecklistUIComponents.createNewsletterInfoSection();
+      issueTitle = newsletterInfoResult.issueTitle;
+      issueStatus = newsletterInfoResult.issueStatus;
+    } catch (error) {
+      console.error("[display] Error creating newsletter info section:", error);
     }
 
     // Create floating panel
@@ -49,30 +64,62 @@ window.FloatingChecklistMain = {
       floating.classList.add("collapsed");
     }
 
-    // Create header
-    const header =
-      window.FloatingChecklistUIComponents.createPanelHeader(floating);
+    // Create header with issue title and status
+    const header = window.FloatingChecklistUIComponents.createPanelHeader(
+      floating,
+      issueTitle,
+      issueStatus
+    );
     floating.appendChild(header);
 
     // Create content container
     const content = document.createElement("div");
     content.classList.add("checklist-content");
 
-    // Create table
-    const table = document.createElement("table");
-    table.classList.add("checklist-table");
+    // Only create table if we have checklists
+    if (hasChecklists && slugs.length > 0) {
+      // Create table container for horizontal scroll
+      const tableContainer = document.createElement("div");
+      tableContainer.classList.add("table-container");
 
-    // Create table parts
-    const thead = window.FloatingChecklistUIComponents.createTableHeader(slugs);
-    const tbody = window.FloatingChecklistUIComponents.createTableBody(
-      checklists,
-      keys,
-      slugs
-    );
+      // Create table
+      const table = document.createElement("table");
+      table.classList.add("checklist-table");
 
-    table.appendChild(thead);
-    table.appendChild(tbody);
-    content.appendChild(table);
+      // Create table parts
+      const thead =
+        window.FloatingChecklistUIComponents.createTableHeader(slugs);
+      const tbody = window.FloatingChecklistUIComponents.createTableBody(
+        checklists,
+        keys,
+        slugs
+      );
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      tableContainer.appendChild(table);
+      content.appendChild(tableContainer);
+    } else {
+      // Show message when no checklists
+      const noChecklistsMsg = document.createElement("div");
+      noChecklistsMsg.style.padding = "12px";
+      noChecklistsMsg.style.textAlign = "center";
+      noChecklistsMsg.style.color = "#666";
+      noChecklistsMsg.style.fontStyle = "italic";
+      noChecklistsMsg.textContent = "No checklists available for this issue";
+      content.appendChild(noChecklistsMsg);
+    }
+
+    // Add newsletter info section below table
+    if (newsletterInfoResult && newsletterInfoResult.infoSection) {
+      content.appendChild(newsletterInfoResult.infoSection);
+    } else {
+      // Add fallback info section
+      const fallbackInfo = document.createElement("div");
+      fallbackInfo.classList.add("newsletter-info");
+      fallbackInfo.textContent = "Failed to load newsletter information";
+      content.appendChild(fallbackInfo);
+    }
 
     floating.appendChild(content);
 
@@ -89,7 +136,7 @@ window.FloatingChecklistMain = {
     try {
       const checklists =
         await window.FloatingChecklistDataProcessor.getChecklists();
-      this.displayChecklists(checklists);
+      await this.displayChecklists(checklists);
     } catch (error) {
       console.error("[init] Failed to initialize floating checklist:", error);
     }
