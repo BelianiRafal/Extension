@@ -36,7 +36,7 @@ closeCard.addEventListener("click", () => {
     mainCard.classList.remove("implode-animation");
     mainCard.classList.remove("explode-animation");
     overlay.classList.remove("active");
-    document.body.classList.remove('noScroll');
+    document.body.classList.remove("noScroll");
   }, 800);
 });
 
@@ -49,7 +49,7 @@ mainButtonStart.addEventListener("click", async () => {
 
   overlay.classList.add("active");
   mainCard.classList.add("explode-animation");
-  document.body.classList.add('noScroll');
+  document.body.classList.add("noScroll");
 
   const mainInformation = document.querySelectorAll('[id="virtualize-demo"]');
   const subjectInformation = document.querySelectorAll('[id="Subject"]');
@@ -76,64 +76,42 @@ getCampaignIdBtn.addEventListener("click", async () => {
 
   if (result.isConfirmed) {
     //Open page with Mailing templates
-    openMailTable(chdeLinkId);
+    openMailTable(chdeLinkId, "duplicateId");
 
     //Return to main page
     chrome.runtime.sendMessage({ action: "setFirstTab" });
     startOrStopLoader(true);
-    informationBlock.style.display = 'none';
+    informationBlock.style.display = "none";
   } else {
     return false;
   }
 });
 
-function openMailTable(valueId) {
-  const ids = [];
-  const newsMailWindow = window.open(`${newsEmailUrl + valueId}`, "_blank");
-  const startTimer = Date.now();
+function openMailTable(valueId, variable) {
+  return new Promise((resolve, reject) => {
+    const ids = [];
+    const newsMailWindow = window.open(`${newsEmailUrl + valueId}`, "_blank");
 
-  const waitForMail = setInterval(() => {
-    try {
-      const doc = newsMailWindow.document;
-      if (!doc || doc.readyState !== "complete") return;
-      const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
+    const waitForMail = setInterval(() => {
+      try {
+        const doc = newsMailWindow.document;
+        if (!doc || doc.readyState !== "complete") return;
+        const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
 
-      if (tableMain.length > 0) {
-        tableMain.forEach((item, index) => {
-          const url = item.href;
-          const valueInLink = url.match(/id=(\d+)/);
-          const id = valueInLink[1];
-
-          if (index === 0 || index === 1 || index === 6) {
-            ids.push(id, id);
-          } else {
-            ids.push(id);
-          }
-          return ids;
-        });
-
-        //Remove id for BEFR/BENL
-        ids.splice(5, 2);
-        clearInterval(waitForMail);
-        newsMailWindow.close();
-        openCustomerFilter(ids, 0);
-      } else if (Date.now() - startTimer > 10000) {
-        clearInterval(waitForMail);
-        newsMailWindow.close();
-        swalFireModal("┐(￣ヘ￣;)┌", "We did not response for your campaign, repeat again", "error", "", "", false);
-        startOrStopLoader(false);
+        getIdsForNewsMail(tableMain, waitForMail, ids, newsMailWindow, resolve, variable);
+      } catch (e) {
+        reject(new Error("Ooops, something get wrong..."));
       }
-    } catch (e) {
-      console.log(e);
-    }
-  }, 500);
+    }, 500);
+  });
 }
 
 function openCustomerFilter(ids, index = 0) {
   if (index >= ids.length) {
     startOrStopLoader(false);
     swalFireModal(`Done`, `Your id is already!`, "success", "", "", false);
-    idForInput.value = "";
+    customerTableBtn.style.display = "inline-block";
+    getCampaignIdBtn.style.display = "none";
     return;
   }
 
@@ -167,7 +145,6 @@ function openCustomerFilter(ids, index = 0) {
         }, 200);
 
         const filterDiv = filterBtn.closest("div");
-        console.log("Find filter:", filterDiv);
         setTimeout(() => {
           filterDiv.click();
 
@@ -192,8 +169,11 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
     nextDiv[0].children[1].click();
   }
 
+  console.log(ids);
+
   const spanItem = await windowPage.querySelectorAll('span[role="menuitem"]');
   console.log(ids[index]);
+
   const found = Array.from(spanItem).find((elem) => {
     return elem.textContent.trim().startsWith(`${ids[index]}:`);
   });
@@ -220,7 +200,6 @@ function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
 
     if (hasSpinner && !spinnerVisible) {
       spinnerVisible = true;
-      // console.log("Спиннер виден!");
 
       setTimeout(() => {
         openCustomerFilter(ids, index + 1);
@@ -229,7 +208,6 @@ function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
 
     if (!hasSpinner && spinnerVisible) {
       spinnerVisible = false;
-      // console.log("SPinner end");
       updateStatus(objectKey, "&#9989;");
       obs.disconnect();
     }
@@ -298,29 +276,6 @@ function startOrStopLoader(status = false) {
   }
 }
 
-//Difference time
-function differenceTime(doc) {
-  const myTime = getMyTime();
-  let result = "";
-
-  const firstAddedTime = doc.querySelectorAll('center table tbody tr input[type="submit"][name="update_body"]');
-  const timeTr = firstAddedTime[0].closest("tr").nextElementSibling;
-  console.log(timeTr);
-  const TimeTd = timeTr.querySelectorAll("td");
-  const timeName = TimeTd[1]?.innerText.split(" ")[3];
-
-  console.log("Name time -", timeName);
-  console.log("My time - ", myTime);
-
-  const nameDate = new Date(timeName);
-  const myDate = new Date(myTime);
-
-  const differenceInMs = myDate - nameDate;
-  const differenceInDays = differenceInMs / (1000 * 60 * 60 * 24);
-
-  return (result = differenceInDays < 8);
-}
-
 function getIdForLink() {
   const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
   const getText = Array.from(findChecklistText).find((text) => {
@@ -348,6 +303,49 @@ function getIdForLink() {
   return chdeLinkId;
 }
 
+function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variable) {
+  const startTimer = Date.now();
+  if (table.length > 0) {
+    table.forEach((item, index) => {
+      const url = item.href;
+      const valueInLink = url.match(/id=(\d+)/);
+      const id = valueInLink[1];
+
+      pushIdFromArray(variable, index, arrayId, id);
+    });
+
+    //Remove id for BEFR/BENL
+    variable === "duplicateId" ? arrayId.splice(5, 2) : arrayId.splice(3, 2);
+
+    clearInterval(intervalName);
+    window.close();
+    resolve(arrayId);
+
+    //Для запуска дальше
+    variable === "duplicateId" ? openCustomerFilter(arrayId, 0) : console.log("Функция считывания!");
+  } else if (Date.now() - startTimer > 10000) {
+    clearInterval(intervalName);
+    window.close();
+    swalFireModal("┐(￣ヘ￣;)┌", "Timeout: no response for your campaign, repeat again", "error", "", "", false);
+    startOrStopLoader(false);
+  }
+}
+
+function pushIdFromArray(variable, index, arrayId, mailsId) {
+  if (variable === "duplicateId") {
+    if (index === 0 || index === 1 || index === 6) {
+      arrayId.push(mailsId, mailsId);
+    } else {
+      arrayId.push(mailsId);
+    }
+    return arrayId;
+  } else {
+    arrayId.push(mailsId);
+    return arrayId;
+  }
+}
+
+//! Для логиги АБ теста
 function getidForAB() {
   //   const AB = Array.from(findChecklistText).filter((item) => {
   //   return item.textContent.toLowerCase().trim().includes("newsletter testing");
@@ -380,4 +378,114 @@ function getidForAB() {
   //   });
   //   getCampaignIdBtn.disabled = true;
   // });
+}
+
+customerTableBtn.addEventListener("click", async () => {
+  chrome.runtime.sendMessage({ action: "setFirstTab" });
+  showButtonLoader(customerTableBtn, customerLoaderWrapper);
+
+  const arrayForSpreadsheet = [];
+  const chdeId = await getIdForLink();
+  const idsArr = await openMailTable(chdeId, "not duplicate");
+
+  openTableForCustomer(idsArr, arrayForSpreadsheet, (index = 0));
+});
+
+function openTableForCustomer(openId, stateArr, index) {
+  if (index >= openId.length) {
+    stateArr.splice(5, 0, null);
+    stateArr.splice(6, 0, null);
+    copyArrayToClipboard(stateArr);
+    hideButtonLoader(customerTableBtn, customerLoaderWrapper);
+    return;
+  }
+
+  chrome.runtime.sendMessage({ action: "goToFirstTab" });
+  const openWindow = window.open(`${newsEmailUrl + openId[index]}`, "_blank");
+
+  const waitResponse = setInterval(() => {
+    try {
+      const doc = openWindow.document;
+      if (!doc || doc.readyState !== "complete") return;
+
+      const customerContTable = doc.querySelectorAll("center h3");
+
+      const sortedTable = Array.from(customerContTable).find((text) => {
+        return text.textContent.trim().toLowerCase().includes("newsmail history");
+      });
+      if (!sortedTable) {
+        console.log("Wait for render title...");
+        return;
+      }
+
+      const findTable = sortedTable.nextElementSibling;
+
+      if (!findTable) {
+        console.log("Wait for render table...");
+        return;
+      }
+
+      const tableFooter = findTable.querySelectorAll("tfoot tr td");
+      const tableBody = findTable.querySelectorAll('tbody [role="row"]');
+
+      const incrementTotal = tableBody[2].children[3].textContent;
+      const totalFooter = tableFooter[1].textContent;
+
+      if (customerContTable.length > 0 && totalFooter && incrementTotal) {
+        const resultEndForIncrement = totalFooter - incrementTotal;
+        if (index === 0 || index === 1 || index === 4) {
+          stateArr.push(resultEndForIncrement, Number(incrementTotal));
+        } else {
+          stateArr.push(Number(totalFooter));
+        }
+
+        clearInterval(waitResponse);
+        openWindow.close();
+      }
+
+      setTimeout(() => {
+        openTableForCustomer(openId, stateArr, index + 1);
+      }, 500);
+    } catch (e) {
+      swalFireModal(`Dude`, `Something get wrong...`, "error", "", "", false);
+      clearInterval(waitResponse);
+      hideButtonLoader(customerTableBtn, customerLoaderWrapper);
+    }
+  }, 500);
+}
+
+async function copyArrayToClipboard(arr) {
+  try {
+    const text = arr.join("\n");
+    await navigator.clipboard.writeText(text);
+    swalFireModal(
+      `Great!`,
+      `Customer count is copy to clipboard. Only paste in spreadsheet!`,
+      "success",
+      "",
+      "",
+      false
+    );
+  } catch (err) {
+    swalFireModal(`Dude`, `Something get wrong...`, "error", "", "", false);
+  }
+}
+
+function showButtonLoader(button, loaderElement) {
+  button.dataset.originalContent = button.innerHTML;
+
+  button.innerHTML = "";
+  button.appendChild(loaderElement);
+  button.disabled = true;
+}
+
+function hideButtonLoader(button, loaderElement) {
+  if (button.contains(loaderElement)) {
+    button.removeChild(loaderElement);
+  }
+  if (button.dataset.originalContent) {
+    button.innerHTML = button.dataset.originalContent;
+    delete button.dataset.originalContent;
+  }
+  button.disabled = false;
 }
