@@ -1,0 +1,109 @@
+/* prettier-ignore */
+html body table.issuelog_table tr.issuelog[class*="issuelog"] td.text-left,
+html body table.issuelog_table tr.issuelog_comment[class*="comment"] td.text-left,
+html body table.issuelog_table tr.issuelog_comment_ping[class*="ping"] td.text-left,
+html body table.issuelog_table tr.issuelog_corrective[class*="corrective"] td.text-left {
+  padding: 10px;
+}
+
+td.text-left {
+  max-width: 100% !important;
+}
+
+body .issuelog_corrective .commentUsername div div.custom-tooltip {
+  position: absolute !important;
+  top: 50% !important;
+  left: 100% !important;
+  transform: translateY(-50%) !important;
+}
+
+html
+  body
+  table.issuelog_table
+  tr.issuelog_corrective[class*="corrective"]
+  td.text-left {
+  padding-left: 0px;
+}
+html
+  body
+  table.issuelog_table
+  tr.issuelog_corrective
+  td.stableTd.commentUsername {
+  padding: 10px;
+  padding-right: 0;
+}
+
+td.text-left {
+  vertical-align: middle;
+  padding-right: 10px;
+}
+
+body .issuelog_corrective .commentUsername {
+  height: 1px;
+}
+
+body .issuelog_corrective .commentUsername > div:first-child {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-top-width: 2px;
+  border-right-width: 0px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-style: solid;
+  padding: 10px;
+  border-color: rgb(144, 238, 144);
+}
+
+html
+  body
+  table.issuelog_table
+  tr.issuelog_corrective[class*="corrective"]
+  td.text-left
+  > div:first-of-type {
+  position: relative;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 0px;
+  border-style: solid;
+  padding: 10px;
+  border-color: rgb(144, 238, 144);
+}
+
+body .issuelog_corrective .commentUsername > div:first-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-top: 20px solid #90ee90;
+  border-right: 20px solid transparent;
+}
+
+body .issuelog_corrective:nth-child(odd) .commentUsername {
+  /* background: #c0f0c0; */
+}
+
+body .issuelog,
+body .issuelog_comment,
+body .issuelog_comment_ping,
+body .issuelog_corrective {
+  background: #ffffff;
+}
+
+body .issuelog:nth-child(odd),
+body .issuelog_comment:nth-child(odd),
+body .issuelog_comment_ping:nth-child(odd),
+body .issuelog_corrective:nth-child(odd) {
+  background: #f5f5f5;
+}
+
+body .issuelog:hover,
+body .issuelog_comment:hover,
+body .issuelog_corrective:hover,
+body .issuelog_comment_ping:hover {
+  background: #d7fdff !important;
+}

@@ -194,7 +194,10 @@
       "css": ["./libraries/sweetalert2.min.css"]
     },
     {
-      "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
+      "matches": [
+        "https://www.prologistics.info/react/logs/issue_logs/*",
+        "https://prolodev.prologistics.info/react/logs/issue_logs/*"
+      ],
       "js": [
         "./content/issue/addToCalendar.js",
         "./content/emoji/content.js",
@@ -206,7 +209,9 @@
         "./content/issue/floating-checklist/state.js",
         "./content/issue/floating-checklist/ui-components.js",
         "./content/issue/floating-checklist/index.js",
-        "./content/kanbanTable/content.js"
+        "./content/kanbanTable/content.js",
+
+        "./content/issue/betterComments/styles.js"
       ],
       "run_at": "document_idle",
       "css": [
@@ -215,6 +220,14 @@
         "./libraries/gridstack.min.css",
         "./content/kanbanTable/style.css"
       ]
+    },
+    {
+      "matches": [
+        "https://www.prologistics.info/react/logs/issue_logs/*",
+        "https://prolodev.prologistics.info/react/logs/issue_logs/*"
+      ],
+      "css": ["./content/issue/betterComments/issue_styles.css"],
+      "run_at": "document_start"
     },
     {
       "matches": [
