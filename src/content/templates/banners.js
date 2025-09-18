@@ -66,7 +66,7 @@ const TEMPLATES = [
     html: `
       <style> 
       #cgb.xyGContainer {
-        max-width: 1440px !important;
+        max-width: 1696px !important;
         overflow: hidden;
 
       }
@@ -78,7 +78,7 @@ const TEMPLATES = [
       #cgb .textBannerContainer {
         padding-top: min(24px, 2vw);
         padding-bottom: min(24px, 2vw);
-        padding-left: min(12px, 1vw);
+        padding-left: min(24px, 2vw);
       }
       </style>
         <a target="_blank" href="[[banner_category_url]]">
