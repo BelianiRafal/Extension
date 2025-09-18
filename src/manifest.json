@@ -207,11 +207,7 @@
     },
     {
       "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
-      "js": [
-        "./libraries/sweetalert2.min.js",
-        "./content/send_nslt/send-ui.js",
-        "./content/send_nslt/send.js"
-      ],
+      "js": ["./libraries/sweetalert2.min.js", "./content/send_nslt/send-ui.js", "./content/send_nslt/send.js"],
       "css": ["./libraries/sweetalert2.min.css", "./content/send_nslt/style.css"]
     },
 

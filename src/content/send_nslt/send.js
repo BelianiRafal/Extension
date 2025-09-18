@@ -110,7 +110,7 @@ function openCustomerFilter(ids, index = 0) {
   if (index >= ids.length) {
     startOrStopLoader(false);
     swalFireModal(`Done`, `Your id is already!`, "success", "", "", false);
-    customerTableBtn.style.display = "inline-block";
+    customerCopyWrapper.style.display = "flex";
     getCampaignIdBtn.style.display = "none";
     return;
   }
@@ -395,10 +395,14 @@ function openTableForCustomer(openId, stateArr, index) {
   if (index >= openId.length) {
     stateArr.splice(5, 0, null);
     stateArr.splice(6, 0, null);
-    copyArrayToClipboard(stateArr);
+    copyArrayToClipboard(stateArr, modal = true);
     hideButtonLoader(customerTableBtn, customerLoaderWrapper);
+    copyBtn.style.display = "block";
+    copyBtnClick(stateArr);
     return;
   }
+
+  const arrayRow = [];
 
   chrome.runtime.sendMessage({ action: "goToFirstTab" });
   const openWindow = window.open(`${newsEmailUrl + openId[index]}`, "_blank");
@@ -424,19 +428,21 @@ function openTableForCustomer(openId, stateArr, index) {
         console.log("Wait for render table...");
         return;
       }
-
-      const tableFooter = findTable.querySelectorAll("tfoot tr td");
       const tableBody = findTable.querySelectorAll('tbody [role="row"]');
 
-      const incrementTotal = tableBody[2].children[3].textContent;
-      const totalFooter = tableFooter[1].textContent;
+      sortedFIlteredRow(tableBody, arrayRow);
 
-      if (customerContTable.length > 0 && totalFooter && incrementTotal) {
-        const resultEndForIncrement = totalFooter - incrementTotal;
+      const incrementTotal = arrayRow[1]?.children[3].textContent;
+      const sumFooter = arrayRow.reduce((accum, item) => {
+        return accum + Number(item?.children[3].textContent);
+      }, 0);
+
+      if (arrayRow.length > 0) {
+        const resultEndForIncrement = sumFooter - incrementTotal;
         if (index === 0 || index === 1 || index === 4) {
           stateArr.push(resultEndForIncrement, Number(incrementTotal));
         } else {
-          stateArr.push(Number(totalFooter));
+          stateArr.push(Number(sumFooter));
         }
 
         clearInterval(waitResponse);
@@ -448,24 +454,28 @@ function openTableForCustomer(openId, stateArr, index) {
       }, 500);
     } catch (e) {
       swalFireModal(`Dude`, `Something get wrong...`, "error", "", "", false);
+      console.log(e);
       clearInterval(waitResponse);
       hideButtonLoader(customerTableBtn, customerLoaderWrapper);
     }
   }, 500);
 }
 
-async function copyArrayToClipboard(arr) {
+async function copyArrayToClipboard(arr, modal) {
   try {
     const text = arr.join("\n");
     await navigator.clipboard.writeText(text);
-    swalFireModal(
-      `Great!`,
-      `Customer count is copy to clipboard. Only paste in spreadsheet!`,
-      "success",
-      "",
-      "",
-      false
-    );
+
+    modal
+      ? swalFireModal(
+          `Great!`,
+          `Customer count is copy to clipboard. Only paste in spreadsheet!`,
+          "success",
+          "",
+          "",
+          false
+        )
+      : "";
   } catch (err) {
     swalFireModal(`Dude`, `Something get wrong...`, "error", "", "", false);
   }
@@ -488,4 +498,40 @@ function hideButtonLoader(button, loaderElement) {
     delete button.dataset.originalContent;
   }
   button.disabled = false;
+}
+
+function sortedFIlteredRow(tableBody, arr) {
+  const [originalDate, originalTime] = tableBody[tableBody.length - 2].children[0].textContent.split(" ");
+  const splitOriginalTIme = originalTime.split(":")[1];
+
+  tableBody.forEach((item) => {
+    const text = item.children[0].textContent.trim();
+
+    // может быть "16.09.2025 14:35:29" или "14:35:29"
+
+    let myDate, myTime;
+
+    if (text.includes(" ")) {
+      [myDate, myTime] = text.split(" ");
+    } else {
+      myTime = text;
+    }
+
+    const [hh, mm, ss] = myTime.split(":").map(Number);
+    // console.log(mytimeeeeeee.split(" "));
+
+    // console.log(splitOriginalTIme > splitOriginalTIme - myTime.split(":")[1]);
+
+    //! Допроверять функцию
+
+    if (Number(splitOriginalTIme) === mm || Number(splitOriginalTIme) === mm + 1) {
+      return arr.push(item);
+    }
+  });
+}
+
+function copyBtnClick(arr) {
+  copyBtn.addEventListener("click", () => {
+    copyArrayToClipboard(arr, modal = false);
+  });
 }

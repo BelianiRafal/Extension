@@ -1,4 +1,6 @@
-.newBtn, .secondBtn, .thirtyBtn {
+.newBtn,
+.secondBtn,
+.thirtyBtn {
   position: fixed;
   top: 20px;
   right: 300px;
@@ -19,11 +21,12 @@
   right: 200px;
 }
 
-.newBtn:hover, .secondBtn:hover {
+.newBtn:hover,
+.secondBtn:hover {
   background: #fff;
   color: #000;
   box-shadow: 1px 1px 10px #000;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
 }
 
 body {
@@ -42,15 +45,14 @@ body.noScroll {
   backdrop-filter: blur(4px) !important;
   z-index: 1;
   opacity: 0;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   pointer-events: none;
-  
 }
 
 .overlay.active {
   opacity: 1;
   height: 100%;
-   overflow: hidden;
+  overflow: hidden;
   pointer-events: auto;
 }
 
@@ -65,7 +67,7 @@ body.noScroll {
   width: 350px;
   padding: 20px 5px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background: linear-gradient(180deg, #FAFAFA 0%, #EDEDED 100%);
+  background: linear-gradient(180deg, #fafafa 0%, #ededed 100%);
   border-radius: 5px;
   z-index: 999;
   opacity: 0;
@@ -73,7 +75,7 @@ body.noScroll {
 }
 
 .mainCard.explode-animation {
-  animation: explode .6s forwards;
+  animation: explode 0.6s forwards;
   transform-origin: center;
   pointer-events: auto;
   display: block;
@@ -127,8 +129,12 @@ body.noScroll {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .saveNameBlock {
@@ -148,7 +154,7 @@ body.noScroll {
 }
 
 .saveNameData::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 20px;
   width: 80%;
@@ -175,7 +181,7 @@ body.noScroll {
 .closeBtn:hover {
   background: #fff;
   color: #000;
-  transition: all .2s ease;
+  transition: all 0.2s ease;
 }
 
 .informationBlock {
@@ -183,7 +189,9 @@ body.noScroll {
   text-align: center;
 }
 
-.solvingUserText, .campaignIdText, .subjectText {
+.solvingUserText,
+.campaignIdText,
+.subjectText {
   font-size: 16px;
   font-weight: bold;
 }
@@ -205,7 +213,7 @@ body.noScroll {
   top: 10px;
   right: 20px;
   overflow: hidden;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   background-color: rgb(255, 65, 65);
 }
@@ -213,7 +221,7 @@ body.noScroll {
 /* plus sign */
 .sign {
   width: 100%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -235,42 +243,43 @@ body.noScroll {
   color: white;
   font-size: 1.2em;
   font-weight: 600;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .Btn:hover {
   width: 150px;
   border-radius: 40px;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
 }
 
 .Btn:hover .sign {
   width: 30%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-left: 5px;
 }
 .Btn:hover .text {
   opacity: 1;
   width: 70%;
-  transition-duration: .3s;
+  transition-duration: 0.3s;
   padding-right: 5px;
 }
 /* button click effect*/
 .Btn:active {
-  transform: translate(2px ,2px);
+  transform: translate(2px, 2px);
 }
 
 /* Style for start button */
 
-.abBtn{
+.abBtn {
   font-size: 14px;
   display: inline-block;
   outline: 0;
   border: 0;
   cursor: pointer;
-  will-change: box-shadow,transform;
-  background: radial-gradient( 100% 100% at 100% 0%, #95e098 0%, #328a35 100% );
-  box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+  will-change: box-shadow, transform;
+  background: radial-gradient(100% 100% at 100% 0%, #95e098 0%, #328a35 100%);
+  box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%),
+    inset 0px -0.01em 0px rgb(58 65 111 / 50%);
   padding: 0 2em;
   margin-left: 15px;
   border-radius: 0.3em;
@@ -281,7 +290,8 @@ body.noScroll {
 }
 
 .abBtn:hover {
-  box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #328a35;
+  box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%),
+    inset 0px -0.1em 0px #328a35;
   transform: translateY(-0.1em);
 }
 
@@ -296,7 +306,7 @@ body.noScroll {
   animation: implode 0.6s forwards;
   transform-origin: center;
 }
-        
+
 @keyframes implode {
   0% {
     transform: translate(-50%, -50%) scale(1);
@@ -357,7 +367,7 @@ body.noScroll {
   animation: rotation 1s linear infinite;
 }
 .loaderEye::after {
-  content: '';  
+  content: "";
   position: absolute;
   box-sizing: border-box;
   left: 20px;
@@ -412,8 +422,7 @@ body.noScroll {
 .getCampaignId:hover {
   --edge-light: hsla(0, 0%, 50%, 1);
   text-shadow: 0px 0px 10px var(--text-light);
-  box-shadow: inset 0.4px 1px 4px var(--edge-light),
-    2px 4px 8px hsla(0, 0%, 0%, 0.295);
+  box-shadow: inset 0.4px 1px 4px var(--edge-light), 2px 4px 8px hsla(0, 0%, 0%, 0.295);
   transform: scale(1.1);
 }
 
@@ -425,8 +434,7 @@ body.noScroll {
     hsla(var(--back-color), 50%, 1) min(2em, 20%),
     hsla(var(--back-color), 50%, 0.6) min(8em, 100%)
   );
-  box-shadow: inset 0.4px 1px 8px var(--edge-light),
-    0px 0px 8px hsla(var(--back-color), 50%, 0.6);
+  box-shadow: inset 0.4px 1px 8px var(--edge-light), 0px 0px 8px hsla(var(--back-color), 50%, 0.6);
   text-shadow: 0px 0px 20px var(--text-light);
   color: hsla(0, 0%, 100%, 1);
   letter-spacing: 0.1em;
@@ -434,46 +442,169 @@ body.noScroll {
 }
 
 /* Button Fetch Customer */
-.customerFetch{
- display: none;
- border-radius: 5px;
- background-color: #3d405b;
- border: none;
- color: #FFFFFF;
- text-align: center;
- font-size: 17px;
- padding: 0.7em 1em;
- width: 170px;
- transition: all 0.5s;
- cursor: pointer;
- margin: 5px;
+.customerCopyWrapper {
+  display: none;
+  align-items: center;
+}
+
+
+.customerFetch {
+  display: inline-block;
+  border-radius: 5px;
+  background-color: #3d405b;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 17px;
+  padding: 0.7em 1em;
+  width: 170px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
 
 .customerFetch span {
- cursor: pointer;
- display: inline-block;
- position: relative;
- transition: 0.5s;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .customerFetch span:after {
- content: '»';
- position: absolute;
- opacity: 0;
- top: 0;
- right: -15px;
- transition: 0.5s;
+  content: "»";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -15px;
+  transition: 0.5s;
 }
 
 .customerFetch:hover span {
- padding-right: 15px;
+  padding-right: 15px;
 }
 
 .customerFetch:hover span:after {
- opacity: 1;
- right: 0;
+  opacity: 1;
+  right: 0;
 }
 
+/* Style for copy btn */
+.copyBtn {
+  /* button */
+  --button-bg: #353434;
+  --button-hover-bg: #464646;
+  --button-text-color: #cccccc;
+  --button-hover-text-color: #8bb9fe;
+  --button-border-radius: 5px;
+  --button-diameter: 50px;
+  --button-outline-width: 1px;
+  --button-outline-color: rgb(141, 141, 141);
+  /* tooltip */
+  --tooltip-bg: #209726;
+  --toolptip-border-radius: 4px;
+  --tooltip-font-family: Menlo, Roboto Mono, monospace;
+  /* 👆 this field should not be empty */
+  --tooltip-font-size: 12px;
+  /* 👆 this field should not be empty */
+  --tootip-text-color: #fff;
+  --tooltip-padding-x: 7px;
+  --tooltip-padding-y: 7px;
+  --tooltip-offset: 8px;
+  --tooltip-transition-duration: 0.3s;
+}
+
+.copyBtn {
+  display: none;
+  box-sizing: border-box;
+  width: var(--button-diameter);
+  height: var(--button-diameter);
+  border-radius: var(--button-border-radius);
+  background-color: var(--button-bg);
+  color: var(--button-text-color);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+.copyBtn > .cp-tooltip {
+  position: absolute;
+  opacity: 0;
+  visibility: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font: var(--tooltip-font-size) var(--tooltip-font-family);
+  color: var(--tootip-text-color);
+  background: var(--tooltip-bg);
+  padding: var(--tooltip-padding-y) var(--tooltip-padding-x);
+  border-radius: var(--toolptip-border-radius);
+  pointer-events: none;
+  transition: all var(--tooltip-transition-duration) cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.copyBtn > .cp-tooltip::before {
+  content: attr(data-text-initial);
+}
+
+.copyBtn > .cp-tooltip::after {
+  content: "";
+  position: absolute;
+  bottom: calc(var(--tooltip-padding-y) / 2 * -1);
+  width: var(--tooltip-padding-y);
+  height: var(--tooltip-padding-y);
+  background: inherit;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  z-index: -999;
+  pointer-events: none;
+}
+
+.copyBtn svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cp-check-mark {
+  display: none;
+}
+
+/* actions */
+
+.copyBtn:hover .cp-tooltip,
+.copyBtn:focus:not(:focus-visible) .cp-tooltip {
+  opacity: 1;
+  visibility: visible;
+  top: calc((100% + var(--tooltip-offset)) * -1);
+}
+
+.copyBtn:focus:not(:focus-visible) .cp-tooltip::before {
+  content: attr(data-text-end);
+}
+
+.copyBtn:focus:not(:focus-visible) .cp-clipboard {
+  display: none;
+}
+
+.copyBtn:focus:not(:focus-visible) .cp-check-mark {
+  display: block;
+}
+
+.copyBtn:hover,
+.copyBtn:focus {
+  background-color: var(--button-hover-bg);
+}
+
+.copyBtn:active {
+  outline: var(--button-outline-width) solid var(--button-outline-color);
+}
+
+.copyBtn:hover svg {
+  color: var(--button-hover-text-color);
+}
 
 /* .closeGame {
   position: absolute;
@@ -760,15 +891,15 @@ body.noScroll {
   aspect-ratio: 1;
   border-radius: 50%;
   background: #25b09b;
-  --_m: 
-    conic-gradient(#0000 10%,#000),
-    linear-gradient(#000 0 0) content-box;
+  --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
-          mask: var(--_m);
+  mask: var(--_m);
   -webkit-mask-composite: source-out;
-          mask-composite: subtract;
+  mask-composite: subtract;
   animation: l3 1s infinite linear;
 }
-@keyframes l3 {to{transform: rotate(1turn)}}
-
-
+@keyframes l3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
