@@ -78,7 +78,7 @@ const TEMPLATES = [
       #cgb .textBannerContainer {
         padding-top: min(24px, 2vw);
         padding-bottom: min(24px, 2vw);
-        padding-left: min(24px, 2vw);
+        padding-left: min(20px, 1vw);
       }
       </style>
         <a target="_blank" href="[[banner_category_url]]">
@@ -106,7 +106,7 @@ const TEMPLATES = [
     html: `
     <style> 
       #cgb.xyGContainer {
-        max-width: 1440px !important;
+        max-width: 1696px !important;
       }
       #cgb .textBanner {
         font-size: min(19px, 3.6vw);
