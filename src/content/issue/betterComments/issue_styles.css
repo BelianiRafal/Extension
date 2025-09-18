@@ -45,6 +45,7 @@ body .issuelog_corrective .commentUsername {
 body .issuelog_corrective .commentUsername > div:first-child {
   height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
   position: relative;
   border-top-width: 2px;
