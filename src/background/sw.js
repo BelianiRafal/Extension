@@ -188,6 +188,85 @@ function spreadSheetStrategies(strategy, options) {
 // });
 
 chrome.runtime.onMessage.addListener(async (message, sender) => {
+  // handle purge requests
+  if (message.action === "openPurgeAndSubmit") {
+    const requestURL = "https://www.prologistics.info/purge.php";
+    const tab = await chrome.tabs.create({ url: requestURL, active: false });
+
+    // wait for the tab to complete loading
+    await new Promise((resolve) => {
+      const listener = (tabId, changeInfo) => {
+        if (tabId === tab.id && changeInfo.status === "complete") {
+          chrome.tabs.onUpdated.removeListener(listener);
+          resolve();
+        }
+      };
+      chrome.tabs.onUpdated.addListener(listener);
+    });
+
+    try {
+      // normalize domain (remove leading www.)
+      let domain = message.domain || "";
+      if (domain.startsWith("www.")) domain = domain.slice(4);
+
+      // prepare urls path: only pathname, always ending with '/'
+      let urlsPath = message.urlsValue;
+      try {
+        const u = new URL(message.urlsValue);
+        urlsPath = u.pathname || "/";
+        if (!urlsPath.endsWith("/")) urlsPath += "/";
+      } catch (e) {
+        // fallback: ensure trailing slash
+        if (!urlsPath.endsWith("/")) urlsPath += "/";
+      }
+
+      // execute script in the purge tab to perform the POST with FormData
+      const results = await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        func: async (args) => {
+          const { domain, urlsPath } = args;
+          try {
+            const formData = new FormData();
+            formData.append("domain", domain);
+            formData.append("prio", "1");
+            formData.append("urls", urlsPath);
+            formData.append("purge", "Purge");
+
+            const entries = Array.from(formData.entries());
+
+            const resp = await fetch(window.location.origin + "/purge.php", {
+              method: "POST",
+              body: formData,
+              credentials: "include",
+              referrer: "https://prologistics.info/purge.php",
+            });
+
+            const text = await resp.text();
+            return { ok: resp.ok, status: resp.status, text, formEntries: entries };
+          } catch (err) {
+            return { ok: false, error: err?.toString() || String(err) };
+          }
+        },
+        args: [{ domain: domain, urlsPath }],
+      });
+
+      const result = results[0]?.result;
+
+      chrome.tabs.remove(tab.id).catch(() => {});
+
+      if (sender && sender.tab && sender.tab.id) {
+        chrome.tabs.sendMessage(sender.tab.id, { action: "openPurgeAndSubmitResult", result });
+      } else if (message.replyId) {
+        chrome.runtime.sendMessage({ action: "openPurgeAndSubmitResult", result, replyId: message.replyId });
+      }
+    } catch (err) {
+      chrome.tabs.remove(tab.id).catch(() => {});
+      if (sender && sender.tab && sender.tab.id) {
+        chrome.tabs.sendMessage(sender.tab.id, { action: "openPurgeAndSubmitResult", result: { ok: false, error: err?.toString() } });
+      }
+    }
+    return;
+  }
   if (message.action === "nextTab") {
     let [currentTab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (!currentTab) return;
