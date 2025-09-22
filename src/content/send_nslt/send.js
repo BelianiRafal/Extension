@@ -380,6 +380,8 @@ function getidForAB() {
   // });
 }
 
+//! Logic for Fetch customer button and copy button
+
 customerTableBtn.addEventListener("click", async () => {
   chrome.runtime.sendMessage({ action: "setFirstTab" });
   showButtonLoader(customerTableBtn, customerLoaderWrapper);
