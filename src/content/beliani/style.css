@@ -1,0 +1,48 @@
+.beliani__purgeDate {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: white;
+  border: 1px solid #ff2f00;
+  padding: 16px;
+  border-radius: 24px;
+  z-index: 9999999999;
+}
+
+.beliani__purgeDate__closeButton {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 50%;
+  background: #ff2f00;
+  color: white;
+  font-weight: bold;
+  top: -6px;
+  right: -6px;
+  cursor: pointer;
+}
+
+.beliani__purgeDate__controls {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+.beliani__purgeDate__btn {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.beliani__purgeDate__btn--primary {
+  background: #ff2f00;
+  color: #fff;
+  border-color: #ff2f00;
+}

@@ -22,6 +22,12 @@
       "js": ["./dev_constants.js"]
     },
     {
+      "matches": ["<all_urls>"],
+      "js": ["./content/beliani/showPurgeDate.js"],
+      "css": ["./content/beliani/style.css"],
+      "run_at": "document_idle"
+    },
+    {
       "matches": ["https://www.prologistics.info/newsletter_preview.html?id=*"],
       "js": ["./content/mustache/index.js", "./content/pages/my_page.js"]
     },
@@ -35,12 +41,20 @@
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://www.prologistics.info/purge.php", "https://prolodev.prologistics.info/purge.php"],
-      "js": ["./content/purge/index.js", "./content/newsletter_family/new_features/log.js"],
+      "matches": [
+        "https://www.prologistics.info/purge.php",
+        "https://prolodev.prologistics.info/purge.php"
+      ],
+      "js": [
+        "./content/purge/index.js",
+        "./content/newsletter_family/new_features/log.js"
+      ],
       "run_at": "document_idle"
     },
     {
-      "matches": ["https://www.prologistics.info/shop_content.php?id=*&shop_id=*"],
+      "matches": [
+        "https://www.prologistics.info/shop_content.php?id=*&shop_id=*"
+      ],
       "js": [
         "./content/mustache/index.js",
         "./content/papaParse/papaparse.min.js",
@@ -61,7 +75,9 @@
         "https://www.prologistics.info/news_email.php?id=*",
         "https://prolodev.prologistics.info/news_email.php?id=*"
       ],
-      "exclude_matches": ["https://www.prologistics.info/news_email.php?id=*&validate_message=*"],
+      "exclude_matches": [
+        "https://www.prologistics.info/news_email.php?id=*&validate_message=*"
+      ],
       "js": [
         "./libraries/jquery.min.js",
         "./libraries/axios.min.js",
@@ -98,10 +114,15 @@
         "./content/newsletter_family/features/fulfillBody.js",
         "./content/newsletter_family/NewsletterFamilyTable.js"
       ],
-      "css": ["./libraries/datatable.min.css", "./content/newsletter_family/new_features/index.css"]
+      "css": [
+        "./libraries/datatable.min.css",
+        "./content/newsletter_family/new_features/index.css"
+      ]
     },
     {
-      "matches": ["https://www.prologistics.info/news_email.php?id=*&validate_message=*"],
+      "matches": [
+        "https://www.prologistics.info/news_email.php?id=*&validate_message=*"
+      ],
       "run_at": "document_idle",
       "js": ["./content/newsletterCheckPage.js"]
     },
@@ -112,7 +133,10 @@
       ],
       "run_at": "document_idle",
       "css": ["./css/news_emails.css"],
-      "js": ["./content/multiselect/index.js", "./content/multiselect/select.js"]
+      "js": [
+        "./content/multiselect/index.js",
+        "./content/multiselect/select.js"
+      ]
     },
     {
       "matches": [
@@ -134,10 +158,15 @@
         "./content/cgb_templates/ui-buttons-and-functions.js",
         "./content/cgb_templates/index.js"
       ],
-      "css": ["./content/cgb_templates/style.css", "./libraries/sweetalert2.min.css"]
+      "css": [
+        "./content/cgb_templates/style.css",
+        "./libraries/sweetalert2.min.css"
+      ]
     },
     {
-      "matches": ["https://www.prologistics.info/saved_details.php?filter_id=*"],
+      "matches": [
+        "https://www.prologistics.info/saved_details.php?filter_id=*"
+      ],
       "js": [
         "./content/isActive.js",
         "./content/fetchProducts.js",
@@ -223,8 +252,15 @@
     },
     {
       "matches": ["https://www.prologistics.info/react/logs/issue_logs/*"],
-      "js": ["./libraries/sweetalert2.min.js", "./content/send_nslt/send-ui.js", "./content/send_nslt/send.js"],
-      "css": ["./libraries/sweetalert2.min.css", "./content/send_nslt/style.css"]
+      "js": [
+        "./libraries/sweetalert2.min.js",
+        "./content/send_nslt/send-ui.js",
+        "./content/send_nslt/send.js"
+      ],
+      "css": [
+        "./libraries/sweetalert2.min.css",
+        "./content/send_nslt/style.css"
+      ]
     },
 
     {
@@ -270,7 +306,10 @@
         "content/start.php/svg/*",
         "content/issue/floating-checklist/styles.css"
       ],
-      "matches": ["https://www.prologistics.info/*", "https://prolodev.prologistics.info/*"]
+      "matches": [
+        "https://www.prologistics.info/*",
+        "https://prolodev.prologistics.info/*"
+      ]
     }
   ],
   "permissions": [
@@ -282,5 +321,5 @@
     "declarativeNetRequest",
     "declarativeNetRequestFeedback"
   ],
-  "host_permissions": ["https://www.prologistics.info/*", "https://prolodev.prologistics.info/*"]
+  "host_permissions": ["<all_urls>"]
 }
