@@ -372,8 +372,11 @@ window.FloatingChecklistUIComponents = {
     const infoSection = document.createElement("div");
     infoSection.classList.add("newsletter-info");
     
-    // Get issue ID from URL
-    const issue_id = window.location.pathname.split("/").pop();
+    let path = window.location.pathname;
+
+    if (path.endsWith("/")) path = path.slice(0, -1);
+
+    const issue_id = path.split("/").pop();
     
     try {
       // Fetch issue data from API
