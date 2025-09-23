@@ -66,10 +66,18 @@ mainButtonStart.addEventListener("click", async () => {
 
 getCampaignIdBtn.addEventListener("click", async () => {
   const chdeLinkId = await getIdForLink();
+  const waitChecklist = await getChecklist();
 
-  if (!chdeLinkId) {
+  if (!chdeLinkId || !waitChecklist) {
     swalFireModal("¯\\_(ツ)_/¯", `Newsletter checklist is not found`, "error", "", "", false);
     return false;
+  }
+
+  for (const item of waitChecklist) {
+    if (item.done !== "1") {
+      swalFireModal("Not to fast", `Please mark "${item.description}" in the checklist`, "error", "", "", false);
+      return;
+    }
   }
 
   const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
@@ -77,7 +85,6 @@ getCampaignIdBtn.addEventListener("click", async () => {
   if (result.isConfirmed) {
     //Open page with Mailing templates
     openMailTable(chdeLinkId, "duplicateId");
-
     //Return to main page
     chrome.runtime.sendMessage({ action: "setFirstTab" });
     startOrStopLoader(true);
@@ -397,7 +404,7 @@ function openTableForCustomer(openId, stateArr, index) {
   if (index >= openId.length) {
     stateArr.splice(5, 0, null);
     stateArr.splice(6, 0, null);
-    copyArrayToClipboard(stateArr, modal = true);
+    copyArrayToClipboard(stateArr, (modal = true));
     hideButtonLoader(customerTableBtn, customerLoaderWrapper);
     copyBtn.style.display = "block";
     copyBtnClick(stateArr);
@@ -509,8 +516,6 @@ function sortedFIlteredRow(tableBody, arr) {
   tableBody.forEach((item) => {
     const text = item.children[0].textContent.trim();
 
-    // может быть "16.09.2025 14:35:29" или "14:35:29"
-
     let myDate, myTime;
 
     if (text.includes(" ")) {
@@ -520,11 +525,6 @@ function sortedFIlteredRow(tableBody, arr) {
     }
 
     const [hh, mm, ss] = myTime.split(":").map(Number);
-    // console.log(mytimeeeeeee.split(" "));
-
-    // console.log(splitOriginalTIme > splitOriginalTIme - myTime.split(":")[1]);
-
-    //! Допроверять функцию
 
     if (Number(splitOriginalTIme) === mm || Number(splitOriginalTIme) === mm + 1) {
       return arr.push(item);
@@ -534,6 +534,41 @@ function sortedFIlteredRow(tableBody, arr) {
 
 function copyBtnClick(arr) {
   copyBtn.addEventListener("click", () => {
-    copyArrayToClipboard(arr, modal = false);
+    copyArrayToClipboard(arr, (modal = false));
   });
 }
+
+//! Get data from checklist
+async function getChecklist() {
+  const checklistArray = [];
+
+  const issue_id = window.location.pathname.split("/").pop();
+
+  const response = await fetch(`https://${window.location.hostname}/api/issueLog/checklist/?issue_id=${issue_id}`);
+
+  const data = await response.json();
+  const checklistData = data?.checklists;
+
+  checklistData.forEach((item) => {
+    variableCase(item, checklistArray);
+  });
+
+  return checklistArray;
+}
+
+function variableCase(item, arr) {
+  switch (item.title.trim()) {
+    case "HTML QA - Status of Project":
+    case "HTML QA - Planning day":
+      arr.push(...item?.checkpoints);
+      arr.splice(4, 2);
+      break;
+
+    case "HTML QA - Status of Project":
+    case "HTML QA - Planning Sunday":
+      arr.push(...item?.checkpoints);
+      arr.splice(4, 2);
+      break;
+  }
+}
+
