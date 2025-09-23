@@ -71,7 +71,7 @@ const TEMPLATES = [
 
       }
       #cgb .textBanner {
-        font-size: min(19px, 2.6vw);
+        font-size: min(18px, 2.6vw);
         font-weight: 600;
       }
 
@@ -229,7 +229,7 @@ const TEMPLATES = [
         padding:0 min(12px, 1vw);
       }
       #cgb .textBanner {
-        font-size: min(19px, 2.6vw);
+        font-size: min(18px, 2.6vw);
         font-weight: 600;
       }
 
