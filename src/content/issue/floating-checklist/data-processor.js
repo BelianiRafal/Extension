@@ -92,7 +92,13 @@ window.FloatingChecklistDataProcessor = {
   },
 
   getChecklists: async function () {
-    const issue_id = window.location.pathname.split("/").pop();
+    let path = window.location.pathname;
+
+    if (path.endsWith("/")) path = path.slice(0, -1);
+
+    const issue_id = path.split("/").pop();
+
+    console.log("🔥🔥🔥 Fetching checklist for issue ID:", issue_id);
 
     const response = await fetch(
       `https://${window.location.hostname}/api/issueLog/checklist/?issue_id=${issue_id}`
@@ -159,6 +165,8 @@ window.FloatingChecklistDataProcessor = {
     const filtered = Object.fromEntries(
       Object.entries(merged).filter(([, v]) => v && Object.keys(v).length > 0)
     );
+
+    console.log("przefiltrowane listy: ", filtered)
 
     console.log(filtered);
     return filtered;
