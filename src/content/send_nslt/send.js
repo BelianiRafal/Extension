@@ -176,8 +176,6 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
     nextDiv[0].children[1].click();
   }
 
-  console.log(ids);
-
   const spanItem = await windowPage.querySelectorAll('span[role="menuitem"]');
   console.log(ids[index]);
 
@@ -329,7 +327,7 @@ function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variab
     resolve(arrayId);
 
     //Для запуска дальше
-    variable === "duplicateId" ? openCustomerFilter(arrayId, 0) : console.log("Функция считывания!");
+    variable === "duplicateId" ? openCustomerFilter(arrayId, 0) : console.log("Planing functions!");
   } else if (Date.now() - startTimer > 10000) {
     clearInterval(intervalName);
     window.close();
@@ -426,17 +424,13 @@ function openTableForCustomer(openId, stateArr, index) {
       const sortedTable = Array.from(customerContTable).find((text) => {
         return text.textContent.trim().toLowerCase().includes("newsmail history");
       });
-      if (!sortedTable) {
-        console.log("Wait for render title...");
-        return;
-      }
+      if (!sortedTable) return;
+      
 
       const findTable = sortedTable.nextElementSibling;
 
-      if (!findTable) {
-        console.log("Wait for render table...");
-        return;
-      }
+      if (!findTable) return;
+
       const tableBody = findTable.querySelectorAll('tbody [role="row"]');
 
       sortedFIlteredRow(tableBody, arrayRow);
@@ -457,6 +451,8 @@ function openTableForCustomer(openId, stateArr, index) {
         clearInterval(waitResponse);
         openWindow.close();
       }
+
+      console.log(stateArr);
 
       setTimeout(() => {
         openTableForCustomer(openId, stateArr, index + 1);
@@ -526,7 +522,7 @@ function sortedFIlteredRow(tableBody, arr) {
 
     const [hh, mm, ss] = myTime.split(":").map(Number);
 
-    if (Number(splitOriginalTIme) === mm || Number(splitOriginalTIme) === mm + 1) {
+    if (Number(splitOriginalTIme) === mm || Math.abs(Number(splitOriginalTIme) - mm) <= 1) {
       return arr.push(item);
     }
   });
