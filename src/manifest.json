@@ -156,7 +156,8 @@
         "./content/cgb_templates/ui.js",
         "./content/cgb_templates/loader.js",
         "./content/cgb_templates/ui-buttons-and-functions.js",
-        "./content/cgb_templates/index.js"
+        "./content/cgb_templates/index.js",
+        "./content/banner_fulfill/fulfill_img.js"
       ],
       "css": [
         "./content/cgb_templates/style.css",
