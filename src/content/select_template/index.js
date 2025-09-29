@@ -19,7 +19,7 @@ const ui = {
   createDialog({ title, children, parent, position }) {
     const dialog = document.createElement("dialog");
     dialog.style =
-      "border: none; border-radius: .4rem; max-width: 440px; width: 100%; display: none; flex-direction: column; gap: 0.8rem;";
+      "border: none; border-radius: .4rem; max-width: 80vw; max-height: 80vh; height: max-content; width: 100%; display: none; flex-direction: column; gap: 0.8rem;";
     const dialog_container = document.createElement("div");
     dialog_container.style =
       "display: flex; flex-direction: column; gap: .4rem";
@@ -44,7 +44,7 @@ const ui = {
 
     const dialog_scroll = document.createElement("div");
     dialog_scroll.style =
-      "height: 260px; overflow-y: auto; padding: 0.4rem; border-radius: 0.2rem; background: #ececec; display: flex; flex-direction: column; gap: 0.4rem";
+      "height: 100%; grid-template-columns: repeat(3, 1fr); overflow-y: auto; padding: 0.4rem; border-radius: 0.2rem; background: #ececec; display: grid; gap: 16px";
 
     dialog_scroll.append(...children);
     container_body.append(dialog_scroll);
@@ -250,7 +250,7 @@ const app = {
 
       const description = document.createElement("p");
       description.innerText = template.description || "";
-      description.style = "margin: 0; height: 60px; overflow-y: auto;";
+      description.style = "margin: 0; height: 100%; overflow-y: auto;";
 
       container.addEventListener("click", () => {
         // SELECT TEMPLATE RESPONSIBLE FOR LP AND NS RENDERING.
