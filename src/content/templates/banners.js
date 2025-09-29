@@ -76,8 +76,8 @@ const TEMPLATES = [
       }
 
       #cgb .textBannerContainer {
-        padding-top: min(24px, 2vw);
-        padding-bottom: min(24px, 2vw);
+        padding-top: min(23px, 2vw);
+        padding-bottom: min(23px, 2vw);
         padding-left: min(20px, 1vw);
       }
       </style>
@@ -234,8 +234,8 @@ const TEMPLATES = [
       }
 
       #cgb .textBannerContainer {
-        padding-top: min(24px, 2vw);
-        padding-bottom: min(24px, 2vw);
+        padding-top: min(23px, 2vw);
+        padding-bottom: min(23px, 2vw);
       }
       </style>
         <a href="[[banner_category_url]]" target="_blank" style="display: block; text-decoration: none; color: [[banner_text_color]];">
