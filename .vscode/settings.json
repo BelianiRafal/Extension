@@ -1,6 +1,17 @@
 {
-	"conventionalCommits.scopes": [
-		"sunday_nslt",
-		"purge.php"
-	]
+  "css.validate": true,
+  "css.lint.propertyIgnoredDueToDisplay": "ignore",
+  "css.lint.unknownProperties": "ignore",
+  "css.lint.invalidProperties": "ignore",
+  "html.validate.styles": false,
+  "files.associations": {
+    "**/templates/**/*.html": "html"
+  },
+  "emmet.includeLanguages": {
+    "mustache": "html"
+  },
+  "html.suggest.html5": true,
+  "css.completion.completePropertyWithSemicolon": true,
+  "html.format.enable": true,
+  "css.format.enable": true
 }
