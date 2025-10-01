@@ -66,6 +66,75 @@ function CSVToArray(strData, strDelimiter) {
   return arrData;
 }
 
+// merging csv into one object to create a loop in mustache (Banner_N, Timer_N)
+function processCampaignsFromCSV(csvRow, headers) {
+  const campaigns = [];
+
+  // up to 6 campaigns, we don't need more
+  for (let i = 1; i <= 6; i++) {
+    const srcCol = headers.indexOf(`Banner_${i}_src`);
+    const hrefCol = headers.indexOf(`Banner_${i}_href`);
+
+    const timerCol = headers.indexOf(`Timer_${i}`);
+    const timerSrcCol = headers.indexOf(`Timer_${i}_src`);
+    const timerFreebieCol = headers.indexOf(`Timer_${i}_freebie`);
+    const timerBgCol = headers.indexOf(`Timer_${i}_bg`);
+    const timerColorCol = headers.indexOf(`Timer_${i}_color`);
+
+    if (srcCol !== -1 && csvRow[srcCol]) {
+      const timerUrl =
+        (timerCol !== -1 ? csvRow[timerCol] : "") ||
+        (timerSrcCol !== -1 ? csvRow[timerSrcCol] : "");
+
+      const freebie = timerFreebieCol !== -1 ? csvRow[timerFreebieCol] : "";
+
+      const campaign = {
+        src: csvRow[srcCol],
+        href: csvRow[hrefCol] || "",
+        timer_url: timerUrl,
+        timer_bg: timerBgCol !== -1 ? csvRow[timerBgCol] : "#750000",
+        timer_color: timerColorCol !== -1 ? csvRow[timerColorCol] : "#FFFFFF",
+        hasTimer: !!timerUrl,
+        freebie: freebie,
+      };
+
+      campaigns.push(campaign);
+    }
+  }
+
+  // add .last property to the last campaign to remove spacing in the template
+  if (campaigns.length > 0) {
+    campaigns[campaigns.length - 1].last = true;
+  }
+
+  return { campaigns };
+}
+
+function csvRowToTemplateData(csvRow, headers) {
+  const data = {};
+
+  headers.forEach((header, index) => {
+    if (csvRow[index] !== undefined && csvRow[index] !== "") {
+      data[header] = csvRow[index];
+    }
+  });
+
+  const { campaigns } = processCampaignsFromCSV(csvRow, headers);
+  data.campaigns = campaigns;
+
+  campaigns.forEach((campaign, index) => {
+    const num = index + 1;
+    data[`Banner_${num}_src`] = campaign.src;
+    data[`Banner_${num}_href`] = campaign.href;
+    data[`Timer_${num}_src`] = campaign.timer_url;
+    data[`Timer_${num}_bg`] = campaign.timer_bg;
+    data[`Timer_${num}_color`] = campaign.timer_color;
+    data[`Timer_${num}_freebie`] = campaign.freebie;
+  });
+
+  return data;
+}
+
 function parseCSV2(str) {
   const arr = [];
   let quote = false; // 'true' means we're inside a quoted field

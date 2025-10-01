@@ -147,46 +147,75 @@ const app_fulfill = {
 
         const selectedContextValue = context[selectedContext];
 
-				// console.log(`Selected context value: ${JSON.stringify(selectedContextValue)}`);
+        // console.log(`Selected context value: ${JSON.stringify(selectedContextValue)}`);
 
 				console.log(`Wybrany jezyk: ${this.language}`)
-				console.log(`lang to slug: ${JSON.stringify(this.languageToSlug)}`);
+        console.log(`lang to slug: ${JSON.stringify(this.languageToSlug)}`);
 
         if (this.language in this.languageToSlug) {
           const languageSlug = this.languageToSlug[this.language];
           const sellerSlug = this.sellerToSlug[this.seller];
 
           const combinedSlug = sellerSlug + languageSlug;
-          
-					const origin = this.slugsToOrigin[combinedSlug];
 
-					console.log(`Language slug: ${languageSlug}`);
-					console.log(`Seller slug: ${sellerSlug}`);
-					console.log(`Origin: ${origin}`);
+          const origin = this.slugsToOrigin[combinedSlug];
 
-					console.log(`Combined slug: ${combinedSlug}`);
+          console.log(`Language slug: ${languageSlug}`);
+          console.log(`Seller slug: ${sellerSlug}`);
+          console.log(`Origin: ${origin}`);
+
+          console.log(`Combined slug: ${combinedSlug}`);
 
           if (combinedSlug in selectedContextValue) {
 
-						// console.log(`Combined slug found in selected context value: ${JSON.stringify(selectedContextValue[combinedSlug])}`);
+            // console.log(`Combined slug found in selected context value: ${JSON.stringify(selectedContextValue[combinedSlug])}`);
 
             const strings = {};
+            const headers = [];
+            const csvRow = [];
+
+            // Build headers and row data for csvRowToTemplateData processing
             for (const key in selectedContextValue) {
               const value = selectedContextValue[key];
               if (typeof value === "string") {
-								console.log(`Adding string: ${key} = ${value}`);
+                console.log(`Adding string: ${key} = ${value}`);
                 strings[key] = value;
+                headers.push(key);
+                csvRow.push(value);
               }
             }
+
+            // Step 1: Process base campaigns from context (Banner_N, Timer_N_bg/color/freebie)
+            const processedData = csvRowToTemplateData(csvRow, headers);
+
+            // Step 2: Enhance campaigns with Timer_N_src from slug context
+            const slugContextData = selectedContextValue[combinedSlug];
+            const enhancedCampaigns =
+              processedData.campaigns?.map((campaign, index) => {
+                const timerNum = index + 1;
+                const timerSrcKey = `Timer_${timerNum}_src`;
+                const timerUrl = slugContextData[timerSrcKey] || "";
+
+                return {
+                  ...campaign,
+                  timer_url: timerUrl,
+                  hasTimer: !!timerUrl,
+                };
+              }) || [];
+
+            // Merge enhanced campaigns with strings
+            Object.assign(strings, {
+              campaigns: enhancedCampaigns,
+            });
 
             const slug_components = this.getSlugComponents(
               components,
               combinedSlug,
             );
 
-						// prevent slug to become "plpl" or "ukuk" etc.
-						// should be "pl" or "uk" ...
-						// @fixes chde, befr, benl, chit etc. behavior
+            // prevent slug to become "plpl" or "ukuk" etc.
+            // should be "pl" or "uk" ...
+            // @fixes chde, befr, benl, chit etc. behavior
             let slugForUrls;
 
             if (sellerSlug === "at" && languageSlug === "de") {

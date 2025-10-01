@@ -143,8 +143,8 @@ const fulfillBody = {
 
   render({ id, seller, lang, body, contentId }) {
     chrome.storage.local.get(
-      ["context", "components", "selectedContext"],
-      async ({ context, components, selectedContext }) => {
+      ["context", "components", "selectedContext", "slugContext"],
+      async ({ context, components, selectedContext, slugContext }) => {
         if (!context) {
           this.notify("Context not found.");
           return;
@@ -203,7 +203,7 @@ const fulfillBody = {
                 languageSlug !== sellerSlug ? combinedSlug : languageSlug;
             }
 
-            const payload = {
+            let enhancedPayload = {
               ...strings,
               ...slug_components,
               ...selectedContextValue[combinedSlug],
@@ -213,6 +213,48 @@ const fulfillBody = {
               origin,
               id,
             };
+
+            // Process campaigns from CSV data
+            const contextData = selectedContextValue;
+            const headers = Object.keys(contextData);
+            const csvRow = Object.values(contextData);
+            const campaigns = [];
+            for (let i = 1; i <= 6; i++) {
+              const srcCol = headers.indexOf(`Banner_${i}_src`);
+              const hrefCol = headers.indexOf(`Banner_${i}_href`);
+              const timerFreebieCol = headers.indexOf(`Timer_${i}_freebie`);
+              const timerBgCol = headers.indexOf(`Timer_${i}_bg`);
+              const timerColorCol = headers.indexOf(`Timer_${i}_color`);
+
+              if (srcCol !== -1 && csvRow[srcCol]) {
+                // Timer URLs are stored in nested slug data in newsletter family system
+                let timerUrl = '';
+                if (selectedContextValue[combinedSlug] && selectedContextValue[combinedSlug][`Timer_${i}_src`]) {
+                  timerUrl = selectedContextValue[combinedSlug][`Timer_${i}_src`];
+                }
+                
+                const campaign = {
+                  src: csvRow[srcCol],
+                  href: csvRow[hrefCol] || '',
+                  timer_url: timerUrl,
+                  timer_bg: timerBgCol !== -1 ? csvRow[timerBgCol] : '#750000',
+                  timer_color: timerColorCol !== -1 ? csvRow[timerColorCol] : '#FFFFFF',
+                  hasTimer: !!timerUrl,
+                  freebie: timerFreebieCol !== -1 ? csvRow[timerFreebieCol] : ''
+                };
+                campaigns.push(campaign);
+              }
+            }
+
+            // Mark last campaign to prevent spacer after final item
+            if (campaigns.length > 0) {
+              campaigns[campaigns.length - 1].last = true;
+            }
+
+            // Add campaigns to payload
+            enhancedPayload.campaigns = campaigns;
+
+            const payload = enhancedPayload;
 
             localStorage.setItem(
               "fill-body-payload",
@@ -252,7 +294,7 @@ const fulfillBody = {
             return;
           }
         } else {
-          const message = this.language + " language not found in slug.";
+          const message = lang + " language not found in slug.";
           console.error(message);
           new Notification(message);
           localStorage.setItem("error", message);
@@ -260,5 +302,10 @@ const fulfillBody = {
         }
       },
     );
+  },
+
+  notify(message) {
+    new Notification(message);
+    console.error(message);
   },
 };
