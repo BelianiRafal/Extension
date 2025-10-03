@@ -2,7 +2,15 @@ const url = "https://www.prologistics.info/react/reports_page/customers_newslett
 const customerUrl = "https://www.prologistics.info/react/reports_page/customers_newsletter/";
 const planingUrl = "https://www.prologistics.info/spam_plan.php";
 const newsEmailUrl = "https://www.prologistics.info/news_email.php?id=";
+
 const id = "11607";
+
+let checkstate = "";
+ABcheckBtn.checked = checkstate;
+
+ABcheckBtn.addEventListener("change", (ev) => {
+  checkstate = ev.target.checked;
+});
 
 const shopId = {
   CHDE: 11607,
@@ -67,6 +75,12 @@ mainButtonStart.addEventListener("click", async () => {
 getCampaignIdBtn.addEventListener("click", async () => {
   const chdeLinkId = await getIdForLink();
   const waitChecklist = await getChecklist();
+  const doubleChecklist = getidForAB();
+
+  if (doubleChecklist.length >= 2 && !checkstate) {
+    swalFireModal("", `You have two checklist, Mark the "A/B Test" checkbox`, "error", "", "", false);
+    return;
+  }
 
   if (!chdeLinkId || !waitChecklist) {
     swalFireModal("¯\\_(ツ)_/¯", `Newsletter checklist is not found`, "error", "", "", false);
@@ -80,17 +94,28 @@ getCampaignIdBtn.addEventListener("click", async () => {
     }
   }
 
-  const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
+  if (doubleChecklist.length >= 2 && checkstate) {
+    const resultArray = await splitedArrayForABtest();
 
-  if (result.isConfirmed) {
-    //Open page with Mailing templates
-    openMailTable(chdeLinkId, "duplicateId");
-    //Return to main page
     chrome.runtime.sendMessage({ action: "setFirstTab" });
     startOrStopLoader(true);
     informationBlock.style.display = "none";
+
+    openCustomerFilter(resultArray, 0, doubleChecklist);
   } else {
-    return false;
+    const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
+
+    if (result.isConfirmed) {
+      //Open page with Mailing templates
+      openMailTable(chdeLinkId, "duplicateId");
+
+      //Return to main page
+      chrome.runtime.sendMessage({ action: "setFirstTab" });
+      startOrStopLoader(true);
+      informationBlock.style.display = "none";
+    } else {
+      return false;
+    }
   }
 });
 
@@ -113,16 +138,19 @@ function openMailTable(valueId, variable) {
   });
 }
 
-function openCustomerFilter(ids, index = 0) {
-  if (index >= ids.length) {
+async function openCustomerFilter(ids, index = 0, abchecklist) {
+  if (index >= ids.length || index >= Object.keys(shopId).length) {
     startOrStopLoader(false);
     swalFireModal(`Done`, `Your id is already!`, "success", "", "", false);
     customerCopyWrapper.style.display = "flex";
     getCampaignIdBtn.style.display = "none";
+    ABcheckBtn.style.display = 'none';
     return;
   }
 
   const valuesForOpen = Object.values(shopId);
+  const GZdata = await getSavingSetting(valuesForOpen[index]);
+  // console.log("save settings name", GZdata);
 
   chrome.runtime.sendMessage({ action: "goToFirstTab" });
   const newWindow = window.open(`${customerUrl}?filter_id=${valuesForOpen[index]}`, "_blank");
@@ -152,16 +180,73 @@ function openCustomerFilter(ids, index = 0) {
         }, 200);
 
         const filterDiv = filterBtn.closest("div");
-        setTimeout(() => {
+        setTimeout(async () => {
           filterDiv.click();
 
-          setTimeout(() => {
-            clickToTransferButton(doc, index, ids, objectKey);
-          }, 1000);
+          const GRZESIEK = splittedGrziesName(GZdata, ids);
+
+          if (abchecklist.length === 2) {
+            handleCheckboxClicked(doc, GRZESIEK, ids, index, objectKey);
+          } else {
+            setTimeout(() => {
+              clickToTransferButton(doc, index, ids, objectKey);
+            }, 1000);
+          }
         }, 1500);
       }
     } catch (e) {
       console.warn("Not access", e);
+    }
+  }, 500);
+}
+
+function handleCheckboxClicked(doc, pasteId, ids, index, objectKey) {
+  const myInterval = setInterval(async () => {
+    try {
+      if (pasteId.length === 2) {
+        const labels = doc.querySelectorAll("label.MuiFormControlLabel-root");
+
+        if (!labels) return;
+
+        labels.forEach((label) => {
+          if (label.textContent.includes("make test A/B")) {
+            const checkbox = label.querySelector('input[type="checkbox"]');
+
+            if (checkbox) {
+              clearInterval(myInterval);
+
+              setTimeout(async () => {
+                checkbox.click();
+
+                const [firstInput, secondInput] = await getFirstOrSecondInput(
+                  doc,
+                  '[id^="undefined--undefined-"]',
+                  [26, 27]
+                );
+                const firstDiv = firstInput.querySelectorAll("div");
+                const secondDiv = secondInput.querySelectorAll("div");
+
+                setTimeout(() => {
+                  handleClickForItem(doc, firstDiv, pasteId[0], false, ids, index, objectKey);
+
+                  setTimeout(() => {
+                    handleClickForItem(doc, secondDiv, pasteId[1], true, ids, index, objectKey);
+                  }, 1300);
+                }, 1000);
+              }, 500);
+            }
+          }
+        });
+      } else if (pasteId.length === 1) {
+        clearInterval(myInterval);
+
+        const [firstInput] = await getFirstOrSecondInput(doc, '[id^="undefined--undefined-"]', [26, 27]);
+        const firstDiv = firstInput.querySelectorAll("div");
+        handleClickForItem(doc, firstDiv, pasteId[0], true, ids, index, objectKey);
+      }
+    } catch (e) {
+      console.log("access denied");
+      clearInterval(myInterval);
     }
   }, 500);
 }
@@ -177,7 +262,6 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
   }
 
   const spanItem = await windowPage.querySelectorAll('span[role="menuitem"]');
-  console.log(ids[index]);
 
   const found = Array.from(spanItem).find((elem) => {
     return elem.textContent.trim().startsWith(`${ids[index]}:`);
@@ -197,7 +281,9 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
   }
 }
 
-function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
+async function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
+  const doubleChecklist = getidForAB();
+
   const observer = new MutationObserver((mutations, obs) => {
     const overlay = windowPage.querySelector('div[name="blockOverlay"]');
     const spinnerContainer = overlay ? overlay.querySelector("span") : null;
@@ -207,7 +293,7 @@ function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
       spinnerVisible = true;
 
       setTimeout(() => {
-        openCustomerFilter(ids, index + 1);
+        openCustomerFilter(ids, index + 1, doubleChecklist);
       }, 2000);
     }
 
@@ -241,32 +327,6 @@ function waitTransferElement(page, selector, count, wait = 5000) {
       console.log("wait...");
     }, 200);
   });
-}
-
-function updateStatus(key, status) {
-  let line = document.querySelector(`[data-key="${key}"]`);
-
-  if (!line) {
-    line = document.createElement("div");
-    line.dataset.key = key;
-    line.className = "saveNameData";
-
-    const keySpan = document.createElement("span");
-    keySpan.textContent = key;
-    keySpan.style.display = "inline-block";
-    keySpan.className = "saveNameText";
-
-    const statusSpan = document.createElement("span");
-    statusSpan.classList.add("status-cell");
-    statusSpan.innerHTML = status;
-
-    line.appendChild(keySpan);
-    line.appendChild(statusSpan);
-
-    saveNameBlock.appendChild(line);
-  } else {
-    line.querySelector(".status-cell").innerHTML = status;
-  }
 }
 
 function startOrStopLoader(status = false) {
@@ -309,6 +369,8 @@ function getIdForLink() {
 }
 
 function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variable) {
+  const doubleChecklist = getidForAB();
+
   const startTimer = Date.now();
   if (table.length > 0) {
     table.forEach((item, index) => {
@@ -326,8 +388,8 @@ function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variab
     window.close();
     resolve(arrayId);
 
-    //Для запуска дальше
-    variable === "duplicateId" ? openCustomerFilter(arrayId, 0) : console.log("Planing functions!");
+    //For next scripts
+    variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Planing functions!");
   } else if (Date.now() - startTimer > 10000) {
     clearInterval(intervalName);
     window.close();
@@ -350,43 +412,7 @@ function pushIdFromArray(variable, index, arrayId, mailsId) {
   }
 }
 
-//! Для логиги АБ теста
-function getidForAB() {
-  //   const AB = Array.from(findChecklistText).filter((item) => {
-  //   return item.textContent.toLowerCase().trim().includes("newsletter testing");
-  // });
-  // const ABlist = AB.forEach((item) => {
-  //   const itemList = item.nextSibling;
-  //   const ulItem = itemList.querySelectorAll('ul div li div [class^="jss"] a');
-  //   const itemHasCHDE = Array.from(ulItem).find((item) => {
-  //     return item.previousSibling.textContent.includes("CHDE");
-  //   });
-  //   const chdeLinkId = itemHasCHDE.href.split("id=")[1];
-  //   //Назначаем кнопке значение с ид и кликаем по нужным, дальше нужно передать это значение
-  //   const abBtn = document.createElement("button");
-  //   abBtn.textContent = chdeLinkId;
-  //   abBtn.value = chdeLinkId;
-  //   abBtn.className = "abBtn";
-  //   ABbtnContainer.append(abBtn);
-  //   console.log("AB length", AB.length);
-  //   abBtn.addEventListener("click", async (e) => {
-  //     console.log(e.currentTarget.value);
-  //     // const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
-  //     // if (result.isConfirmed) {
-  //     //   openMailTable(chdeLinkId);
-  //     //   chrome.runtime.sendMessage({ action: "setFirstTab" });
-  //     //   startOrStopLoader(true);
-  //     // } else {
-  //     //   getCampaignIdBtn.disabled = false;
-  //     //   return false;
-  //     // }
-  //   });
-  //   getCampaignIdBtn.disabled = true;
-  // });
-}
-
 //! Logic for Fetch customer button and copy button
-
 customerTableBtn.addEventListener("click", async () => {
   chrome.runtime.sendMessage({ action: "setFirstTab" });
   showButtonLoader(customerTableBtn, customerLoaderWrapper);
@@ -425,7 +451,6 @@ function openTableForCustomer(openId, stateArr, index) {
         return text.textContent.trim().toLowerCase().includes("newsmail history");
       });
       if (!sortedTable) return;
-      
 
       const findTable = sortedTable.nextElementSibling;
 
@@ -451,8 +476,6 @@ function openTableForCustomer(openId, stateArr, index) {
         clearInterval(waitResponse);
         openWindow.close();
       }
-
-      console.log(stateArr);
 
       setTimeout(() => {
         openTableForCustomer(openId, stateArr, index + 1);
@@ -486,25 +509,6 @@ async function copyArrayToClipboard(arr, modal) {
   }
 }
 
-function showButtonLoader(button, loaderElement) {
-  button.dataset.originalContent = button.innerHTML;
-
-  button.innerHTML = "";
-  button.appendChild(loaderElement);
-  button.disabled = true;
-}
-
-function hideButtonLoader(button, loaderElement) {
-  if (button.contains(loaderElement)) {
-    button.removeChild(loaderElement);
-  }
-  if (button.dataset.originalContent) {
-    button.innerHTML = button.dataset.originalContent;
-    delete button.dataset.originalContent;
-  }
-  button.disabled = false;
-}
-
 function sortedFIlteredRow(tableBody, arr) {
   const [originalDate, originalTime] = tableBody[tableBody.length - 2].children[0].textContent.split(" ");
   const splitOriginalTIme = originalTime.split(":")[1];
@@ -534,37 +538,28 @@ function copyBtnClick(arr) {
   });
 }
 
-//! Get data from checklist
-async function getChecklist() {
-  const checklistArray = [];
+function handleClickForItem(page, item, id, clickBtn, ids, index, objectKey) {
+  item[0].children[1].click();
+  const spanItem = page.querySelectorAll('span[role="menuitem"]');
 
-  const issue_id = window.location.pathname.split("/").pop();
-
-  const response = await fetch(`https://${window.location.hostname}/api/issueLog/checklist/?issue_id=${issue_id}`);
-
-  const data = await response.json();
-  const checklistData = data?.checklists;
-
-  checklistData.forEach((item) => {
-    variableCase(item, checklistArray);
+  const found = Array.from(spanItem).find((elem) => {
+    return elem.textContent.trim().includes(`${String(id)}:`);
   });
 
-  return checklistArray;
-}
+  const muiButton = page.querySelector("button[type='button'][label='Transfer to batch file']");
 
-function variableCase(item, arr) {
-  switch (item.title.trim()) {
-    case "HTML QA - Status of Project":
-    case "HTML QA - Planning day":
-      arr.push(...item?.checkpoints);
-      arr.splice(4, 2);
-      break;
+  if (found && muiButton) {
+    found.click();
 
-    case "HTML QA - Status of Project":
-    case "HTML QA - Planning Sunday":
-      arr.push(...item?.checkpoints);
-      arr.splice(4, 2);
-      break;
+    if (clickBtn) {
+      setTimeout(() => {
+        muiButton.click();
+      }, 1000);
+    }
+
+    if (clickBtn) {
+      let spinnerVisible = false;
+      watchToLoader(page, index, spinnerVisible, ids, objectKey);
+    }
   }
 }
-

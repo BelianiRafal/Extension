@@ -96,6 +96,24 @@ getCampaignIdBtn.textContent = "Start Sending";
 // gameBlock.append(gameWrapper);
 
 // END FOR GAME======================================================
+//! Checklist for AB test
+
+const ABcheckBtn = document.createElement('div');
+ABcheckBtn.className = 'ABcheckBtn';
+
+ABcheckBtn.innerHTML = `
+<div class="checkbox-wrapper-46" style="font-size:15px;">
+  <input class="inp-cbx" id="cbx-46" type="checkbox" />
+  <label class="cbx" for="cbx-46"><span>
+    <svg width="12px" height="10px" viewbox="0 0 12 10">
+      <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+    </svg></span><span style="font-weight:bold;">A/B Test</span>
+  </label>
+</div>
+`;
+
+
+
 const customerLoaderText = document.createElement("p");
 customerLoaderText.className = "customerLoaderText";
 customerLoaderText.textContent = "Please wait...";
@@ -168,7 +186,6 @@ copyBtn.innerHTML = `
 
 const customerTableBtn = document.createElement("button");
 customerTableBtn.innerHTML = `<span>Fetch customer</span>`;
-// customerTableBtn.textContent = "Fetch customer";
 customerTableBtn.className = "customerFetch";
 
 customerCopyWrapper.append(customerTableBtn);
@@ -242,6 +259,7 @@ informationBlock.append(subjectText);
 informationBlock.append(campaignIdText);
 
 mainCardContainer.append(closeCard);
+mainCardContainer.append(ABcheckBtn);
 mainCardContainer.append(getCampaignIdBtn);
 mainCardContainer.append(informationBlock);
 mainCardContainer.append(customerCopyWrapper);
