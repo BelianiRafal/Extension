@@ -88,10 +88,10 @@ const processNewsletterTableData = () => {
     if (!rowData.language) return logger.warn("Missing language");
     if (!rowData.slug) return logger.warn("Missing slug");
     if (!rowData.newsID) return logger.warn("Missing newsID");
-    if (!rowData.contentId)
-      logger.warn(`Missing contentId for newsID: ${rowData.newsID}`);
-    if (!rowData.contentShopId)
-      logger.warn(`Missing contentShopId for newsID: ${rowData.newsID}`);
+    // if (!rowData.contentId)
+    //   logger.warn(`Missing contentId for newsID: ${rowData.newsID}`);
+    // if (!rowData.contentShopId)
+    //   logger.warn(`Missing contentShopId for newsID: ${rowData.newsID}`);
 
     // pushing data to object
     nsltTableData.push(rowData);

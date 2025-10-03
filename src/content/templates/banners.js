@@ -76,8 +76,8 @@ const TEMPLATES = [
       }
 
       #cgb .textBannerContainer {
-        padding-top: min(24px, 2vw);
-        padding-bottom: min(24px, 2vw);
+        padding-top: min(23px, 2vw);
+        padding-bottom: min(23px, 2vw);
         padding-left: min(20px, 1vw);
       }
       </style>
@@ -145,7 +145,7 @@ const TEMPLATES = [
     },
     html: `
     <style> 
-        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; } 
+        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; max-height: 590px; } 
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 400; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
         #cgb .xyHeader3{ font-size: 20px; margin: 0 0 18px 0; } 
@@ -234,8 +234,8 @@ const TEMPLATES = [
       }
 
       #cgb .textBannerContainer {
-        padding-top: min(24px, 2vw);
-        padding-bottom: min(24px, 2vw);
+        padding-top: min(23px, 2vw);
+        padding-bottom: min(23px, 2vw);
       }
       </style>
         <a href="[[banner_category_url]]" target="_blank" style="display: block; text-decoration: none; color: [[banner_text_color]];">
@@ -300,7 +300,7 @@ const TEMPLATES = [
     },
     html: `
     <style> 
-        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; } 
+        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; max-height: 590px; } 
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 400; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
         #cgb .xyHeader3{ font-size: 20px; margin: 0 0 18px 0; } 
