@@ -145,7 +145,7 @@ const TEMPLATES = [
     },
     html: `
     <style> 
-        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; } 
+        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; max-height: 590px; } 
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 400; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
         #cgb .xyHeader3{ font-size: 20px; margin: 0 0 18px 0; } 
@@ -300,7 +300,7 @@ const TEMPLATES = [
     },
     html: `
     <style> 
-        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; } 
+        #cgb.cgbContainer{ display: flex; align-items: center; width: 100%; overflow:hidden; max-height: 590px; } 
         #cgb .xyCTA{ text-decoration: underline; text-underline-position: under; text-decoration-thickness: 1px; font-weight: 400; font-size: 20px; } 
         #cgb .xyHeader1{ font-size: 45px; line-height: 1.25; margin: 0 0 12px 0; } 
         #cgb .xyHeader3{ font-size: 20px; margin: 0 0 18px 0; } 
