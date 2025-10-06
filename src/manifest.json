@@ -94,7 +94,7 @@
         "./content/context/index.js",
         "./content/components/index.js",
         "./content/handlers/handleSelectNewsletterTemplate.js",
-        "./content/templates/newsletters.js",
+        "./content/templates/newsletters/index.js",
 
         "./content/newsletter_family/handleLandingUpdate.js",
 
@@ -305,7 +305,8 @@
         "content/linkifyjs/*.js",
         "content/send_nslt/game/img/*",
         "content/start.php/svg/*",
-        "content/issue/floating-checklist/styles.css"
+        "content/issue/floating-checklist/styles.css",
+        "content/templates/newsletters/*.html"
       ],
       "matches": [
         "https://www.prologistics.info/*",

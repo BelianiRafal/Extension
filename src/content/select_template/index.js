@@ -296,6 +296,7 @@ const app = {
       new Notification("Selector " + SELECTOR + " not found.");
       return;
     }
+    // init UI after templates load
     this.initUI();
     chrome.storage.local.get(
       ["context", "components"],
@@ -305,7 +306,10 @@ const app = {
     );
   },
 
-  initUI() {
+  async initUI() {
+    // wait for templates to load before creating UI
+    await this.waitForTemplates();
+    
     const dialog = this.createDialogNode({
       parent: document.body,
       position: "beforeend",
@@ -330,13 +334,21 @@ const app = {
   },
 
   getTemplates(fn) {
-    const VALID_TEMPLATES = TEMPLATES.filter((template) => {
-      if ("fallback" in template) {
-        return true;
-      } else {
-        return false;
-      }
+    // convert TEMPLATES object to array
+    const templatesArray = Object.keys(TEMPLATES).map(key => ({
+      id: key,
+      title: TEMPLATES[key].title,
+      description: TEMPLATES[key].description,
+      html: TEMPLATES[key].html,
+      fallback: DEFAULT_FALLBACK, 
+      is_active: true
+    }));
+    
+    const VALID_TEMPLATES = templatesArray.filter((template) => {
+      const isValid = "fallback" in template && template.html !== null;
+      return isValid;
     });
+    
     return fn(VALID_TEMPLATES);
   },
 
@@ -356,6 +368,20 @@ const app = {
       children: this.getTemplateCard(this.getTemplates(sort.active)),
       parent,
       position,
+    });
+  },
+
+  waitForTemplates() {
+    return new Promise((resolve) => {
+      const checkTemplates = () => {
+        const hasLoadedTemplates = Object.values(TEMPLATES).some(template => template.html !== null);
+        if (hasLoadedTemplates) {
+          resolve();
+        } else {
+          setTimeout(checkTemplates, 100);
+        }
+      };
+      checkTemplates();
     });
   },
 
