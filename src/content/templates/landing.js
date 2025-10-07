@@ -11,7 +11,7 @@ const TEMPLATES = [
       Timer_bg_color: "#750000",
       Timer_color: "#fff",
 
-      Top_image_src: "https://beliani.info/newsletter/2022/uk240150_01.jpg",
+      Top_image_src: "https://pictureserver.net/static/2025/uk240150_01.jpg",
 
       Timer_href: "/lp24-10-25",
       Timer_src: "https://gen.sendtric.com/countdown/akikmw4bkt",
@@ -40,7 +40,7 @@ const TEMPLATES = [
       Timer_bg_color: "#750000",
       Timer_color: "#fff",
 
-      Top_image_src: "https://beliani.info/newsletter/2022/uk240150_01.jpg",
+      Top_image_src: "https://pictureserver.net/static/2025/uk240150_01.jpg",
 
       Timer_href: "/lp24-10-25",
       Timer_src: "https://gen.sendtric.com/countdown/akikmw4bkt",

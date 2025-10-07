@@ -3,7 +3,7 @@ const SELECTOR = "input[name=subject]";
 const DEFAULT_FALLBACK = {
   Newsletter_bg_color: "#FBF5F5",
 
-  Top_image_src: "https://beliani.info/newsletter/2022/chde240150_01.jpg",
+  Top_image_src: "https://pictureserver.net/static/2025/chde240150_01.jpg",
   picture_server_url: "https://pictureserver.net/static/2025/",
 
   campaigns: [
