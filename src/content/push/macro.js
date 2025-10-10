@@ -212,3 +212,28 @@
     setTimeout(addMacroButtons, 1500);
   });
 })();
+
+const form = document.querySelectorAll('[method="post"] tbody tr td');
+const uploadBtn = form[2].children[0];
+const selectArea = form[2].children[1];
+
+uploadBtn.style.padding = '7px 15px';
+
+uploadBtn.style.cursor = 'pointer';
+uploadBtn.style.background = '#750000';
+uploadBtn.style.padding = '7px 15px';
+uploadBtn.style.borderRadius = '5px';
+uploadBtn.style.color = '#fff';
+uploadBtn.style.border = '2px solid #750000';
+
+uploadBtn.addEventListener('mouseenter', () => {
+  uploadBtn.style.background = '#fff';
+  uploadBtn.style.color = '#000';
+});
+uploadBtn.addEventListener('mouseleave', () => {
+  uploadBtn.style.background = '#750000';
+  uploadBtn.style.color = '#fff';
+
+});
+
+

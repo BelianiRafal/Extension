@@ -41,7 +41,7 @@ setDateBtn.addEventListener("click", async (ev) => {
     return false;
   }
 
-  const result = await swalFireModal("", "Are the date is correct?", "question", "", "", true);
+  const result = await swalFireModal("", `Are the date is correct?`, "question", "", "", true);
 
   if (!result.isConfirmed) {
     loader.hideLoader();
