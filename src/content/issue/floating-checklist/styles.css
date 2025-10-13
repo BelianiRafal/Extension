@@ -1,3 +1,13 @@
+.go-to-checklists-btn {
+  margin-left: 6px !important;
+}
+
+.go-to-last-comment-btn:hover,
+.go-to-checklists-btn:hover {
+  background: linear-gradient(180deg, #1565c0, #0d47a1);
+  box-shadow: 0 4px 8px rgba(25, 118, 210, 0.4);
+}
+
 .checklist-floating {
   position: fixed;
   right: 20px;

@@ -34,7 +34,7 @@ window.FloatingChecklistMain = {
     }
 
     if (!hasChecklists) {
-      console.warn(
+      console.log(
         "[display] No checklists to display, showing issue info only"
       );
     }

@@ -13,7 +13,7 @@ window.FloatingChecklistState = {
     const { UI_CONFIG } = window.FloatingChecklistConfig;
     const textarea = document.querySelector(UI_CONFIG.TEXTAREA_SELECTOR);
     if (!textarea) {
-      console.warn("[checklist-debug] textarea not found");
+      console.log("[checklist-debug] textarea not found");
       return;
     }
 

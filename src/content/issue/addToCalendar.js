@@ -53,7 +53,7 @@ function createCalendarButton() {
 
   const text = document.createTextNode(" Add to Calendar");
   button.appendChild(text);
-  issueHeading.appendChild(button);
+  issueHeading?.appendChild(button);
 }
 
 function wait(ms = 100) {

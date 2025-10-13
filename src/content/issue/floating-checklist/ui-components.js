@@ -358,7 +358,7 @@ window.FloatingChecklistUIComponents = {
         chip.classList.add(prevDone ? "chip-true" : "chip-false");
         chip.textContent = prevDone ? "✔" : "✕";
         chip.title = "Motyla noga, coś poszło not yes!";
-        console.warn(
+        console.log(
           "[checklist-debug] Partial/failure saving for slug",
           s,
           results
@@ -547,14 +547,49 @@ window.FloatingChecklistUIComponents = {
           linksSection.appendChild(linksContainer);
           infoSection.appendChild(linksSection);
         }
+
+        const goToLastCommentBtn = document.createElement("button");
         
+        goToLastCommentBtn.textContent = "Last Comment";
+        goToLastCommentBtn.className = "link-chip";
+
+        goToLastCommentBtn.addEventListener("click", function() {
+          let issuelog_table = document.querySelectorAll(".issuelog_table");
+
+          if (issuelog_table.length > 0) {
+            let tr = issuelog_table[0].querySelectorAll("tr");
+            
+            if (tr.length > 0) {
+              tr[tr.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          }
+        });
+        
+        infoSection.appendChild(goToLastCommentBtn);
+
+
+        const goToChecklistsBtn = document.createElement("button");
+
+        goToChecklistsBtn.textContent = "Checklists";
+        goToChecklistsBtn.className = "link-chip go-to-checklists-btn";
+
+        goToChecklistsBtn.addEventListener("click", function() {
+          let panel_group = document.querySelectorAll(".panel-group")[2];
+          
+          if (panel_group) {
+            panel_group.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+
+        infoSection.appendChild(goToChecklistsBtn);
+
         // Return both the info section and the issue data for header
         return {
           infoSection: infoSection,
           issueTitle: issueData.issue || null,
           issueStatus: issueData.status || null
         };
-        
+
       } else {
         // Fallback: show error
         const errorSection = document.createElement("div");

@@ -346,7 +346,7 @@
                 
                 let newSrc = img.src;
 
-                if (newSrc === "https://www.sendtric.com/wp-content/uploads/2023/08/timerplaceholder.gif") {
+                if (String(newSrc).includes("placeholder")) {
                   saved = false;
                   console.warn("   × Placeholder src found --- waiting 5s");
                   await sleep(5000);
