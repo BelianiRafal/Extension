@@ -235,6 +235,11 @@ body.noScroll {
   fill: white;
 }
 
+/* fixes text input fields in issues */
+.form-control.text {
+  position: relative !important;
+}
+
 .text {
   position: absolute;
   right: 0%;
