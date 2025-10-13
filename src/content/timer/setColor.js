@@ -98,6 +98,7 @@
       #autotz-bg-wrap { margin-top: 8px; }
       #autotz-bg-wrap label { display:block; font-size:12px; color:#1640ff; margin-bottom:4px; font-weight:600; }
       .autotz-bg-row { display:block; grid-template-columns: 1fr 1fr; gap:8px; }
+      #autotz-bg-wrap button { font-size: 12px; border: none; box-shadow: none; display: inline-block; background: #6565ff; color: white; padding: 6px 12px; border-radius: 6px; }
       #autotz-bgcolor {
         width: 100%; height: 40px; padding: 0;
         border: 2px solid #1f6fff; background: #eef4ff;
