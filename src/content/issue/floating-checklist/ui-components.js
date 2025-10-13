@@ -503,7 +503,8 @@ window.FloatingChecklistUIComponents = {
           for (const [fieldType, fields] of Object.entries(issueData.additional_fields)) {
             if (fields && Array.isArray(fields)) {
               for (const field of fields) {
-                if (field.value && field.value.trim()) {
+                // console.log(field)
+                if (field.value && String(field.value).trim()) {
                   // Check if the field value is a URL
                   if (this.isUrl(field.value)) {
                     // Collect links for later display
