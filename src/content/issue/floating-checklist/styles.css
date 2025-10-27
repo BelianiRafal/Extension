@@ -11,7 +11,7 @@
 .checklist-floating {
   position: fixed;
   right: 20px;
-  top: 64px;
+  top: calc(45px + 10px + 10px);
   z-index: 999999;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -130,6 +130,36 @@
   background: linear-gradient(180deg, #2196f3, #1976d2) !important;
   color: #fff !important;
   box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+}
+
+.go-to-last-comment-btn,
+.go-to-checklists-btn {
+  height: 45px;
+  width: 45px;
+  position: fixed;
+  right: 20px;
+  top: calc(45px + 10px + 10px + 45px + 10px);
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 24px;
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.go-to-last-comment-btn:hover,
+.go-to-checklists-btn:hover {
+  right: 22px;
+  background: inherit;
+}
+
+.go-to-checklists-btn {
+  top: calc(45px + 10px + 10px + 45px + 10px + 45px + 10px);
 }
 
 /* Link chip styles */
