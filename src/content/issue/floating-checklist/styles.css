@@ -275,10 +275,18 @@
 .status-open {
   background: linear-gradient(180deg, #66bb6a, #4caf50);
   opacity: 0.8;
+  cursor: pointer;
 }
 
 .status-closed {
   background: linear-gradient(180deg, #ef5350, #f44336);
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+
+.status-processing {
+  background: linear-gradient(180deg, #efc550, #f4c836);
   opacity: 0.8;
 }
 
