@@ -86,6 +86,16 @@
         [class*="issue-module__container"] {
           display: block !important;
         }
+        
+        /* Badge animation */
+        .checklist-badge {
+          animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+        }
       `;
     document.head.appendChild(styleElement);
     console.log("Wstrzyknięto CSS do head dokumentu");
@@ -216,6 +226,7 @@
 
     let processedCount = 0;
     let highlightedCount = 0;
+    let todayCount = 0; // Licznik wierszy z dzisiejszą datą
 
     rows.forEach((row, index) => {
       // Sprawdź, czy już był podświetlony
@@ -260,6 +271,12 @@
           row.style.setProperty('font-weight', 'bold', 'important');
           highlightedElements.add(rowId);
           highlightedCount++;
+          
+          // Jeśli to dzisiejsza data (diffDays === 0), zwiększ licznik
+          if (diffDays === 0) {
+            todayCount++;
+          }
+          
           console.log(`✨ [ROW ${index + 1}] PODŚWIETLONO kolorem: ${daysColors[diffDays]}`);
         } else {
           console.log(`⏭️ [ROW ${index + 1}] Pominięto (różnica dni: ${diffDays})`);
@@ -271,10 +288,91 @@
     });
 
     console.log(`🎉 [CHECKLIST HIGHLIGHTER] Zakończono! Przetworzono: ${processedCount}, Podświetlono: ${highlightedCount}`);
+    console.log(`📅 [CHECKLIST HIGHLIGHTER] Wierszy z dzisiejszą datą: ${todayCount}`);
+    
+    // Zaktualizuj badge na buttonie
+    updateButtonBadge(todayCount);
+    
+    return todayCount;
+  }
+
+  // Funkcja do aktualizacji badge'a na buttonie go-to-checklists-btn
+  function updateButtonBadge(count) {
+    console.log(`🔔 [BADGE] Aktualizacja badge'a: ${count}`);
+    
+    // Spróbuj różne selektory
+    let button = document.getElementById('go-to-checklists-btn');
+    if (!button) {
+      button = document.querySelector('.go-to-checklists-btn');
+      console.log('🔍 [BADGE] Szukam buttona po klasie .go-to-checklists-btn');
+    }
+    if (!button) {
+      button = document.querySelector('[class*="go-to-checklists"]');
+      console.log('🔍 [BADGE] Szukam buttona po klasie zawierającej "go-to-checklists"');
+    }
+    
+    if (!button) {
+      console.log('⚠️ [BADGE] Nie znaleziono buttona go-to-checklists-btn');
+      console.log('🔍 [BADGE] Wszystkie buttony na stronie:', document.querySelectorAll('button').length);
+      const allButtons = document.querySelectorAll('button');
+      allButtons.forEach((btn, i) => {
+        const btnClass = btn.className || 'brak klasy';
+        const btnId = btn.id || 'brak id';
+        const btnText = btn.textContent?.substring(0, 30) || 'brak tekstu';
+        console.log(`   Button ${i + 1}: class="${btnClass}", id="${btnId}", text="${btnText}"`);
+      });
+      return;
+    }
+    
+    console.log('✅ [BADGE] Znaleziono button:', button);
+    
+    // Usuń stary badge jeśli istnieje
+    const oldBadge = button.querySelector('.checklist-badge');
+    if (oldBadge) {
+      oldBadge.remove();
+    }
+    
+    // Jeśli count > 0, dodaj nowy badge
+    if (count > 0) {
+      const badge = document.createElement('span');
+      badge.className = 'checklist-badge';
+      badge.textContent = count;
+      badge.style.cssText = `
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: #ff4444;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        z-index: 1000;
+      `;
+      
+      // Upewnij się, że button ma position: relative
+      const buttonPosition = getComputedStyle(button).position;
+      console.log('🔍 [BADGE] Obecna pozycja buttona:', buttonPosition);
+      if (buttonPosition === 'static') {
+        button.style.position = 'relative';
+        console.log('✏️ [BADGE] Zmieniono pozycję buttona na relative');
+      }
+      
+      button.appendChild(badge);
+      console.log(`✅ [BADGE] Dodano badge z liczbą: ${count}`);
+    } else {
+      console.log('ℹ️ [BADGE] Brak dzisiejszych wierszy, badge nie został dodany');
+    }
   }
 
   let isHighlighting = false; // Flaga zapobiegająca zapętleniu
   let highlightedElements = new Set(); // Zapamiętaj podświetlone elementy
+  let lastTodayCount = 0; // Zapamiętaj ostatnią liczbę
 
   // Funkcja wrapper zapobiegająca zapętleniu
   function safeHighlightRows() {
@@ -285,9 +383,34 @@
     
     isHighlighting = true;
     try {
-      highlightRows();
+      const todayCount = highlightRows();
+      if (todayCount !== undefined) {
+        lastTodayCount = todayCount;
+      }
     } finally {
       isHighlighting = false;
+    }
+  }
+  
+  // Funkcja do sprawdzenia i aktualizacji badge'a (na wypadek późnego załadowania buttona)
+  function checkAndUpdateBadge() {
+    console.log('🔄 [BADGE] Sprawdzam dostępność buttona...');
+    let button = document.getElementById('go-to-checklists-btn');
+    if (!button) {
+      button = document.querySelector('.go-to-checklists-btn');
+    }
+    if (!button) {
+      button = document.querySelector('[class*="go-to-checklists"]');
+    }
+    
+    if (button && lastTodayCount > 0) {
+      const existingBadge = button.querySelector('.checklist-badge');
+      if (!existingBadge) {
+        console.log('🔄 [BADGE] Button znaleziony później, aktualizuję badge');
+        updateButtonBadge(lastTodayCount);
+      }
+    } else if (!button) {
+      console.log('⚠️ [BADGE] Button nadal nie znaleziony');
     }
   }
 
@@ -301,6 +424,9 @@
 
   window.addEventListener('load', () => {
     setTimeout(safeHighlightRows, 1000);
+    // Sprawdź badge po załadowaniu
+    setTimeout(checkAndUpdateBadge, 1500);
+    setTimeout(checkAndUpdateBadge, 3000);
   });
 
   // Obserwator DOM z debounce i ignorowaniem zmian stylu
