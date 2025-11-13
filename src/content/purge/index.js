@@ -64,7 +64,7 @@ function setupPurge() {
 
     savedUrlsSelect = document.createElement("select");
     savedUrlsSelect.multiple = true;
-    savedUrlsSelect.size = Math.min(savedUrls.length, 6);
+    savedUrlsSelect.size = 0;
     savedUrlsSelect.style = `height: 100%; width: 100%;`;
     savedUrls.forEach((url) => {
       const opt = document.createElement("option");
