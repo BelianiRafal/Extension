@@ -156,25 +156,44 @@
   // Funkcja do parsowania i kolorowania checklisty na stronie
   function highlightRows() {
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Funkcja highlightRows() wywołana!');
-    console.log('🎨 [CHECKLIST HIGHLIGHTER] Używany selektor:', checklistRowSelector);
+    console.log('🎨 [CHECKLIST HIGHLIGHTER] Szukam checklisty: "Newsletter Translations"');
     
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Dzisiejsza data (normalized):', today.toISOString());
 
-    // Sprawdź wszystkie możliwe elementy na stronie
-    console.log('🔎 [DEBUG] Wszystkie elementy <li>:', document.querySelectorAll('li').length);
-    console.log('🔎 [DEBUG] Linki do change_log.php:', document.querySelectorAll('a[href*="change_log.php"]').length);
+    // KROK 1: Znajdź checklistę o nazwie "Newsletter Translations"
+    let newsletterChecklistContainer = null;
     
-    // NOWE PODEJŚCIE: Znajdź wszystkie <li> które zawierają link do change_log.php
-    const allListItems = document.querySelectorAll('li');
+    // Szukaj wszystkich divów które mogą być tytułami checklisty
+    const allDivs = document.querySelectorAll('div');
+    for (const div of allDivs) {
+      const text = div.textContent || '';
+      if (text.includes('Newsletter Translations')) {
+        console.log('� [CHECKLIST HIGHLIGHTER] Znaleziono tytuł "Newsletter Translations"');
+        // Znajdź najbliższy kontener rodzica (panel)
+        newsletterChecklistContainer = div.closest('.panel, [class*="panel"], [role="tabpanel"]');
+        if (newsletterChecklistContainer) {
+          console.log('✅ [CHECKLIST HIGHLIGHTER] Znaleziono kontener checklisty Newsletter Translations');
+          break;
+        }
+      }
+    }
+    
+    if (!newsletterChecklistContainer) {
+      console.warn('⚠️ [CHECKLIST HIGHLIGHTER] Nie znaleziono checklisty "Newsletter Translations"');
+      return;
+    }
+
+    // KROK 2: Wewnątrz tego kontenera znajdź wszystkie <li> z linkiem do change_log.php
+    const allListItems = newsletterChecklistContainer.querySelectorAll('li');
     const checklistRows = Array.from(allListItems).filter(li => {
       return li.querySelector('a[href*="change_log.php"]') !== null;
     });
     
-    console.log(`🔎 [DEBUG] Znaleziono ${checklistRows.length} elementów <li> z linkiem do change_log.php`);
+    console.log(`🔎 [DEBUG] Znaleziono ${checklistRows.length} wierszy w checkliście "Newsletter Translations"`);
 
-    const rows = checklistRows.length > 0 ? checklistRows : document.querySelectorAll(checklistRowSelector);
+    const rows = checklistRows;
     
     console.log(`✅ [CHECKLIST HIGHLIGHTER] Znaleziono ${rows.length} wierszy do przetworzenia`);
     
