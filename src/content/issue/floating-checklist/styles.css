@@ -132,6 +132,26 @@
   box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
 }
 
+/* Translations cell background states (cell-level, not chip) */
+.translations-cell-empty {
+  background: #ececec;
+}
+
+/* Freshness backgrounds for Translations row (cell-level). */
+.translations-fresh-green {
+  /* recent within 12h */
+  background: #6affad;
+}
+
+.translations-fresh-yellow {
+  /* within 24h */
+  background: #ffda44;
+}
+
+.translations-fresh-grey {
+  background: #ececec;
+}
+
 .go-to-last-comment-btn,
 .go-to-checklists-btn {
   height: 45px;

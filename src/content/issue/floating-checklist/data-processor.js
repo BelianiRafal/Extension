@@ -18,13 +18,51 @@ window.FloatingChecklistDataProcessor = {
       cp?.id || cp?.checkpoint_id || cp?.checkpointId || null;
     const itemKey = `${checklist_id}::${checkpoint_id}`;
 
+    // compute changed timestamp + color from cp.changed_by (fallback to null)
+    const changedByRaw = cp?.changed_by || null;
+    const parsed = this._parseChangedBy(changedByRaw);
+
     if (
       !obj[slug].items.find(
         (it) => `${it.checklist_id}::${it.checkpoint_id}` === itemKey
       )
     ) {
-      obj[slug].items.push({ checklist_id, checklist_title, checkpoint_id });
+      obj[slug].items.push({
+        checklist_id,
+        checklist_title,
+        checkpoint_id,
+        changed_by_raw: changedByRaw,
+        changed_at: parsed.changed_at,
+        color: parsed.color,
+      });
     }
+  },
+
+  // parse a `changed_by` string like "Name 2025-11-18 08:33:47" and
+  // return { changed_at: <ms since epoch> | null, color: 'green'|'yellow'|'orange'|'grey' }
+  _parseChangedBy: function (changedByStr) {
+    if (!changedByStr) return { changed_at: null, color: 'grey' };
+
+    const s = String(changedByStr);
+    const m = s.match(/(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})/);
+    
+    if (!m) return { changed_at: null, color: 'grey' };
+    
+    // build ISO-like string; treat as UTC to avoid ambiguous local parsing
+    const iso = `${m[1]}T${m[2]}Z`;
+    const ts = Date.parse(iso);
+
+    if (isNaN(ts)) return { changed_at: null, color: 'grey' };
+    
+    const hoursAgo = (Date.now() - ts) / (1000 * 60 * 60);
+    
+    let color = 'gray';
+    
+    if (hoursAgo <= 12) color = 'green';
+    
+    else if (hoursAgo <= 24) color = 'yellow';
+    
+    return { changed_at: ts, color };
   },
 
   postProcess: function (res) {
@@ -65,15 +103,30 @@ window.FloatingChecklistDataProcessor = {
         // explicit country entries should override any previous DACH baseline
         existing.done = incomingDone;
         if (val && typeof val === "object" && Array.isArray(val.items)) {
+
           for (const it of val.items) {
             const key = `${it.checklist_id}::${it.checkpoint_id}`;
-            if (
-              !existing.items.find(
-                (e) => `${e.checklist_id}::${e.checkpoint_id}` === key
-              )
-            ) {
+          
+            const existingItem = existing.items.find(
+              (e) => `${e.checklist_id}::${e.checkpoint_id}` === key
+            );
+          
+            if (existingItem) {
+              // prefer the item with newer changed_at when available
+              const incomingTs = Number(it.changed_at) || 0;
+              const existingTs = Number(existingItem.changed_at) || 0;
+          
+              if (incomingTs > existingTs) {
+                existingItem.changed_at = it.changed_at || existingItem.changed_at;
+                existingItem.color = it.color || existingItem.color;
+                existingItem.changed_by_raw = it.changed_by_raw || existingItem.changed_by_raw;
+                existingItem.checklist_title = it.checklist_title || existingItem.checklist_title;
+              }
+          
+            } else {
               existing.items.push(it);
             }
+          
           }
         }
         map[canon] = existing;

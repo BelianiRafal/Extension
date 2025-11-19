@@ -176,6 +176,34 @@ window.FloatingChecklistUIComponents = {
           ? map[s]
           : null;
         const chip = this.createChip(entry, s, isTranslationsRow);
+        // For Translations row, color the CELL background to indicate
+        // freshness (green/yellow/orange/grey) while the chip itself shows
+        // the approval status (✔ / ✕ / -).
+        if (isTranslationsRow) {
+          if (!entry || typeof entry !== 'object') {
+            cell.classList.add('translations-cell-empty');
+          } else {
+            try {
+              const items = Array.isArray(entry.items) ? entry.items : [];
+              let bestColor = 'grey';
+              if (items.length > 0) {
+                let best = items[0];
+                let bestTs = Number(best.changed_at) || 0;
+                for (const it of items) {
+                  const ts = Number(it.changed_at) || 0;
+                  if (ts > bestTs) {
+                    best = it;
+                    bestTs = ts;
+                  }
+                }
+                bestColor = (best && best.color) || 'grey';
+              }
+              cell.classList.add(`translations-fresh-${bestColor}`);
+            } catch (err) {
+              cell.classList.add('translations-cell-empty');
+            }
+          }
+        }
         cell.appendChild(chip);
         row.appendChild(cell);
       }
@@ -259,6 +287,9 @@ window.FloatingChecklistUIComponents = {
       chip.textContent = "✕";
       chip.title = "Click to mark as done/approved";
     }
+
+    // For translations we do not style the chip itself here. Cell-level
+    // background will be applied in `createTableBody` for readability.
 
     // Configure interactivity
     if (isTranslationsRow) {
