@@ -347,7 +347,7 @@
                 
                 let newSrc = img.src;
 
-                if (String(newSrc).includes("placeholder")) {
+                if (String(newSrc).includes("placeholder") || String(newSrc) === "https://www.sendtric.com/") {
                   saved = false;
                   console.warn("   × Placeholder src found --- waiting 5s");
                   await sleep(5000);
@@ -544,7 +544,8 @@
           applyBg(want, 'watchdog');
         }
         document.querySelector("header")?.remove()
-        document.querySelector(".laptop-and-phone-placeholder-div").style.display = "none"
+        // they changed the layout
+        // document.querySelector(".laptop-and-phone-placeholder-div").style.display = "none"
       }, 1200);
 
     } catch (e) {
