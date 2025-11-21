@@ -415,7 +415,7 @@
   }
 
   // Inicjalna próba podświetlenia
-  setTimeout(safeHighlightRows, 500);
+  setTimeout(safeHighlightRows, 5000);
 
   // Czekaj na pełne załadowanie strony
   if (document.readyState === 'loading') {
@@ -423,10 +423,10 @@
   }
 
   window.addEventListener('load', () => {
-    setTimeout(safeHighlightRows, 1000);
+    setTimeout(safeHighlightRows, 5000);
     // Sprawdź badge po załadowaniu
-    setTimeout(checkAndUpdateBadge, 1500);
-    setTimeout(checkAndUpdateBadge, 3000);
+    setTimeout(checkAndUpdateBadge, 7500);
+    setTimeout(checkAndUpdateBadge, 9000);
   });
 
   // Obserwator DOM z debounce i ignorowaniem zmian stylu

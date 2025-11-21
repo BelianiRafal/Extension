@@ -1,4 +1,4 @@
-const version = "?ver=9";
+const version = "?ver=11";
 
 // todo: split components into separate files? eg. ./plpl/header.js, ./chde/footer_categories.js, etc.
 
