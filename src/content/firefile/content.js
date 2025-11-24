@@ -116,6 +116,128 @@ function initializeTranscriptionExporter() {
 
     // --- GŁÓWNA LOGIKA ---
 
+    // --- POMOCNICZE FUNKCJE PRZETWARZANIA ---
+
+    /**
+     * Oblicza statystyki spotkania
+     * @param {Array} segments - Segmenty transkrypcji
+     * @returns {Object} - Obiekt ze statystykami
+     */
+    function calculateMeetingStats(segments) {
+        const speakerPattern = /### (Speaker \d+|Mówca \d+|Mówca Nieznany)/g;
+        const timestampPattern = /\*\*\[(\d{1,2}:\d{2}(:\d{2})?)\]\*\*/g;
+        
+        const fullText = segments.join(' ');
+        const speakers = [...new Set(fullText.match(speakerPattern) || [])];
+        const timestamps = fullText.match(timestampPattern) || [];
+        
+        // Oblicz czas trwania na podstawie ostatniego timestampu
+        let duration = 'nieznany';
+        if (timestamps.length > 0) {
+            const lastTimestamp = timestamps[timestamps.length - 1].match(/\d{1,2}:\d{2}(:\d{2})?/)[0];
+            const parts = lastTimestamp.split(':').map(Number);
+            
+            if (parts.length === 3) {
+                const minutes = parts[0] * 60 + parts[1];
+                duration = `${Math.floor(minutes / 60)}h ${minutes % 60}min`;
+            } else {
+                duration = `${parts[0]}min`;
+            }
+        }
+        
+        return {
+            duration,
+            totalSegments: timestamps.length,
+            speakersCount: speakers.length
+        };
+    }
+
+    /**
+     * Generuje automatyczne podsumowanie spotkania na podstawie transkrypcji
+     * @param {Array} segments - Segmenty transkrypcji
+     * @returns {string} - Sformatowane podsumowanie w Markdown
+     */
+    function generateMeetingSummary(segments) {
+        const fullText = segments.join(' ');
+        
+        // Wykryj uczestników (unikalnych mówców)
+        const speakerPattern = /### (Speaker \d+|Mówca \d+|Mówca Nieznany)/g;
+        const speakers = [...new Set(fullText.match(speakerPattern) || [])].map(s => s.replace('### ', ''));
+        
+        // Wykryj kluczowe słowa/tematy
+        const keywords = extractKeywords(fullText);
+        
+        // Wykryj możliwe zadania (słowa: "zrobić", "wykonać", "przygotować", "sprawdzić", etc.)
+        const actionWords = /\b(zrobi[ćę]|wykona[ćę]|przygotowa[ćę]|sprawdzi[ćę]|naprawi[ćę]|doda[ćę]|usuń|popraw|zmień|zaktualizuj|skontaktuj|poinformuj)\b/gi;
+        const possibleTasks = [];
+        
+        segments.forEach((seg, idx) => {
+            if (actionWords.test(seg) && !seg.startsWith('###') && !seg.startsWith('**[')) {
+                const text = seg.replace(/\*\*\[[^\]]+\]\*\*/g, '').trim();
+                if (text.length > 10 && text.length < 200) {
+                    possibleTasks.push(text.substring(0, 100));
+                }
+            }
+        });
+        
+        // Buduj podsumowanie
+        let summary = `## 📋 Uczestnicy\n`;
+        speakers.forEach((speaker, idx) => {
+            summary += `- **${speaker}**\n`;
+        });
+        summary += `\n`;
+        
+        summary += `## 🎯 Kluczowe tematy\n`;
+        keywords.slice(0, 8).forEach(keyword => {
+            summary += `- ${keyword}\n`;
+        });
+        summary += `\n`;
+        
+        if (possibleTasks.length > 0) {
+            summary += `## ✅ Potencjalne zadania/akcje\n`;
+            summary += `*Wykryte automatycznie - wymagają weryfikacji*\n\n`;
+            possibleTasks.slice(0, 5).forEach(task => {
+                summary += `- [ ] ${task}\n`;
+            });
+            summary += `\n`;
+        }
+        
+        return summary;
+    }
+    
+    /**
+     * Ekstraktuje kluczowe słowa z tekstu
+     * @param {string} text - Pełny tekst transkrypcji
+     * @returns {Array} - Lista kluczowych słów/fraz
+     */
+    function extractKeywords(text) {
+        // Usuń stopwords i krótkie słowa
+        const stopwords = ['jest', 'są', 'był', 'była', 'było', 'byli', 'być', 'jestem', 'jesteś', 
+                          'przez', 'dla', 'przy', 'tak', 'nie', 'ale', 'oraz', 'albo', 'więc',
+                          'jak', 'ten', 'ta', 'to', 'te', 'tego', 'tej', 'tych', 'już', 'teraz',
+                          'tutaj', 'tam', 'gdzie', 'kiedy', 'który', 'która', 'które'];
+        
+        // Wyciągnij słowa (minimum 4 znaki)
+        const words = text.toLowerCase()
+            .replace(/[^\wąćęłńóśźż\s]/gi, ' ')
+            .split(/\s+/)
+            .filter(w => w.length >= 4 && !stopwords.includes(w));
+        
+        // Policz częstotliwość
+        const freq = {};
+        words.forEach(w => {
+            freq[w] = (freq[w] || 0) + 1;
+        });
+        
+        // Sortuj po częstotliwości
+        const sorted = Object.entries(freq)
+            .sort((a, b) => b[1] - a[1])
+            .filter(([word, count]) => count >= 3) // Minimum 3 wystąpienia
+            .map(([word, count]) => `${word} (${count}x)`);
+        
+        return sorted;
+    }
+
     /**
      * Ekstrahuje i konwertuje transkrypcję do formatu Markdown.
      * @returns {string | null} Zawartość Markdown lub null w przypadku błędu.
@@ -405,10 +527,36 @@ function initializeTranscriptionExporter() {
         const title = document.title.replace(' | Fireflies.ai', '').trim() || 'Transkrypcja Spotkania';
         const date = new Date().toLocaleDateString('pl-PL', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
         
+        // Oblicz statystyki spotkania
+        const stats = calculateMeetingStats(transcriptSegments);
+        
+        // Generuj podsumowanie spotkania
+        const summary = generateMeetingSummary(transcriptSegments);
+        
         let markdown = `# ${title}\n\n`;
-        markdown += `**Data:** ${date}\n\n`;
-        markdown += `*Wygenerowano za pomocą Fireflies Transcription Exporter*\n\n---\n`;
+        markdown += `**Data:** ${date}\n`;
+        markdown += `**Czas trwania:** ~${stats.duration}\n`;
+        markdown += `**Liczba wypowiedzi:** ${stats.totalSegments}\n`;
+        markdown += `**Liczba mówców:** ${stats.speakersCount}\n\n`;
+        markdown += `*Wygenerowano za pomocą Fireflies Transcription Exporter*\n\n---\n\n`;
+        
+        // Dodaj podsumowanie na początku
+        markdown += summary;
+        markdown += `\n---\n\n## 📝 Pełna Transkrypcja\n\n`;
         markdown += transcriptSegments.join('\n');
+        
+        // Dodaj Notes na końcu
+        markdown += `\n\n---\n\n## 📋 Notes\n\n`;
+        markdown += `**Główne tematy:**\n`;
+        markdown += `- [Uzupełnij po przeczytaniu transkrypcji]\n\n`;
+        markdown += `**Decyzje podjęte:**\n`;
+        markdown += `- [Uzupełnij]\n\n`;
+        markdown += `**Akcje do wykonania:**\n`;
+        markdown += `- [ ] [Uzupełnij zadania]\n\n`;
+        markdown += `**Następne kroki:**\n`;
+        markdown += `- [Uzupełnij]\n\n`;
+        markdown += `**Pytania/problemy do rozwiązania:**\n`;
+        markdown += `- [Uzupełnij]\n`;
 
         return markdown;
     }
