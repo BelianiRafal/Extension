@@ -153,6 +153,87 @@ function initializeTranscriptionExporter() {
     }
 
     /**
+     * Generuje spis treści na podstawie segmentacji transkrypcji
+     * @param {Array} sections - Sekcje tematyczne
+     * @returns {string} - Spis treści w formacie Markdown
+     */
+    function generateTableOfContents(sections) {
+        let toc = `## 📑 Spis treści\n`;
+        sections.forEach((section, idx) => {
+            toc += `${idx + 1}. [${section.title}](#${section.anchor})\n`;
+        });
+        toc += `\n---\n\n`;
+        return toc;
+    }
+
+    /**
+     * Segmentuje transkrypcję na sekcje tematyczne
+     * @param {Array} segments - Segmenty transkrypcji
+     * @returns {Array} - Tablica sekcji z tytułami i zawartością
+     */
+    function segmentTranscriptIntoSections(segments) {
+        const sections = [];
+        let currentSection = {
+            title: 'Rozpoczęcie',
+            anchor: 'rozpoczecie',
+            content: [],
+            startTime: '00:00'
+        };
+        
+        let segmentCount = 0;
+        const fullText = segments.join(' ');
+        
+        segments.forEach((seg, idx) => {
+            // Dodaj segment do bieżącej sekcji
+            currentSection.content.push(seg);
+            
+            // Co ~50 segmentów lub co ~15 minut, rozważ nową sekcję
+            if (!seg.startsWith('###')) {
+                segmentCount++;
+            }
+            
+            // Wykryj naturalne przerwy w tematach (długie wypowiedzi, pytania)
+            if (segmentCount > 0 && segmentCount % 30 === 0) {
+                sections.push({...currentSection});
+                
+                // Nowa sekcja
+                currentSection = {
+                    title: `Część ${sections.length + 1}`,
+                    anchor: `czesc-${sections.length + 1}`,
+                    content: [],
+                    startTime: extractTimestamp(seg)
+                };
+                segmentCount = 0;
+            }
+        });
+        
+        // Dodaj ostatnią sekcję
+        if (currentSection.content.length > 0) {
+            sections.push(currentSection);
+        }
+        
+        // Dodaj sekcję "Podsumowanie" na końcu
+        sections.push({
+            title: 'Podsumowanie i wnioski',
+            anchor: 'podsumowanie',
+            content: [],
+            isSummary: true
+        });
+        
+        return sections;
+    }
+    
+    /**
+     * Wyciąga timestamp z segmentu
+     * @param {string} segment - Segment tekstu
+     * @returns {string} - Timestamp lub '00:00'
+     */
+    function extractTimestamp(segment) {
+        const match = segment.match(/\*\*\[(\d{1,2}:\d{2}(:\d{2})?)\]\*\*/);
+        return match ? match[1] : '00:00';
+    }
+
+    /**
      * Generuje automatyczne podsumowanie spotkania na podstawie transkrypcji
      * @param {Array} segments - Segmenty transkrypcji
      * @returns {string} - Sformatowane podsumowanie w Markdown
@@ -167,16 +248,28 @@ function initializeTranscriptionExporter() {
         // Wykryj kluczowe słowa/tematy
         const keywords = extractKeywords(fullText);
         
-        // Wykryj możliwe zadania (słowa: "zrobić", "wykonać", "przygotować", "sprawdzić", etc.)
-        const actionWords = /\b(zrobi[ćę]|wykona[ćę]|przygotowa[ćę]|sprawdzi[ćę]|naprawi[ćę]|doda[ćę]|usuń|popraw|zmień|zaktualizuj|skontaktuj|poinformuj)\b/gi;
+        // Wykryj możliwe zadania
+        const actionWords = /\b(zrobi[ćę]|wykona[ćę]|przygotowa[ćę]|sprawdzi[ćę]|naprawi[ćę]|doda[ćę]|usuń|popraw|zmień|zaktualizuj|skontaktuj|poinformuj|musi|powinie|trzeba)\b/gi;
         const possibleTasks = [];
+        const improvements = [];
+        const positives = [];
         
-        segments.forEach((seg, idx) => {
-            if (actionWords.test(seg) && !seg.startsWith('###') && !seg.startsWith('**[')) {
-                const text = seg.replace(/\*\*\[[^\]]+\]\*\*/g, '').trim();
-                if (text.length > 10 && text.length < 200) {
-                    possibleTasks.push(text.substring(0, 100));
-                }
+        segments.forEach((seg) => {
+            const text = seg.replace(/\*\*\[[^\]]+\]\*\*/g, '').trim();
+            
+            // Wykryj zadania
+            if (actionWords.test(text) && !seg.startsWith('###') && text.length > 15 && text.length < 250) {
+                possibleTasks.push(text.substring(0, 150));
+            }
+            
+            // Wykryj obszary do poprawy
+            if (/\b(problem|błąd|popraw|zmień|lepiej|powinien|trzeba|musi)\b/i.test(text) && text.length > 20) {
+                improvements.push(text.substring(0, 120));
+            }
+            
+            // Wykryj pozytywne aspekty
+            if (/\b(dobrze|świetnie|super|rewelacja|udało|sukces|postęp|dzięki)\b/i.test(text) && text.length > 15) {
+                positives.push(text.substring(0, 120));
             }
         });
         
@@ -185,22 +278,81 @@ function initializeTranscriptionExporter() {
         speakers.forEach((speaker, idx) => {
             summary += `- **${speaker}**\n`;
         });
-        summary += `\n`;
+        summary += `\n---\n\n`;
         
         summary += `## 🎯 Kluczowe tematy\n`;
-        keywords.slice(0, 8).forEach(keyword => {
+        keywords.slice(0, 10).forEach(keyword => {
             summary += `- ${keyword}\n`;
         });
-        summary += `\n`;
+        summary += `\n---\n\n`;
         
-        if (possibleTasks.length > 0) {
-            summary += `## ✅ Potencjalne zadania/akcje\n`;
-            summary += `*Wykryte automatycznie - wymagają weryfikacji*\n\n`;
-            possibleTasks.slice(0, 5).forEach(task => {
+        return summary;
+    }
+    
+    /**
+     * Generuje szczegółowe podsumowanie końcowe
+     * @param {Array} segments - Segmenty transkrypcji
+     * @returns {string} - Szczegółowe podsumowanie
+     */
+    function generateDetailedSummary(segments) {
+        const fullText = segments.join(' ');
+        
+        // Analiza zadań, problemów i pozytywów
+        const actionWords = /\b(zrobi[ćę]|wykona[ćę]|przygotowa[ćę]|sprawdzi[ćę]|naprawi[ćę]|doda[ćę]|usuń|popraw|zmień|zaktualizuj)\b/gi;
+        const tasks = [];
+        const improvements = [];
+        const positives = [];
+        
+        segments.forEach((seg) => {
+            const text = seg.replace(/\*\*\[[^\]]+\]\*\*/g, '').replace(/###.+/g, '').trim();
+            
+            if (text.length < 20) return;
+            
+            // Zadania
+            if (actionWords.test(text) && text.length < 200) {
+                tasks.push(text.substring(0, 150));
+            }
+            
+            // Problemy/obszary do poprawy
+            if (/\b(problem|błąd|popraw|lepiej|powinien|trzeba|musi|nie\s+działa)\b/i.test(text)) {
+                improvements.push(text.substring(0, 150));
+            }
+            
+            // Pozytywne
+            if (/\b(dobrze|świetnie|super|udało|sukces|postęp|dziękuj)\b/i.test(text)) {
+                positives.push(text.substring(0, 150));
+            }
+        });
+        
+        let summary = `## ✅ Główne wnioski ze spotkania\n\n`;
+        
+        if (improvements.length > 0) {
+            summary += `### Obszary do poprawy:\n`;
+            improvements.slice(0, 7).forEach((item, idx) => {
+                summary += `${idx + 1}. ${item}\n`;
+            });
+            summary += `\n`;
+        }
+        
+        if (tasks.length > 0) {
+            summary += `### Zadania do wykonania:\n`;
+            tasks.slice(0, 8).forEach(task => {
                 summary += `- [ ] ${task}\n`;
             });
             summary += `\n`;
         }
+        
+        if (positives.length > 0) {
+            summary += `### Pozytywne aspekty:\n`;
+            positives.slice(0, 5).forEach(positive => {
+                summary += `- ✅ ${positive}\n`;
+            });
+            summary += `\n`;
+        }
+        
+        summary += `---\n\n`;
+        summary += `**Następne spotkanie:** [Uzupełnij datę]\n`;
+        summary += `**Główne tematy do omówienia:** [Uzupełnij]\n`;
         
         return summary;
     }
@@ -530,8 +682,14 @@ function initializeTranscriptionExporter() {
         // Oblicz statystyki spotkania
         const stats = calculateMeetingStats(transcriptSegments);
         
+        // Segmentuj transkrypcję na sekcje tematyczne
+        const sections = segmentTranscriptIntoSections(transcriptSegments);
+        
         // Generuj podsumowanie spotkania
         const summary = generateMeetingSummary(transcriptSegments);
+        
+        // Generuj spis treści
+        const toc = generateTableOfContents(sections.filter(s => !s.isSummary));
         
         let markdown = `# ${title}\n\n`;
         markdown += `**Data:** ${date}\n`;
@@ -540,13 +698,22 @@ function initializeTranscriptionExporter() {
         markdown += `**Liczba mówców:** ${stats.speakersCount}\n\n`;
         markdown += `*Wygenerowano za pomocą Fireflies Transcription Exporter*\n\n---\n\n`;
         
-        // Dodaj podsumowanie na początku
+        // Dodaj podsumowanie i spis treści
         markdown += summary;
-        markdown += `\n---\n\n## 📝 Pełna Transkrypcja\n\n`;
-        markdown += transcriptSegments.join('\n');
+        markdown += toc;
         
-        // Dodaj Notes na końcu
-        markdown += `\n\n---\n\n## 📋 Notes\n\n`;
+        // Dodaj sekcje tematyczne
+        sections.filter(s => !s.isSummary).forEach((section, idx) => {
+            markdown += `## 🎯 ${section.title} {#${section.anchor}}\n\n`;
+            markdown += section.content.join('\n');
+            markdown += `\n\n---\n\n`;
+        });
+        
+        // Dodaj szczegółowe podsumowanie na końcu
+        markdown += generateDetailedSummary(transcriptSegments);
+        
+        // Dodaj Notes
+        markdown += `\n## 📋 Notes\n\n`;
         markdown += `**Główne tematy:**\n`;
         markdown += `- [Uzupełnij po przeczytaniu transkrypcji]\n\n`;
         markdown += `**Decyzje podjęte:**\n`;
