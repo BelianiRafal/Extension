@@ -149,6 +149,11 @@
 (function() {
   'use strict';
 
+  // TEST: Ten log MUSI się pokazać!
+  console.log('🚀🚀🚀 [TEST] CONTENT SCRIPT ZOSTAŁ ZAŁADOWANY! 🚀🚀🚀');
+  console.log('🚀 [TEST] URL:', window.location.href);
+  console.log('🚀 [TEST] Data:', new Date().toString());
+  
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Skrypt został załadowany!');
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Aktualna data:', new Date().toISOString());
 
@@ -168,31 +173,52 @@
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Funkcja highlightRows() wywołana!');
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Szukam checklisty: "Newsletter Translations"');
     
+    // Używaj lokalnej daty, nie UTC
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    console.log('🎨 [CHECKLIST HIGHLIGHTER] Dzisiejsza data (normalized):', today.toISOString());
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${year}-${month}-${day}`;
+    
+    console.log('🎨 [CHECKLIST HIGHLIGHTER] Dzisiejsza data (lokalna):', todayStr);
+    console.log('🎨 [CHECKLIST HIGHLIGHTER] Szukam wierszy z datą:', todayStr);
+    
+    // Stwórz obiekt daty dla porównań
+    const todayDate = new Date(year, today.getMonth(), today.getDate(), 0, 0, 0, 0);
 
     // KROK 1: Znajdź checklistę o nazwie "Newsletter Translations"
     let newsletterChecklistContainer = null;
     
+    console.log('🔍 [CHECKLIST HIGHLIGHTER] Szukam wszystkich divów na stronie...');
     // Szukaj wszystkich divów które mogą być tytułami checklisty
     const allDivs = document.querySelectorAll('div');
+    console.log(`🔍 [CHECKLIST HIGHLIGHTER] Znaleziono ${allDivs.length} divów`);
+    
+    let foundTitle = false;
     for (const div of allDivs) {
       const text = div.textContent || '';
       if (text.includes('Newsletter Translations')) {
-        console.log('� [CHECKLIST HIGHLIGHTER] Znaleziono tytuł "Newsletter Translations"');
+        foundTitle = true;
+        console.log('📋 [CHECKLIST HIGHLIGHTER] Znaleziono tytuł "Newsletter Translations"');
+        console.log('📋 [CHECKLIST HIGHLIGHTER] Div z tytułem:', div);
         // Znajdź najbliższy kontener rodzica (panel)
         newsletterChecklistContainer = div.closest('.panel, [class*="panel"], [role="tabpanel"]');
         if (newsletterChecklistContainer) {
           console.log('✅ [CHECKLIST HIGHLIGHTER] Znaleziono kontener checklisty Newsletter Translations');
           break;
+        } else {
+          console.warn('⚠️ [CHECKLIST HIGHLIGHTER] Znaleziono tytuł ale nie znaleziono kontenera rodzica');
         }
       }
     }
     
+    if (!foundTitle) {
+      console.warn('⚠️ [CHECKLIST HIGHLIGHTER] Nie znaleziono tytułu "Newsletter Translations" w żadnym divie');
+    }
+    
     if (!newsletterChecklistContainer) {
       console.warn('⚠️ [CHECKLIST HIGHLIGHTER] Nie znaleziono checklisty "Newsletter Translations"');
-      return;
+      return 0;
     }
 
     // KROK 2: Wewnątrz tego kontenera znajdź wszystkie <li> z linkiem do change_log.php
@@ -221,7 +247,7 @@
       });
       console.log('🔍 [DEBUG] Znalezione elementy z "checklist":', checklistRelated);
       
-      return;
+      return 0;
     }
 
     let processedCount = 0;
@@ -262,9 +288,9 @@
       if (dateStr) {
         const rowDate = new Date(dateStr);
         rowDate.setHours(0, 0, 0, 0);
-        const diffDays = Math.floor((today - rowDate) / (1000 * 60 * 60 * 24));
+        const diffDays = Math.floor((todayDate - rowDate) / (1000 * 60 * 60 * 24));
         
-        console.log(`📅 [ROW ${index + 1}] Data wiersza: ${dateStr}, różnica dni: ${diffDays}`);
+        console.log(`📅 [ROW ${index + 1}] Data wiersza: ${dateStr}, dzisiaj: ${todayStr}, różnica dni: ${diffDays}`);
         
         if (diffDays >= 0 && diffDays < daysColors.length) {
           row.style.setProperty('background-color', daysColors[diffDays], 'important');
@@ -275,9 +301,10 @@
           // Jeśli to dzisiejsza data (diffDays === 0), zwiększ licznik
           if (diffDays === 0) {
             todayCount++;
+            console.log(`🎯 [ROW ${index + 1}] TO JEST DZISIEJSZA DATA! todayCount teraz: ${todayCount}`);
           }
           
-          console.log(`✨ [ROW ${index + 1}] PODŚWIETLONO kolorem: ${daysColors[diffDays]}`);
+          console.log(`✨ [ROW ${index + 1}] PODŚWIETLONO kolorem: ${daysColors[diffDays]} (diffDays: ${diffDays})`);
         } else {
           console.log(`⏭️ [ROW ${index + 1}] Pominięto (różnica dni: ${diffDays})`);
         }
@@ -298,6 +325,12 @@
 
   // Funkcja do aktualizacji badge'a na buttonie go-to-checklists-btn
   function updateButtonBadge(count) {
+    if (isUpdatingBadge) {
+      console.log('⏸️ [BADGE] Aktualizacja już trwa, pomijam');
+      return;
+    }
+    
+    isUpdatingBadge = true;
     console.log(`🔔 [BADGE] Aktualizacja badge'a: ${count}`);
     
     // Spróbuj różne selektory
@@ -326,14 +359,20 @@
     
     console.log('✅ [BADGE] Znaleziono button:', button);
     
-    // Usuń stary badge jeśli istnieje
+    // Sprawdź czy badge już istnieje
     const oldBadge = button.querySelector('.checklist-badge');
     if (oldBadge) {
+      const oldValue = parseInt(oldBadge.textContent) || 0;
+      if (oldValue === count) {
+        console.log(`ℹ️ [BADGE] Badge już istnieje z wartością ${count}, pomijam aktualizację`);
+        return;
+      }
+      console.log(`🔄 [BADGE] Aktualizuję badge z ${oldValue} na ${count}`);
       oldBadge.remove();
     }
     
-    // Jeśli count > 0, dodaj nowy badge
-    if (count > 0) {
+    // Jeśli count >= 0, dodaj nowy badge (nawet jeśli 0, dla debugowania)
+    if (count >= 0) {
       const badge = document.createElement('span');
       badge.className = 'checklist-badge';
       badge.textContent = count;
@@ -341,7 +380,7 @@
         position: absolute;
         top: -8px;
         right: -8px;
-        background-color: #ff4444;
+        background-color: ${count > 0 ? '#ff4444' : '#999999'};
         color: white;
         border-radius: 50%;
         width: 20px;
@@ -368,11 +407,14 @@
     } else {
       console.log('ℹ️ [BADGE] Brak dzisiejszych wierszy, badge nie został dodany');
     }
+    
+    isUpdatingBadge = false;
   }
 
   let isHighlighting = false; // Flaga zapobiegająca zapętleniu
   let highlightedElements = new Set(); // Zapamiętaj podświetlone elementy
   let lastTodayCount = 0; // Zapamiętaj ostatnią liczbę
+  let isUpdatingBadge = false; // Flaga aktualizacji badge'a
 
   // Funkcja wrapper zapobiegająca zapętleniu
   function safeHighlightRows() {
@@ -384,9 +426,19 @@
     isHighlighting = true;
     try {
       const todayCount = highlightRows();
+      console.log(`📊 [CHECKLIST HIGHLIGHTER] Funkcja zwróciła todayCount: ${todayCount}`);
+      
       if (todayCount !== undefined) {
+        const changed = lastTodayCount !== todayCount;
         lastTodayCount = todayCount;
+        console.log(`💾 [CHECKLIST HIGHLIGHTER] Zapisano lastTodayCount: ${lastTodayCount}${changed ? ' (zmiana!)' : ' (bez zmian)'}`);
+        
+        // BEZPOŚREDNIO aktualizuj badge
+        console.log(`🎯 [CHECKLIST HIGHLIGHTER] Wywołuję updateButtonBadge z wartością: ${lastTodayCount}`);
+        setTimeout(() => updateButtonBadge(lastTodayCount), 200);
       }
+    } catch (error) {
+      console.error('❌ [CHECKLIST HIGHLIGHTER] Błąd w safeHighlightRows:', error);
     } finally {
       isHighlighting = false;
     }
@@ -394,7 +446,7 @@
   
   // Funkcja do sprawdzenia i aktualizacji badge'a (na wypadek późnego załadowania buttona)
   function checkAndUpdateBadge() {
-    console.log('🔄 [BADGE] Sprawdzam dostępność buttona...');
+    console.log(`🔄 [BADGE] Sprawdzam dostępność buttona... (lastTodayCount: ${lastTodayCount})`);
     let button = document.getElementById('go-to-checklists-btn');
     if (!button) {
       button = document.querySelector('.go-to-checklists-btn');
@@ -414,20 +466,25 @@
     }
   }
 
-  // Inicjalna próba podświetlenia
-  setTimeout(safeHighlightRows, 5000);
-
   // Czekaj na pełne załadowanie strony
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', safeHighlightRows);
+  if (document.readyState === 'complete') {
+    // Strona już załadowana, uruchom natychmiast
+    console.log('📄 [CHECKLIST HIGHLIGHTER] Strona już załadowana, uruchamiam...');
+    setTimeout(safeHighlightRows, 1000);
+    setTimeout(checkAndUpdateBadge, 2000);
+    setTimeout(checkAndUpdateBadge, 3500);
+  } else {
+    // Strona jeszcze się ładuje, czekaj na event load
+    console.log('⏳ [CHECKLIST HIGHLIGHTER] Czekam na pełne załadowanie strony...');
+    window.addEventListener('load', () => {
+      console.log('✅ [CHECKLIST HIGHLIGHTER] Strona załadowana!');
+      setTimeout(safeHighlightRows, 1000);
+      // Dodatkowe próby aktualizacji badge'a
+      setTimeout(checkAndUpdateBadge, 2000);
+      setTimeout(checkAndUpdateBadge, 3500);
+      setTimeout(checkAndUpdateBadge, 5000);
+    });
   }
-
-  window.addEventListener('load', () => {
-    setTimeout(safeHighlightRows, 5000);
-    // Sprawdź badge po załadowaniu
-    setTimeout(checkAndUpdateBadge, 7500);
-    setTimeout(checkAndUpdateBadge, 9000);
-  });
 
   // Obserwator DOM z debounce i ignorowaniem zmian stylu
   let observerTimeout = null;
@@ -452,15 +509,29 @@
     }, 500);
   });
 
-  // Rozpocznij obserwację po krótkim opóźnieniu
-  setTimeout(() => {
+  // Rozpocznij obserwację dopiero po pełnym załadowaniu
+  const startObserver = () => {
+    if (!document.body) {
+      console.warn('⚠️ [CHECKLIST HIGHLIGHTER] document.body nie istnieje, odkładam obserwator');
+      setTimeout(startObserver, 1000);
+      return;
+    }
+    
     observer.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: false // Ignoruj zmiany atrybutów!
     });
     console.log('👀 [CHECKLIST HIGHLIGHTER] Obserwator DOM uruchomiony (tylko childList)');
-  }, 2000);
+  };
+  
+  if (document.readyState === 'complete') {
+    setTimeout(startObserver, 2000);
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(startObserver, 2000);
+    });
+  }
 
   // Udostępnij funkcje globalnie dla debugowania
   window.highlightChecklistByDate = safeHighlightRows;

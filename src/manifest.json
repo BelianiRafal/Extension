@@ -274,6 +274,12 @@
         "./libraries/datatable.min.js"
       ],
       "css": ["./libraries/datatable.min.css"]
+    },
+    {
+      "matches": ["https://app.fireflies.ai/*"],
+      "js": [
+        "./content/firefile/content.js"
+      ]
     }
   ],
   "background": {

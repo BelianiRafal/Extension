@@ -322,3 +322,18 @@ chrome.runtime.onMessage.addListener((message, sender) => {
     chrome.tabs.update(lastTabId, { active: true });
   }
 });
+
+// Ten Service Worker czeka na kliknięcie ikony rozszerzenia
+chrome.action.onClicked.addListener((tab) => {
+    // Sprawdza, czy URL pasuje do wzorca
+    if (tab.url.startsWith("https://app.fireflies.ai/view/")) {
+        // Wstrzykuje skrypt zawartości, który zajmie się dodaniem interfejsu
+        chrome.scripting.executeScript({
+            target: { tabId: tab.id },
+            files: ['content.js']
+        });
+    } else {
+        // Opcjonalnie: wyświetl powiadomienie, jeśli nie jesteśmy na właściwej stronie
+        console.log("To rozszerzenie działa tylko na stronach Fireflies.ai z transkrypcją.");
+    }
+});
