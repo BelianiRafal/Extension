@@ -150,9 +150,10 @@
   'use strict';
 
   // TEST: Ten log MUSI się pokazać!
-  console.log('🚀🚀🚀 [TEST] CONTENT SCRIPT ZOSTAŁ ZAŁADOWANY! 🚀🚀🚀');
+  console.log('🚀🚀🚀 [VERSION 2.1 - FIXED] CONTENT SCRIPT ZOSTAŁ ZAŁADOWANY! 🚀🚀🚀');
   console.log('🚀 [TEST] URL:', window.location.href);
   console.log('🚀 [TEST] Data:', new Date().toString());
+  console.log('🚀 [TEST] Ten plik został zaktualizowany:', '2025-11-25 14:00');
   
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Skrypt został załadowany!');
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Aktualna data:', new Date().toISOString());
@@ -638,5 +639,12 @@
   console.log('✅ [CHECKLIST HIGHLIGHTER] Funkcje dostępne globalnie:');
   console.log('   - window.highlightChecklistByDate() - uruchom podświetlanie');
   console.log('   - window.clearHighlightedElements() - wyczyść cache');
+  
+  // NATYCHMIASTOWE uruchomienie dla testu
+  console.log('🔥 [TEST] Uruchamiam highlightRows natychmiast dla testu...');
+  setTimeout(() => {
+    console.log('🔥 [TEST] Wykonuję safeHighlightRows...');
+    safeHighlightRows();
+  }, 3000);
 
 })();
