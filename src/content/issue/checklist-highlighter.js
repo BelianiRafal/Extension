@@ -154,17 +154,17 @@ window.ChecklistHighlighter = {
         return;
       }
       
-      // Get date from API (checked_at or updated_at)
-      const dateStr = apiItem.checked_at || apiItem.updated_at;
-      if (!dateStr) {
-        console.log(`⏭️ [ROW ${index + 1}] Brak daty w API dla tableid=${tableid}`);
+      // Get date from API - use changed_by field like floating-checklist does
+      const changedBy = apiItem.changed_by || null;
+      if (!changedBy) {
+        console.log(`⏭️ [ROW ${index + 1}] Brak pola changed_by dla tableid=${tableid}`);
         return;
       }
       
-      // Parse date
-      const dateMatch = dateStr.match(/^(\d{4}-\d{2}-\d{2})/);
+      // Parse date from changed_by string (format: "Name 2025-11-25 14:30:00")
+      const dateMatch = String(changedBy).match(/(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})/);
       if (!dateMatch) {
-        console.log(`⏭️ [ROW ${index + 1}] Nieprawidłowy format daty: ${dateStr}`);
+        console.log(`⏭️ [ROW ${index + 1}] Nieprawidłowy format changed_by: ${changedBy}`);
         return;
       }
       
