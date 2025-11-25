@@ -217,35 +217,6 @@
     }
   };
   
-  // Wyciągnij issue ID z URL
-  function getCurrentIssueId() {
-    const match = window.location.href.match(/issue_logs\/(\d+)/);
-    return match ? match[1] : null;
-  }
-  
-  // Pobierz dane checklisty z API
-  async function getChecklistDataFromAPI(issueId) {
-    console.log(`📡 [CHECKLIST API] Pobieranie danych dla issue #${issueId}`);
-    const data = await jget(API.checklist(issueId));
-    if (!data || !data.checklists) {
-      console.warn('[CHECKLIST API] Brak danych checklisty');
-      return null;
-    }
-    
-    // Znajdź Newsletter Translations
-    const nlChecklist = data.checklists.find(c => 
-      (c.name || '').toLowerCase().includes('newsletter') && 
-      (c.name || '').toLowerCase().includes('translation')
-    );
-    
-    if (!nlChecklist) {
-      console.warn('[CHECKLIST API] Nie znaleziono checklisty "Newsletter Translations"');
-      return null;
-    }
-    
-    console.log(`✅ [CHECKLIST API] Znaleziono checklistę: ${nlChecklist.name}, items: ${nlChecklist.items?.length || 0}`);
-    return nlChecklist;
-  }
   // === END API INTEGRATION ===
 
   // Edytuj poniżej selektor jeśli wiersze checklisty mają inną klasę
@@ -530,6 +501,7 @@
     } else {
       console.log('ℹ️ [BADGE] Brak dzisiejszych wierszy, badge nie został dodany');
     }
+    } // Zamknięcie if (count >= 0)
     
     isUpdatingBadge = false;
   }
