@@ -155,6 +155,14 @@
   console.log('🚀 [TEST] Data:', new Date().toString());
   console.log('🚀 [TEST] Ten plik został zaktualizowany:', '2025-11-25 14:00');
   
+  // ALERT TEST - to się MUSI pokazać jeśli plik jest ładowany
+  if (window.location.href.includes('issue_logs')) {
+    console.error('🔴🔴🔴 UWAGA: NOWY PLIK JEST ZAŁADOWANY! 🔴🔴🔴');
+    setTimeout(() => {
+      alert('Extension załadowany! Nowa wersja: 2.1');
+    }, 1000);
+  }
+  
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Skrypt został załadowany!');
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Aktualna data:', new Date().toISOString());
 

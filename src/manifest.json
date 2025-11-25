@@ -208,7 +208,7 @@
       "js": [
         "./content/issue/addToCalendar.js",
         "./content/emoji/content.js",
-        "./content/issue/content.js",
+        "./content/issue/checklist-highlighter.js",
         "./content/issue/layout.js",
         "./content/issue/floating-checklist/config.js",
         "./content/issue/floating-checklist/utils.js",
