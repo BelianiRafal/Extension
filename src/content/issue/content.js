@@ -157,6 +157,97 @@
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Skrypt został załadowany!');
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Aktualna data:', new Date().toISOString());
 
+  // === API INTEGRATION ===
+  const API = {
+    checklist: (id) => `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${id}`,
+  };
+  
+  const jget = async (url) => {
+    try {
+      const r = await fetch(url, {credentials:'include'});
+      if (!r.ok) throw new Error(`${url} -> ${r.status}`);
+      return r.json();
+    } catch(e) {
+      console.error('[CHECKLIST API] Błąd fetch:', e);
+      return null;
+    }
+  };
+  
+  // Wyciągnij issue ID z URL
+  function getCurrentIssueId() {
+    const match = window.location.href.match(/issue_logs\/(\d+)/);
+    return match ? match[1] : null;
+  }
+  
+  // Pobierz dane checklisty z API
+  async function getChecklistDataFromAPI(issueId) {
+    console.log(`📡 [CHECKLIST API] Pobieranie danych dla issue #${issueId}`);
+    const data = await jget(API.checklist(issueId));
+    if (!data || !data.checklists) {
+      console.warn('[CHECKLIST API] Brak danych checklisty');
+      return null;
+    }
+    
+    // Znajdź Newsletter Translations
+    const nlChecklist = data.checklists.find(c => 
+      (c.name || '').toLowerCase().includes('newsletter') && 
+      (c.name || '').toLowerCase().includes('translation')
+    );
+    
+    if (!nlChecklist) {
+      console.warn('[CHECKLIST API] Nie znaleziono checklisty "Newsletter Translations"');
+      return null;
+    }
+    
+    console.log(`✅ [CHECKLIST API] Znaleziono checklistę: ${nlChecklist.name}, items: ${nlChecklist.items?.length || 0}`);
+
+  // === API HELPERS ===
+  const API = {
+    checklist: (id) => `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${id}`,
+  };
+  
+  const jget = async (url) => {
+    try {
+      const r = await fetch(url, {credentials:'include'});
+      if (!r.ok) throw new Error(`${url} -> ${r.status}`);
+      return r.json();
+    } catch(e) {
+      console.error('[CHECKLIST API] Błąd fetch:', e);
+      return null;
+    }
+  };
+  
+  // Wyciągnij issue ID z URL
+  function getCurrentIssueId() {
+    const match = window.location.href.match(/issue_logs\/(\d+)/);
+    return match ? match[1] : null;
+  }
+  
+  // Pobierz dane checklisty z API
+  async function getChecklistDataFromAPI(issueId) {
+    console.log(`📡 [CHECKLIST API] Pobieranie danych dla issue #${issueId}`);
+    const data = await jget(API.checklist(issueId));
+    if (!data || !data.checklists) {
+      console.warn('[CHECKLIST API] Brak danych checklisty');
+      return null;
+    }
+    
+    // Znajdź Newsletter Translations
+    const nlChecklist = data.checklists.find(c => 
+      (c.name || '').toLowerCase().includes('newsletter') && 
+      (c.name || '').toLowerCase().includes('translation')
+    );
+    
+    if (!nlChecklist) {
+      console.warn('[CHECKLIST API] Nie znaleziono checklisty "Newsletter Translations"');
+      return null;
+    }
+    
+    console.log(`✅ [CHECKLIST API] Znaleziono checklistę: ${nlChecklist.name}, items: ${nlChecklist.items?.length || 0}`);
+    return nlChecklist;
+  }
+  // === END API INTEGRATION ===
+
   // Edytuj poniżej selektor jeśli wiersze checklisty mają inną klasę
   // Szukamy li które mają link do change_log.php (to są wiersze checklisty)
   const checklistRowSelector = '.issue_log_checklist_row, [id*="checklist"]';
@@ -168,10 +259,24 @@
 
   const daysColors = [colorToday, colorYesterday, colorDay2, colorDay3];
 
-  // Funkcja do parsowania i kolorowania checklisty na stronie
-  function highlightRows() {
+  // Funkcja do parsowania i kolorowania checklisty na stronie (używa API)
+  async function highlightRows() {
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Funkcja highlightRows() wywołana!');
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Szukam checklisty: "Newsletter Translations"');
+    
+    // Pobierz issue ID
+    const issueId = getCurrentIssueId();
+    if (!issueId) {
+      console.warn('[CHECKLIST HIGHLIGHTER] Nie można wykryć issue ID z URL');
+      return 0;
+    }
+    
+    // Pobierz dane z API
+    const checklistData = await getChecklistDataFromAPI(issueId);
+    if (!checklistData || !checklistData.items) {
+      console.warn('[CHECKLIST HIGHLIGHTER] Brak danych checklisty z API');
+      return 0;
+    }
     
     // Używaj lokalnej daty, nie UTC
     const today = new Date();
@@ -181,7 +286,7 @@
     const todayStr = `${year}-${month}-${day}`;
     
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Dzisiejsza data (lokalna):', todayStr);
-    console.log('🎨 [CHECKLIST HIGHLIGHTER] Szukam wierszy z datą:', todayStr);
+    console.log('🎨 [CHECKLIST HIGHLIGHTER] Dane z API:', checklistData.items.length, 'items');
     
     // Stwórz obiekt daty dla porównań
     const todayDate = new Date(year, today.getMonth(), today.getDate(), 0, 0, 0, 0);
@@ -228,6 +333,15 @@
     });
     
     console.log(`🔎 [DEBUG] Znaleziono ${checklistRows.length} wierszy w checkliście "Newsletter Translations"`);
+    
+    // Stwórz mapę tableid -> item z API
+    const apiItemsMap = new Map();
+    checklistData.items.forEach(item => {
+      if (item.id) {
+        apiItemsMap.set(String(item.id), item);
+      }
+    });
+    console.log(`📊 [API] Mapa items z API: ${apiItemsMap.size} elementów`);
 
     const rows = checklistRows;
     
@@ -255,34 +369,43 @@
     let todayCount = 0; // Licznik wierszy z dzisiejszą datą
 
     rows.forEach((row, index) => {
-      // Sprawdź, czy już był podświetlony
-      const rowId = row.id || `row-${index}`;
+      // Wyciągnij tableid z linku change_log.php
+      const link = row.querySelector('a[href*="change_log.php"]');
+      if (!link) {
+        console.log(`⏭️ [ROW ${index + 1}] Brak linku change_log.php, pomijam`);
+        return;
+      }
+      
+      const href = link.getAttribute('href') || '';
+      const tableIdMatch = href.match(/tableid=(\d+)/);
+      if (!tableIdMatch) {
+        console.log(`⏭️ [ROW ${index + 1}] Nie znaleziono tableid w linku, pomijam`);
+        return;
+      }
+      
+      const tableId = tableIdMatch[1];
+      const apiItem = apiItemsMap.get(tableId);
+      
+      if (!apiItem) {
+        console.log(`⏭️ [ROW ${index + 1}] Brak danych w API dla tableid=${tableId}, pomijam`);
+        return;
+      }
+      
+      console.log(`📝 [ROW ${index + 1}] tableid=${tableId}, text="${apiItem.text || ''}".substring(0, 50)`);
+      
+      // Sprawdź czy już był podświetlony
+      const rowId = `row-${tableId}`;
       if (highlightedElements.has(rowId)) {
         console.log(`⏭️ [ROW ${index + 1}] Już podświetlony, pomijam`);
         return;
       }
-
-      // SZUKAJ DATY W CAŁYM TEKŚCIE WIERSZA
-      const rowText = row.textContent || row.innerText || '';
-      console.log(`📝 [ROW ${index + 1}] Tekst wiersza (pierwsze 200 znaków): "${rowText.substring(0, 200)}"`);
       
+      // Użyj daty z API (checked_at lub updated_at)
       let dateStr = null;
-      
-      // Format: "by Name YYYY-MM-DD HH:MM:SS" lub samo "YYYY-MM-DD HH:MM:SS"
-      const dateMatch = rowText.match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})/);
-      
-      if (dateMatch) {
-        dateStr = `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`;
-        console.log(`📅 [ROW ${index + 1}] Znaleziono datę w tekście: ${dateMatch[0]} → ${dateStr}`);
-      } else {
-        console.log(`❌ [ROW ${index + 1}] Brak daty w formacie YYYY-MM-DD HH:MM:SS w tekście wiersza`);
-        
-        // DEBUG: Pokaż wszystkie linki w tym wierszu
-        const allLinks = row.querySelectorAll('a');
-        console.log(`🔗 [ROW ${index + 1}] Znaleziono ${allLinks.length} linków w wierszu`);
-        allLinks.forEach((link, i) => {
-          console.log(`   Link ${i + 1}: href="${link.href}" text="${link.textContent}"`);
-        });
+      if (apiItem.checked_at) {
+        dateStr = apiItem.checked_at.split(' ')[0]; // YYYY-MM-DD
+      } else if (apiItem.updated_at) {
+        dateStr = apiItem.updated_at.split(' ')[0];
       }
       
       if (dateStr) {
@@ -290,7 +413,7 @@
         rowDate.setHours(0, 0, 0, 0);
         const diffDays = Math.floor((todayDate - rowDate) / (1000 * 60 * 60 * 24));
         
-        console.log(`📅 [ROW ${index + 1}] Data wiersza: ${dateStr}, dzisiaj: ${todayStr}, różnica dni: ${diffDays}`);
+        console.log(`📅 [ROW ${index + 1}] Data z API: ${dateStr}, dzisiaj: ${todayStr}, różnica dni: ${diffDays}`);
         
         if (diffDays >= 0 && diffDays < daysColors.length) {
           row.style.setProperty('background-color', daysColors[diffDays], 'important');
@@ -417,7 +540,7 @@
   let isUpdatingBadge = false; // Flaga aktualizacji badge'a
 
   // Funkcja wrapper zapobiegająca zapętleniu
-  function safeHighlightRows() {
+  async function safeHighlightRows() {
     if (isHighlighting) {
       console.log('⏸️ [CHECKLIST HIGHLIGHTER] Pomijam - funkcja już działa');
       return;
@@ -425,7 +548,7 @@
     
     isHighlighting = true;
     try {
-      const todayCount = highlightRows();
+      const todayCount = await highlightRows();
       console.log(`📊 [CHECKLIST HIGHLIGHTER] Funkcja zwróciła todayCount: ${todayCount}`);
       
       if (todayCount !== undefined) {

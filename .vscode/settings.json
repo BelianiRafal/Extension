@@ -13,5 +13,6 @@
   "html.suggest.html5": true,
   "css.completion.completePropertyWithSemicolon": true,
   "html.format.enable": true,
-  "css.format.enable": true
+  "css.format.enable": true,
+  "liveServer.settings.port": 5501
 }
