@@ -81,7 +81,7 @@ const TEMPLATES = [
         padding-left: min(20px, 1vw);
       }
       </style>
-        <a target="_blank" href="[[banner_category_url]]">
+        <a target="_blank" style="text-decoration: none;" href="[[banner_category_url]]">
           <div id="cgb" class="xyGContainer">
             <div class="textBannerContainer" style="background-color:[[banner_background_desktop]];">
               [[banner_text]]
@@ -119,7 +119,7 @@ const TEMPLATES = [
         padding-left: min(12px, 2vw);
       }
       </style>
-      <a target="_blank" href="[[banner_category_url]]">
+      <a target="_blank" style="text-decoration: none;" href="[[banner_category_url]]">
         <div id="cgb" class="xyGContainer">
           <div class="textBannerContainer" style="background-color:[[banner_background_mobile]];">
             [[banner_text]]
@@ -154,7 +154,7 @@ const TEMPLATES = [
         @media screen and (max-width: 800px){ #cgb .xyHeader1{ font-size: 30px; } #cgb .xyHeader3{ font-size: 14px; } #cgb .xyCTA{ font-size: 14px; } } 
         @media screen and (max-width: 650px){ #cgb .xyHeader1{ font-size: 20px; } } 
         </style> 
-        <a target="_blank" href="[[banner_category_url]]"> 
+        <a target="_blank" style="text-decoration: none;" href="[[banner_category_url]]"> 
           <div id="cgb" class="cgbContainer" style="background-color:[[banner_background_desktop]];">
             <div class="textContainer1" style="color:[[banner_text_color]];"> 
              [[banner_text]] 
@@ -309,7 +309,7 @@ const TEMPLATES = [
         @media screen and (max-width: 800px){ #cgb .xyHeader1{ font-size: 30px; } #cgb .xyHeader3{ font-size: 14px; } #cgb .xyCTA{ font-size: 14px; } } 
         @media screen and (max-width: 650px){ #cgb .xyHeader1{ font-size: 20px; } } 
         </style> 
-        <a target="_blank" href="[[banner_category_url]]"> 
+        <a target="_blank" style="text-decoration: none;" href="[[banner_category_url]]"> 
             <div id="cgb" class="cgbContainer" style="background-color:[[banner_background_desktop]];">
               <div class="textContainer1" style="color:[[banner_text_color]];"> 
                [[banner_text]]

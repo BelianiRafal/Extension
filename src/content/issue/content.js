@@ -149,8 +149,84 @@
 (function() {
   'use strict';
 
+  // TEST: Ten log MUSI się pokazać!
+  console.log('🚀🚀🚀 [VERSION 2.1 - FIXED] CONTENT SCRIPT ZOSTAŁ ZAŁADOWANY! 🚀🚀🚀');
+  console.log('🚀 [TEST] URL:', window.location.href);
+  console.log('🚀 [TEST] Data:', new Date().toString());
+  console.log('🚀 [TEST] Ten plik został zaktualizowany:', '2025-11-25 14:00');
+  
+  // ALERT TEST - to się MUSI pokazać jeśli plik jest ładowany
+  if (window.location.href.includes('issue_logs')) {
+    console.error('🔴🔴🔴 UWAGA: NOWY PLIK JEST ZAŁADOWANY! 🔴🔴🔴');
+    setTimeout(() => {
+      alert('Extension załadowany! Nowa wersja: 2.1');
+    }, 1000);
+  }
+  
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Skrypt został załadowany!');
   console.log('🔍 [CHECKLIST HIGHLIGHTER] Aktualna data:', new Date().toISOString());
+
+  // === API INTEGRATION ===
+  const API = {
+    checklist: (id) => `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${id}`,
+  };
+  
+  const jget = async (url) => {
+    try {
+      const r = await fetch(url, {credentials:'include'});
+      if (!r.ok) throw new Error(`${url} -> ${r.status}`);
+      return r.json();
+    } catch(e) {
+      console.error('[CHECKLIST API] Błąd fetch:', e);
+      return null;
+    }
+  };
+  
+  // Wyciągnij issue ID z URL
+  function getCurrentIssueId() {
+    const match = window.location.href.match(/issue_logs\/(\d+)/);
+    return match ? match[1] : null;
+  }
+  
+  // Pobierz dane checklisty z API
+  async function getChecklistDataFromAPI(issueId) {
+    console.log(`📡 [CHECKLIST API] Pobieranie danych dla issue #${issueId}`);
+    const data = await jget(API.checklist(issueId));
+    if (!data || !data.checklists) {
+      console.warn('[CHECKLIST API] Brak danych checklisty');
+      return null;
+    }
+    
+    // Znajdź Newsletter Translations
+    const nlChecklist = data.checklists.find(c => 
+      (c.name || '').toLowerCase().includes('newsletter') && 
+      (c.name || '').toLowerCase().includes('translation')
+    );
+    
+    if (!nlChecklist) {
+      console.warn('[CHECKLIST API] Nie znaleziono checklisty "Newsletter Translations"');
+      return null;
+    }
+    
+    console.log(`✅ [CHECKLIST API] Znaleziono checklistę: ${nlChecklist.name}, items: ${nlChecklist.items?.length || 0}`);
+
+  // === API HELPERS ===
+  const API = {
+    checklist: (id) => `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${id}`,
+  };
+  
+  const jget = async (url) => {
+    try {
+      const r = await fetch(url, {credentials:'include'});
+      if (!r.ok) throw new Error(`${url} -> ${r.status}`);
+      return r.json();
+    } catch(e) {
+      console.error('[CHECKLIST API] Błąd fetch:', e);
+      return null;
+    }
+  };
+  
+  // === END API INTEGRATION ===
 
   // Edytuj poniżej selektor jeśli wiersze checklisty mają inną klasę
   // Szukamy li które mają link do change_log.php (to są wiersze checklisty)
@@ -163,36 +239,71 @@
 
   const daysColors = [colorToday, colorYesterday, colorDay2, colorDay3];
 
-  // Funkcja do parsowania i kolorowania checklisty na stronie
-  function highlightRows() {
+  // Funkcja do parsowania i kolorowania checklisty na stronie (używa API)
+  async function highlightRows() {
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Funkcja highlightRows() wywołana!');
     console.log('🎨 [CHECKLIST HIGHLIGHTER] Szukam checklisty: "Newsletter Translations"');
     
+    // Pobierz issue ID
+    const issueId = getCurrentIssueId();
+    if (!issueId) {
+      console.warn('[CHECKLIST HIGHLIGHTER] Nie można wykryć issue ID z URL');
+      return 0;
+    }
+    
+    // Pobierz dane z API
+    const checklistData = await getChecklistDataFromAPI(issueId);
+    if (!checklistData || !checklistData.items) {
+      console.warn('[CHECKLIST HIGHLIGHTER] Brak danych checklisty z API');
+      return 0;
+    }
+    
+    // Używaj lokalnej daty, nie UTC
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    console.log('🎨 [CHECKLIST HIGHLIGHTER] Dzisiejsza data (normalized):', today.toISOString());
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayStr = `${year}-${month}-${day}`;
+    
+    console.log('🎨 [CHECKLIST HIGHLIGHTER] Dzisiejsza data (lokalna):', todayStr);
+    console.log('🎨 [CHECKLIST HIGHLIGHTER] Dane z API:', checklistData.items.length, 'items');
+    
+    // Stwórz obiekt daty dla porównań
+    const todayDate = new Date(year, today.getMonth(), today.getDate(), 0, 0, 0, 0);
 
     // KROK 1: Znajdź checklistę o nazwie "Newsletter Translations"
     let newsletterChecklistContainer = null;
     
+    console.log('🔍 [CHECKLIST HIGHLIGHTER] Szukam wszystkich divów na stronie...');
     // Szukaj wszystkich divów które mogą być tytułami checklisty
     const allDivs = document.querySelectorAll('div');
+    console.log(`🔍 [CHECKLIST HIGHLIGHTER] Znaleziono ${allDivs.length} divów`);
+    
+    let foundTitle = false;
     for (const div of allDivs) {
       const text = div.textContent || '';
       if (text.includes('Newsletter Translations')) {
-        console.log('� [CHECKLIST HIGHLIGHTER] Znaleziono tytuł "Newsletter Translations"');
+        foundTitle = true;
+        console.log('📋 [CHECKLIST HIGHLIGHTER] Znaleziono tytuł "Newsletter Translations"');
+        console.log('📋 [CHECKLIST HIGHLIGHTER] Div z tytułem:', div);
         // Znajdź najbliższy kontener rodzica (panel)
         newsletterChecklistContainer = div.closest('.panel, [class*="panel"], [role="tabpanel"]');
         if (newsletterChecklistContainer) {
           console.log('✅ [CHECKLIST HIGHLIGHTER] Znaleziono kontener checklisty Newsletter Translations');
           break;
+        } else {
+          console.warn('⚠️ [CHECKLIST HIGHLIGHTER] Znaleziono tytuł ale nie znaleziono kontenera rodzica');
         }
       }
     }
     
+    if (!foundTitle) {
+      console.warn('⚠️ [CHECKLIST HIGHLIGHTER] Nie znaleziono tytułu "Newsletter Translations" w żadnym divie');
+    }
+    
     if (!newsletterChecklistContainer) {
       console.warn('⚠️ [CHECKLIST HIGHLIGHTER] Nie znaleziono checklisty "Newsletter Translations"');
-      return;
+      return 0;
     }
 
     // KROK 2: Wewnątrz tego kontenera znajdź wszystkie <li> z linkiem do change_log.php
@@ -202,6 +313,15 @@
     });
     
     console.log(`🔎 [DEBUG] Znaleziono ${checklistRows.length} wierszy w checkliście "Newsletter Translations"`);
+    
+    // Stwórz mapę tableid -> item z API
+    const apiItemsMap = new Map();
+    checklistData.items.forEach(item => {
+      if (item.id) {
+        apiItemsMap.set(String(item.id), item);
+      }
+    });
+    console.log(`📊 [API] Mapa items z API: ${apiItemsMap.size} elementów`);
 
     const rows = checklistRows;
     
@@ -221,7 +341,7 @@
       });
       console.log('🔍 [DEBUG] Znalezione elementy z "checklist":', checklistRelated);
       
-      return;
+      return 0;
     }
 
     let processedCount = 0;
@@ -229,42 +349,51 @@
     let todayCount = 0; // Licznik wierszy z dzisiejszą datą
 
     rows.forEach((row, index) => {
-      // Sprawdź, czy już był podświetlony
-      const rowId = row.id || `row-${index}`;
+      // Wyciągnij tableid z linku change_log.php
+      const link = row.querySelector('a[href*="change_log.php"]');
+      if (!link) {
+        console.log(`⏭️ [ROW ${index + 1}] Brak linku change_log.php, pomijam`);
+        return;
+      }
+      
+      const href = link.getAttribute('href') || '';
+      const tableIdMatch = href.match(/tableid=(\d+)/);
+      if (!tableIdMatch) {
+        console.log(`⏭️ [ROW ${index + 1}] Nie znaleziono tableid w linku, pomijam`);
+        return;
+      }
+      
+      const tableId = tableIdMatch[1];
+      const apiItem = apiItemsMap.get(tableId);
+      
+      if (!apiItem) {
+        console.log(`⏭️ [ROW ${index + 1}] Brak danych w API dla tableid=${tableId}, pomijam`);
+        return;
+      }
+      
+      console.log(`📝 [ROW ${index + 1}] tableid=${tableId}, text="${apiItem.text || ''}".substring(0, 50)`);
+      
+      // Sprawdź czy już był podświetlony
+      const rowId = `row-${tableId}`;
       if (highlightedElements.has(rowId)) {
         console.log(`⏭️ [ROW ${index + 1}] Już podświetlony, pomijam`);
         return;
       }
-
-      // SZUKAJ DATY W CAŁYM TEKŚCIE WIERSZA
-      const rowText = row.textContent || row.innerText || '';
-      console.log(`📝 [ROW ${index + 1}] Tekst wiersza (pierwsze 200 znaków): "${rowText.substring(0, 200)}"`);
       
+      // Użyj daty z API (checked_at lub updated_at)
       let dateStr = null;
-      
-      // Format: "by Name YYYY-MM-DD HH:MM:SS" lub samo "YYYY-MM-DD HH:MM:SS"
-      const dateMatch = rowText.match(/(\d{4})-(\d{2})-(\d{2})\s+(\d{2}):(\d{2}):(\d{2})/);
-      
-      if (dateMatch) {
-        dateStr = `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`;
-        console.log(`📅 [ROW ${index + 1}] Znaleziono datę w tekście: ${dateMatch[0]} → ${dateStr}`);
-      } else {
-        console.log(`❌ [ROW ${index + 1}] Brak daty w formacie YYYY-MM-DD HH:MM:SS w tekście wiersza`);
-        
-        // DEBUG: Pokaż wszystkie linki w tym wierszu
-        const allLinks = row.querySelectorAll('a');
-        console.log(`🔗 [ROW ${index + 1}] Znaleziono ${allLinks.length} linków w wierszu`);
-        allLinks.forEach((link, i) => {
-          console.log(`   Link ${i + 1}: href="${link.href}" text="${link.textContent}"`);
-        });
+      if (apiItem.checked_at) {
+        dateStr = apiItem.checked_at.split(' ')[0]; // YYYY-MM-DD
+      } else if (apiItem.updated_at) {
+        dateStr = apiItem.updated_at.split(' ')[0];
       }
       
       if (dateStr) {
         const rowDate = new Date(dateStr);
         rowDate.setHours(0, 0, 0, 0);
-        const diffDays = Math.floor((today - rowDate) / (1000 * 60 * 60 * 24));
+        const diffDays = Math.floor((todayDate - rowDate) / (1000 * 60 * 60 * 24));
         
-        console.log(`📅 [ROW ${index + 1}] Data wiersza: ${dateStr}, różnica dni: ${diffDays}`);
+        console.log(`📅 [ROW ${index + 1}] Data z API: ${dateStr}, dzisiaj: ${todayStr}, różnica dni: ${diffDays}`);
         
         if (diffDays >= 0 && diffDays < daysColors.length) {
           row.style.setProperty('background-color', daysColors[diffDays], 'important');
@@ -275,9 +404,10 @@
           // Jeśli to dzisiejsza data (diffDays === 0), zwiększ licznik
           if (diffDays === 0) {
             todayCount++;
+            console.log(`🎯 [ROW ${index + 1}] TO JEST DZISIEJSZA DATA! todayCount teraz: ${todayCount}`);
           }
           
-          console.log(`✨ [ROW ${index + 1}] PODŚWIETLONO kolorem: ${daysColors[diffDays]}`);
+          console.log(`✨ [ROW ${index + 1}] PODŚWIETLONO kolorem: ${daysColors[diffDays]} (diffDays: ${diffDays})`);
         } else {
           console.log(`⏭️ [ROW ${index + 1}] Pominięto (różnica dni: ${diffDays})`);
         }
@@ -298,6 +428,12 @@
 
   // Funkcja do aktualizacji badge'a na buttonie go-to-checklists-btn
   function updateButtonBadge(count) {
+    if (isUpdatingBadge) {
+      console.log('⏸️ [BADGE] Aktualizacja już trwa, pomijam');
+      return;
+    }
+    
+    isUpdatingBadge = true;
     console.log(`🔔 [BADGE] Aktualizacja badge'a: ${count}`);
     
     // Spróbuj różne selektory
@@ -326,14 +462,20 @@
     
     console.log('✅ [BADGE] Znaleziono button:', button);
     
-    // Usuń stary badge jeśli istnieje
+    // Sprawdź czy badge już istnieje
     const oldBadge = button.querySelector('.checklist-badge');
     if (oldBadge) {
+      const oldValue = parseInt(oldBadge.textContent) || 0;
+      if (oldValue === count) {
+        console.log(`ℹ️ [BADGE] Badge już istnieje z wartością ${count}, pomijam aktualizację`);
+        return;
+      }
+      console.log(`🔄 [BADGE] Aktualizuję badge z ${oldValue} na ${count}`);
       oldBadge.remove();
     }
     
-    // Jeśli count > 0, dodaj nowy badge
-    if (count > 0) {
+    // Jeśli count >= 0, dodaj nowy badge (nawet jeśli 0, dla debugowania)
+    if (count >= 0) {
       const badge = document.createElement('span');
       badge.className = 'checklist-badge';
       badge.textContent = count;
@@ -341,7 +483,7 @@
         position: absolute;
         top: -8px;
         right: -8px;
-        background-color: #ff4444;
+        background-color: ${count > 0 ? '#ff4444' : '#999999'};
         color: white;
         border-radius: 50%;
         width: 20px;
@@ -368,14 +510,18 @@
     } else {
       console.log('ℹ️ [BADGE] Brak dzisiejszych wierszy, badge nie został dodany');
     }
+    } // Zamknięcie if (count >= 0)
+    
+    isUpdatingBadge = false;
   }
 
   let isHighlighting = false; // Flaga zapobiegająca zapętleniu
   let highlightedElements = new Set(); // Zapamiętaj podświetlone elementy
   let lastTodayCount = 0; // Zapamiętaj ostatnią liczbę
+  let isUpdatingBadge = false; // Flaga aktualizacji badge'a
 
   // Funkcja wrapper zapobiegająca zapętleniu
-  function safeHighlightRows() {
+  async function safeHighlightRows() {
     if (isHighlighting) {
       console.log('⏸️ [CHECKLIST HIGHLIGHTER] Pomijam - funkcja już działa');
       return;
@@ -383,10 +529,20 @@
     
     isHighlighting = true;
     try {
-      const todayCount = highlightRows();
+      const todayCount = await highlightRows();
+      console.log(`📊 [CHECKLIST HIGHLIGHTER] Funkcja zwróciła todayCount: ${todayCount}`);
+      
       if (todayCount !== undefined) {
+        const changed = lastTodayCount !== todayCount;
         lastTodayCount = todayCount;
+        console.log(`💾 [CHECKLIST HIGHLIGHTER] Zapisano lastTodayCount: ${lastTodayCount}${changed ? ' (zmiana!)' : ' (bez zmian)'}`);
+        
+        // BEZPOŚREDNIO aktualizuj badge
+        console.log(`🎯 [CHECKLIST HIGHLIGHTER] Wywołuję updateButtonBadge z wartością: ${lastTodayCount}`);
+        setTimeout(() => updateButtonBadge(lastTodayCount), 200);
       }
+    } catch (error) {
+      console.error('❌ [CHECKLIST HIGHLIGHTER] Błąd w safeHighlightRows:', error);
     } finally {
       isHighlighting = false;
     }
@@ -394,7 +550,7 @@
   
   // Funkcja do sprawdzenia i aktualizacji badge'a (na wypadek późnego załadowania buttona)
   function checkAndUpdateBadge() {
-    console.log('🔄 [BADGE] Sprawdzam dostępność buttona...');
+    console.log(`🔄 [BADGE] Sprawdzam dostępność buttona... (lastTodayCount: ${lastTodayCount})`);
     let button = document.getElementById('go-to-checklists-btn');
     if (!button) {
       button = document.querySelector('.go-to-checklists-btn');
@@ -414,20 +570,25 @@
     }
   }
 
-  // Inicjalna próba podświetlenia
-  setTimeout(safeHighlightRows, 500);
-
   // Czekaj na pełne załadowanie strony
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', safeHighlightRows);
-  }
-
-  window.addEventListener('load', () => {
+  if (document.readyState === 'complete') {
+    // Strona już załadowana, uruchom natychmiast
+    console.log('📄 [CHECKLIST HIGHLIGHTER] Strona już załadowana, uruchamiam...');
     setTimeout(safeHighlightRows, 1000);
-    // Sprawdź badge po załadowaniu
-    setTimeout(checkAndUpdateBadge, 1500);
-    setTimeout(checkAndUpdateBadge, 3000);
-  });
+    setTimeout(checkAndUpdateBadge, 2000);
+    setTimeout(checkAndUpdateBadge, 3500);
+  } else {
+    // Strona jeszcze się ładuje, czekaj na event load
+    console.log('⏳ [CHECKLIST HIGHLIGHTER] Czekam na pełne załadowanie strony...');
+    window.addEventListener('load', () => {
+      console.log('✅ [CHECKLIST HIGHLIGHTER] Strona załadowana!');
+      setTimeout(safeHighlightRows, 1000);
+      // Dodatkowe próby aktualizacji badge'a
+      setTimeout(checkAndUpdateBadge, 2000);
+      setTimeout(checkAndUpdateBadge, 3500);
+      setTimeout(checkAndUpdateBadge, 5000);
+    });
+  }
 
   // Obserwator DOM z debounce i ignorowaniem zmian stylu
   let observerTimeout = null;
@@ -452,15 +613,29 @@
     }, 500);
   });
 
-  // Rozpocznij obserwację po krótkim opóźnieniu
-  setTimeout(() => {
+  // Rozpocznij obserwację dopiero po pełnym załadowaniu
+  const startObserver = () => {
+    if (!document.body) {
+      console.warn('⚠️ [CHECKLIST HIGHLIGHTER] document.body nie istnieje, odkładam obserwator');
+      setTimeout(startObserver, 1000);
+      return;
+    }
+    
     observer.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: false // Ignoruj zmiany atrybutów!
     });
     console.log('👀 [CHECKLIST HIGHLIGHTER] Obserwator DOM uruchomiony (tylko childList)');
-  }, 2000);
+  };
+  
+  if (document.readyState === 'complete') {
+    setTimeout(startObserver, 2000);
+  } else {
+    window.addEventListener('load', () => {
+      setTimeout(startObserver, 2000);
+    });
+  }
 
   // Udostępnij funkcje globalnie dla debugowania
   window.highlightChecklistByDate = safeHighlightRows;
@@ -472,5 +647,12 @@
   console.log('✅ [CHECKLIST HIGHLIGHTER] Funkcje dostępne globalnie:');
   console.log('   - window.highlightChecklistByDate() - uruchom podświetlanie');
   console.log('   - window.clearHighlightedElements() - wyczyść cache');
+  
+  // NATYCHMIASTOWE uruchomienie dla testu
+  console.log('🔥 [TEST] Uruchamiam highlightRows natychmiast dla testu...');
+  setTimeout(() => {
+    console.log('🔥 [TEST] Wykonuję safeHighlightRows...');
+    safeHighlightRows();
+  }, 3000);
 
 })();

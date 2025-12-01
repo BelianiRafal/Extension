@@ -44,11 +44,19 @@ function clickLanguageButtons(shopId) {
   );
 
   languages.forEach((language) => {
+    // Nowy selektor - szuka przycisku z onclick zawierającym dany język
+    // Obsługuje zarówno stary format: updateHtml(this, 'romanian')
+    // jak i nowy format: updateHtml(this, 'romanian', 'shop_content', 'html')
     const buttons = document.querySelectorAll(
-      `input[type="button"][onclick="updateHtml(this, '${language}');"][value="Update"]`
+      `input[type="button"][onclick*="updateHtml(this, '${language}'"][value="Update"]`
     );
+    
+    if (buttons.length === 0) {
+      console.log(`⚠️ Nie znaleziono przycisku dla języka: ${language}`);
+    }
+    
     buttons.forEach((button) => {
-      console.log(`Kliknięcie przycisku dla języka: ${language}`);
+      console.log(`✅ Kliknięcie przycisku dla języka: ${language}`);
       button.click();
     });
   });
@@ -65,6 +73,132 @@ function clickMainUpdateButton() {
   } else {
     console.log("Nie znaleziono głównego przycisku Update");
   }
+}
+
+function setupDeactivateButton() {
+  // Znajdź oryginalny przycisk
+  const originalButton = document.querySelector('input#activate-button[type="submit"]');
+  if (!originalButton) {
+    console.log("Nie znaleziono przycisku #activate-button");
+    return;
+  }
+
+  // Stwórz nowy przycisk fixed
+  const fixedButton = document.createElement("button");
+  fixedButton.textContent = originalButton.value || "Deactivate and update";
+  fixedButton.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 120px;
+    z-index: 9999;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.1s;
+  `;
+
+  // Hover effect
+  fixedButton.addEventListener("mouseenter", () => {
+    fixedButton.style.backgroundColor = "#c82333";
+  });
+  fixedButton.addEventListener("mouseleave", () => {
+    fixedButton.style.backgroundColor = "#dc3545";
+  });
+
+  // Active effect
+  fixedButton.addEventListener("mousedown", () => {
+    fixedButton.style.transform = "scale(0.95)";
+  });
+  fixedButton.addEventListener("mouseup", () => {
+    fixedButton.style.transform = "scale(1)";
+  });
+
+  // Click handler - symuluj kliknięcie oryginalnego przycisku
+  fixedButton.addEventListener("click", () => {
+    console.log("Kliknięto fixed button - symulowanie kliknięcia oryginalnego przycisku");
+    originalButton.click();
+  });
+
+  // Dodaj do body
+  document.body.appendChild(fixedButton);
+  console.log("Dodano fixed deactivate button");
+}
+
+function setupRealUpdateFixedButton() {
+  const shopId = getShopIdFromUrl();
+  if (!shopId) {
+    console.log("Nie można znaleźć shop_id w URL - pomijam fixed realUpdate button");
+    return;
+  }
+
+  // Stwórz fixed przycisk realUpdate
+  const fixedRealUpdateButton = document.createElement("button");
+  fixedRealUpdateButton.textContent = "realUpdate";
+  fixedRealUpdateButton.style.cssText = `
+    position: fixed;
+    top: 80px;
+    right: 120px;
+    z-index: 9999;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s, transform 0.1s;
+  `;
+
+  // Hover effect
+  fixedRealUpdateButton.addEventListener("mouseenter", () => {
+    fixedRealUpdateButton.style.backgroundColor = "#218838";
+  });
+  fixedRealUpdateButton.addEventListener("mouseleave", () => {
+    fixedRealUpdateButton.style.backgroundColor = "#28a745";
+  });
+
+  // Active effect
+  fixedRealUpdateButton.addEventListener("mousedown", () => {
+    fixedRealUpdateButton.style.transform = "scale(0.95)";
+  });
+  fixedRealUpdateButton.addEventListener("mouseup", () => {
+    fixedRealUpdateButton.style.transform = "scale(1)";
+  });
+
+  // Click handler
+  fixedRealUpdateButton.addEventListener("click", () => {
+    fixedRealUpdateButton.disabled = true;
+    fixedRealUpdateButton.textContent = "Aktualizuję...";
+    fixedRealUpdateButton.style.backgroundColor = "#6c757d";
+
+    // Klikamy przyciski dla języków
+    clickLanguageButtons(shopId);
+
+    // Po 3 sekundach klikamy główny przycisk
+    console.log("Czekam 3 sekundy...");
+    setTimeout(() => {
+      clickMainUpdateButton();
+
+      // Resetujemy przycisk
+      setTimeout(() => {
+        fixedRealUpdateButton.disabled = false;
+        fixedRealUpdateButton.textContent = "realUpdate";
+        fixedRealUpdateButton.style.backgroundColor = "#28a745";
+      }, 1000);
+    }, 3000);
+  });
+
+  // Dodaj do body
+  document.body.appendChild(fixedRealUpdateButton);
+  console.log("Dodano fixed realUpdate button");
 }
 
 function setupPurgeContentPageButton() {
@@ -145,6 +279,8 @@ function setupPurgeContentPageButton() {
 
 // Funkcja do dodania nowego przycisku "realUpdate"
 function addRealUpdateButton() {
+  setupDeactivateButton();
+  setupRealUpdateFixedButton();
   setupPurgeContentPageButton();
 
   const shopId = getShopIdFromUrl();
