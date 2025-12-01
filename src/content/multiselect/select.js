@@ -48,7 +48,7 @@
       <header>Auto-select</header>
       <div id="autoSelectPanel">
         <div id="excludeRanges"></div>
-        <button type="button" id="addRange">➕ Dodaj zakres</button>
+        <button type="button" id="addRange">➕ Wyklucz zakres</button>
         <button type="button" id="applyAutoSelect">Zaznacz wg daty</button>
       </div>
     `;
