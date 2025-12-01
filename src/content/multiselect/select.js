@@ -137,8 +137,8 @@
   // główna selekcja
   function applyDateSelect(){
     const now = new Date();
-    const firstOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-    const threshold = new Date(firstOfThisMonth.getTime() - 1);
+    const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+    oneMonthAgo.setHours(0, 0, 0, 0);
 
     const excludeRanges = Array.from(rangesContainer.querySelectorAll('.exclude-row'))
       .map(row => ({
@@ -161,7 +161,7 @@
       const id = parseInt(chk.value, 10);
       const dateText = tr.querySelectorAll('td')[2].textContent.trim();
       const crDate = new Date(dateText);
-      const olderThan = crDate <= threshold;
+      const olderThan = crDate < oneMonthAgo;
       const excluded = excludeRanges.some(r => id >= r.from && id <= r.to);
       if (olderThan && !excluded) chk.checked = true;
     });
