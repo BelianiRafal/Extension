@@ -103,7 +103,8 @@ function fetchAvailableIds() {
           KKazaniecki:
             "Shop#6239524: Kamil Kazaniecki kamil.kazaniecki@beliani.net",
 
-          // TODO: add Dmytro email here
+          DKrapyvianskyi:
+            "Shop#7253514: Dmytro Krapyvianskyi dmytro.krapyvianskyi@beliani.com"
         },
 
         "Marketing+Graphics": {
