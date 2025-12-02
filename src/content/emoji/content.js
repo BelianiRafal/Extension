@@ -87,11 +87,11 @@
         emojis: [
           {
             visual: "Head Trans",
-            html: '<h4 style="color:#fff; background-color:#000; text-align:center; padding:20px;">PLS MAKE A TRANSLATIONS &#128512;<h4>',
+            html: '<h4 style="color:#fff; background-color:#12521e; text-align:center; padding:20px;">PLS MAKE A TRANSLATIONS &#128512;<h4>',
           },
           {
             visual: "Head Test",
-            html: '<h4 style="color:#fff; background-color:#000; text-align:center; padding:20px;">PLS TEST NSLT & LP &#128512;<h4>',
+            html: '<h4 style="color:#fff; background-color:#12521e; text-align:center; padding:20px;">PLS TEST NSLT & LP &#128512;<h4>',
           },
           { visual: "Mass User", html: "@Newsletter translation(4527)" },
           { visual: "UK|PL Trans", html: "@Content Team(3703)" },

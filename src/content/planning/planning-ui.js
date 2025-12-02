@@ -3,7 +3,7 @@ const user = {
   RKobus: "Rafał Kobus",
   JurgowiakM: "Michał Jurgowiak",
   KaKazaniecki: "Kamil Kazaniecki",
-  Orlinski: "Kamil Orliński",
+  DmyKrapyvianskyi: "Dmytro Krapyvianskyi",
 };
 
 const target = document.body.getAttribute("data-user");

@@ -144,7 +144,7 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
     swalFireModal(`Done`, `Your id is already!`, "success", "", "", false);
     customerCopyWrapper.style.display = "flex";
     getCampaignIdBtn.style.display = "none";
-    ABcheckBtn.style.display = 'none';
+    ABcheckBtn.style.display = "none";
     return;
   }
 
@@ -387,6 +387,8 @@ function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variab
     clearInterval(intervalName);
     window.close();
     resolve(arrayId);
+
+    console.log("Array id", arrayId);
 
     //For next scripts
     variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Planing functions!");
