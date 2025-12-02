@@ -38,6 +38,7 @@ window.ui = {
       RKobus: "Rafał Kobus",
       JurgowiakM: "Michał Jurgowiak",
       KaKazaniecki: "Kamil Kazaniecki",
+      DmyKrapyvianskyi: "Dmytro Krapyvianskyi",
       Orlinski: "Kamil Orliński",
     };
 

@@ -75,6 +75,7 @@ class Issues {
     Orlinski: "1196",
     JurgowiakM: "1194",
     KaKazaniecki: "1193",
+    DmyKrapyvianskyi: "5319",
     OleHrytsa: "1686",
     RKobus: "1204",
   };

@@ -102,6 +102,8 @@ function fetchAvailableIds() {
 
           KKazaniecki:
             "Shop#6239524: Kamil Kazaniecki kamil.kazaniecki@beliani.net",
+
+          // TODO: add Dmytro email here
         },
 
         "Marketing+Graphics": {
