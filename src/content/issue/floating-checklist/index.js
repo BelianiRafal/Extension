@@ -20,19 +20,6 @@ window.FloatingChecklistMain = {
     const keys = Object.keys(checklists);
     const hasChecklists = keys.length > 0;
 
-    // Extract all unique slugs only if we have checklists
-    let slugs = [];
-    if (hasChecklists) {
-      const allSlugs = new Set();
-      for (const listName of keys) {
-        const map = checklists[listName] || {};
-        for (const slug of Object.keys(map)) {
-          allSlugs.add(slug);
-        }
-      }
-      slugs = Array.from(allSlugs).sort();
-    }
-
     if (!hasChecklists) {
       console.log(
         "[display] No checklists to display, showing issue info only"
@@ -76,31 +63,53 @@ window.FloatingChecklistMain = {
     const content = document.createElement("div");
     content.classList.add("checklist-content");
 
-    // Only create table if we have checklists
-    if (hasChecklists && slugs.length > 0) {
-      // Create table container for horizontal scroll
-      const tableContainer = document.createElement("div");
-      tableContainer.classList.add("table-container");
+    // Display each checklist as a separate table with its own header
+    if (hasChecklists) {
+      for (const checklistName of keys) {
+        const checklistData = checklists[checklistName] || {};
+        const slugsInChecklist = Object.keys(checklistData).sort();
 
-      // Create table
-      const table = document.createElement("table");
-      table.classList.add("checklist-table");
+        // Only display if checklist has items
+        if (slugsInChecklist.length > 0) {
+          // Create section header for this checklist
+          const sectionHeader = document.createElement("h4");
+          sectionHeader.style.cssText = `
+            margin: 16px 0 8px 0;
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            border-left: 4px solid #4a90e2;
+            font-weight: bold;
+            color: #333;
+          `;
+          sectionHeader.textContent = checklistName;
+          content.appendChild(sectionHeader);
 
-      // Create table parts
-      const thead =
-        window.FloatingChecklistUIComponents.createTableHeader(slugs);
-      const tbody = window.FloatingChecklistUIComponents.createTableBody(
-        checklists,
-        keys,
-        slugs
-      );
+          // Create table container for this checklist
+          const tableContainer = document.createElement("div");
+          tableContainer.classList.add("table-container");
 
-      table.appendChild(thead);
-      table.appendChild(tbody);
-      tableContainer.appendChild(table);
-      content.appendChild(tableContainer);
-    } else {
-      // Show message when no checklists
+          // Create table
+          const table = document.createElement("table");
+          table.classList.add("checklist-table");
+
+          // Create table parts with all slugs from this checklist
+          const thead = window.FloatingChecklistUIComponents.createTableHeader(slugsInChecklist);
+          const tbody = window.FloatingChecklistUIComponents.createTableBody(
+            checklists,
+            [checklistName],  // Only this checklist
+            slugsInChecklist
+          );
+
+          table.appendChild(thead);
+          table.appendChild(tbody);
+          tableContainer.appendChild(table);
+          content.appendChild(tableContainer);
+        }
+      }
+    }
+
+    // Show message if no checklists at all
+    if (!hasChecklists) {
       const noChecklistsMsg = document.createElement("div");
       noChecklistsMsg.style.padding = "12px";
       noChecklistsMsg.style.textAlign = "center";
@@ -110,7 +119,7 @@ window.FloatingChecklistMain = {
       content.appendChild(noChecklistsMsg);
     }
 
-    // Add newsletter info section below table
+    // Add newsletter info section below tables
     if (newsletterInfoResult && newsletterInfoResult.infoSection) {
       content.appendChild(newsletterInfoResult.infoSection);
     } else {
