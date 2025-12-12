@@ -162,36 +162,66 @@ window.FloatingChecklistDataProcessor = {
       ? data.checklists
       : [];
 
-    // Dynamically create result object with all checklist titles as keys
-    const result = {};
+    const result = {
+      Translations: {},
+      "Testing [NSLT]": {},
+      "Testing [LPs]": {},
+    };
+    const perTitleRaw = {};
 
-    // Process each checklist
     for (const cl of checklistsData) {
       const title = String(cl.title || "").trim();
       const titleL = title.toLowerCase();
       const checkpoints = Array.isArray(cl.checkpoints) ? cl.checkpoints : [];
 
-      // Initialize this checklist category in result if not exists
-      if (!result[title]) {
-        result[title] = {};
-      }
+      if (!perTitleRaw[title]) perTitleRaw[title] = {};
 
-      // Process all checkpoints for this checklist
+      const isTranslations = titleL.includes("newsletter translations");
+      const isTestingApproved = titleL.includes("newsletter testing approved");
+      const isLP = /\bLPs?\b/i.test(title);
+
       for (const cp of checkpoints) {
-        this.setList(result[title], cp, cl);
+        if (titleL.includes("newsletter") && !isTranslations) {
+          this.setList(perTitleRaw[title], cp, cl);
+        }
+
+        if (isTranslations) this.setList(result.Translations, cp, cl);
+        if (isTestingApproved) this.setList(result["Testing [NSLT]"], cp, cl);
+        if (isLP) this.setList(result["Testing [LPs]"], cp, cl);
       }
     }
 
     const processed = this.postProcess(result);
+    let processedByTitle = this.postProcess(perTitleRaw);
 
-    // Filter out empty checklists (with no items)
-    const filtered = Object.fromEntries(
-      Object.entries(processed).filter(([, v]) => v && Object.keys(v).length > 0)
+    // filter per-title to only include newsletter-containing titles
+    processedByTitle = Object.fromEntries(
+      Object.entries(processedByTitle).filter(([k]) =>
+        k.toLowerCase().includes("newsletter")
+      )
     );
 
-    console.log("📋 [FLOATING CHECKLIST] Zaciągnięte checklisty:", Object.keys(filtered));
-    console.log("📊 [FLOATING CHECKLIST] Przefiltrowane listy:", filtered);
+    // If aggregated Testing [NSLT] exists, remove any per-title "Newsletter Testing Approved" entries
+    if (
+      processed["Testing [NSLT]"] &&
+      Object.keys(processed["Testing [NSLT]"]).length > 0
+    ) {
+      processedByTitle = Object.fromEntries(
+        Object.entries(processedByTitle).filter(
+          ([k]) => !k.toLowerCase().includes("newsletter testing approved")
+        )
+      );
+    }
 
+    // Merge aggregated and per-title maps, but don't return empty objects
+    const merged = { ...processed, ...processedByTitle };
+    const filtered = Object.fromEntries(
+      Object.entries(merged).filter(([, v]) => v && Object.keys(v).length > 0)
+    );
+
+    console.log("przefiltrowane listy: ", filtered)
+
+    console.log(filtered);
     return filtered;
   },
 };
