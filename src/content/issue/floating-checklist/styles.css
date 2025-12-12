@@ -85,6 +85,19 @@
   font-weight: 700;
   color: #333;
 }
+
+.checklist-table tbody tr[data-test-sent="1"] {
+  background: #1f1f1f;
+}
+
+.checklist-table tbody tr[data-test-sent="1"] td:first-child {
+  color: white;
+}
+
+.checklist-table tbody tr[data-test-sent="1"]:hover td {
+    background: #3b3b3b;
+}
+
 .checklist-table tbody tr:hover td {
   background: #f5f7fb;
 }
