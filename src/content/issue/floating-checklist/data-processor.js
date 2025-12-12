@@ -164,6 +164,7 @@ window.FloatingChecklistDataProcessor = {
 
     const result = {
       Translations: {},
+      "Test Sent": {},
       "Testing [NSLT]": {},
       "Testing [LPs]": {},
     };
@@ -177,8 +178,10 @@ window.FloatingChecklistDataProcessor = {
       if (!perTitleRaw[title]) perTitleRaw[title] = {};
 
       const isTranslations = titleL.includes("newsletter translations");
+      const isTestingSent = titleL.includes("sent nslt/lp for testing");
       const isTestingApproved = titleL.includes("newsletter testing approved");
-      const isLP = /\bLPs?\b/i.test(title);
+      // without !isTestingSent it will mess up LPs detection, might duplicate requests
+      const isLP = !isTestingSent && /\bLPs?\b/i.test(title);
 
       for (const cp of checkpoints) {
         if (titleL.includes("newsletter") && !isTranslations) {
@@ -186,6 +189,7 @@ window.FloatingChecklistDataProcessor = {
         }
 
         if (isTranslations) this.setList(result.Translations, cp, cl);
+        if (isTestingSent) this.setList(result["Test Sent"], cp, cl);
         if (isTestingApproved) this.setList(result["Testing [NSLT]"], cp, cl);
         if (isLP) this.setList(result["Testing [LPs]"], cp, cl);
       }
@@ -220,8 +224,6 @@ window.FloatingChecklistDataProcessor = {
     );
 
     console.log("przefiltrowane listy: ", filtered)
-
-    console.log(filtered);
     return filtered;
   },
 };

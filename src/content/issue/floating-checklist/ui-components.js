@@ -163,6 +163,10 @@ window.FloatingChecklistUIComponents = {
     // Regular checklist rows
     for (const listName of keys) {
       const row = document.createElement("tr");
+      // Mark Test Sent row with a special attribute for styling
+      if (/^Test Sent$/i.test(listName)) {
+        row.setAttribute("data-test-sent", "1");
+      }
       const nameCell = document.createElement("td");
       nameCell.textContent = listName;
       row.appendChild(nameCell);
