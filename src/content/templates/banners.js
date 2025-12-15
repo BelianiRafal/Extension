@@ -68,7 +68,7 @@ const TEMPLATES = [
       #cgb.xyGContainer {
         max-width: 1696px !important;
         overflow: hidden;
-
+        padding:0 min(20px, 2vw);
       }
       #cgb .textBanner {
         font-size: min(18px, 2.6vw);
@@ -78,12 +78,11 @@ const TEMPLATES = [
       #cgb .textBannerContainer {
         padding-top: min(23px, 2vw);
         padding-bottom: min(23px, 2vw);
-        padding-left: min(20px, 1vw);
       }
       </style>
         <a target="_blank" style="text-decoration: none;" href="[[banner_category_url]]">
-          <div id="cgb" class="xyGContainer">
-            <div class="textBannerContainer" style="background-color:[[banner_background_desktop]];">
+          <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_desktop]];">
+            <div class="textBannerContainer">
               [[banner_text]]
             </div>
             <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
@@ -116,12 +115,11 @@ const TEMPLATES = [
       #cgb .textBannerContainer {
         padding-top: min(24px, 4vw);
         padding-bottom: min(24px, 4vw);
-        padding-left: min(12px, 2vw);
       }
       </style>
       <a target="_blank" style="text-decoration: none;" href="[[banner_category_url]]">
-        <div id="cgb" class="xyGContainer">
-          <div class="textBannerContainer" style="background-color:[[banner_background_mobile]];">
+        <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_mobile]];">
+          <div class="textBannerContainer">
             [[banner_text]]
           </div>
           <video style="max-width: 100%; vertical-align: middle;" autoplay="" loop="" muted="" playsinline="" disableremoteplayback="true" >
@@ -225,8 +223,8 @@ const TEMPLATES = [
     html: `
     <style> 
       #cgb.xyGContainer {
-        max-width: 1440px !important;
-        padding:0 min(12px, 1vw);
+        max-width: 1696px !important;
+        padding:0 min(20px, 2vw);
       }
       #cgb .textBanner {
         font-size: min(18px, 2.6vw);
@@ -261,7 +259,7 @@ const TEMPLATES = [
     html: `
     <style> 
       #cgb.xyGContainer {
-        max-width: 1440px !important;
+        max-width: 1696px !important;
         padding:0 min(12px, 2vw);
       }
       #cgb .textBanner {
