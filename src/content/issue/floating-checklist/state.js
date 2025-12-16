@@ -13,16 +13,16 @@ window.FloatingChecklistState = {
     const { UI_CONFIG } = window.FloatingChecklistConfig;
     const textarea = document.querySelector(UI_CONFIG.TEXTAREA_SELECTOR);
     if (!textarea) {
-      console.log("[checklist-debug] textarea not found");
+      console.log('[checklist-debug] textarea not found');
       return;
     }
 
     const mentions =
       window.FloatingChecklistUtils.buildGroupedMentions(selectedSet);
     if (mentions.length === 0) {
-      textarea.value = "";
+      textarea.value = '';
     } else {
-      textarea.value = `${headerText} ${mentions.join(" ")}`;
+      textarea.value = `${headerText} ${mentions.join(' ')}`;
     }
     textarea.focus();
   },
@@ -52,6 +52,17 @@ window.FloatingChecklistState = {
       this.SELECTED_TESTS,
       UI_CONFIG.HEADERS.TESTING
     );
+    return this.SELECTED_TESTS.has(slug);
+  },
+
+  toggleTestCGBSelection: function (slug) {
+    if (this.SELECTED_TESTS.has(slug)) {
+      this.SELECTED_TESTS.delete(slug);
+    } else {
+      this.SELECTED_TESTS.add(slug);
+    }
+    const { UI_CONFIG } = window.FloatingChecklistConfig;
+    this.updateTextareaWithMentions(this.SELECTED_TESTS, UI_CONFIG.HEADERS.CGB);
     return this.SELECTED_TESTS.has(slug);
   },
 

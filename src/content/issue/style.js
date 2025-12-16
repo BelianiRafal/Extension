@@ -35,6 +35,7 @@ function smoothScrollTo(target, opts={}) {
 function findPanel(title){
   const xpath = `//div[contains(@class,'panel-heading') or contains(@class,'section')][contains(translate(normalize-space(.),'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ'),'${title.toUpperCase()}')]`;
   const res = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  console.log('findPanel', res)
   return res ? (res.closest('.panel') || res.parentElement) : null;
 }
 

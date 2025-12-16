@@ -12,34 +12,34 @@ window.FloatingChecklistUIComponents = {
 
   // Helper function to create a link chip
   createLinkChip: function (url, fieldName) {
-    const chip = document.createElement("button");
-    chip.classList.add("link-chip");
+    const chip = document.createElement('button');
+    chip.classList.add('link-chip');
 
     // Add special classes based on field name
-    if (fieldName.toLowerCase().includes("spreadsheet")) {
-      chip.classList.add("spreadsheet");
+    if (fieldName.toLowerCase().includes('spreadsheet')) {
+      chip.classList.add('spreadsheet');
       chip.textContent =
-        "📊 " + fieldName.replace(/spreadsheet|newsletter/gi, "").trim();
-    } else if (fieldName.toLowerCase().includes("figma")) {
-      chip.classList.add("figma");
-      chip.textContent = "🎨 Figma";
-    } else if (fieldName.toLowerCase().includes("dropbox")) {
-      chip.classList.add("dropbox");
-      chip.textContent = "📁 Dropbox";
-    } else if (fieldName.toLowerCase().includes("testing")) {
-      chip.classList.add("testing");
-      chip.textContent = "🧪 Testing";
-    } else if (fieldName.toLowerCase().includes("banner")) {
-      chip.textContent = "🖼️ Banners";
-    } else if (fieldName.toLowerCase().includes("details")) {
-      chip.textContent = "📋 Details";
+        '📊 ' + fieldName.replace(/spreadsheet|newsletter/gi, '').trim();
+    } else if (fieldName.toLowerCase().includes('figma')) {
+      chip.classList.add('figma');
+      chip.textContent = '🎨 Figma';
+    } else if (fieldName.toLowerCase().includes('dropbox')) {
+      chip.classList.add('dropbox');
+      chip.textContent = '📁 Dropbox';
+    } else if (fieldName.toLowerCase().includes('testing')) {
+      chip.classList.add('testing');
+      chip.textContent = '🧪 Testing';
+    } else if (fieldName.toLowerCase().includes('banner')) {
+      chip.textContent = '🖼️ Banners';
+    } else if (fieldName.toLowerCase().includes('details')) {
+      chip.textContent = '📋 Details';
     } else {
-      chip.textContent = "🔗 " + fieldName.replace(/link|url/gi, "").trim();
+      chip.textContent = '🔗 ' + fieldName.replace(/link|url/gi, '').trim();
     }
 
-    chip.addEventListener("click", (e) => {
+    chip.addEventListener('click', (e) => {
       e.preventDefault();
-      window.open(url, "_blank");
+      window.open(url, '_blank');
     });
 
     return chip;
@@ -50,30 +50,30 @@ window.FloatingChecklistUIComponents = {
     issueTitle = null,
     issueStatus = null
   ) {
-    const header = document.createElement("div");
-    header.classList.add("checklist-header");
+    const header = document.createElement('div');
+    header.classList.add('checklist-header');
 
-    const title = document.createElement("div");
-    title.classList.add("checklist-title");
+    const title = document.createElement('div');
+    title.classList.add('checklist-title');
 
     if (issueTitle && issueStatus) {
       // Create title text
-      const titleText = document.createElement("span");
+      const titleText = document.createElement('span');
       titleText.textContent = issueTitle;
       title.appendChild(titleText);
 
       // Create status chip
-      const statusChip = document.createElement("span");
-      statusChip.classList.add("status-chip");
+      const statusChip = document.createElement('span');
+      statusChip.classList.add('status-chip');
       statusChip.textContent = issueStatus;
 
       // Set color based on status
-      if (issueStatus.toLowerCase() === "open") {
-        statusChip.classList.add("status-open");
-      } else if (issueStatus.toLowerCase() === "close") {
-        statusChip.classList.add("status-closed");
+      if (issueStatus.toLowerCase() === 'open') {
+        statusChip.classList.add('status-open');
+      } else if (issueStatus.toLowerCase() === 'close') {
+        statusChip.classList.add('status-closed');
       } else {
-        statusChip.classList.add("status-other");
+        statusChip.classList.add('status-other');
       }
 
       let processing = false;
@@ -82,27 +82,26 @@ window.FloatingChecklistUIComponents = {
         e.stopPropagation();
         if (processing) return;
 
-        statusChip.classList.add("status-processing");
-        statusChip.textContent = "Changing status...";
+        statusChip.classList.add('status-processing');
+        statusChip.textContent = 'Changing status...';
         processing = true;
         // alert(`Issue Status: ${issueStatus}`);
 
         let formData = new FormData();
-        formData.append("fn", "changeIssueState");
+        formData.append('fn', 'changeIssueState');
         formData.append(
-          "issue_state",
-          issueStatus.toLowerCase() === "open" ? "close" : "open"
+          'issue_state',
+          issueStatus.toLowerCase() === 'open' ? 'close' : 'open'
         );
-        formData.append("page_id", window.location.pathname.split("/").pop());
+        formData.append('page_id', window.location.pathname.split('/').pop());
 
         let response = await fetch(
-          "https://www.prologistics.info/js_backend.php",
+          'https://www.prologistics.info/js_backend.php',
           {
             body: formData,
-            method: "post",
+            method: 'post',
           }
         );
-
 
         processing = false;
         window.location.reload();
@@ -110,22 +109,22 @@ window.FloatingChecklistUIComponents = {
 
       title.appendChild(statusChip);
     } else {
-      title.textContent = "Checklists";
+      title.textContent = 'Checklists';
     }
 
-    const toggle = document.createElement("button");
-    toggle.classList.add("toggle-btn");
+    const toggle = document.createElement('button');
+    toggle.classList.add('toggle-btn');
     const { UI_CONFIG } = window.FloatingChecklistConfig;
     toggle.innerHTML =
-      localStorage.getItem(UI_CONFIG.COLLAPSED_KEY) === "1"
-        ? "&#9650;"
-        : "&#9660;";
+      localStorage.getItem(UI_CONFIG.COLLAPSED_KEY) === '1'
+        ? '&#9650;'
+        : '&#9660;';
 
     // Toggle handler
-    toggle.addEventListener("click", () => {
-      const isCollapsed = floating.classList.toggle("collapsed");
-      localStorage.setItem(UI_CONFIG.COLLAPSED_KEY, isCollapsed ? "1" : "0");
-      toggle.innerHTML = isCollapsed ? "&#9650;" : "&#9660;";
+    toggle.addEventListener('click', () => {
+      const isCollapsed = floating.classList.toggle('collapsed');
+      localStorage.setItem(UI_CONFIG.COLLAPSED_KEY, isCollapsed ? '1' : '0');
+      toggle.innerHTML = isCollapsed ? '&#9650;' : '&#9660;';
     });
 
     header.appendChild(title);
@@ -134,12 +133,12 @@ window.FloatingChecklistUIComponents = {
   },
 
   createTableHeader: function (slugs) {
-    const thead = document.createElement("thead");
-    const headRow = document.createElement("tr");
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
 
-    const firstTh = document.createElement("th");
-    firstTh.style.position = "relative";
-    firstTh.style.height = "50px";
+    const firstTh = document.createElement('th');
+    firstTh.style.position = 'relative';
+    firstTh.style.height = '50px';
     firstTh.innerHTML = `
       <span class="lb" style="position: absolute; bottom: 2px; left: 8px;">Checklist Title</span>
       <span class="rt" style="position: absolute; top: 8px; right: 8px;">Slug</span>
@@ -148,7 +147,7 @@ window.FloatingChecklistUIComponents = {
     headRow.appendChild(firstTh);
 
     for (const s of slugs) {
-      const th = document.createElement("th");
+      const th = document.createElement('th');
       th.textContent = s;
       headRow.appendChild(th);
     }
@@ -157,17 +156,17 @@ window.FloatingChecklistUIComponents = {
     return thead;
   },
 
-  createTableBody: function (checklists, keys, slugs) {
-    const tbody = document.createElement("tbody");
+  createTableBody: function (checklists, keys, slugs, isCGB = false) {
+    const tbody = document.createElement('tbody');
 
     // Regular checklist rows
     for (const listName of keys) {
-      const row = document.createElement("tr");
+      const row = document.createElement('tr');
       // Mark Test Sent row with a special attribute for styling
       if (/^Test Sent$/i.test(listName)) {
-        row.setAttribute("data-test-sent", "1");
+        row.setAttribute('data-test-sent', '1');
       }
-      const nameCell = document.createElement("td");
+      const nameCell = document.createElement('td');
       nameCell.textContent = listName;
       row.appendChild(nameCell);
 
@@ -175,7 +174,7 @@ window.FloatingChecklistUIComponents = {
       const isTranslationsRow = /\btranslations\b/i.test(listName);
 
       for (const s of slugs) {
-        const cell = document.createElement("td");
+        const cell = document.createElement('td');
         const entry = Object.prototype.hasOwnProperty.call(map, s)
           ? map[s]
           : null;
@@ -215,20 +214,21 @@ window.FloatingChecklistUIComponents = {
     }
 
     // Testing Request row
-    const testRow = this.createTestingRow(keys, checklists, slugs);
+    const testRow = this.createTestingRow(keys, checklists, slugs, isCGB);
     tbody.appendChild(testRow);
 
     return tbody;
   },
 
-  createTestingRow: function (keys, checklists, slugs) {
-    const testRow = document.createElement("tr");
-    const testNameCell = document.createElement("td");
-    testNameCell.textContent = "Testing Request";
+  createTestingRow: function (keys, checklists, slugs, isCGB = false) {
+    const testRow = document.createElement('tr');
+    const testNameCell = document.createElement('td');
+    testNameCell.textContent = 'Testing Request';
     testRow.appendChild(testNameCell);
 
     for (const s of slugs) {
-      const cell = document.createElement("td");
+      const cell = document.createElement('td');
+
       const needsTesting = keys.some(
         (ln) =>
           !/\btranslations\b/i.test(ln) &&
@@ -237,27 +237,34 @@ window.FloatingChecklistUIComponents = {
           checklists[ln][s].done === false
       );
 
-      const tchip = document.createElement("span");
-      tchip.classList.add("chip");
+      const tchip = document.createElement('span');
+      tchip.classList.add('chip');
 
       if (needsTesting) {
-        tchip.textContent = "🛠";
+        tchip.textContent = '🛠';
         tchip.title = `Click to request test & mention ${s} in the comment`;
-        tchip.style.background = "linear-gradient(180deg,#8e44ad,#6f2f91)";
-        tchip.style.cursor = "pointer";
-        tchip.setAttribute("role", "button");
+        tchip.style.background = 'linear-gradient(180deg,#8e44ad,#6f2f91)';
+        tchip.style.cursor = 'pointer';
+        tchip.setAttribute('role', 'button');
         tchip.tabIndex = 0;
 
-        const handler = this.createTestingHandler(s);
-        tchip.addEventListener("click", handler);
-        tchip.addEventListener("keydown", (ev) => {
-          if (ev.key === "Enter" || ev.key === " ") handler(ev);
+        console.log('before handler', s);
+
+        let handler;
+        if (isCGB) {
+          handler = this.createTestingCGBHandler(s);
+        } else {
+          handler = this.createTestingHandler(s);
+        }
+        tchip.addEventListener('click', handler);
+        tchip.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Enter' || ev.key === ' ') handler(ev);
         });
       } else {
-        tchip.classList.add("chip-missing");
-        tchip.textContent = "-";
-        tchip.title = "Testing already done or not needed!";
-        tchip.style.cursor = "default";
+        tchip.classList.add('chip-missing');
+        tchip.textContent = '-';
+        tchip.title = 'Testing already done or not needed!';
+        tchip.style.cursor = 'default';
       }
 
       cell.appendChild(tchip);
@@ -268,28 +275,28 @@ window.FloatingChecklistUIComponents = {
   },
 
   createChip: function (entry, s, isTranslationsRow) {
-    const chip = document.createElement("span");
-    chip.classList.add("chip");
+    const chip = document.createElement('span');
+    chip.classList.add('chip');
 
-    const isPresent = entry && typeof entry === "object";
+    const isPresent = entry && typeof entry === 'object';
     const doneState = isPresent ? Boolean(entry.done) : null;
 
     if (!isPresent) {
-      chip.classList.add("chip-missing");
-      chip.textContent = "-";
-      chip.title = "Not Found";
+      chip.classList.add('chip-missing');
+      chip.textContent = '-';
+      chip.title = 'Not Found';
       return chip;
     }
 
     // Set chip state and appearance
     if (doneState) {
-      chip.classList.add("chip-true");
-      chip.textContent = "✔";
-      chip.title = "Click to mark as not done/not approved";
+      chip.classList.add('chip-true');
+      chip.textContent = '✔';
+      chip.title = 'Click to mark as not done/not approved';
     } else {
-      chip.classList.add("chip-false");
-      chip.textContent = "✕";
-      chip.title = "Click to mark as done/approved";
+      chip.classList.add('chip-false');
+      chip.textContent = '✕';
+      chip.title = 'Click to mark as done/approved';
     }
 
     // For translations we do not style the chip itself here. Cell-level
@@ -298,29 +305,29 @@ window.FloatingChecklistUIComponents = {
     // Configure interactivity
     if (isTranslationsRow) {
       if (!doneState) {
-        chip.setAttribute("role", "button");
+        chip.setAttribute('role', 'button');
         chip.tabIndex = 0;
-        chip.style.cursor = "pointer";
+        chip.style.cursor = 'pointer';
         chip.title = `Click to request translation & mention ${s} in the comment`;
 
         const handler = this.createTranslationHandler(s);
-        chip.addEventListener("click", handler);
-        chip.addEventListener("keydown", (ev) => {
-          if (ev.key === "Enter" || ev.key === " ") handler(ev);
+        chip.addEventListener('click', handler);
+        chip.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Enter' || ev.key === ' ') handler(ev);
         });
       } else {
-        chip.style.cursor = "default";
-        chip.title = "Translation done!";
+        chip.style.cursor = 'default';
+        chip.title = 'Translation done!';
       }
     } else {
-      chip.setAttribute("role", "button");
+      chip.setAttribute('role', 'button');
       chip.tabIndex = 0;
-      chip.style.cursor = "pointer";
+      chip.style.cursor = 'pointer';
 
       const handler = this.createCheckpointSaveHandler(entry, s);
-      chip.addEventListener("click", handler);
-      chip.addEventListener("keydown", (ev) => {
-        if (ev.key === "Enter" || ev.key === " ") handler(ev);
+      chip.addEventListener('click', handler);
+      chip.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Enter' || ev.key === ' ') handler(ev);
       });
     }
 
@@ -332,10 +339,10 @@ window.FloatingChecklistUIComponents = {
       ev?.preventDefault?.();
       const isSelected =
         window.FloatingChecklistState.toggleTranslationSelection(s);
-      ev.target.classList.toggle("chip-active", isSelected);
+      ev.target.classList.toggle('chip-active', isSelected);
       console.log(
         `[translation-request] Translation ${
-          isSelected ? "selected" : "deselected"
+          isSelected ? 'selected' : 'deselected'
         } for ${s}`
       );
     };
@@ -345,10 +352,24 @@ window.FloatingChecklistUIComponents = {
     return (ev) => {
       ev?.preventDefault?.();
       const isSelected = window.FloatingChecklistState.toggleTestSelection(s);
-      ev.target.classList.toggle("chip-active", isSelected);
+      ev.target.classList.toggle('chip-active', isSelected);
       console.log(
         `[testing-request] Testing ${
-          isSelected ? "selected" : "deselected"
+          isSelected ? 'selected' : 'deselected'
+        } for ${s}`
+      );
+    };
+  },
+
+  createTestingCGBHandler: function (s) {
+    return (ev) => {
+      ev?.preventDefault?.();
+      const isSelected =
+        window.FloatingChecklistState.toggleTestCGBSelection(s);
+      ev.target.classList.toggle('chip-active', isSelected);
+      console.log(
+        `[testing-request] Testing ${
+          isSelected ? 'selected' : 'deselected'
         } for ${s}`
       );
     };
@@ -359,21 +380,21 @@ window.FloatingChecklistUIComponents = {
       ev?.preventDefault?.();
       const desiredDone = !Boolean(entry.done);
       const chip = ev.target;
-      const issueId = window.location.pathname.split("/").pop();
+      const issueId = window.location.pathname.split('/').pop();
       const host = window.location.hostname;
 
       // Update UI to pending
-      chip.classList.remove("chip-true", "chip-false");
-      chip.classList.add("chip-pending");
-      chip.textContent = "⏱";
-      chip.title = "Pending...";
+      chip.classList.remove('chip-true', 'chip-false');
+      chip.classList.add('chip-pending');
+      chip.textContent = '⏱';
+      chip.title = 'Pending...';
 
       if (!Array.isArray(entry.items) || entry.items.length === 0) {
-        console.log("[checklist-debug] no checkpoint items for", s);
-        chip.classList.remove("chip-pending");
-        chip.classList.add("chip-missing");
-        chip.textContent = "-";
-        chip.title = "Not Found!";
+        console.log('[checklist-debug] no checkpoint items for', s);
+        chip.classList.remove('chip-pending');
+        chip.classList.add('chip-missing');
+        chip.textContent = '-';
+        chip.title = 'Not Found!';
         return;
       }
 
@@ -382,23 +403,23 @@ window.FloatingChecklistUIComponents = {
         const checkpoint_id = it.checkpoint_id || it.checkpointId || null;
         const doneParam = desiredDone ? 1 : 0;
         const url = `https://${host}/api/issueLog/saveCheckpoint/?issue_id=${issueId}&checkpoint_id=${checkpoint_id}&checklist_id=${checklist_id}&done=${doneParam}`;
-        console.log("[checklist-debug] SENDING:", url);
+        console.log('[checklist-debug] SENDING:', url);
 
         try {
           const res = await fetch(url, {
-            method: "POST",
-            credentials: "include",
+            method: 'POST',
+            credentials: 'include',
           });
-          const text = await res.text().catch(() => "<no-body>");
+          const text = await res.text().catch(() => '<no-body>');
           console.log(
-            "[checklist-debug] RESPONSE for",
+            '[checklist-debug] RESPONSE for',
             checkpoint_id,
             res.status,
             text
           );
           return { ok: res.ok, status: res.status, body: text };
         } catch (err) {
-          console.error("[checklist-debug] ERROR for", checkpoint_id, err);
+          console.error('[checklist-debug] ERROR for', checkpoint_id, err);
           return { ok: false, error: String(err) };
         }
       });
@@ -414,40 +435,40 @@ window.FloatingChecklistUIComponents = {
       }
 
       // Update UI based on results
-      chip.classList.remove("chip-pending");
+      chip.classList.remove('chip-pending');
       if (allOk) {
         if (desiredDone) {
-          chip.classList.add("chip-true");
-          chip.textContent = "✔";
-          chip.title = "Click to mark as not done/not approved";
+          chip.classList.add('chip-true');
+          chip.textContent = '✔';
+          chip.title = 'Click to mark as not done/not approved';
         } else {
-          chip.classList.add("chip-false");
-          chip.textContent = "✕";
-          chip.title = "Click to mark as done/approved";
+          chip.classList.add('chip-false');
+          chip.textContent = '✕';
+          chip.title = 'Click to mark as done/approved';
         }
       } else {
-        chip.classList.add(prevDone ? "chip-true" : "chip-false");
-        chip.textContent = prevDone ? "✔" : "✕";
-        chip.title = "Motyla noga, coś poszło not yes!";
+        chip.classList.add(prevDone ? 'chip-true' : 'chip-false');
+        chip.textContent = prevDone ? '✔' : '✕';
+        chip.title = 'Motyla noga, coś poszło not yes!';
         console.log(
-          "[checklist-debug] Partial/failure saving for slug",
+          '[checklist-debug] Partial/failure saving for slug',
           s,
           results
         );
       }
-      console.log("[checklist-debug] RESULTS for slug", s, results);
+      console.log('[checklist-debug] RESULTS for slug', s, results);
     };
   },
 
   createNewsletterInfoSection: async function () {
-    const infoSection = document.createElement("div");
-    infoSection.classList.add("newsletter-info");
+    const infoSection = document.createElement('div');
+    infoSection.classList.add('newsletter-info');
 
     let path = window.location.pathname;
 
-    if (path.endsWith("/")) path = path.slice(0, -1);
+    if (path.endsWith('/')) path = path.slice(0, -1);
 
-    const issue_id = path.split("/").pop();
+    const issue_id = path.split('/').pop();
 
     try {
       // Fetch issue data from API
@@ -461,18 +482,18 @@ window.FloatingChecklistUIComponents = {
       if (issueData) {
         // Issue Types
         if (issueData.issue_type && issueData.issue_type.length > 0) {
-          const typesSection = document.createElement("div");
-          typesSection.classList.add("info-section");
+          const typesSection = document.createElement('div');
+          typesSection.classList.add('info-section');
 
-          const typesLabel = document.createElement("div");
-          typesLabel.classList.add("info-label");
-          typesLabel.textContent = "Issue Types:";
+          const typesLabel = document.createElement('div');
+          typesLabel.classList.add('info-label');
+          typesLabel.textContent = 'Issue Types:';
 
-          const typesValue = document.createElement("div");
-          typesValue.classList.add("info-value");
+          const typesValue = document.createElement('div');
+          typesValue.classList.add('info-value');
           typesValue.textContent = issueData.issue_type
             .map((t) => t.name)
-            .join(", ");
+            .join(', ');
 
           typesSection.appendChild(typesLabel);
           typesSection.appendChild(typesValue);
@@ -480,18 +501,18 @@ window.FloatingChecklistUIComponents = {
         }
 
         // Board and Column
-        const boardSection = document.createElement("div");
-        boardSection.classList.add("info-section");
+        const boardSection = document.createElement('div');
+        boardSection.classList.add('info-section');
 
-        const boardLabel = document.createElement("div");
-        boardLabel.classList.add("info-label");
-        boardLabel.textContent = "Board:";
+        const boardLabel = document.createElement('div');
+        boardLabel.classList.add('info-label');
+        boardLabel.textContent = 'Board:';
 
-        const boardValue = document.createElement("div");
-        boardValue.classList.add("info-value");
+        const boardValue = document.createElement('div');
+        boardValue.classList.add('info-value');
         boardValue.textContent = `${
-          issueData.issue_board_name || "Unknown"
-        } → ${issueData.issue_board_column_name || "Unknown"}`;
+          issueData.issue_board_name || 'Unknown'
+        } → ${issueData.issue_board_column_name || 'Unknown'}`;
 
         boardSection.appendChild(boardLabel);
         boardSection.appendChild(boardValue);
@@ -499,18 +520,18 @@ window.FloatingChecklistUIComponents = {
 
         // Departments
         if (issueData.department_id && issueData.department_id.length > 0) {
-          const deptSection = document.createElement("div");
-          deptSection.classList.add("info-section");
+          const deptSection = document.createElement('div');
+          deptSection.classList.add('info-section');
 
-          const deptLabel = document.createElement("div");
-          deptLabel.classList.add("info-label");
-          deptLabel.textContent = "Departments:";
+          const deptLabel = document.createElement('div');
+          deptLabel.classList.add('info-label');
+          deptLabel.textContent = 'Departments:';
 
-          const deptValue = document.createElement("div");
-          deptValue.classList.add("info-value");
+          const deptValue = document.createElement('div');
+          deptValue.classList.add('info-value');
           deptValue.textContent = issueData.department_id
             .map((d) => d.label)
-            .join(", ");
+            .join(', ');
 
           deptSection.appendChild(deptLabel);
           deptSection.appendChild(deptValue);
@@ -519,22 +540,22 @@ window.FloatingChecklistUIComponents = {
 
         // Solving Person
         if (issueData.solving_user_name) {
-          const solvingSection = document.createElement("div");
-          solvingSection.classList.add("info-section");
+          const solvingSection = document.createElement('div');
+          solvingSection.classList.add('info-section');
 
-          const solvingLabel = document.createElement("div");
-          solvingLabel.classList.add("info-label");
-          solvingLabel.textContent = "Solving Person:";
+          const solvingLabel = document.createElement('div');
+          solvingLabel.classList.add('info-label');
+          solvingLabel.textContent = 'Solving Person:';
 
-          const solvingValue = document.createElement("div");
-          solvingValue.classList.add("info-value");
+          const solvingValue = document.createElement('div');
+          solvingValue.classList.add('info-value');
 
           // Get current logged user from logout link
           const logoutLink = document.querySelector('a[href="/logout.php"]');
           let currentUser = null;
           if (logoutLink) {
             const logoutText = logoutLink.innerText || logoutLink.textContent;
-            currentUser = logoutText.replace("Logout ", "").trim();
+            currentUser = logoutText.replace('Logout ', '').trim();
           }
 
           // Compare solving person with current user
@@ -542,27 +563,27 @@ window.FloatingChecklistUIComponents = {
           const isCurrentUser = currentUser && currentUser === solvingPerson;
 
           // Create solving person display with status indicator
-          const solvingContainer = document.createElement("div");
-          solvingContainer.style.display = "flex";
-          solvingContainer.style.alignItems = "center";
-          solvingContainer.style.gap = "6px";
+          const solvingContainer = document.createElement('div');
+          solvingContainer.style.display = 'flex';
+          solvingContainer.style.alignItems = 'center';
+          solvingContainer.style.gap = '6px';
 
-          const solvingText = document.createElement("span");
+          const solvingText = document.createElement('span');
           solvingText.textContent = solvingPerson;
 
-          const statusIndicator = document.createElement("span");
-          statusIndicator.style.fontSize = "14px";
-          statusIndicator.style.fontWeight = "bold";
+          const statusIndicator = document.createElement('span');
+          statusIndicator.style.fontSize = '14px';
+          statusIndicator.style.fontWeight = 'bold';
 
           if (isCurrentUser) {
-            statusIndicator.textContent = "✔";
-            statusIndicator.style.color = "#4caf50";
-            statusIndicator.title = "You are assigned to solve this issue";
+            statusIndicator.textContent = '✔';
+            statusIndicator.style.color = '#4caf50';
+            statusIndicator.title = 'You are assigned to solve this issue';
           } else {
-            statusIndicator.textContent = "❌";
-            statusIndicator.style.color = "#f44336";
+            statusIndicator.textContent = '❌';
+            statusIndicator.style.color = '#f44336';
             statusIndicator.title =
-              "Someone else is assigned to solve this issue";
+              'Someone else is assigned to solve this issue';
           }
 
           solvingContainer.appendChild(solvingText);
@@ -591,15 +612,15 @@ window.FloatingChecklistUIComponents = {
                     links.push({ url: field.value, name: field.name });
                   } else {
                     // Display non-URL fields normally
-                    const fieldSection = document.createElement("div");
-                    fieldSection.classList.add("info-section");
+                    const fieldSection = document.createElement('div');
+                    fieldSection.classList.add('info-section');
 
-                    const fieldLabel = document.createElement("div");
-                    fieldLabel.classList.add("info-label");
+                    const fieldLabel = document.createElement('div');
+                    fieldLabel.classList.add('info-label');
                     fieldLabel.textContent = `${field.name}:`;
 
-                    const fieldValue = document.createElement("div");
-                    fieldValue.classList.add("info-value");
+                    const fieldValue = document.createElement('div');
+                    fieldValue.classList.add('info-value');
                     fieldValue.textContent = field.value;
 
                     fieldSection.appendChild(fieldLabel);
@@ -614,11 +635,11 @@ window.FloatingChecklistUIComponents = {
 
         // Display all links in one row at the end
         if (links.length > 0) {
-          const linksSection = document.createElement("div");
-          linksSection.classList.add("info-section");
+          const linksSection = document.createElement('div');
+          linksSection.classList.add('info-section');
 
-          const linksContainer = document.createElement("div");
-          linksContainer.classList.add("links-container");
+          const linksContainer = document.createElement('div');
+          linksContainer.classList.add('links-container');
 
           links.forEach((linkData) => {
             const linkChip = this.createLinkChip(linkData.url, linkData.name);
@@ -629,7 +650,7 @@ window.FloatingChecklistUIComponents = {
           infoSection.appendChild(linksSection);
         }
 
-        const goToLastCommentBtn = document.createElement("button");
+        const goToLastCommentBtn = document.createElement('button');
 
         // in https://www.figma.com/design/OgmvlhPPGeZyNe8AnO59QH/
         goToLastCommentBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -637,18 +658,18 @@ window.FloatingChecklistUIComponents = {
 <path d="M12.2994 18.7422C12.2044 18.9656 12.2494 19.2246 12.4144 19.4023L15.8144 23.0586C15.9269 23.1805 16.0844 23.249 16.2494 23.249C16.4144 23.249 16.5719 23.1805 16.6844 23.0586L20.0844 19.4023C20.2494 19.2246 20.2944 18.9656 20.1994 18.7422C20.1044 18.5187 19.8869 18.374 19.6494 18.374H17.8494V11.0615C17.8494 10.6121 17.4919 10.249 17.0494 10.249H15.4494C15.0069 10.249 14.6494 10.6121 14.6494 11.0615V18.374H12.8494C12.6094 18.374 12.3944 18.5187 12.2994 18.7422Z" fill="black"/>
 </svg>
 `;
-        goToLastCommentBtn.className = "go-to-last-comment-btn";
+        goToLastCommentBtn.className = 'go-to-last-comment-btn';
 
-        goToLastCommentBtn.addEventListener("click", function () {
-          let issuelog_table = document.querySelectorAll(".issuelog_table");
+        goToLastCommentBtn.addEventListener('click', function () {
+          let issuelog_table = document.querySelectorAll('.issuelog_table');
 
           if (issuelog_table.length > 0) {
-            let tr = issuelog_table[0].querySelectorAll("tr");
+            let tr = issuelog_table[0].querySelectorAll('tr');
 
             if (tr.length > 0) {
               tr[tr.length - 1].scrollIntoView({
-                behavior: "smooth",
-                block: "center",
+                behavior: 'smooth',
+                block: 'center',
               });
             }
           }
@@ -656,7 +677,7 @@ window.FloatingChecklistUIComponents = {
 
         document.body.appendChild(goToLastCommentBtn);
 
-        const goToChecklistsBtn = document.createElement("button");
+        const goToChecklistsBtn = document.createElement('button');
 
         // in https://www.figma.com/design/OgmvlhPPGeZyNe8AnO59QH/
         goToChecklistsBtn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -665,13 +686,13 @@ window.FloatingChecklistUIComponents = {
 </svg>
 `;
 
-        goToChecklistsBtn.className = "go-to-checklists-btn";
+        goToChecklistsBtn.className = 'go-to-checklists-btn';
 
-        goToChecklistsBtn.addEventListener("click", function () {
-          let panel_group = document.querySelectorAll(".panel-group")[2];
+        goToChecklistsBtn.addEventListener('click', function () {
+          let panel_group = document.querySelectorAll('.panel-group')[2];
 
           if (panel_group) {
-            panel_group.scrollIntoView({ behavior: "smooth", block: "center" });
+            panel_group.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         });
 
@@ -685,16 +706,16 @@ window.FloatingChecklistUIComponents = {
         };
       } else {
         // Fallback: show error
-        const errorSection = document.createElement("div");
-        errorSection.classList.add("info-section");
+        const errorSection = document.createElement('div');
+        errorSection.classList.add('info-section');
 
-        const errorLabel = document.createElement("div");
-        errorLabel.classList.add("info-label");
-        errorLabel.textContent = "Error:";
+        const errorLabel = document.createElement('div');
+        errorLabel.classList.add('info-label');
+        errorLabel.textContent = 'Error:';
 
-        const errorValue = document.createElement("div");
-        errorValue.classList.add("info-value");
-        errorValue.textContent = "No issue data found";
+        const errorValue = document.createElement('div');
+        errorValue.classList.add('info-value');
+        errorValue.textContent = 'No issue data found';
 
         errorSection.appendChild(errorLabel);
         errorSection.appendChild(errorValue);
@@ -707,19 +728,19 @@ window.FloatingChecklistUIComponents = {
         };
       }
     } catch (error) {
-      console.error("Error fetching issue data:", error);
+      console.error('Error fetching issue data:', error);
 
       // Fallback: show error
-      const errorSection = document.createElement("div");
-      errorSection.classList.add("info-section");
+      const errorSection = document.createElement('div');
+      errorSection.classList.add('info-section');
 
-      const errorLabel = document.createElement("div");
-      errorLabel.classList.add("info-label");
-      errorLabel.textContent = "Error:";
+      const errorLabel = document.createElement('div');
+      errorLabel.classList.add('info-label');
+      errorLabel.textContent = 'Error:';
 
-      const errorValue = document.createElement("div");
-      errorValue.classList.add("info-value");
-      errorValue.textContent = "Failed to fetch issue data";
+      const errorValue = document.createElement('div');
+      errorValue.classList.add('info-value');
+      errorValue.textContent = 'Failed to fetch issue data';
 
       errorSection.appendChild(errorLabel);
       errorSection.appendChild(errorValue);

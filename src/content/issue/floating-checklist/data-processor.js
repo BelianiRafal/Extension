@@ -1,11 +1,11 @@
 // Data processing functions for checklist data
 window.FloatingChecklistDataProcessor = {
   setList: function (obj, cp, cl) {
-    const desc = typeof cp === "string" ? cp : String(cp.description || "");
+    const desc = typeof cp === 'string' ? cp : String(cp.description || '');
     const slug = window.FloatingChecklistUtils.extractSlug(desc);
     const done =
-      cp && typeof cp === "object"
-        ? cp.done === 1 || cp.done === "1" || cp.done === true
+      cp && typeof cp === 'object'
+        ? cp.done === 1 || cp.done === '1' || cp.done === true
         : false;
     if (!slug) return;
     if (!obj[slug]) obj[slug] = { done: false, items: [] };
@@ -13,7 +13,7 @@ window.FloatingChecklistDataProcessor = {
 
     // resolve ids defensively
     const checklist_id = cl?.id || cl?.checklist_id || cl?.checklistId || null;
-    const checklist_title = String(cl?.title || "");
+    const checklist_title = String(cl?.title || '');
     const checkpoint_id =
       cp?.id || cp?.checkpoint_id || cp?.checkpointId || null;
     const itemKey = `${checklist_id}::${checkpoint_id}`;
@@ -45,23 +45,22 @@ window.FloatingChecklistDataProcessor = {
 
     const s = String(changedByStr);
     const m = s.match(/(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})/);
-    
+
     if (!m) return { changed_at: null, color: 'grey' };
-    
+
     // build ISO-like string; treat as UTC to avoid ambiguous local parsing
     const iso = `${m[1]}T${m[2]}Z`;
     const ts = Date.parse(iso);
 
     if (isNaN(ts)) return { changed_at: null, color: 'grey' };
-    
+
     const hoursAgo = (Date.now() - ts) / (1000 * 60 * 60);
-    
+
     let color = 'gray';
-    
+
     if (hoursAgo <= 12) color = 'green';
-    
     else if (hoursAgo <= 24) color = 'yellow';
-    
+
     return { changed_at: ts, color };
   },
 
@@ -72,19 +71,19 @@ window.FloatingChecklistDataProcessor = {
     for (const cat of Object.keys(res)) {
       const map = {};
       for (const [slug, val] of Object.entries(res[cat] || {})) {
-        const norm = String(slug || "")
-          .replace(/\s+/g, "")
+        const norm = String(slug || '')
+          .replace(/\s+/g, '')
           .toUpperCase();
         const canon = alias[norm] || norm;
         if (!norm) continue;
 
         // compute boolean done correctly (val may be object with .done)
         const baseDone =
-          typeof val === "object" ? Boolean(val.done) : Boolean(val);
+          typeof val === 'object' ? Boolean(val.done) : Boolean(val);
 
         // expand DACH: set baseline only if country not already present
-        if (canon === "DACH") {
-          for (const t of ["CHDE", "DE", "AT"]) {
+        if (canon === 'DACH') {
+          for (const t of ['CHDE', 'DE', 'AT']) {
             if (!Object.prototype.hasOwnProperty.call(map, t)) {
               map[t] = {
                 done: baseDone,
@@ -98,35 +97,35 @@ window.FloatingChecklistDataProcessor = {
         // Ensure we store objects { done, items }
         const existing = map[canon] || { done: false, items: [] };
         const incomingDone =
-          typeof val === "object" ? Boolean(val.done) : Boolean(val);
+          typeof val === 'object' ? Boolean(val.done) : Boolean(val);
 
         // explicit country entries should override any previous DACH baseline
         existing.done = incomingDone;
-        if (val && typeof val === "object" && Array.isArray(val.items)) {
-
+        if (val && typeof val === 'object' && Array.isArray(val.items)) {
           for (const it of val.items) {
             const key = `${it.checklist_id}::${it.checkpoint_id}`;
-          
+
             const existingItem = existing.items.find(
               (e) => `${e.checklist_id}::${e.checkpoint_id}` === key
             );
-          
+
             if (existingItem) {
               // prefer the item with newer changed_at when available
               const incomingTs = Number(it.changed_at) || 0;
               const existingTs = Number(existingItem.changed_at) || 0;
-          
+
               if (incomingTs > existingTs) {
-                existingItem.changed_at = it.changed_at || existingItem.changed_at;
+                existingItem.changed_at =
+                  it.changed_at || existingItem.changed_at;
                 existingItem.color = it.color || existingItem.color;
-                existingItem.changed_by_raw = it.changed_by_raw || existingItem.changed_by_raw;
-                existingItem.checklist_title = it.checklist_title || existingItem.checklist_title;
+                existingItem.changed_by_raw =
+                  it.changed_by_raw || existingItem.changed_by_raw;
+                existingItem.checklist_title =
+                  it.checklist_title || existingItem.checklist_title;
               }
-          
             } else {
               existing.items.push(it);
             }
-          
           }
         }
         map[canon] = existing;
@@ -147,51 +146,89 @@ window.FloatingChecklistDataProcessor = {
   getChecklists: async function () {
     let path = window.location.pathname;
 
-    if (path.endsWith("/")) path = path.slice(0, -1);
+    if (path.endsWith('/')) path = path.slice(0, -1);
 
-    const issue_id = path.split("/").pop();
+    const issue_id = path.split('/').pop();
 
-    console.log("🔥🔥🔥 Fetching checklist for issue ID:", issue_id);
+    console.log('🔥🔥🔥 Fetching checklist for issue ID:', issue_id);
 
     const response = await fetch(
       `https://${window.location.hostname}/api/issueLog/checklist/?issue_id=${issue_id}`
     );
 
+    const url1 = `https://${window.location.hostname}/api/issueLog/list/?page_id=${issue_id}&show_with_inactive=1`;
+
+    const data1 = await fetch(url1);
+    const dataJson1 = await data1.json();
+
+    const isCGB =
+      dataJson1.issue_list[0].issue_board_column_name ===
+      'CENTRAL GRID BANNERS';
+
     const data = await response.json();
+
+    if (isCGB) {
+      data.checklists = data.checklists.map((cl) => ({ ...cl, type: 'cgb' }));
+      console.log('CGB checklist data', data);
+    }
     const checklistsData = Array.isArray(data?.checklists)
       ? data.checklists
       : [];
 
     const result = {
       Translations: {},
-      "Test Sent": {},
-      "Testing [NSLT]": {},
-      "Testing [LPs]": {},
+      'Test Sent': {},
+      'Testing [NSLT]': {},
+      'Testing [LPs]': {},
     };
+
     const perTitleRaw = {};
+    if (isCGB) {
+      const resultCGB = data.checklists.map((cl) => cl.title);
+      // console.log('resultCGB', resultCGB, 'checklistsData', checklistsData);
+      for (const cl of checklistsData) {
+        const title = String(cl.title || '').trim();
 
-    for (const cl of checklistsData) {
-      const title = String(cl.title || "").trim();
-      const titleL = title.toLowerCase();
-      const checkpoints = Array.isArray(cl.checkpoints) ? cl.checkpoints : [];
-
-      if (!perTitleRaw[title]) perTitleRaw[title] = {};
-
-      const isTranslations = titleL.includes("newsletter translations");
-      const isTestingSent = titleL.includes("sent nslt/lp for testing");
-      const isTestingApproved = titleL.includes("newsletter testing approved");
-      // without !isTestingSent it will mess up LPs detection, might duplicate requests
-      const isLP = !isTestingSent && /\bLPs?\b/i.test(title);
-
-      for (const cp of checkpoints) {
-        if (titleL.includes("newsletter") && !isTranslations) {
-          this.setList(perTitleRaw[title], cp, cl);
+        if (title.toLowerCase().includes('banners checked')) {
+          continue;
         }
 
-        if (isTranslations) this.setList(result.Translations, cp, cl);
-        if (isTestingSent) this.setList(result["Test Sent"], cp, cl);
-        if (isTestingApproved) this.setList(result["Testing [NSLT]"], cp, cl);
-        if (isLP) this.setList(result["Testing [LPs]"], cp, cl);
+        const checkpoints = Array.isArray(cl.checkpoints) ? cl.checkpoints : [];
+
+        if (!perTitleRaw[title]) perTitleRaw[title] = {};
+
+        if (!result[title]) result[title] = {};
+
+        for (const cp of checkpoints) {
+          this.setList(result[title], cp, cl);
+        }
+      }
+    } else {
+      for (const cl of checklistsData) {
+        const title = String(cl.title || '').trim();
+        const titleL = title.toLowerCase();
+        const checkpoints = Array.isArray(cl.checkpoints) ? cl.checkpoints : [];
+
+        if (!perTitleRaw[title]) perTitleRaw[title] = {};
+
+        const isTranslations = titleL.includes('newsletter translations');
+        const isTestingSent = titleL.includes('sent nslt/lp for testing');
+        const isTestingApproved = titleL.includes(
+          'newsletter testing approved'
+        );
+        // without !isTestingSent it will mess up LPs detection, might duplicate requests
+        const isLP = !isTestingSent && /\bLPs?\b/i.test(title);
+
+        for (const cp of checkpoints) {
+          if (titleL.includes('newsletter') && !isTranslations) {
+            this.setList(perTitleRaw[title], cp, cl);
+          }
+
+          if (isTranslations) this.setList(result.Translations, cp, cl);
+          if (isTestingSent) this.setList(result['Test Sent'], cp, cl);
+          if (isTestingApproved) this.setList(result['Testing [NSLT]'], cp, cl);
+          if (isLP) this.setList(result['Testing [LPs]'], cp, cl);
+        }
       }
     }
 
@@ -201,18 +238,18 @@ window.FloatingChecklistDataProcessor = {
     // filter per-title to only include newsletter-containing titles
     processedByTitle = Object.fromEntries(
       Object.entries(processedByTitle).filter(([k]) =>
-        k.toLowerCase().includes("newsletter")
+        k.toLowerCase().includes('newsletter')
       )
     );
 
     // If aggregated Testing [NSLT] exists, remove any per-title "Newsletter Testing Approved" entries
     if (
-      processed["Testing [NSLT]"] &&
-      Object.keys(processed["Testing [NSLT]"]).length > 0
+      processed['Testing [NSLT]'] &&
+      Object.keys(processed['Testing [NSLT]']).length > 0
     ) {
       processedByTitle = Object.fromEntries(
         Object.entries(processedByTitle).filter(
-          ([k]) => !k.toLowerCase().includes("newsletter testing approved")
+          ([k]) => !k.toLowerCase().includes('newsletter testing approved')
         )
       );
     }
@@ -223,7 +260,7 @@ window.FloatingChecklistDataProcessor = {
       Object.entries(merged).filter(([, v]) => v && Object.keys(v).length > 0)
     );
 
-    console.log("przefiltrowane listy: ", filtered)
+    console.log('przefiltrowane listy: ', filtered);
     return filtered;
   },
 };

@@ -3,7 +3,7 @@ window.FloatingChecklistMain = {
   existingPanel: null,
 
   displayChecklists: async function (checklists) {
-    console.log("[display] Rendering checklists:", checklists);
+    console.log('[display] Rendering checklists:', checklists);
 
     // Remove existing panel if present
     if (this.existingPanel) {
@@ -12,12 +12,13 @@ window.FloatingChecklistMain = {
     }
 
     // Check if we have valid data - but still show panel even if no checklists
-    if (!checklists || typeof checklists !== "object") {
-      console.error("[display] Invalid checklists data");
+    if (!checklists || typeof checklists !== 'object') {
+      console.error('[display] Invalid checklists data');
       checklists = {}; // Create empty object to continue
     }
 
     const keys = Object.keys(checklists);
+    console.log('keys', keys);
     const hasChecklists = keys.length > 0;
 
     // Extract all unique slugs only if we have checklists
@@ -35,7 +36,7 @@ window.FloatingChecklistMain = {
 
     if (!hasChecklists) {
       console.log(
-        "[display] No checklists to display, showing issue info only"
+        '[display] No checklists to display, showing issue info only'
       );
     }
 
@@ -50,18 +51,18 @@ window.FloatingChecklistMain = {
       issueTitle = newsletterInfoResult.issueTitle;
       issueStatus = newsletterInfoResult.issueStatus;
     } catch (error) {
-      console.error("[display] Error creating newsletter info section:", error);
+      console.error('[display] Error creating newsletter info section:', error);
     }
 
     // Create floating panel
-    const floating = document.createElement("div");
-    floating.classList.add("checklist-floating");
+    const floating = document.createElement('div');
+    floating.classList.add('checklist-floating');
 
     // Apply collapsed state
     const { UI_CONFIG } = window.FloatingChecklistConfig;
-    const isCollapsed = localStorage.getItem(UI_CONFIG.COLLAPSED_KEY) === "1";
+    const isCollapsed = localStorage.getItem(UI_CONFIG.COLLAPSED_KEY) === '1';
     if (isCollapsed) {
-      floating.classList.add("collapsed");
+      floating.classList.add('collapsed');
     }
 
     // Create header with issue title and status
@@ -73,18 +74,34 @@ window.FloatingChecklistMain = {
     floating.appendChild(header);
 
     // Create content container
-    const content = document.createElement("div");
-    content.classList.add("checklist-content");
+    const content = document.createElement('div');
+    content.classList.add('checklist-content');
+
+    console.log('hasChecklists and slugs.length', hasChecklists, slugs.length);
 
     // Only create table if we have checklists
     if (hasChecklists && slugs.length > 0) {
       // Create table container for horizontal scroll
-      const tableContainer = document.createElement("div");
-      tableContainer.classList.add("table-container");
+      const tableContainer = document.createElement('div');
+      tableContainer.classList.add('table-container');
 
       // Create table
-      const table = document.createElement("table");
-      table.classList.add("checklist-table");
+      const table = document.createElement('table');
+      table.classList.add('checklist-table');
+
+      // check if it is newsletter or cgb
+      let path = window.location.pathname;
+
+      if (path.endsWith('/')) path = path.slice(0, -1);
+
+      const issue_id = path.split('/').pop();
+      const url = `https://${window.location.hostname}/api/issueLog/list/?page_id=${issue_id}&show_with_inactive=1`;
+
+      const data = await fetch(url);
+      const dataJson = await data.json();
+      const isCGB =
+        dataJson.issue_list[0].issue_board_column_name ===
+        'CENTRAL GRID BANNERS';
 
       // Create table parts
       const thead =
@@ -92,7 +109,8 @@ window.FloatingChecklistMain = {
       const tbody = window.FloatingChecklistUIComponents.createTableBody(
         checklists,
         keys,
-        slugs
+        slugs,
+        isCGB
       );
 
       table.appendChild(thead);
@@ -101,12 +119,12 @@ window.FloatingChecklistMain = {
       content.appendChild(tableContainer);
     } else {
       // Show message when no checklists
-      const noChecklistsMsg = document.createElement("div");
-      noChecklistsMsg.style.padding = "12px";
-      noChecklistsMsg.style.textAlign = "center";
-      noChecklistsMsg.style.color = "#666";
-      noChecklistsMsg.style.fontStyle = "italic";
-      noChecklistsMsg.textContent = "No checklists available for this issue";
+      const noChecklistsMsg = document.createElement('div');
+      noChecklistsMsg.style.padding = '12px';
+      noChecklistsMsg.style.textAlign = 'center';
+      noChecklistsMsg.style.color = '#666';
+      noChecklistsMsg.style.fontStyle = 'italic';
+      noChecklistsMsg.textContent = 'No checklists available for this issue';
       content.appendChild(noChecklistsMsg);
     }
 
@@ -115,9 +133,9 @@ window.FloatingChecklistMain = {
       content.appendChild(newsletterInfoResult.infoSection);
     } else {
       // Add fallback info section
-      const fallbackInfo = document.createElement("div");
-      fallbackInfo.classList.add("newsletter-info");
-      fallbackInfo.textContent = "Failed to load newsletter information";
+      const fallbackInfo = document.createElement('div');
+      fallbackInfo.classList.add('newsletter-info');
+      fallbackInfo.textContent = 'Failed to load newsletter information';
       content.appendChild(fallbackInfo);
     }
 
@@ -127,18 +145,18 @@ window.FloatingChecklistMain = {
     document.body.appendChild(floating);
     this.existingPanel = floating;
 
-    console.log("[display] Floating checklist panel created successfully");
+    console.log('[display] Floating checklist panel created successfully');
   },
 
   initializeFloatingChecklist: async function () {
-    console.log("[init] Starting floating checklist initialization");
+    console.log('[init] Starting floating checklist initialization');
 
     try {
       const checklists =
         await window.FloatingChecklistDataProcessor.getChecklists();
       await this.displayChecklists(checklists);
     } catch (error) {
-      console.error("[init] Failed to initialize floating checklist:", error);
+      console.error('[init] Failed to initialize floating checklist:', error);
     }
   },
 };
