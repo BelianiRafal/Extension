@@ -1,6 +1,7 @@
 // todo: import .html templates using fetch() -> convert to text using <html>.text()
 
 const SELECTOR = "input[name=subject]";
+// @deprecated - use ./newsletters/*.html instead
 const TEMPLATES = [
   {
     title: "Clear contnet:",
