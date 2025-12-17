@@ -5,6 +5,7 @@ const DEFAULT_FALLBACK = {
 
   Top_image_src: "https://pictureserver.net/static/2025/chde240150_01.jpg",
   picture_server_url: "https://pictureserver.net/static/2025/",
+  img_version: "?ver=8",
 
   campaigns: [
     {
