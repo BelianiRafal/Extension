@@ -1651,7 +1651,7 @@ const COMPONENTS = {
         "Footer category src 6": `https://pictureserver.net/static/2024/dach_cat_06.png${version}`,
         "Footer category src 7": `https://pictureserver.net/static/2024/dach_cat_07.png${version}`,
         "Footer category src 8": `https://pictureserver.net/static/2024/dach_cat_08.png${version}`,
-        "Footer category href 1": "https://www.beliani.ch/sofas/alle+produkte",
+        "Footer category href 1": "https://www.beliani.ch/sofa/alle+produkte",
         "Footer category href 2": "https://www.beliani.ch/betten/alle+produkte",
         "Footer category href 3": "https://www.beliani.ch/tische/kaffeetische/",
         "Footer category href 4":
@@ -1673,7 +1673,7 @@ const COMPONENTS = {
         "Footer category src 6": `https://pictureserver.net/static/2024/dach_cat_06.png${version}`,
         "Footer category src 7": `https://pictureserver.net/static/2024/dach_cat_07.png${version}`,
         "Footer category src 8": `https://pictureserver.net/static/2024/dach_cat_08.png${version}`,
-        "Footer category href 1": "https://www.beliani.at/sofas/alle+produkte",
+        "Footer category href 1": "https://www.beliani.at/sofa/alle+produkte",
         "Footer category href 2": "https://www.beliani.at/betten/alle+produkte",
         "Footer category href 3": "https://www.beliani.at/tische/kaffeetische/",
         "Footer category href 4":
@@ -1695,7 +1695,7 @@ const COMPONENTS = {
         "Footer category src 6": `https://pictureserver.net/static/2024/dach_cat_06.png${version}`,
         "Footer category src 7": `https://pictureserver.net/static/2024/dach_cat_07.png${version}`,
         "Footer category src 8": `https://pictureserver.net/static/2024/dach_cat_08.png${version}`,
-        "Footer category href 1": "https://www.beliani.de/sofas/alle+produkte",
+        "Footer category href 1": "https://www.beliani.de/sofa/alle+produkte",
         "Footer category href 2": "https://www.beliani.de/betten/alle+produkte",
         "Footer category href 3": "https://www.beliani.de/tische/kaffeetische/",
         "Footer category href 4":
