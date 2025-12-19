@@ -105,7 +105,6 @@ getCampaignIdBtn.addEventListener("click", async () => {
 
     openCustomerFilter(resultArray, 0, doubleChecklist);
   } else {
-
     //! Тут приходит нормальный массив ключей и ид, дальше надо его передавать
     // const getCheck = await getStandartTestingChecklist();
 
@@ -114,7 +113,7 @@ getCampaignIdBtn.addEventListener("click", async () => {
 
     if (result.isConfirmed) {
       //Open page with Mailing templates
-      openMailTable(chdeLinkId, "duplicateId");
+      openMailTable("duplicateId");
 
       //Return to main page
       chrome.runtime.sendMessage({ action: "setFirstTab" });
@@ -126,22 +125,31 @@ getCampaignIdBtn.addEventListener("click", async () => {
   }
 });
 
-function openMailTable(valueId, variable) {
+async function openMailTable(variable) {
+  const idFromChecklist = await getStandartTestingChecklist();
+
   return new Promise((resolve, reject) => {
     const ids = [];
-    const newsMailWindow = window.open(`${newsEmailUrl + valueId}`, "_blank");
+    // const newsMailWindow = window.open(`${newsEmailUrl + valueId}`, "_blank");
 
-    const waitForMail = setInterval(() => {
-      try {
-        const doc = newsMailWindow.document;
-        if (!doc || doc.readyState !== "complete") return;
-        const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
+    // const waitForMail = setInterval(() => {
+    //   try {
+    //     const doc = newsMailWindow.document;
+    //     if (!doc || doc.readyState !== "complete") return;
+    //     const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
 
-        // getIdsForNewsMail(tableMain, waitForMail, ids, newsMailWindow, resolve, variable);
-      } catch (e) {
-        reject(new Error("Ooops, something get wrong..."));
-      }
-    }, 500);
+    //     getIdsForNewsMail(tableMain, waitForMail, ids, resolve, variable);
+    //   } catch (e) {
+    //     clearInterval(waitForMail);
+    //     reject(new Error("Ooops, something went wrong..."));
+    //   }
+    // }, 500);
+
+    try {
+      getIdsForNewsMail(idFromChecklist, ids, resolve, variable);
+    } catch (e) {
+      reject(new Error("Ooops, something went wrong..."));
+    }
   });
 }
 
@@ -351,25 +359,7 @@ function startOrStopLoader(status = false) {
 async function getIdForLink() {
   const needId = await getStandartTestingChecklist();
 
-  console.log(needId[0].id);
-
-  const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
-  const getText = Array.from(findChecklistText).find((text) => {
-    return text.textContent.toLowerCase().trim().includes("newsletter testing");
-  });
-
   if (!needId.length < 0) {
-    swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
-    return;
-  }
-
-  const ulList = getText.nextSibling;
-  const ulItem = ulList.querySelectorAll('ul div li div [class^="jss"] a');
-  const hasCHDE = Array.from(ulItem).find((item) => {
-    return item.previousSibling.textContent.includes("CHDE");
-  });
-
-  if (!hasCHDE) {
     swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
     return;
   }
@@ -379,33 +369,29 @@ async function getIdForLink() {
   return chdeLinkId;
 }
 
-function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variable) {
+function getIdsForNewsMail(table, arrayId, resolve, variable) {
   const doubleChecklist = getidForAB();
 
   const startTimer = Date.now();
   if (table.length > 0) {
     table.forEach((item, index) => {
-      const url = item.href;
-      const valueInLink = url.match(/id=(\d+)/);
-      const id = valueInLink[1];
+      // const url = item.href;
+      // const valueInLink = url.match(/id=(\d+)/);
+      // const id = valueInLink[1];
 
-      pushIdFromArray(variable, index, arrayId, id);
+      pushIdFromArray(variable, index, arrayId, item.id);
     });
 
     //Remove id for BEFR/BENL
-    variable === "duplicateId" ? arrayId.splice(5, 2) : arrayId.splice(3, 2);
+    // variable === "duplicateId" ? arrayId.splice(5, 2) : arrayId.splice(3, 2);
 
-    clearInterval(intervalName);
-    window.close();
-    resolve(arrayId);
-
-    console.log("Array id", arrayId);
+    // window.close();
+    // resolve(arrayId);
 
     //For next scripts
-    variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Planing functions!");
+    // variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Planing functions!");
   } else if (Date.now() - startTimer > 10000) {
-    clearInterval(intervalName);
-    window.close();
+    // window.close();
     swalFireModal("┐(￣ヘ￣;)┌", "Timeout: no response for your campaign, repeat again", "error", "", "", false);
     startOrStopLoader(false);
   }
@@ -415,8 +401,12 @@ function pushIdFromArray(variable, index, arrayId, mailsId) {
   if (variable === "duplicateId") {
     if (index === 0 || index === 1 || index === 6) {
       arrayId.push(mailsId, mailsId);
+
+      console.log('duplicated', arrayId);
+
     } else {
       arrayId.push(mailsId);
+      console.log('nie', arrayId);
     }
     return arrayId;
   } else {
