@@ -203,6 +203,30 @@ async function getchecklistForAB() {
   return result;
 }
 
+async function getStandartTestingChecklist() {
+  const checklistData = await fetchChecklist();
+  const checklists = checklistData?.checklists || [];
+
+  const checklistCheckpoints = checklists.filter((item) =>
+    item.title?.trim().toLowerCase().includes("newsletter testing")
+  );
+
+  // const seen = new Map();
+  const seen = [];
+
+  checklistCheckpoints.forEach((item) => {
+    item.checkpoints?.forEach((checkpoint) => {
+      const parts = checkpoint.description.split("\t");
+      const key = parts[0].trim();
+      const id = parts[1].split("?id=").pop();
+
+     seen.push({key, id});
+    });
+  });
+
+  return seen;
+}
+
 async function splitedArrayForABtest() {
   const ABchecklists = await getchecklistForAB();
 
@@ -211,7 +235,6 @@ async function splitedArrayForABtest() {
   for (let t of targets) {
     let index = ABchecklists.findIndex((e) => e.key === t);
     if (index !== -1) {
-
       const suffix = t === "DE" ? "AVANDEO" : "RICARDO";
 
       const key = `${t}-${suffix}`;

@@ -49,7 +49,7 @@ closeCard.addEventListener("click", () => {
 });
 
 mainButtonStart.addEventListener("click", async () => {
-  const campaignLink = getIdForLink();
+  const campaignLink = await getIdForLink();
   if (!campaignLink) {
     swalFireModal("¯\\_(ツ)_/¯", `Newsletter checklist is not found`, "error", "", "", false);
     return false;
@@ -74,6 +74,8 @@ mainButtonStart.addEventListener("click", async () => {
 
 getCampaignIdBtn.addEventListener("click", async () => {
   const chdeLinkId = await getIdForLink();
+
+  console.log(chdeLinkId);
   const waitChecklist = await getChecklist();
   const doubleChecklist = getidForAB();
 
@@ -103,6 +105,11 @@ getCampaignIdBtn.addEventListener("click", async () => {
 
     openCustomerFilter(resultArray, 0, doubleChecklist);
   } else {
+
+    //! Тут приходит нормальный массив ключей и ид, дальше надо его передавать
+    // const getCheck = await getStandartTestingChecklist();
+
+    // console.log(getCheck);
     const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
 
     if (result.isConfirmed) {
@@ -130,7 +137,7 @@ function openMailTable(valueId, variable) {
         if (!doc || doc.readyState !== "complete") return;
         const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
 
-        getIdsForNewsMail(tableMain, waitForMail, ids, newsMailWindow, resolve, variable);
+        // getIdsForNewsMail(tableMain, waitForMail, ids, newsMailWindow, resolve, variable);
       } catch (e) {
         reject(new Error("Ooops, something get wrong..."));
       }
@@ -341,13 +348,17 @@ function startOrStopLoader(status = false) {
   }
 }
 
-function getIdForLink() {
+async function getIdForLink() {
+  const needId = await getStandartTestingChecklist();
+
+  console.log(needId[0].id);
+
   const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
   const getText = Array.from(findChecklistText).find((text) => {
     return text.textContent.toLowerCase().trim().includes("newsletter testing");
   });
 
-  if (!getText) {
+  if (!needId.length < 0) {
     swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
     return;
   }
@@ -363,7 +374,7 @@ function getIdForLink() {
     return;
   }
 
-  const chdeLinkId = hasCHDE?.href?.split("id=")[1];
+  const chdeLinkId = needId[0].id;
 
   return chdeLinkId;
 }
