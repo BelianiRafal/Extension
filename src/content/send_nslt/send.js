@@ -74,8 +74,6 @@ mainButtonStart.addEventListener("click", async () => {
 
 getCampaignIdBtn.addEventListener("click", async () => {
   const chdeLinkId = await getIdForLink();
-
-  console.log(chdeLinkId);
   const waitChecklist = await getChecklist();
   const doubleChecklist = getidForAB();
 
@@ -105,16 +103,14 @@ getCampaignIdBtn.addEventListener("click", async () => {
 
     openCustomerFilter(resultArray, 0, doubleChecklist);
   } else {
-    //! Тут приходит нормальный массив ключей и ид, дальше надо его передавать
-    // const getCheck = await getStandartTestingChecklist();
 
     // console.log(getCheck);
     const result = await swalFireModal(`Campaing id "${chdeLinkId}" is correct?`, ``, "question", "", "", true);
 
     if (result.isConfirmed) {
+
       //Open page with Mailing templates
       openMailTable("duplicateId");
-
       //Return to main page
       chrome.runtime.sendMessage({ action: "setFirstTab" });
       startOrStopLoader(true);
@@ -130,20 +126,6 @@ async function openMailTable(variable) {
 
   return new Promise((resolve, reject) => {
     const ids = [];
-    // const newsMailWindow = window.open(`${newsEmailUrl + valueId}`, "_blank");
-
-    // const waitForMail = setInterval(() => {
-    //   try {
-    //     const doc = newsMailWindow.document;
-    //     if (!doc || doc.readyState !== "complete") return;
-    //     const tableMain = doc.querySelectorAll("center table.tablesorter tbody tr td form div a");
-
-    //     getIdsForNewsMail(tableMain, waitForMail, ids, resolve, variable);
-    //   } catch (e) {
-    //     clearInterval(waitForMail);
-    //     reject(new Error("Ooops, something went wrong..."));
-    //   }
-    // }, 500);
 
     try {
       getIdsForNewsMail(idFromChecklist, ids, resolve, variable);
@@ -165,7 +147,6 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
 
   const valuesForOpen = Object.values(shopId);
   const GZdata = await getSavingSetting(valuesForOpen[index]);
-  // console.log("save settings name", GZdata);
 
   chrome.runtime.sendMessage({ action: "goToFirstTab" });
   const newWindow = window.open(`${customerUrl}?filter_id=${valuesForOpen[index]}`, "_blank");
@@ -215,6 +196,7 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
   }, 500);
 }
 
+//! Automatically clicked to checbox A/B to issue
 function handleCheckboxClicked(doc, pasteId, ids, index, objectKey) {
   const myInterval = setInterval(async () => {
     try {
@@ -365,34 +347,23 @@ async function getIdForLink() {
   }
 
   const chdeLinkId = needId[0].id;
-
   return chdeLinkId;
 }
 
 function getIdsForNewsMail(table, arrayId, resolve, variable) {
   const doubleChecklist = getidForAB();
 
-  const startTimer = Date.now();
   if (table.length > 0) {
     table.forEach((item, index) => {
-      // const url = item.href;
-      // const valueInLink = url.match(/id=(\d+)/);
-      // const id = valueInLink[1];
-
       pushIdFromArray(variable, index, arrayId, item.id);
     });
 
-    //Remove id for BEFR/BENL
-    // variable === "duplicateId" ? arrayId.splice(5, 2) : arrayId.splice(3, 2);
-
-    // window.close();
-    // resolve(arrayId);
+    resolve(arrayId);
 
     //For next scripts
-    // variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Planing functions!");
-  } else if (Date.now() - startTimer > 10000) {
-    // window.close();
-    swalFireModal("┐(￣ヘ￣;)┌", "Timeout: no response for your campaign, repeat again", "error", "", "", false);
+    variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Subscribers cound!");
+  } else {
+    swalFireModal("┐(￣ヘ￣;)┌", "Something get wrong. Please try again", "error", "", "", false);
     startOrStopLoader(false);
   }
 }
@@ -401,12 +372,8 @@ function pushIdFromArray(variable, index, arrayId, mailsId) {
   if (variable === "duplicateId") {
     if (index === 0 || index === 1 || index === 6) {
       arrayId.push(mailsId, mailsId);
-
-      console.log('duplicated', arrayId);
-
     } else {
       arrayId.push(mailsId);
-      console.log('nie', arrayId);
     }
     return arrayId;
   } else {
@@ -421,8 +388,7 @@ customerTableBtn.addEventListener("click", async () => {
   showButtonLoader(customerTableBtn, customerLoaderWrapper);
 
   const arrayForSpreadsheet = [];
-  const chdeId = await getIdForLink();
-  const idsArr = await openMailTable(chdeId, "not duplicate");
+  const idsArr = await openMailTable("not duplicate");
 
   openTableForCustomer(idsArr, arrayForSpreadsheet, (index = 0));
 });
@@ -482,7 +448,7 @@ function openTableForCustomer(openId, stateArr, index) {
 
       setTimeout(() => {
         openTableForCustomer(openId, stateArr, index + 1);
-      }, 500);
+      }, 800);
     } catch (e) {
       swalFireModal(`Dude`, `Something get wrong...`, "error", "", "", false);
       console.log(e);
