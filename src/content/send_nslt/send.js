@@ -17,6 +17,8 @@ const shopId = {
   "CHDE-RICARDO": 11606,
   CHFR: 11604,
   "CHFR-RICARDO": 11605,
+  BENL: 1309711,
+  BEFR: 1309715,
   AT: 46175,
   CZ: 11619,
   DE: 11608,
@@ -361,7 +363,7 @@ function getIdsForNewsMail(table, arrayId, resolve, variable) {
     resolve(arrayId);
 
     //For next scripts
-    variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Subscribers cound!");
+    variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Subscribers count!");
   } else {
     swalFireModal("┐(￣ヘ￣;)┌", "Something get wrong. Please try again", "error", "", "", false);
     startOrStopLoader(false);
@@ -395,8 +397,8 @@ customerTableBtn.addEventListener("click", async () => {
 
 function openTableForCustomer(openId, stateArr, index) {
   if (index >= openId.length) {
-    stateArr.splice(5, 0, null);
-    stateArr.splice(6, 0, null);
+    // stateArr.splice(5, 0, null);
+    // stateArr.splice(6, 0, null);
     copyArrayToClipboard(stateArr, (modal = true));
     hideButtonLoader(customerTableBtn, customerLoaderWrapper);
     copyBtn.style.display = "block";
