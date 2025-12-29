@@ -309,7 +309,7 @@
       };
 
       const randomGuestEmail = () => {
-        const local = randomAlphaNum('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 512);
+        const local = randomAlphaNum('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 16);
         const domain = DOMAINS[Math.floor(Math.random() * DOMAINS.length)];
 
         return `${local}@${domain}`;
