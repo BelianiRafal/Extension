@@ -164,6 +164,9 @@ window.FloatingChecklistDataProcessor = {
     const allFields =
       dataJson1.issue_list[0].additional_fields['Newsletter production'];
 
+    const Timer = {};
+    const Push = {};
+
     if (allFields) {
       console.log('All newsletter fields:', allFields);
 
@@ -204,6 +207,66 @@ window.FloatingChecklistDataProcessor = {
             credentials: 'omit',
           });
           const dynamicSheetJson = await dynamicSheetResponse.json();
+
+          console.log('Dynamic Sheet Json', dynamicSheetJson);
+
+          if (dynamicSheetJson.code === 200) {
+            const data = dynamicSheetJson.data;
+
+            Object.keys(data).forEach((country) => {
+              const countryData = data[country];
+
+              for (let i = 0; i < countryData.length; i++) {
+                const value = countryData[i];
+
+                if (typeof value === 'string' && value.startsWith('Timer')) {
+                  if (
+                    value === 'Timer Translation Done!' ||
+                    value === 'Timer Translation Done'
+                  ) {
+                    Timer[country] = { done: true };
+                  } else {
+                    Timer[country] = { done: false };
+                  }
+                  break;
+                }
+              }
+
+              if (!Timer[country]) {
+                Timer[country] = { done: false };
+              }
+            });
+          }
+          console.log('Extracted timers:', Timer);
+
+          if (dynamicSheetJson.code === 200) {
+            const data = dynamicSheetJson.data;
+
+            Object.keys(data).forEach((country) => {
+              const countryData = data[country];
+
+              for (let i = 0; i < countryData.length; i++) {
+                const value = countryData[i];
+
+                if (typeof value === 'string' && value.startsWith('PUSH')) {
+                  if (
+                    value === 'PUSH Translation Done!' ||
+                    value === 'PUSH Translation Done'
+                  ) {
+                    Push[country] = { done: true };
+                  } else {
+                    Push[country] = { done: false };
+                  }
+                  break;
+                }
+              }
+
+              if (!Push[country]) {
+                Push[country] = { done: false };
+              }
+            });
+          }
+          console.log('Extracted pussh:', Push);
           console.log('Fetched dynamic sheet data:', dynamicSheetJson);
         }
       }
@@ -223,8 +286,12 @@ window.FloatingChecklistDataProcessor = {
       ? data.checklists
       : [];
 
+    console.log('checklists data', checklistsData);
+
     const result = {
       Translations: {},
+      Timer: {},
+      Push: {},
       'Test Sent': {},
       'Testing [NSLT]': {},
       'Testing [LPs]': {},
@@ -279,6 +346,13 @@ window.FloatingChecklistDataProcessor = {
           if (isLP) this.setList(result['Testing [LPs]'], cp, cl);
         }
       }
+    }
+
+    if (Object.keys(Timer).length > 0) {
+      result['Timer'] = Timer;
+    }
+    if (Object.keys(Push).length > 0) {
+      result['Push'] = Push;
     }
 
     const processed = this.postProcess(result);
