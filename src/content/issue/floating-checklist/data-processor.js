@@ -161,6 +161,54 @@ window.FloatingChecklistDataProcessor = {
     const data1 = await fetch(url1);
     const dataJson1 = await data1.json();
 
+    const allFields =
+      dataJson1.issue_list[0].additional_fields['Newsletter production'];
+
+    if (allFields) {
+      console.log('All newsletter fields:', allFields);
+
+      const googleSpreadsheetField = allFields.find(
+        (field) => field.name === 'Translation spreadsheet newsletter'
+      );
+
+      if (googleSpreadsheetField) {
+        console.log('Google spreadsheet url:', googleSpreadsheetField);
+        const info = window.FloatingChecklistUtils.extractSpreadsheetInfo(
+          googleSpreadsheetField.value
+        );
+        console.log('Extracted spreadsheet info:', info);
+        const googleSpreadsheetUrl = `https://fed2n8e59dpq.share.zrok.io/misc/resolveTabName/${info.spreadsheetId}/${info.gid}`;
+
+        const headers = {
+          Accept: 'application/json',
+          skip_zrok_interstitial: 'true',
+        };
+
+        const googleSpreadsheetResponse = await fetch(googleSpreadsheetUrl, {
+          method: 'GET',
+          headers: headers,
+          mode: 'cors',
+          credentials: 'omit',
+        });
+
+        const googleSpreadsheetJson = await googleSpreadsheetResponse.json();
+        console.log('Fetched Google spreadsheet data:', googleSpreadsheetJson);
+
+        if (googleSpreadsheetJson.code === 200) {
+          const dynamicSheetUrl = `https://fed2n8e59dpq.share.zrok.io/dynamic/${googleSpreadsheetJson.year}/${googleSpreadsheetJson.tab}`;
+
+          const dynamicSheetResponse = await fetch(dynamicSheetUrl, {
+            method: 'GET',
+            headers: headers,
+            mode: 'cors',
+            credentials: 'omit',
+          });
+          const dynamicSheetJson = await dynamicSheetResponse.json();
+          console.log('Fetched dynamic sheet data:', dynamicSheetJson);
+        }
+      }
+    }
+
     const isCGB =
       dataJson1.issue_list[0].issue_board_column_name ===
       'CENTRAL GRID BANNERS';
@@ -204,6 +252,7 @@ window.FloatingChecklistDataProcessor = {
         }
       }
     } else {
+      console.log('result for nslt', checklistsData);
       for (const cl of checklistsData) {
         const title = String(cl.title || '').trim();
         const titleL = title.toLowerCase();
