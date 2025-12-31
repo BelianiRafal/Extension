@@ -254,8 +254,6 @@ window.FloatingChecklistUIComponents = {
         tchip.setAttribute('role', 'button');
         tchip.tabIndex = 0;
 
-        console.log('before handler', s);
-
         let handler;
         if (isCGB) {
           handler = this.createTestingCGBHandler(s);
@@ -281,7 +279,6 @@ window.FloatingChecklistUIComponents = {
   },
 
   createChip: function (entry, s, isTranslationsRow) {
-    console.log('create chip', entry, s, isTranslationsRow);
     const chip = document.createElement('span');
     chip.classList.add('chip');
 

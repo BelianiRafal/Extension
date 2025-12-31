@@ -79,6 +79,10 @@ window.FloatingChecklistUtils = {
       gid: null,
     };
 
+    if (url == null || url === '') {
+      return result;
+    }
+
     const idMatch = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
     if (idMatch) {
       result.spreadsheetId = idMatch[1];
@@ -97,3 +101,4 @@ window.FloatingChecklistUtils = {
     return result;
   },
 };
+
