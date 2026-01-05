@@ -1,6 +1,10 @@
 // content.js — Time Zone by Language (bez logiki daty)
 // console.log("[AutoTZ] content.js loaded");
 
+// Global runtime flags shared across timer scripts
+window.AutoTZ = window.AutoTZ || {};
+const AutoTZ = window.AutoTZ;
+
 const LABEL_TO_TZ = {
   bulgarian:"Europe/Sofia", czech:"Europe/Prague", danish:"Europe/Copenhagen", dutch:"Europe/Amsterdam",
   english:"Europe/London", estonian:"Europe/Tallinn", finnish:"Europe/Helsinki", french:"Europe/Paris",
@@ -32,6 +36,7 @@ function fireAll(el){
 }
 
 function applyTZForLabel(label) {
+  if (AutoTZ.pauseTZ) return false;
   const tzSel = getTZ(); if (!tzSel) return false;
   const targetTz = LABEL_TO_TZ[label] || (()=>{try{return Intl.DateTimeFormat().resolvedOptions().timeZone;}catch{return null;}})();
   if (!targetTz) return false;
@@ -74,6 +79,7 @@ function initTZ() {
   // reaguj na zmianę języka (delegacja)
   document.addEventListener("change", (e)=>{
     if (e?.target?.id === "language") {
+      if (AutoTZ.pauseTZ) return;
       const label = readLabel(); if (!label) return;
       // console.log("[AutoTZ] language change → apply TZ in 500ms");
       setTimeout(()=>applyTZForLabel(label), 500);
@@ -81,6 +87,7 @@ function initTZ() {
   }, true);
   document.addEventListener("input", (e)=>{
     if (e?.target?.id === "language") {
+      if (AutoTZ.pauseTZ) return;
       const label = readLabel(); if (!label) return;
       // console.log("[AutoTZ] language input → apply TZ in 500ms");
       setTimeout(()=>applyTZForLabel(label), 500);
@@ -89,6 +96,7 @@ function initTZ() {
 
   // prosty watchdog
   setInterval(()=>{
+    if (AutoTZ.pauseTZ) return;
     const label = readLabel(); const tzSel = getTZ(); if (!label || !tzSel) return;
     const should = LABEL_TO_TZ[label]; if (!should) return;
     const opt = findTzOption(tzSel, should);
