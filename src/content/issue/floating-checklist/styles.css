@@ -29,7 +29,7 @@
   font-size: 12px;
 }
 
-.checklist-floating .checklist-table input[type="checkbox"] {
+.checklist-floating .checklist-table input[type='checkbox'] {
   transform: scale(1.5);
 }
 
@@ -86,16 +86,32 @@
   color: #333;
 }
 
-.checklist-table tbody tr[data-test-sent="1"] {
+.checklist-table tbody tr[data-test-sent='1'] {
   background: #1f1f1f;
 }
 
-.checklist-table tbody tr[data-test-sent="1"] td:first-child {
+.checklist-table tbody tr[data-test-sent='1'] td:first-child {
   color: white;
 }
 
-.checklist-table tbody tr[data-test-sent="1"]:hover td {
-    background: #3b3b3b;
+.checklist-table tbody tr[data-test-sent='1']:hover td {
+  background: #3b3b3b;
+}
+
+.checklist-table tbody tr[data-timer='1'],
+.checklist-table tbody tr[data-push='1'] {
+  background: #4400ff;
+  pointer-events: none;
+}
+
+.checklist-table tbody tr[data-timer='1'] td:first-child,
+.checklist-table tbody tr[data-push='1'] td:first-child {
+  color: white;
+}
+
+.checklist-table tbody tr[data-timer='1']:hover td,
+.checklist-table tbody tr[data-push='1']:hover td {
+  background: #4828ff;
 }
 
 .checklist-table tbody tr:hover td {
@@ -316,7 +332,6 @@
   opacity: 0.8;
   cursor: pointer;
 }
-
 
 .status-processing {
   background: linear-gradient(180deg, #efc550, #f4c836);
