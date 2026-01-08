@@ -126,6 +126,8 @@ getCampaignIdBtn.addEventListener("click", async () => {
 async function openMailTable(variable) {
   const idFromChecklist = await getStandartTestingChecklist();
 
+  console.log(idFromChecklist);
+
   return new Promise((resolve, reject) => {
     const ids = [];
 
