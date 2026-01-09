@@ -115,10 +115,7 @@ getCampaignIdBtn.addEventListener("click", async () => {
       chrome.runtime.sendMessage({ action: "setFirstTab" });
       startOrStopLoader(true);
       informationBlock.style.display = "none";
-
-      console.log(idsArray);
-
-      // openCustomerFilter(idsArray, 0, doubleChecklist);
+      openCustomerFilter(idsArray, 0, doubleChecklist);
     } else {
       return false;
     }
@@ -263,42 +260,26 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
 
     if (nextDiv.length && nextDiv[0].children[1]) {
       nextDiv[0].children[1].click();
-      console.log("Clicked on dropdown");
 
       await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
     await new Promise((resolve) => setTimeout(resolve, 300));
-
     const spanItem = windowPage.querySelectorAll('span[role="menuitem"]');
-    console.log("Menu items found:", spanItem.length);
-
-    // ids[index] - это уже строка с ID, не объект!
     const searchId = ids[index];
-    console.log("Looking for ID:", searchId);
-
     const found = Array.from(spanItem).find((elem) => {
       const text = elem.textContent.trim();
       return text.startsWith(`${searchId}:`);
     });
 
-    if (!found) {
-      console.error("Menu item not found for ID:", searchId);
-      return;
-    }
-
-    console.log("Found menu item:", found.textContent);
+    if (!found) return;
 
     const muiButton = windowPage.querySelector("button[type='button'][label='Transfer to batch file']");
-    console.log("Transfer button found:", !!muiButton);
 
     if (found && muiButton) {
       found.click();
-      console.log("Clicked on menu item");
-
       setTimeout(() => {
         muiButton.click();
-        console.log("Clicked on transfer button");
       }, 500);
 
       let spinnerVisible = false;
@@ -419,16 +400,15 @@ customerTableBtn.addEventListener("click", async () => {
   showButtonLoader(customerTableBtn, customerLoaderWrapper);
 
   const arrayForSpreadsheet = [];
-  const idsArr = await openMailTable("not duplicate");
+  const chdeId = await getIdForLink();
+  const idsArr = await openMailTable(chdeId, "not duplicate");
 
   openTableForCustomer(idsArr, arrayForSpreadsheet, 0);
 });
 
 function openTableForCustomer(openId, stateArr, index) {
   if (index >= openId.length) {
-    // stateArr.splice(5, 0, null);
-    // stateArr.splice(6, 0, null);
-    copyArrayToClipboard(stateArr, (modal = true));
+    copyArrayToClipboard(stateArr, true);
     hideButtonLoader(customerTableBtn, customerLoaderWrapper);
     copyBtn.style.display = "block";
     copyBtnClick(stateArr);
@@ -453,33 +433,37 @@ function openTableForCustomer(openId, stateArr, index) {
       if (!sortedTable) return;
 
       const findTable = sortedTable.nextElementSibling;
-
       if (!findTable) return;
 
       const tableBody = findTable.querySelectorAll('tbody [role="row"]');
 
       sortedFIlteredRow(tableBody, arrayRow);
 
-      const incrementTotal = arrayRow[1]?.children[3].textContent;
-      const sumFooter = arrayRow.reduce((accum, item) => {
-        return accum + Number(item?.children[3].textContent);
-      }, 0);
-
       if (arrayRow.length > 0) {
+        const incrementTotal = Number(arrayRow[1]?.children[3].textContent) || 0;
+        const sumFooter = arrayRow.reduce((accum, item) => {
+          const value = Number(item?.children[3].textContent);
+          return accum + (isNaN(value) ? 0 : value);
+        }, 0);
+
         const resultEndForIncrement = sumFooter - incrementTotal;
-        if (index === 0 || index === 1 || index === 4) {
-          stateArr.push(resultEndForIncrement, Number(incrementTotal));
+
+        if (index === 0 || index === 1 || index === 6) {
+          stateArr.push(
+            isNaN(resultEndForIncrement) ? 0 : resultEndForIncrement,
+            isNaN(incrementTotal) ? 0 : incrementTotal
+          );
         } else {
-          stateArr.push(Number(sumFooter));
+          stateArr.push(isNaN(sumFooter) ? 0 : sumFooter);
         }
 
         clearInterval(waitResponse);
         openWindow.close();
-      }
 
-      setTimeout(() => {
-        openTableForCustomer(openId, stateArr, index + 1);
-      }, 800);
+        setTimeout(() => {
+          openTableForCustomer(openId, stateArr, index + 1);
+        }, 500);
+      }
     } catch (e) {
       swalFireModal(`Dude`, `Something get wrong...`, "error", "", "", false);
       console.log(e);
@@ -540,37 +524,24 @@ function copyBtnClick(arr) {
 
 function handleClickForItem(page, item, id, clickBtn, ids, index, objectKey) {
   item[0].children[1].click();
-  console.log("Clicked dropdown in handleClickForItem");
 
-  // Даем время на открытие меню
   setTimeout(() => {
     const spanItem = page.querySelectorAll('span[role="menuitem"]');
-    console.log("Menu items in handleClickForItem:", spanItem.length);
-    console.log("Looking for ID:", id);
-
     const found = Array.from(spanItem).find((elem) => {
       const text = elem.textContent.trim();
-      console.log("Checking menu item:", text);
       return text.includes(`${String(id)}:`);
     });
 
-    if (!found) {
-      console.error("Menu item not found in handleClickForItem for ID:", id);
-      return;
-    }
-
-    console.log("Found item:", found.textContent);
+    if (!found) return;
 
     const muiButton = page.querySelector("button[type='button'][label='Transfer to batch file']");
 
     if (found && muiButton) {
       found.click();
-      console.log("Clicked menu item");
 
       if (clickBtn) {
         setTimeout(() => {
           muiButton.click();
-          console.log("Clicked transfer button");
         }, 1000);
       }
 
