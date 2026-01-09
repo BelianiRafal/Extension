@@ -113,7 +113,7 @@
       const panel = document.createElement("div");
       panel.id = "push-fill-panel";
       panel.style.cssText = `
-        position:fixed; right:20px; bottom:20px; z-index:99999;
+        display:none; position:fixed; right:20px; bottom:20px; z-index:99999;
         width:420px; background:#fff; border:1px solid #ddd; border-radius:12px;
         box-shadow:0 10px 30px rgba(0,0,0,.12); padding:12px;
         font-family: Arial, sans-serif; color:#111;
