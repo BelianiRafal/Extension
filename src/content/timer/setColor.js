@@ -298,6 +298,23 @@
         tr: "Europe/Istanbul",
       }
 
+      const DOMAINS = ["outlook.com", "hotmail.com", "gmail.com", "wp.pl", "protonmail.com"];
+
+      const randomAlphaNum = (CHARS, len) => {
+        const arr = new Uint8Array(len);
+        
+        crypto.getRandomValues(arr);
+
+        return Array.from(arr, n => CHARS[n % CHARS.length]).join('');
+      };
+
+      const randomGuestEmail = () => {
+        const local = randomAlphaNum('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', 16);
+        const domain = DOMAINS[Math.floor(Math.random() * DOMAINS.length)];
+
+        return `${local}@${domain}`;
+      };
+
       function tryToGenerateAllAtOnce() {
         if (isRunning) return;
 
@@ -316,6 +333,15 @@
               const maxAttempts = 15;
               for (let attempt = 1; attempt <= maxAttempts; attempt++) {
                 console.log(`  → Attempt ${attempt}. for ${slug}:`);
+                
+                let email = randomGuestEmail();
+                let fullName = randomAlphaNum('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 50);
+
+                document.querySelector("input#guest-email").value = email;
+                document.querySelector("input#full-name").value = fullName;
+              
+                console.debug('    → using email: ', email);
+                console.debug('    → using fullName: ', fullName);
 
                 if (autoTzLangSelector) {
                   autoTzLangSelector.value = language;

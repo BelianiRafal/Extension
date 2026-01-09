@@ -69,6 +69,14 @@ window.FloatingChecklistDataProcessor = {
     const alias = window.FloatingChecklistConfig.SLUG_CANONICAL_ALIAS;
 
     for (const cat of Object.keys(res)) {
+      const shouldReturnEmptyArray = (cat === 'Timer' || cat === 'Push'
+      ) && Object.keys(res[cat] || {}).length === 0;
+
+      if (shouldReturnEmptyArray) {
+        out[cat] = {};
+        continue;
+      }
+      
       const map = {};
       for (const [slug, val] of Object.entries(res[cat] || {})) {
         const norm = String(slug || '')
@@ -161,6 +169,123 @@ window.FloatingChecklistDataProcessor = {
     const data1 = await fetch(url1);
     const dataJson1 = await data1.json();
 
+    const allFields =
+      dataJson1.issue_list[0].additional_fields['Newsletter production'];
+
+    const Timer = {};
+    const Push = {};
+
+    if (allFields) {
+      console.log('All newsletter fields:', allFields);
+
+      const googleSpreadsheetField = allFields.find(
+        (field) => field.name === 'Translation spreadsheet newsletter'
+      );
+
+      if (googleSpreadsheetField) {
+        console.log('Google spreadsheet url:', googleSpreadsheetField);
+        const info = window.FloatingChecklistUtils.extractSpreadsheetInfo(
+          googleSpreadsheetField.value
+        );
+        console.log('Extracted spreadsheet info:', info);
+
+        if (info.spreadsheetId !== null && info.gid !== null) {
+          const googleSpreadsheetUrl = `https://fed2n8e59dpq.share.zrok.io/misc/resolveTabName/${info.spreadsheetId}/${info.gid}`;
+
+          const headers = {
+            Accept: 'application/json',
+            skip_zrok_interstitial: 'true',
+          };
+
+          const googleSpreadsheetResponse = await fetch(googleSpreadsheetUrl, {
+            method: 'GET',
+            headers: headers,
+            mode: 'cors',
+            credentials: 'omit',
+          });
+
+          const googleSpreadsheetJson = await googleSpreadsheetResponse.json();
+          console.log(
+            'Fetched Google spreadsheet data:',
+            googleSpreadsheetJson
+          );
+
+          if (googleSpreadsheetJson.code === 200) {
+            const dynamicSheetUrl = `https://fed2n8e59dpq.share.zrok.io/dynamic/${googleSpreadsheetJson.year}/${googleSpreadsheetJson.tab}`;
+
+            const dynamicSheetResponse = await fetch(dynamicSheetUrl, {
+              method: 'GET',
+              headers: headers,
+              mode: 'cors',
+              credentials: 'omit',
+            });
+            const dynamicSheetJson = await dynamicSheetResponse.json();
+
+            console.log('Dynamic Sheet Json', dynamicSheetJson);
+
+            if (dynamicSheetJson.code === 200) {
+              const data = dynamicSheetJson.data;
+
+              Object.keys(data).forEach((country) => {
+                const countryData = data[country];
+
+                for (let i = 0; i < countryData.length; i++) {
+                  const value = countryData[i];
+
+                  if (typeof value === 'string' && value.startsWith('Timer')) {
+                    if (
+                      value === 'Timer Translation Done!' ||
+                      value === 'Timer Translation Done'
+                    ) {
+                      Timer[country] = { done: true };
+                    } else {
+                      Timer[country] = { done: false };
+                    }
+                    break;
+                  }
+                }
+
+                if (!Timer[country]) {
+                  Timer[country] = { done: false };
+                }
+              });
+            }
+            console.log('Extracted timers:', Timer);
+
+            if (dynamicSheetJson.code === 200) {
+              const data = dynamicSheetJson.data;
+
+              Object.keys(data).forEach((country) => {
+                const countryData = data[country];
+
+                for (let i = 0; i < countryData.length; i++) {
+                  const value = countryData[i];
+
+                  if (typeof value === 'string' && value.startsWith('PUSH')) {
+                    if (
+                      value === 'PUSH Translation Done!' ||
+                      value === 'PUSH Translation Done'
+                    ) {
+                      Push[country] = { done: true };
+                    } else {
+                      Push[country] = { done: false };
+                    }
+                    break;
+                  }
+                }
+
+                if (!Push[country]) {
+                  Push[country] = { done: false };
+                }
+              });
+            }
+            console.log('Extracted pussh:', Push);
+            console.log('Fetched dynamic sheet data:', dynamicSheetJson);
+          }
+        }
+      }
+    }
+
     const isCGB =
       dataJson1.issue_list[0].issue_board_column_name ===
       'CENTRAL GRID BANNERS';
@@ -175,12 +300,35 @@ window.FloatingChecklistDataProcessor = {
       ? data.checklists
       : [];
 
+    console.log('checklists data', checklistsData);
+
     const result = {
       Translations: {},
+      Timer: {},
+      Push: {},
       'Test Sent': {},
       'Testing [NSLT]': {},
       'Testing [LPs]': {},
     };
+
+    const hasTimerWithDoneTrue = Object.values(Timer).some(
+      (timer) => timer.done === true
+    );
+    const hasPushWithDoneTrue = Object.values(Push).some(
+      (push) => push.done === true
+    );
+
+    if (!hasTimerWithDoneTrue) {
+      result['Timer'] = {};
+    } else {
+      result['Timer'] = Timer;
+    }
+
+    if (!hasPushWithDoneTrue) {
+      result['Push'] = {};
+    } else {
+      result['Push'] = Push;
+    }
 
     const perTitleRaw = {};
     if (isCGB) {
@@ -204,6 +352,7 @@ window.FloatingChecklistDataProcessor = {
         }
       }
     } else {
+      console.log('result for nslt', checklistsData);
       for (const cl of checklistsData) {
         const title = String(cl.title || '').trim();
         const titleL = title.toLowerCase();
