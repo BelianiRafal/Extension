@@ -166,6 +166,12 @@ window.FloatingChecklistUIComponents = {
       if (/^Test Sent$/i.test(listName)) {
         row.setAttribute('data-test-sent', '1');
       }
+      if (/^Timer$/i.test(listName)) {
+        row.setAttribute('data-timer', '1');
+      }
+      if (/^Push$/i.test(listName)) {
+        row.setAttribute('data-push', '1');
+      }
       const nameCell = document.createElement('td');
       nameCell.textContent = listName;
       row.appendChild(nameCell);
@@ -247,8 +253,6 @@ window.FloatingChecklistUIComponents = {
         tchip.style.cursor = 'pointer';
         tchip.setAttribute('role', 'button');
         tchip.tabIndex = 0;
-
-        console.log('before handler', s);
 
         let handler;
         if (isCGB) {

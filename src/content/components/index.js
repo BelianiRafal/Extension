@@ -694,13 +694,13 @@ const COMPONENTS = {
       },
       nono: {
         "Company Details": "Selskapets Detaljer",
-        Address: "Beliani Group AG GmbH 6340 Baar Sveits",
+        Address: "Beliani (Norge) GmbH Haldenstrasse 5, 6340 Baar, Switzerland",
         "Mobile number": "Telefonnummer: 21 98 88 87;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.no",
         Email: "mail@beliani.no",
-        "Commercial register": "Handelsregister: 16282354",
-        VAT: "USt-IDNr: 927 713 055",
+        "Commercial register": "Handelsregister: CHE-235.623.705",
+        VAT: "USt-IDNr: 935 986 389",
       },
       dkdk: {
         "Company Details": "Selskabs informationer",
