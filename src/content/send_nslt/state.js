@@ -70,7 +70,7 @@ function splittedGrziesName(data, arr) {
   arr.forEach((item) => {
     if (item.key === normalizedKey || item.key === searchKey) {
       // console.log("Match found:", item);
-      idForPaste.push(item.id);
+      idForPaste.push(item);
     }
   });
 
