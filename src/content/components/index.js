@@ -735,7 +735,7 @@ const COMPONENTS = {
       benl: {
         "Company Details": "Bedrijfsinformatie",
         Address: "Beliani (EU) GmbH CH 6340 Baar Switzerland",
-        "Mobile number": "Telefoonnummer: 28 08 56 14;",
+        "Mobile number": "Telefoonnummer: +32 2 808 56 14;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.be",
         Email: "mail@beliani.be",
@@ -745,7 +745,7 @@ const COMPONENTS = {
       befr: {
         "Company Details": "Mentions légales",
         Address: "Beliani (EU) GmbH CH 6340 Baar Switzerland",
-        "Mobile number": "Téléphone: 28 08 56 14;",
+        "Mobile number": "Téléphone: +32 2 808 56 14;",
         "Email address": "E-mail:",
         "Mail to": "mailto:mail@beliani.be",
         Email: "mail@beliani.be",
