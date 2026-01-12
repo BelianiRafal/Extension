@@ -138,6 +138,7 @@ const fulfillBody = {
         this.notify("Component data or html not found.");
       }
     }
+    console.log("parsedComponents", parsedComponents);
     return parsedComponents;
   },
 
