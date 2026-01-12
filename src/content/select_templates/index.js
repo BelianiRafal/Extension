@@ -8,7 +8,6 @@ const DEFAULT_VARIABLES = {
   origin: "https://www.beliani.co.uk",
   id: new URLSearchParams(window.location.search).get("id"),
   utm: "?utm_source=newsletter&utm_medium=email&utm_campaign=",
-  picture_server_url: "https://pictureserver.net/static/2025/",
 };
 
 const ui = {

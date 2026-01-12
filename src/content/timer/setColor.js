@@ -53,6 +53,9 @@
   const BG_KEY = 'AutoTZ:bgColor';
   const qs = (s) => document.querySelector(s);
 
+  const __dispatching = new WeakSet();
+  let __isProgrammaticBgUpdate = false;
+
   const toRGB = (hex) => {
     let h = (hex || '#000000').replace('#', '');
     if (h.length === 3) h = h.split('').map(x => x + x).join('');
@@ -61,8 +64,13 @@
   };
 
   function dispatchAll(el) {
+    if (!el) return;
+    // Prevent re-entrant event loops (e.g. change handler calling applyBg -> dispatchAll again)
+    if (__dispatching.has(el)) return;
+    __dispatching.add(el);
     el.dispatchEvent(new Event('input', { bubbles: true }));
     el.dispatchEvent(new Event('change', { bubbles: true }));
+    __dispatching.delete(el);
   }
 
   function setPickerColor(id, hex) {
@@ -187,7 +195,13 @@
       hexInput.value = hex.toUpperCase();
     }
     sessionStorage.setItem(BG_KEY, hex);
-    setPickerColor('bg-color-id', hex);
+    // Avoid infinite recursion: our own dispatch triggers pageBgInput change listener.
+    __isProgrammaticBgUpdate = true;
+    try {
+      setPickerColor('bg-color-id', hex);
+    } finally {
+      __isProgrammaticBgUpdate = false;
+    }
     // console.log(`[AutoTZ] BG -> ${hex} (${reason})`);
   }
 
@@ -246,11 +260,24 @@
       });
 
       const autoTzLangSelector = document.querySelector("#autotz-language-selector");
+      const sendtricLangSelector = document.querySelector("select#language");
       const autoTzGenerateButton = document.querySelector("button#autotz-generate")
       const autoTzGenerateALLButton = document.querySelector("button#autotz-gen-all")
 
-      autoTzLangSelector.addEventListener('change', (e) => {
-        document.querySelector("select#language").value = e.target.value
+      window.AutoTZ = window.AutoTZ || {};
+
+      function setSendtricLanguage(language) {
+        if (autoTzLangSelector && autoTzLangSelector.value !== language) {
+          autoTzLangSelector.value = language;
+        }
+        if (sendtricLangSelector && sendtricLangSelector.value !== language) {
+          sendtricLangSelector.value = language;
+          dispatchAll(sendtricLangSelector);
+        }
+      }
+
+      autoTzLangSelector?.addEventListener('change', (e) => {
+        setSendtricLanguage(e.target.value);
       })
 
       autoTzGenerateButton.addEventListener("click", () => {
@@ -261,42 +288,114 @@
 
       function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
+      function setValueWithEvents(el, value) {
+        if (!el) return;
+        if (el.value !== value) el.value = value;
+        dispatchAll(el);
+      }
+
+      async function waitUntil(predicate, timeoutMs = 15000, intervalMs = 250) {
+        const start = Date.now();
+        while (Date.now() - start < timeoutMs) {
+          try {
+            if (predicate()) return true;
+          } catch (e) {
+            // ignore
+          }
+          await sleep(intervalMs);
+        }
+        return false;
+      }
+
+      function isCaptchaPresent() {
+        // Detect only *blocking* captcha challenges.
+        // Many sites keep recaptcha widgets/badges/hidden iframes in DOM at all times.
+        // We consider captcha present only if a big challenge/dialog is visible.
+        const isVisible = (el) => {
+          if (!el) return false;
+          const style = window.getComputedStyle(el);
+          if (style.display === 'none' || style.visibility === 'hidden') return false;
+          if (Number(style.opacity || '1') < 0.05) return false;
+          const rect = el.getBoundingClientRect();
+          if (rect.width < 20 || rect.height < 20) return false;
+          const vw = window.innerWidth || document.documentElement.clientWidth;
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+          if (rect.bottom < 0 || rect.right < 0 || rect.top > vh || rect.left > vw) return false;
+          return true;
+        };
+
+        const overlapsCenter = (rect) => {
+          const vw = window.innerWidth || document.documentElement.clientWidth;
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+          const cx = vw / 2;
+          const cy = vh / 2;
+          return rect.left <= cx && rect.right >= cx && rect.top <= cy && rect.bottom >= cy;
+        };
+
+        const isBlockingSize = (rect) => (rect.width * rect.height) >= 40000; // ~200x200
+
+        // Challenge frames (more specific than generic "recaptcha" which exists always)
+        const selectors = [
+          // reCAPTCHA challenge frame
+          'iframe[src*="api2/bframe" i]',
+          'iframe[title*="challenge" i]',
+          'iframe[title*="recaptcha" i][title*="challenge" i]',
+          // hCaptcha challenge
+          'iframe[src*="hcaptcha.com" i]',
+          'iframe[title*="hcaptcha" i]',
+          // common dialog containers
+          '[role="dialog"] iframe[src*="api2/bframe" i]',
+          '[role="dialog"] iframe[src*="hcaptcha" i]',
+        ].join(',');
+
+        const candidates = Array.from(document.querySelectorAll(selectors));
+        for (const el of candidates) {
+          if (!isVisible(el)) continue;
+          const rect = el.getBoundingClientRect();
+          if (!isBlockingSize(rect)) continue;
+          if (!overlapsCenter(rect)) continue;
+          return true;
+        }
+        return false;
+      }
+
+      async function waitForCaptchaToClear() {
+        if (!isCaptchaPresent()) return true;
+        console.warn('   ⚠ Captcha detected (visible). Solve it in the page to continue...');
+        const ok = await waitUntil(() => !isCaptchaPresent(), 10 * 60 * 1000, 500);
+        if (!ok) console.warn('   × Captcha still present after 10 minutes; continuing retries.');
+        return ok;
+      }
+
       autoTzGenerateALLButton.addEventListener("click", tryToGenerateAllAtOnce);
 
       let lastSaved, isRunning;
 
       const timeZone = document.querySelector("#timezone")
-      const slugToTimeZone = { 
-        bg: "Europe/Sofia",
-        cs: "Europe/Prague",
-        da: "Europe/Copenhagen",
-        nl: "Europe/Amsterdam",
-        en: "Europe/London",
-        et: "Europe/Tallinn",
-        fi: "Europe/Helsinki",
-        fr: "Europe/Paris",
-        de: "Europe/Berlin",
-        el: "Europe/Athens",
-        he: "Asia/Jerusalem",
-        hu: "Europe/Budapest",
-        is: "Atlantic/Reykjavik",
-        it: "Europe/Rome",
-        ja: "Asia/Tokyo",
-        ko: "Asia/Seoul",
-        lv: "Europe/Riga",
-        lt: "Europe/Vilnius",
-        no: "Europe/Oslo",
-        pl: "Europe/Warsaw",
-        pt: "Europe/Lisbon",
-        ro: "Europe/Bucharest",
-        ru: "Europe/Moscow",
-        "csl": "Asia/Shanghai",
-        sr: "Europe/Belgrade",
-        sk: "Europe/Bratislava",
-        es: "Europe/Madrid",
-        sv: "Europe/Stockholm",
-        tr: "Europe/Istanbul",
-      }
+      // timezone must be per SLUG/market (not per language)
+      const slugToTimeZone = {
+        CHDE: 'Europe/Zurich',
+        CHFR: 'Europe/Zurich',
+        FR: 'Europe/Paris',
+        DE: 'Europe/Berlin',
+        UK: 'Europe/London',
+        AT: 'Europe/Vienna',
+        ES: 'Europe/Madrid',
+        PL: 'Europe/Warsaw',
+        NL: 'Europe/Amsterdam',
+        PT: 'Europe/Lisbon',
+        IT: 'Europe/Rome',
+        SE: 'Europe/Stockholm',
+        HU: 'Europe/Budapest',
+        DK: 'Europe/Copenhagen',
+        CZ: 'Europe/Prague',
+        FI: 'Europe/Helsinki',
+        NO: 'Europe/Oslo',
+        SK: 'Europe/Bratislava',
+        BENL: 'Europe/Brussels',
+        BEFR: 'Europe/Brussels',
+        RO: 'Europe/Bucharest',
+      };
 
       const DOMAINS = ["outlook.com", "hotmail.com", "gmail.com", "wp.pl", "protonmail.com"];
 
@@ -319,49 +418,99 @@
         if (isRunning) return;
 
         const keys = Object.keys(langToSelectValue);
-        const entries = Object.entries(langToSelectValue);
 
         (async () => {
           if (isRunning) return;
           isRunning = true;
+          window.AutoTZ.pauseTZ = true;
           try {
             for (const slug of keys) {
               const language = langToSelectValue[slug];
-              console.log(`--- STARTED GENERATING TIMER FOR: ${slug} [${language}]`);
+              setSendtricLanguage(language);
+              console.log(
+                `--- STARTED GENERATING TIMER FOR: ${slug} [desired=${language}] [panel=${autoTzLangSelector?.value}] [selected=${sendtricLangSelector?.value}]`
+              );
 
               let saved = false;
               const maxAttempts = 15;
               for (let attempt = 1; attempt <= maxAttempts; attempt++) {
                 console.log(`  → Attempt ${attempt}. for ${slug}:`);
+
+                await waitForCaptchaToClear();
                 
                 let email = randomGuestEmail();
                 let fullName = randomAlphaNum('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 50);
 
-                document.querySelector("input#guest-email").value = email;
-                document.querySelector("input#full-name").value = fullName;
+                const guestEmailInput = document.querySelector("input#guest-email");
+                const fullNameInput = document.querySelector("input#full-name");
+                setValueWithEvents(guestEmailInput, email);
+                setValueWithEvents(fullNameInput, fullName);
               
                 console.debug('    → using email: ', email);
                 console.debug('    → using fullName: ', fullName);
 
-                if (autoTzLangSelector) {
-                  autoTzLangSelector.value = language;
-                  autoTzLangSelector.dispatchEvent(new Event('change', { bubbles: true }));
+                // Apply settings: language + timezone (and let page react)
+                setSendtricLanguage(language);
+                const expectedTz = slugToTimeZone[slug];
+                if (expectedTz && timeZone) {
+                  setValueWithEvents(timeZone, expectedTz);
+                  // notify setDate.js to re-apply chosen date after TZ change
+                  window.dispatchEvent(new CustomEvent('AutoTZ:tzApplied', {
+                    detail: { tz: expectedTz, label: language }
+                  }));
                 }
 
-                await sleep(2500);
-                
-                if (timeZone.value !== slugToTimeZone[langToSelectValue[slug]]) {
-                  // console.log(slug, slugToTimeZone)
-                  console.log(`Sendtric TZ: ${timeZone.value}, Needed TZ: ${slugToTimeZone[langToSelectValue[slug]]}`)
-                  saved = false;
-                  console.warn("   × Wrong timezone is set! --- waiting 3s");
-                  await sleep(3000);
+                // Keep colors stable (Sendtric sometimes resets on language/TZ changes)
+                setPickerColor('label-color-id', '#000000');
+                setPickerColor('digit-color-id',  '#000000');
+                const bg = sessionStorage.getItem(BG_KEY) || '#000000';
+                applyBg(bg, 'bulk-ensure');
+                console.log(
+                  `    → LANG: slug=${slug} desired=${language} panel=${autoTzLangSelector?.value} selected=${sendtricLangSelector?.value}`
+                );
+
+                // Wait until UI reflects desired values (reduces stale-language saves)
+                const settingsOk = await waitUntil(() => {
+                  const langOk = !sendtricLangSelector || sendtricLangSelector.value === language;
+                  const tzOk = !expectedTz || !timeZone || timeZone.value === expectedTz;
+                  return langOk && tzOk;
+                }, 12000, 250);
+
+                if (!settingsOk) {
+                  console.warn(
+                    `   × Settings not applied yet (desired lang=${language}, selected=${sendtricLangSelector?.value}, desired tz=${expectedTz}, tz=${timeZone?.value})`
+                  );
+                  await sleep(2000);
                   continue;
                 }
+
+                await waitForCaptchaToClear();
+
+                const imgBefore = document.querySelector("img[alt='Email Live Countdown Timer']");
+                const prevSrc = imgBefore?.src;
                 
                 autoTzGenerateButton.click();
 
-                await sleep(700);
+                // Wait for captcha or for image src to really change
+                await waitForCaptchaToClear();
+
+                const gotNew = await waitUntil(() => {
+                  const img = document.querySelector("img[alt='Email Live Countdown Timer']");
+                  if (!img) return false;
+                  const src = img.src;
+                  if (!src) return false;
+                  if (["https://www.sendtric.com/wp-content/uploads/2023/01/example_timer.gif", "https://www.sendtric.com/"].includes(src)) return false;
+                  if (String(src).includes('placeholder')) return false;
+                  if (prevSrc && src === prevSrc) return false;
+                  return true;
+                }, 30000, 300);
+
+                if (!gotNew) {
+                  saved = false;
+                  console.warn('   × Timer image did not update in time --- waiting 5s');
+                  await sleep(5000);
+                  continue;
+                }
 
                 const img = document.querySelector("img[alt='Email Live Countdown Timer']");
                 if (!img) {
@@ -370,15 +519,27 @@
                   await sleep(5000)
                   continue;
                 }
-                
-                let newSrc = img.src;
 
-                if (String(newSrc).includes("placeholder") || String(newSrc) === "https://www.sendtric.com/") {
+                // Validate settings still match right after generation
+                if (sendtricLangSelector && sendtricLangSelector.value !== language) {
                   saved = false;
-                  console.warn("   × Placeholder src found --- waiting 5s");
-                  await sleep(5000);
+                  console.warn(
+                    `   × Language changed unexpectedly after generate (desired=${language}, selected=${sendtricLangSelector.value}) --- retrying`
+                  );
+                  await sleep(2500);
                   continue;
                 }
+
+                if (expectedTz && timeZone && timeZone.value !== expectedTz) {
+                  saved = false;
+                  console.warn(
+                    `   × Timezone changed unexpectedly after generate (desired=${expectedTz}, tz=${timeZone.value}) --- retrying`
+                  );
+                  await sleep(2500);
+                  continue;
+                }
+
+                let newSrc = img.src;
 
                 if (lastSaved === newSrc) {
                   saved = false;
@@ -415,21 +576,17 @@
             thead.innerHTML = '<tr><th>SLUG</th><th>Timer SRC</th></tr>';
             table.appendChild(thead);
 
-            const prevId = 'autotz-timer-preview';
-            let preview = document.getElementById(prevId);
-            if (preview) preview.remove();
-
-            const styleTag = document.getElementById('autotz-timer-preview-style') || document.createElement('style');
-            styleTag.id = 'autotz-timer-preview-style';
-            styleTag.textContent = `
-              #${prevId} { position: absolute; z-index: 99999; display: none; pointer-events: none; background: #fff; border: 1px solid rgba(0,0,0,0.12); padding: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12); border-radius: 6px; }
-              #${prevId} img { max-width: 320px; max-height: 240px; display:block; }
-            `;
-            document.head.appendChild(styleTag);
-
-            preview = document.createElement('div');
-            preview.id = prevId;
-            document.body.appendChild(preview);
+            const inlineStyleId = 'autotz-timers-inline-style';
+            if (!document.getElementById(inlineStyleId)) {
+              const styleTag = document.createElement('style');
+              styleTag.id = inlineStyleId;
+              styleTag.textContent = `
+                .autotz-timer-cell { display:flex; align-items:center; gap:10px; }
+                .autotz-timer-cell img { max-width: 220px; max-height: 120px; display:block; border: 1px solid rgba(0,0,0,0.12); border-radius: 4px; background: #fff; }
+                .autotz-timer-cell a { word-break: break-all; }
+              `;
+              document.head.appendChild(styleTag);
+            }
 
             const tbody = document.createElement('tbody');
             for (const slug of Object.keys(generatedTimers)) {
@@ -440,36 +597,23 @@
               const tdSrc = document.createElement('td');
 
               if (src) {
+                const wrap = document.createElement('div');
+                wrap.className = 'autotz-timer-cell';
+
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = slug;
+                img.loading = 'lazy';
+
                 const a = document.createElement('a');
-                a.href = src; a.target = '_blank'; a.rel = 'noopener noreferrer';
+                a.href = src;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
                 a.textContent = src;
-                a.style.wordBreak = 'break-all';
 
-                a.addEventListener('mouseenter', (ev) => {
-                  preview.innerHTML = '';
-                  const img = document.createElement('img');
-                  img.src = src; img.alt = slug;
-                  preview.appendChild(img);
-                  preview.style.display = 'block';
-                  const rect = a.getBoundingClientRect();
-                  const top = window.scrollY + rect.bottom + 8;
-                  const left = window.scrollX + rect.left;
-                  preview.style.top = top + 'px';
-                  preview.style.left = left + 'px';
-                });
-                
-                a.addEventListener('mousemove', (ev) => {
-                  const left = window.scrollX + ev.clientX + 12;
-                  const top = window.scrollY + ev.clientY + 12;
-                  preview.style.top = top + 'px';
-                  preview.style.left = left + 'px';
-                });
-
-                a.addEventListener('mouseleave', () => {
-                  preview.style.display = 'none';
-                });
-
-                tdSrc.appendChild(a);
+                wrap.appendChild(img);
+                wrap.appendChild(a);
+                tdSrc.appendChild(wrap);
               } else {
                 tdSrc.textContent = '';
               }
@@ -531,7 +675,9 @@
               cz: generatedTimers.CZ,
               sk: generatedTimers.SK,
               hu: generatedTimers.HU,
-              ro: generatedTimers.RO
+              ro: generatedTimers.RO,
+              benl: generatedTimers.BENL,
+              befr: generatedTimers.BEFR,
             }
             const csvTA = createTextArea("autotz-generated-csv", Object.entries(timersOrderedByCSVSlugs).map(([slug, timer]) => {
               return `${timer}`
@@ -551,12 +697,14 @@
             }
           } finally {
             isRunning = false;
+            window.AutoTZ.pauseTZ = false;
           }
 
         })();
       }
 
-      pageBgInput?.addEventListener('change', () => {
+      pageBgInput?.addEventListener('change', (e) => {
+        if (__isProgrammaticBgUpdate) return;
         const val = pageBgInput.value;
         const norm = normalizeHex(val);
         if (norm) applyBg(norm, 'page');
