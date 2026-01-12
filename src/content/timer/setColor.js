@@ -675,7 +675,9 @@
               cz: generatedTimers.CZ,
               sk: generatedTimers.SK,
               hu: generatedTimers.HU,
-              ro: generatedTimers.RO
+              ro: generatedTimers.RO,
+              benl: generatedTimers.BENL,
+              befr: generatedTimers.BEFR,
             }
             const csvTA = createTextArea("autotz-generated-csv", Object.entries(timersOrderedByCSVSlugs).map(([slug, timer]) => {
               return `${timer}`
