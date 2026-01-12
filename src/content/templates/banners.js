@@ -81,7 +81,7 @@ const TEMPLATES = [
       }
       </style>
         <a target="_blank" style="text-decoration: none;" href="[[banner_category_url]]">
-          <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_desktop]];">
+          <div id="cgb" class="xyGContainer" style="display: flex; flex-direction: column; background-color:[[banner_background_desktop]];">
             <div class="textBannerContainer">
               [[banner_text]]
             </div>
@@ -106,6 +106,7 @@ const TEMPLATES = [
     <style> 
       #cgb.xyGContainer {
         max-width: 1696px !important;
+        padding: 0 min(12px, 2vw);
       }
       #cgb .textBanner {
         font-size: min(19px, 3.6vw);
@@ -237,7 +238,7 @@ const TEMPLATES = [
       }
       </style>
         <a href="[[banner_category_url]]" target="_blank" style="display: block; text-decoration: none; color: [[banner_text_color]];">
-        <div id="cgb" class="xyGContainer" style="background-color:[[banner_background_desktop]];">
+        <div id="cgb" class="xyGContainer" style="display: flex; flex-direction: column; background-color:[[banner_background_desktop]];">
           <div class="textBannerContainer">
           [[banner_text]]
           </div>
