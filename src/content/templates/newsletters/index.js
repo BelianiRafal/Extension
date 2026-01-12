@@ -4,7 +4,7 @@ const DEFAULT_FALLBACK = {
   Newsletter_bg_color: "#FBF5F5",
 
   Top_image_src: "https://pictureserver.net/static/2025/chde240150_01.jpg",
-  picture_server_url: "https://pictureserver.net/static/2025/",
+  picture_server_url: "https://pictureserver.net/static/2026/",
   img_version: "?ver=8",
 
   campaigns: [
