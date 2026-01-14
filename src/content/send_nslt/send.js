@@ -135,11 +135,13 @@ async function openMailTable(variable) {
 
 async function openCustomerFilter(ids, index = 0, abchecklist) {
   if (index >= ids.length || index >= Object.keys(shopId).length) {
-    startOrStopLoader(false);
-    swalFireModal(`Done`, `Your id is already!`, "success", "", "", false);
-    customerCopyWrapper.style.display = "flex";
-    getCampaignIdBtn.style.display = "none";
-    ABcheckBtn.style.display = "none";
+    setTimeout(() => {
+      startOrStopLoader(false);
+      swalFireModal(`Done`, `Your id is already!`, "success", "", "", false);
+      customerCopyWrapper.style.display = "flex";
+      getCampaignIdBtn.style.display = "none";
+      ABcheckBtn.style.display = "none";
+    }, 800);
     return;
   }
 
@@ -157,21 +159,21 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
 
       const registeredSeller = doc.querySelectorAll(".panel-body");
       const nextElement = registeredSeller[0].children[1].children[3];
-      const findArea = Array.from(nextElement.querySelectorAll('[id^="undefined--undefined-"]'));
-      const clickArea = findArea[0].children[0].children[1];
+      // const findArea = Array.from(nextElement.querySelectorAll('[id^="undefined--undefined-"]'));
+      // const clickArea = findArea[0].children[0].children[1];
 
       const filterBtn = Array.from(doc.querySelectorAll("div button span")).find(
         (span) => span.textContent.trim() === "Filter"
       );
 
-      if (filterBtn && objectKey && clickArea) {
+      if (filterBtn && objectKey) {
         clearInterval(waitForFilter);
         updateStatus(objectKey, "&#10060;");
 
-        clickArea.click();
-        setTimeout(() => {
-          clickArea.click();
-        }, 200);
+        // clickArea.click();
+        // setTimeout(() => {
+        //   clickArea.click();
+        // }, 200);
 
         const filterDiv = filterBtn.closest("div");
         setTimeout(async () => {
@@ -184,9 +186,9 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
           } else {
             setTimeout(() => {
               clickToTransferButton(doc, index, ids, objectKey);
-            }, 1000);
+            }, 1200);
           }
-        }, 1500);
+        }, 1800);
       }
     } catch (e) {
       console.warn("Not access", e);
@@ -280,7 +282,7 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
       found.click();
       setTimeout(() => {
         muiButton.click();
-      }, 500);
+      }, 1000);
 
       let spinnerVisible = false;
       watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
