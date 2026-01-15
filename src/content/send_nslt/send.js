@@ -159,21 +159,21 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
 
       const registeredSeller = doc.querySelectorAll(".panel-body");
       const nextElement = registeredSeller[0].children[1].children[3];
-      // const findArea = Array.from(nextElement.querySelectorAll('[id^="undefined--undefined-"]'));
-      // const clickArea = findArea[0].children[0].children[1];
+      const findArea = Array.from(nextElement.querySelectorAll('[id^="undefined--undefined-"]'));
+      const clickArea = findArea[0].children[0].children[1];
 
       const filterBtn = Array.from(doc.querySelectorAll("div button span")).find(
         (span) => span.textContent.trim() === "Filter"
       );
 
-      if (filterBtn && objectKey) {
+      if (filterBtn && objectKey && clickArea) {
         clearInterval(waitForFilter);
         updateStatus(objectKey, "&#10060;");
 
-        // clickArea.click();
-        // setTimeout(() => {
-        //   clickArea.click();
-        // }, 200);
+        clickArea.click();
+        setTimeout(() => {
+          clickArea.click();
+        }, 200);
 
         const filterDiv = filterBtn.closest("div");
         setTimeout(async () => {
@@ -186,9 +186,9 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
           } else {
             setTimeout(() => {
               clickToTransferButton(doc, index, ids, objectKey);
-            }, 1200);
+            }, 1000);
           }
-        }, 1800);
+        }, 1500);
       }
     } catch (e) {
       console.warn("Not access", e);
@@ -248,47 +248,37 @@ function handleCheckboxClicked(doc, pasteId, ids, index, objectKey) {
   }, 500);
 }
 
+
+
+
+//! ФУНКЦИЮ ВЗЯЛ С FUTURE
 async function clickToTransferButton(windowPage, index, ids, objectKey) {
-  try {
-    const blockWithId = await waitTransferElement(windowPage, '[id^="undefined--undefined-"]', 27);
+  // Code from Second button
+  const blockWithId = await waitTransferElement(windowPage, '[id^="undefined--undefined-"]', 27);
+  const blockDiv = blockWithId[26];
+  const nextDiv = blockDiv.querySelectorAll("div");
 
-    if (!blockWithId || blockWithId.length < 27) {
-      console.error("Not enough elements found");
-      return;
-    }
+  if (nextDiv.length && nextDiv[0].children[1]) {
+    nextDiv[0].children[1].click();
+  }
 
-    const blockDiv = blockWithId[26];
-    const nextDiv = blockDiv.querySelectorAll("div");
+  const spanItem = await windowPage.querySelectorAll('span[role="menuitem"]');
 
-    if (nextDiv.length && nextDiv[0].children[1]) {
-      nextDiv[0].children[1].click();
+  const found = Array.from(spanItem).find((elem) => {
+    return elem.textContent.trim().startsWith(`${ids[index]}:`);
+  });
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
-    }
+  const muiButton = windowPage.querySelector("button[type='button'][label='Transfer to batch file']");
 
-    await new Promise((resolve) => setTimeout(resolve, 300));
-    const spanItem = windowPage.querySelectorAll('span[role="menuitem"]');
-    const searchId = ids[index];
-    const found = Array.from(spanItem).find((elem) => {
-      const text = elem.textContent.trim();
-      return text.startsWith(`${searchId}:`);
-    });
+  if (found && muiButton) {
+    found.click();
 
-    if (!found) return;
+    setTimeout(() => {
+      muiButton.click();
+    }, 500);
 
-    const muiButton = windowPage.querySelector("button[type='button'][label='Transfer to batch file']");
-
-    if (found && muiButton) {
-      found.click();
-      setTimeout(() => {
-        muiButton.click();
-      }, 1000);
-
-      let spinnerVisible = false;
-      watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
-    }
-  } catch (error) {
-    console.error("Error in clickToTransferButton:", error);
+    let spinnerVisible = false;
+    watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
   }
 }
 
