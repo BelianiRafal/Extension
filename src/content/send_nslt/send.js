@@ -179,7 +179,7 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
         clickArea.click();
         setTimeout(() => {
           clickArea.click();
-        }, 200);
+        }, 500);
 
         const filterDiv = filterBtn.closest("div");
         setTimeout(async () => {
@@ -276,7 +276,7 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
 
     setTimeout(() => {
       muiButton.click();
-    }, 1000);
+    }, 1200);
 
     let spinnerVisible = false;
     watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
