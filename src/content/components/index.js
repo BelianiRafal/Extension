@@ -1087,7 +1087,7 @@ const COMPONENTS = {
         "Advantages src 3": `https://pictureserver.net/static/2024/fr_usp_04.png${version}`,
         "Advantages href 1": `https://www.beliani.be/content/livraison/`,
         "Advantages href 2": `https://www.beliani.be/content/a-propos-de-nous/`,
-        "Advantages href 4": `https://www.beliani.be/content/centre-d-aide/`,
+        "Advantages href 4": `https://www.beliani.be/content/faq-fr/`,
         "Advantages href 3": `https://www.beliani.be/content/cgv/`,
       },
       roro: {
