@@ -467,15 +467,15 @@ const COMPONENTS = {
         "Header asembly_cosy src": "",
         "Header delivery src": `https://pictureserver.net/static/2024/fr_top_db.jpg${version}`,
         "Header delivery_cosy src": `https://pictureserver.net/static/2024/fr_top_cozy_db.jpg${version}`,
-        "Header asembly href": `https://www.beliani.fr/content/services-de-livraison-fr/`,
+        "Header asembly href": `https://www.beliani.be/content/services-de-livraison-fr/`,
         "Header top image src": `https://pictureserver.net/static/2024/header_2023_final.jpg${version}`,
         "Header top image href": `https://www.beliani.be/`,
         "Header Category 1 src": `https://pictureserver.net/static/2024/fr_header_01.png${version}`,
-        "Header Category 1 href": `https://www.beliani.fr/meubles-de-salon/`,
+        "Header Category 1 href": `https://www.beliani.be/meubles-de-salon/`,
         "Header Category 2 src": `https://pictureserver.net/static/2024/fr_header_02.png${version}`,
-        "Header Category 2 href": `https://www.beliani.fr/accessoires/`,
+        "Header Category 2 href": `https://www.beliani.be/accessoires/`,
         "Header Category 3 src": `https://pictureserver.net/static/2024/fr_header_03.png${version}`,
-        "Header Category 3 href": `https://www.beliani.fr/meubles-de-jardin/`,
+        "Header Category 3 href": `https://www.beliani.be/meubles-de-jardin/`,
       },
       benl: {
         "Whitelist href": `https://www.beliani.be/content/whitelist-emails-nl/`,
@@ -494,11 +494,11 @@ const COMPONENTS = {
         "Header top image src": `https://pictureserver.net/static/2024/header_2023_final.jpg${version}`,
         "Header top image href": `https://www.beliani.be/`,
         "Header Category 1 src": `https://pictureserver.net/static/2024/nl_header_01.png${version}`,
-        "Header Category 1 href": `https://www.beliani.nl/woonkamer/`,
+        "Header Category 1 href": `https://www.beliani.be/woonkamer/`,
         "Header Category 2 src": `https://pictureserver.net/static/2024/nl_header_02.png${version}`,
-        "Header Category 2 href": `https://www.beliani.nl/woonaccessoires/`,
+        "Header Category 2 href": `https://www.beliani.be/woonaccessoires/`,
         "Header Category 3 src": `https://pictureserver.net/static/2024/nl_header_03.png${version}`,
-        "Header Category 3 href": `https://www.beliani.nl/tuinmeubelen/`,
+        "Header Category 3 href": `https://www.beliani.be/tuinmeubelen/`,
       },
       roro: {
         "Whitelist href": "http://www.beliani.ro/content/lista-alba-a-emailurilor/",
@@ -2083,11 +2083,11 @@ const COMPONENTS = {
         "Footer category href 2":
           "https://www.beliani.be/lits/tous+les+produits",
         "Footer category href 3":
-          "https://www.beliani.be/tables/tables-basses/",
+          "https://www.beliani.be/tables-meubles/tables-basses/",
         "Footer category href 4":
           "https://www.beliani.be/chaises/tous+les+produits",
         "Footer category href 5":
-          "https://www.beliani.be/fauteuils/tous+les+produits",
+          "https://www.beliani.be/fauteuils-sieges/tous+les+produits/",
         "Footer category href 6":
           "https://www.beliani.be/espace-rangement/commodes/",
         "Footer category href 7":
