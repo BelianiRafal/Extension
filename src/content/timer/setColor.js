@@ -461,8 +461,8 @@
                 }
 
                 // Keep colors stable (Sendtric sometimes resets on language/TZ changes)
-                setPickerColor('label-color-id', '#000000');
-                setPickerColor('digit-color-id',  '#000000');
+                // setPickerColor('label-color-id', '#000000');
+                // setPickerColor('digit-color-id',  '#000000');
                 const bg = sessionStorage.getItem(BG_KEY) || '#000000';
                 applyBg(bg, 'bulk-ensure');
                 console.log(
