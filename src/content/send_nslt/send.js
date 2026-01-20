@@ -372,8 +372,7 @@ function getIdForLink() {
 
 function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variable) {
   const doubleChecklist = getidForAB();
-
-  const startTimer = Date.now();
+  
   if (table.length > 0) {
     table.forEach((item, index) => {
       const url = item.href;
@@ -387,15 +386,8 @@ function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variab
     window.close();
     resolve(arrayId);
 
-    console.log("Array id", arrayId);
-
     //For next scripts
     variable === "duplicateId" ? openCustomerFilter(arrayId, 0, doubleChecklist) : console.log("Planing functions!");
-  } else if (Date.now() - startTimer > 10000) {
-    clearInterval(intervalName);
-    window.close();
-    swalFireModal("┐(￣ヘ￣;)┌", "Timeout: no response for your campaign, repeat again", "error", "", "", false);
-    startOrStopLoader(false);
   }
 }
 
