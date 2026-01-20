@@ -18,6 +18,8 @@ const shopId = {
   CHFR: 11604,
   "CHFR-RICARDO": 11605,
   AT: 46175,
+  BENL: 1309711,
+  BEFR: 1309715,
   CZ: 11619,
   DE: 11608,
   "DE-AVANDEO": 11609,
@@ -177,7 +179,7 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
         clickArea.click();
         setTimeout(() => {
           clickArea.click();
-        }, 200);
+        }, 500);
 
         const filterDiv = filterBtn.closest("div");
         setTimeout(async () => {
@@ -190,7 +192,7 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
           } else {
             setTimeout(() => {
               clickToTransferButton(doc, index, ids, objectKey);
-            }, 1000);
+            }, 1200);
           }
         }, 1500);
       }
@@ -274,7 +276,7 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
 
     setTimeout(() => {
       muiButton.click();
-    }, 500);
+    }, 1200);
 
     let spinnerVisible = false;
     watchToLoader(windowPage, index, spinnerVisible, ids, objectKey);
@@ -381,9 +383,6 @@ function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variab
       pushIdFromArray(variable, index, arrayId, id);
     });
 
-    //Remove id for BEFR/BENL
-    variable === "duplicateId" ? arrayId.splice(5, 2) : arrayId.splice(3, 2);
-
     clearInterval(intervalName);
     window.close();
     resolve(arrayId);
@@ -428,8 +427,6 @@ customerTableBtn.addEventListener("click", async () => {
 
 function openTableForCustomer(openId, stateArr, index) {
   if (index >= openId.length) {
-    stateArr.splice(5, 0, null);
-    stateArr.splice(6, 0, null);
     copyArrayToClipboard(stateArr, (modal = true));
     hideButtonLoader(customerTableBtn, customerLoaderWrapper);
     copyBtn.style.display = "block";
@@ -462,17 +459,22 @@ function openTableForCustomer(openId, stateArr, index) {
 
       sortedFIlteredRow(tableBody, arrayRow);
 
-      const incrementTotal = arrayRow[1]?.children[3].textContent;
-      const sumFooter = arrayRow.reduce((accum, item) => {
-        return accum + Number(item?.children[3].textContent);
-      }, 0);
-
       if (arrayRow.length > 0) {
+        const incrementTotal = Number(arrayRow[1]?.children[3].textContent) || 0;
+        const sumFooter = arrayRow.reduce((accum, item) => {
+          const value = Number(item?.children[3].textContent);
+          return accum + (isNaN(value) ? 0 : value);
+        }, 0);
+
         const resultEndForIncrement = sumFooter - incrementTotal;
-        if (index === 0 || index === 1 || index === 4) {
-          stateArr.push(resultEndForIncrement, Number(incrementTotal));
+
+        if (index === 0 || index === 1 || index === 6) {
+          stateArr.push(
+            isNaN(resultEndForIncrement) ? 0 : resultEndForIncrement,
+            isNaN(incrementTotal) ? 0 : incrementTotal
+          );
         } else {
-          stateArr.push(Number(sumFooter));
+          stateArr.push(isNaN(sumFooter) ? 0 : sumFooter);
         }
 
         clearInterval(waitResponse);
