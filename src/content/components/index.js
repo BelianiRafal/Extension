@@ -429,7 +429,7 @@ const COMPONENTS = {
         "Header Category 1 src": `https://pictureserver.net/static/2024/sk_header_01.png${version}`,
         "Header Category 1 href": `https://www.beliani.sk/nabytok-do-obyvacky/`,
         "Header Category 2 src": `https://pictureserver.net/static/2024/sk_header_02.png${version}`,
-        "Header Category 2 href": `https://www.beliani.sk/doplnky/`,
+        "Header Category 2 href": `https://www.beliani.sk/doplnky-a-dekoracie/`,
         "Header Category 3 src": `https://pictureserver.net/static/2024/sk_header_03.png${version}`,
         "Header Category 3 href": `https://www.beliani.sk/zahrada/`,
       },
@@ -788,15 +788,15 @@ const COMPONENTS = {
       },
       chde: {
         "Services src": `https://pictureserver.net/static/2024/chde_bottom_ab.jpg${version}`,
-        "Services href": `https://www.beliani.ch/content/lieferservices-ch/`,
+        "Services href": `https://www.beliani.ch/content/lieferservices/`,
       },
       atde: {
         "Services src": `https://pictureserver.net/static/2024/at_bottom_db.jpg${version}`,
-        "Services href": `https://www.beliani.at/content/lieferservices-at/`,
+        "Services href": `https://www.beliani.at/content/lieferservices/`,
       },
       dede: {
         "Services src": `https://pictureserver.net/static/2024/de_bottom_ab.jpg${version}`,
-        "Services href": `https://www.beliani.de/content/lieferservices-de/`,
+        "Services href": `https://www.beliani.de/content/lieferservices/`,
       },
       chfr: {
         "Services src": `https://pictureserver.net/static/2024/chfr_bottom_ab.jpg${version}`,
@@ -804,11 +804,11 @@ const COMPONENTS = {
       },
       frfr: {
         "Services src": `https://pictureserver.net/static/2024/fr_bottom_db.jpg${version}`,
-        "Services href": `https://www.beliani.fr/content/services-de-livraison-fr/`,
+        "Services href": `https://www.beliani.fr/content/services-de-livraison/`,
       },
       huhu: {
         "Services src": `https://pictureserver.net/static/2024/hu_bottom_ab.jpg${version}`,
-        "Services href": `https://www.beliani.hu/content/szallitasi-szolgaltatasok-hu/`,
+        "Services href": `https://www.beliani.hu/content/szallitasi-szolgaltatasok/`,
       },
       czcz: {
         "Services src": `https://pictureserver.net/static/2024/cz_bottom_ab.jpg${version}`,
@@ -820,7 +820,7 @@ const COMPONENTS = {
       },
       itit: {
         "Services src": `https://pictureserver.net/static/2024/it_bottom_ab.jpg${version}`,
-        "Services href": `https://www.beliani.it/content/servizi-di-consegna-it/`,
+        "Services href": `https://www.beliani.it/content/servizi-di-consegna/`,
       },
       chit: {
         "Services src": "",
@@ -1635,7 +1635,7 @@ const COMPONENTS = {
           "https://www.beliani.nl/stoelen/alle+producten",
         "Footer category href 5":
           "https://www.beliani.nl/fauteuils/alle+producten",
-        "Footer category href 6": "https://www.beliani.nl/opbergen/sideboards/",
+        "Footer category href 6": "https://www.beliani.nl/opbergen/dressoirs/",
         "Footer category href 7":
           "https://www.beliani.nl/lampen/alle+producten",
         "Footer category href 8":
@@ -1722,11 +1722,11 @@ const COMPONENTS = {
         "Footer category href 2":
           "https://www.beliani.ch/lits/tous+les+produits",
         "Footer category href 3":
-          "https://www.beliani.ch/tables/tables-basses/",
+          "https://www.beliani.ch/tables-meubles/tables-basses",
         "Footer category href 4":
           "https://www.beliani.ch/chaises/tous+les+produits",
         "Footer category href 5":
-          "https://www.beliani.ch/fauteuils/tous+les+produits",
+          "https://www.beliani.ch/fauteuils-sieges/tous+les+produits",
         "Footer category href 6":
           "https://www.beliani.ch/espace-rangement/commodes/",
         "Footer category href 7":
@@ -1749,11 +1749,11 @@ const COMPONENTS = {
         "Footer category href 2":
           "https://www.beliani.fr/lits/tous+les+produits",
         "Footer category href 3":
-          "https://www.beliani.fr/tables/tables-basses/",
+          "https://www.beliani.fr/tables-meubles/tables-basses/",
         "Footer category href 4":
           "https://www.beliani.fr/chaises/tous+les+produits",
         "Footer category href 5":
-          "https://www.beliani.fr/fauteuils/tous+les+produits",
+          "https://www.beliani.fr/fauteuils-sieges/tous+les+produits/",
         "Footer category href 6":
           "https://www.beliani.fr/espace-rangement/commodes/",
         "Footer category href 7":
@@ -1806,7 +1806,7 @@ const COMPONENTS = {
         "Footer category href 5":
           "https://www.beliani.cz/kresla/vsechny+produkty",
         "Footer category href 6":
-          "https://www.beliani.cz/ulozny-prostor/nizke-skrinky/",
+          "https://www.beliani.cz/ulozny-prostor/nizke-skrinky-a-komody/",
         "Footer category href 7":
           "https://www.beliani.cz/svitidla/vsechny+produkty",
         "Footer category href 8":
@@ -1823,21 +1823,21 @@ const COMPONENTS = {
         "Footer category src 7": `https://pictureserver.net/static/2026/footer/sk_cat_07.png${version}`,
         "Footer category src 8": `https://pictureserver.net/static/2026/footer/sk_cat_08.png${version}`,
         "Footer category href 1":
-          "https://www.beliani.sk/pohovky/zobrazit+vsetky+produkty",
+          "https://www.beliani.sk/sedacky/zobrazit+vsetky+produkty/",
         "Footer category href 2":
-          "https://www.beliani.sk/postele/zobrazit+vsetky+produkty",
+          "https://www.beliani.sk/postel/zobrazit+vsetky+produkty",
         "Footer category href 3":
-          "https://www.beliani.sk/stoly/konferencne-stoliky/",
+          "https://www.beliani.sk/stol/konferencne-stoliky/",
         "Footer category href 4":
           "https://www.beliani.sk/stolicky-a-kresla/zobrazit+vsetky+produkty",
         "Footer category href 5":
-          "https://www.beliani.sk/kresla/zobrazit+vsetky+produkty",
+          "https://www.beliani.sk/kreslo/zobrazit+vsetky+produkty",
         "Footer category href 6":
           "https://www.beliani.sk/ulozny-priestor/nizke-skrinky/",
         "Footer category href 7":
           "https://www.beliani.sk/svietidla/zobrazit+vsetky+produkty",
         "Footer category href 8":
-          "https://www.beliani.sk/koberce/zobrazit+vsetky+produkty",
+          "https://www.beliani.sk/koberec/zobrazit+vsetky+produkty/",
       },
       itit: {
         Title: "Scopri migliaia di prodotti",
@@ -2062,7 +2062,7 @@ const COMPONENTS = {
           "https://www.beliani.be/stoelen/alle+producten",
         "Footer category href 5":
           "https://www.beliani.be/fauteuils/alle+producten",
-        "Footer category href 6": "https://www.beliani.be/opbergen/sideboards/",
+        "Footer category href 6": "https://www.beliani.be/opbergen/dressoirs/",
         "Footer category href 7":
           "https://www.beliani.be/lampen/alle+producten",
         "Footer category href 8":
