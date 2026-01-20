@@ -172,14 +172,14 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
         (span) => span.textContent.trim() === "Filter"
       );
 
-      if (filterBtn && objectKey && clickArea) {
+      if (filterBtn && objectKey) {
         clearInterval(waitForFilter);
         updateStatus(objectKey, "&#10060;");
 
-        clickArea.click();
-        setTimeout(() => {
-          clickArea.click();
-        }, 500);
+        // clickArea.click();
+        // setTimeout(() => {
+        //   clickArea.click();
+        // }, 500);
 
         const filterDiv = filterBtn.closest("div");
         setTimeout(async () => {

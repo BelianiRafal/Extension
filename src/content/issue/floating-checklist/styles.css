@@ -87,7 +87,7 @@
 }
 
 .checklist-table tbody tr[data-test-sent='1'] {
-  background: #1f1f1f;
+  background: #3b3b3b;
 }
 
 .checklist-table tbody tr[data-test-sent='1'] td:first-child {
@@ -100,7 +100,7 @@
 
 .checklist-table tbody tr[data-timer='1'],
 .checklist-table tbody tr[data-push='1'] {
-  background: #4400ff;
+  background: #3b3b3b;
   pointer-events: none;
 }
 
@@ -111,7 +111,7 @@
 
 .checklist-table tbody tr[data-timer='1']:hover td,
 .checklist-table tbody tr[data-push='1']:hover td {
-  background: #4828ff;
+  background: #3b3b3b;
 }
 
 .checklist-table tbody tr:hover td {
