@@ -379,7 +379,7 @@ const COMPONENTS = {
         "Header asembly_cosy src": `https://pictureserver.net/static/2024/pt_top_cozy_ab.jpg${version}`,
         "Header delivery src": "",
         "Header delivery_cosy src": "",
-        "Header asembly href": `https://www.beliani.pt/content/servicos-entrega-pt/`,
+        "Header asembly href": `https://www.beliani.pt/content/servicos-entrega/`,
         "Header top image src": `https://pictureserver.net/static/2024/header_2023_final.jpg${version}`,
         "Header top image href": `https://www.beliani.pt/`,
         "Header Category 1 src": `https://pictureserver.net/static/2024/pt_header_01.png${version}`,
@@ -776,7 +776,7 @@ const COMPONENTS = {
     data: {
       ptpt: {
         "Services src": `https://pictureserver.net/static/2024/pt_bottom_ab.jpg${version}`,
-        "Services href": `https://www.beliani.pt/content/servicos-entrega-pt/`,
+        "Services href": `https://www.beliani.pt/content/servicos-entrega/`,
       },
       eses: {
         "Services src": `https://pictureserver.net/static/2024/es_bottom_ab.jpg${version}`,
