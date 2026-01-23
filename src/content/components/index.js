@@ -189,7 +189,7 @@ const COMPONENTS = {
         "Header Category 3 href": `https://www.beliani.es/jardin/`,
       },
       fifi: {
-        "Whitelist href": `https://www.beliani.fi/content/whitelist-emails-fi/`,
+        "Whitelist href": `https://www.beliani.fi/content/valkolista/`,
         "Trouble viewing": "Eikö uutiskirje näy kunnolla? Avaa",
         "Trouble viewing href text": "uutiskirje selaimessa.",
         "Add Beliani to your": "Lisää Beliani sähköpostisi",
