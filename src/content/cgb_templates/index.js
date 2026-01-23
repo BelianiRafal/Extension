@@ -1,3 +1,5 @@
+//==================== Rewieved and powered by Alex (ﾉ´ヮ`)ﾉ*: ･ﾟ
+
 const app = {
   selectNodes: [],
   selectMobileNodes: [],

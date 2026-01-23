@@ -1,3 +1,5 @@
+// ============= Powered by Alex \(★ω★)/
+
 const CUSTOMERSPAN_URL = "https://www.prologistics.info/api/customerSpam/buildTemplate/";
 
 //! Count for newslettter in issue

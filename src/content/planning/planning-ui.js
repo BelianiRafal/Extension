@@ -1,3 +1,6 @@
+//======================= Powered by Alex (◕‿◕)
+
+
 const user = {
   OleHrytsa: "Oleksander Hrytsaienko",
   RKobus: "Rafał Kobus",

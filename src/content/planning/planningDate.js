@@ -1,3 +1,5 @@
+//========================== Powered by Alex (๑˘︶˘๑)
+
 const table = document.querySelectorAll('[aria-live="polite"] tr');
 let targetName = "";
 let canceledState;

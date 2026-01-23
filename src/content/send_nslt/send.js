@@ -1,3 +1,5 @@
+// ============= Powered by Alex (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+
 const url = "https://www.prologistics.info/react/reports_page/customers_newsletter/?filter_id=";
 const customerUrl = "https://www.prologistics.info/react/reports_page/customers_newsletter/";
 const planingUrl = "https://www.prologistics.info/spam_plan.php";
@@ -172,14 +174,14 @@ async function openCustomerFilter(ids, index = 0, abchecklist) {
         (span) => span.textContent.trim() === "Filter"
       );
 
-      if (filterBtn && objectKey) {
+      if (filterBtn && objectKey && clickArea) {
         clearInterval(waitForFilter);
         updateStatus(objectKey, "&#10060;");
 
-        // clickArea.click();
-        // setTimeout(() => {
-        //   clickArea.click();
-        // }, 500);
+        clickArea.click();
+        setTimeout(() => {
+          clickArea.click();
+        }, 500);
 
         const filterDiv = filterBtn.closest("div");
         setTimeout(async () => {
