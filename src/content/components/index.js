@@ -1681,7 +1681,7 @@ const COMPONENTS = {
         "Footer category href 5": "https://www.beliani.at/sessel/alle+produkte",
         "Footer category href 6":
           "https://www.beliani.at/aufbewahrung/sideboard/",
-        "Footer category href 7": "https://www.beliani.at/lampen/alle+produkte",
+        "Footer category href 7": "https://www.beliani.at/lampe/alle+produkte",
         "Footer category href 8":
           "https://www.beliani.at/teppich/alle+produkte",
       },
@@ -1703,7 +1703,7 @@ const COMPONENTS = {
         "Footer category href 5": "https://www.beliani.de/sessel/alle+produkte",
         "Footer category href 6":
           "https://www.beliani.de/aufbewahrung/sideboard/",
-        "Footer category href 7": "https://www.beliani.de/lampen/alle+produkte",
+        "Footer category href 7": "https://www.beliani.de/lampe/alle+produkte",
         "Footer category href 8":
           "https://www.beliani.de/teppich/alle+produkte",
       },
