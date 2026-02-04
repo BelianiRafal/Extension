@@ -47,6 +47,8 @@ const app = {
     "html[slovak]": "sk",
     "html[spanish]": "es",
     "html[swedish]": "se",
+
+    //! Paste name textarea for HR and SI for desktop
   },
   languageAttributeToSlugMobile: {
     "mobile_html[czech]": "cz",
@@ -66,6 +68,8 @@ const app = {
     "mobile_html[slovak]": "sk",
     "mobile_html[spanish]": "es",
     "mobile_html[swedish]": "se",
+
+        //! Paste name textarea for HR and SI for mobile
   },
 
   langAttributeSlugBannerText: {
@@ -87,6 +91,8 @@ const app = {
     "banner_text[slovak]": "sk",
     "banner_text[spanish]": "es",
     "banner_text[swedish]": "se",
+
+        //! Paste name textarea for HR and SI for BANNER_TEXT
   },
 
   init() {

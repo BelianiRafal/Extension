@@ -149,7 +149,7 @@ const COMPONENTS = {
         "Trouble viewing": "Kan du ikke se billeder? Tjek online version",
         "Trouble viewing href text": "af vores webshop.",
         "Add Beliani to your": "Tilføj Beliani til din",
-        Whitelist: "whitelist.",
+        Whitelist: "hvidliste.",
         "365-Day Return": "365 dages returret",
         "Free Delivery": "Gratis levering og returnering",
         "Header asembly src": `https://pictureserver.net/static/2024/dk_top_ab.jpg${version}`,
