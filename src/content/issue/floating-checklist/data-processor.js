@@ -190,6 +190,15 @@ window.FloatingChecklistDataProcessor = {
         console.log('Extracted spreadsheet info:', info);
 
         if (info.spreadsheetId !== null && info.gid !== null) {
+          try {
+            const withTimeout = (p, ms) =>
+              Promise.race([
+                p,
+                new Promise((_, rj) =>
+                  setTimeout(() => rj(new Error('zrok timeout')), ms)
+                ),
+              ]);
+
           const googleSpreadsheetUrl = `https://fed2n8e59dpq.share.zrok.io/misc/resolveTabName/${info.spreadsheetId}/${info.gid}`;
 
           const headers = {
@@ -197,12 +206,12 @@ window.FloatingChecklistDataProcessor = {
             skip_zrok_interstitial: 'true',
           };
 
-          const googleSpreadsheetResponse = await fetch(googleSpreadsheetUrl, {
+          const googleSpreadsheetResponse = await withTimeout(fetch(googleSpreadsheetUrl, {
             method: 'GET',
             headers: headers,
             mode: 'cors',
             credentials: 'omit',
-          });
+          }), 6000);
 
           const googleSpreadsheetJson = await googleSpreadsheetResponse.json();
           console.log(
@@ -210,15 +219,15 @@ window.FloatingChecklistDataProcessor = {
             googleSpreadsheetJson
           );
 
-          if (googleSpreadsheetJson.code === 200) {
+          if (googleSpreadsheetJson?.code === 200) {
             const dynamicSheetUrl = `https://fed2n8e59dpq.share.zrok.io/dynamic/${googleSpreadsheetJson.year}/${googleSpreadsheetJson.tab}`;
 
-            const dynamicSheetResponse = await fetch(dynamicSheetUrl, {
+            const dynamicSheetResponse = await withTimeout(fetch(dynamicSheetUrl, {
               method: 'GET',
               headers: headers,
               mode: 'cors',
               credentials: 'omit',
-            });
+            }), 6000);
             const dynamicSheetJson = await dynamicSheetResponse.json();
 
             console.log('Dynamic Sheet Json', dynamicSheetJson);
@@ -281,6 +290,14 @@ window.FloatingChecklistDataProcessor = {
             }
             console.log('Extracted pussh:', Push);
             console.log('Fetched dynamic sheet data:', dynamicSheetJson);
+          }
+          } catch (e) {
+            console.warn(
+              '[floating-checklist] zrok failed; skipping Timer/Push',
+              e
+            );
+            for (const k of Object.keys(Timer)) delete Timer[k];
+            for (const k of Object.keys(Push)) delete Push[k];
           }
         }
       }
