@@ -199,7 +199,7 @@ window.FloatingChecklistDataProcessor = {
                 ),
               ]);
 
-          const googleSpreadsheetUrl = `https://fed2n8e59dpq.share.zrok.io/misc/resolveTabName/${info.spreadsheetId}/${info.gid}`;
+          const googleSpreadsheetUrl = `https://plgost2ibovu.share.zrok.io/misc/resolveTabName/${info.spreadsheetId}/${info.gid}`;
 
           const headers = {
             Accept: 'application/json',
@@ -220,7 +220,7 @@ window.FloatingChecklistDataProcessor = {
           );
 
           if (googleSpreadsheetJson?.code === 200) {
-            const dynamicSheetUrl = `https://fed2n8e59dpq.share.zrok.io/dynamic/${googleSpreadsheetJson.year}/${googleSpreadsheetJson.tab}`;
+            const dynamicSheetUrl = `https://plgost2ibovu.share.zrok.io/dynamic/${googleSpreadsheetJson.year}/${googleSpreadsheetJson.tab}`;
 
             const dynamicSheetResponse = await withTimeout(fetch(dynamicSheetUrl, {
               method: 'GET',
