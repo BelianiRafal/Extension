@@ -53,25 +53,27 @@ closeCard.addEventListener("click", () => {
 });
 
 mainButtonStart.addEventListener("click", async () => {
-  const campaignLink = getIdForLink();
+  const campaignLink = await getIdForLink();
   if (!campaignLink) {
     swalFireModal("¯\\_(ツ)_/¯", `Newsletter checklist is not found`, "error", "", "", false);
     return false;
+  }
+
+  const issueDetails = await getIssueDetails();
+  if (!issueDetails) {
+      swalFireModal("¯\\_(ツ)_/¯", `Issue details not found`, "error", "", "", false);
+      return false;
   }
 
   overlay.classList.add("active");
   mainCard.classList.add("explode-animation");
   document.body.classList.add("noScroll");
 
-  const mainInformation = document.querySelectorAll('[id="virtualize-demo"]');
-  const subjectInformation = document.querySelectorAll('[id="Subject"]');
-  const subjectSplitText = subjectInformation[0].nextSibling.textContent.split("SL:")[0].trim();
-  const solvingUser = mainInformation[0].defaultValue;
-
-  const anotherSolving = document.querySelectorAll(".panel-body .row");
-  const anotherResult = anotherSolving[0].children[1].children[1].textContent.split("Solving user")[1];
-
-  solvingUserText.textContent = solvingUser ? solvingUser : anotherResult;
+  const solvingUser = issueDetails.solving_user_name || issueDetails.solving_resp_username || "Unknown User";
+  const subject = issueDetails.issue;
+  const subjectSplitText = subject ? subject.split("SL:")[0].trim() : "Unknown Subject";
+  
+  solvingUserText.textContent = solvingUser;
   subjectText.textContent = subjectSplitText;
   campaignIdText.textContent = `CHDE ID: ${campaignLink}`;
 });
@@ -79,7 +81,7 @@ mainButtonStart.addEventListener("click", async () => {
 getCampaignIdBtn.addEventListener("click", async () => {
   const chdeLinkId = await getIdForLink();
   const waitChecklist = await getChecklist();
-  const doubleChecklist = getidForAB();
+  const doubleChecklist = await getidForAB();
 
   if (doubleChecklist.length >= 2 && !checkstate) {
     swalFireModal("", `You have two checklist, Mark the "A/B Test" checkbox`, "error", "", "", false);
@@ -286,7 +288,7 @@ async function clickToTransferButton(windowPage, index, ids, objectKey) {
 }
 
 async function watchToLoader(windowPage, index, spinnerVisible, ids, objectKey) {
-  const doubleChecklist = getidForAB();
+  const doubleChecklist = await getidForAB();
 
   const observer = new MutationObserver((mutations, obs) => {
     const overlay = windowPage.querySelector('div[name="blockOverlay"]');
@@ -345,35 +347,80 @@ function startOrStopLoader(status = false) {
   }
 }
 
-function getIdForLink() {
-  const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
-  const getText = Array.from(findChecklistText).find((text) => {
-    return text.textContent.toLowerCase().trim().includes("newsletter testing");
-  });
+async function getIssueDetails() {
+  const issue_id = window.location.pathname.split("/").pop();
+  try {
+    const response = await fetch(`${window.location.origin}/api/issueLog/list/?page_id=${issue_id}&show_with_inactive=1`).then(res => res.json());
 
-  if (!getText) {
-    swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
+    if (response && response.issue_list && response.issue_list.length > 0) {
+      console.log("Issue details:", response.issue_list[0]);
+      return response.issue_list[0];
+    } else {
+      console.error("Issue details not found in API response", response);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching issue details:", error);
+    return null;
+  }
+}
+
+async function getIdForLink() {
+  const issue_id = window.location.pathname.split("/").pop();
+  console.log(`Start get id for link, ${issue_id}`);
+  const req_url = `https://${window.location.hostname}/api/issueLog/checklist/?issue_id=${issue_id}`;
+  const response = await fetch(req_url).then((res) => res.json());
+
+  console.log('API Response:', response);
+
+  if (!response.checklists) {
+    console.error('No checklists found in response');
+    swalFireModal("", "No checklists found", "error", "", "", false);
     return;
   }
 
-  const ulList = getText.nextSibling;
-  const ulItem = ulList.querySelectorAll('ul div li div [class^="jss"] a');
-  const hasCHDE = Array.from(ulItem).find((item) => {
-    return item.previousSibling.textContent.includes("CHDE");
-  });
+  const checklist = response.checklists.find((item) =>
+    item.title?.trim().toLowerCase().includes("newsletter testing approved")
+  );
 
-  if (!hasCHDE) {
-    swalFireModal("", "Checklist for CHDE is not found -____-", "error", "", "", false);
+  if (!checklist) {
+    console.warn("Checklist 'Newsletter Testing approved' not found. Available checklists:", response.checklists.map(c => c.title));
+    swalFireModal("", "Checklist 'Newsletter Testing approved' not found", "error", "", "", false);
     return;
   }
 
-  const chdeLinkId = hasCHDE?.href?.split("id=")[1];
+  console.log('Found checklist:', checklist);
+
+  const chdeCheckpoint = checklist.checkpoints.find((item) => {
+    const isChde = item.description?.trim().toUpperCase().startsWith("CHDE");
+    // console.log(`Checking checkpoint: ${item.description}, match: ${isChde}`);
+    return isChde;
+  });
+
+  if (!chdeCheckpoint) {
+    console.warn("Checkpoint for CHDE not found in checklist. Checkpoints:", checklist.checkpoints.map(c => c.description));
+    swalFireModal("", "Checkpoint for CHDE not found in checklist", "error", "", "", false);
+    return;
+  }
+
+  console.log('Found CHDE Checkpoint:', chdeCheckpoint);
+
+  const match = chdeCheckpoint.description.match(/id=(\d+)/);
+  const chdeLinkId = match ? match[1] : null;
+
+  console.log('Extracted CHDE Link ID:', chdeLinkId);
+
+  if (!chdeLinkId) {
+    console.warn("Link ID for CHDE not found in description:", chdeCheckpoint.description);
+    swalFireModal("", "Link ID for CHDE not found", "error", "", "", false);
+    return;
+  }
 
   return chdeLinkId;
 }
 
-function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variable) {
-  const doubleChecklist = getidForAB();
+async function getIdsForNewsMail(table, intervalName, arrayId, window, resolve, variable) {
+  const doubleChecklist = await getidForAB();
   
   if (table.length > 0) {
     table.forEach((item, index) => {

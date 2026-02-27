@@ -3,12 +3,13 @@
 const CUSTOMERSPAN_URL = "https://www.prologistics.info/api/customerSpam/buildTemplate/";
 
 //! Count for newslettter in issue
-function getidForAB() {
-  const findChecklistText = document.querySelectorAll('[class="panel-heading"][id="collapseHeading"]');
+async function getidForAB() {
+  const checklistData = await fetchChecklist();
+  const checklists = checklistData?.checklists || [];
 
-  const AB = Array.from(findChecklistText).filter((item) => {
-    return item.textContent.toLowerCase().trim().includes("newsletter testing");
-  });
+  const AB = checklists.filter((item) =>
+    item.title?.trim().toLowerCase().includes("newsletter testing")
+  );
 
   return AB;
 }
