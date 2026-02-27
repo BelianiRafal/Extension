@@ -56,12 +56,11 @@ document.querySelector("#fulltable")?.remove();
 class Issues {
   api = {
     checklists: () =>
-      "https://www.prologistics.info/api/issueLog/checklist/?issue_id=" + id,
+      `${window.location.origin}/api/issueLog/checklist/?issue_id=${id}`,
     comments: (id) =>
-      "https://www.prologistics.info/api/issueLog/comments/?comment_type=issuelog&page_id=" +
-      id,
+      `${window.location.origin}/api/issueLog/comments/?comment_type=issuelog&page_id=${id}`,
     issues_open: ({ board_id, page }) =>
-      `https://www.prologistics.info/api/issueLog/list/?status=open&setting_view=1&issue_board=${board_id}&page=${page}`,
+      `${window.location.origin}/api/issueLog/list/?status=open&setting_view=1&issue_board=${board_id}&page=${page}`,
   };
   issues = new IssueDTO({
     issue_boards: "",
@@ -356,7 +355,7 @@ class Issues {
       return null;
     }
     try {
-      const url = `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${issue_id}`;
+      const url = `${window.location.origin}/api/issueLog/checklist/?issue_id=${issue_id}`;
       const resp = await fetch(url, { credentials: "include" });
       if (!resp.ok) {
         console.warn("getTranslationsChecklist: fetch failed", resp.status);
@@ -430,7 +429,7 @@ class Issues {
   getTranslationsChecklistData = async (issue_id) => {
     if (!issue_id) return null;
     try {
-      const url = `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${issue_id}`;
+      const url = `${window.location.origin}/api/issueLog/checklist/?issue_id=${issue_id}`;
       const resp = await fetch(url, { credentials: "include" });
       if (!resp.ok) return null;
       const json = await resp.json();

@@ -168,7 +168,7 @@
 
   // === API INTEGRATION ===
   const API = {
-    checklist: (id) => `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${id}`,
+    checklist: (id) => `${window.location.origin}/api/issueLog/checklist/?issue_id=${id}`,
   };
   
   const jget = async (url) => {
@@ -212,7 +212,7 @@
 
   // === API HELPERS ===
   const API = {
-    checklist: (id) => `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${id}`,
+    checklist: (id) => `${window.location.origin}/api/issueLog/checklist/?issue_id=${id}`,
   };
   
   const jget = async (url) => {

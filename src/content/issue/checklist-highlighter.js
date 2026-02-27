@@ -42,7 +42,7 @@ window.ChecklistHighlighter = {
   // Fetch checklist data from API
   getChecklistDataFromAPI: async function (issueId) {
     console.log(`📡 [CHECKLIST API] Pobieranie danych dla issue #${issueId}`);
-    const url = `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${issueId}`;
+    const url = `${window.location.origin}/api/issueLog/checklist/?issue_id=${issueId}`;
     const data = await this.jget(url);
 
     if (!data || !data.checklists) {

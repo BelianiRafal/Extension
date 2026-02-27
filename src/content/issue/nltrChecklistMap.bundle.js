@@ -95,8 +95,8 @@
 
   /* ------------ API ------------ */
   const API = {
-    list: (page=1) => `https://www.prologistics.info/api/issueLog/list/?status=open&setting_view=1&issue_board=${BOARD_ID}&page=${page}`,
-    checklist: (id) => `https://www.prologistics.info/api/issueLog/checklist/?issue_id=${id}`,
+    list: (page=1) => `${window.location.origin}/api/issueLog/list/?status=open&setting_view=1&issue_board=${BOARD_ID}&page=${page}`,
+    checklist: (id) => `${window.location.origin}/api/issueLog/checklist/?issue_id=${id}`,
   };
   async function jget(u){
     const r = await fetch(u, { credentials:'include' });
