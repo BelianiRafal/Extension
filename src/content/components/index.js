@@ -927,7 +927,7 @@ const COMPONENTS = {
         "Advantages src 3": `https://pictureserver.net/static/2024/chde_usp_04.png${version}`,
         "Advantages href 1": `https://www.beliani.at/content/lieferung/`,
         "Advantages href 2": `https://www.beliani.at/content/uber-uns/`,
-        "Advantages href 4": `https://www.beliani.at/content/faq/`,
+        "Advantages href 4": `https://www.beliani.at/content/faq-at/`,
         "Advantages href 3": `https://www.beliani.at/content/agb/`,
       },
       dede: {
@@ -937,7 +937,7 @@ const COMPONENTS = {
         "Advantages src 3": `https://pictureserver.net/static/2024/chde_usp_04.png${version}`,
         "Advantages href 1": `https://www.beliani.de/content/lieferung/`,
         "Advantages href 2": `https://www.beliani.de/content/uber-uns/`,
-        "Advantages href 4": `https://www.beliani.de/content/faq/`,
+        "Advantages href 4": `https://www.beliani.de/content/faq-deutsch/`,
         "Advantages href 3": `https://www.beliani.de/content/agb/`,
       },
       chfr: {
