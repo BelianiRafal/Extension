@@ -4,7 +4,7 @@ function createCalendarButton() {
   let issueHeading;
 
   loop.forEach((el) => {
-    console.log(`Element: `, el);
+    // console.log(`Element: `, el);
     if (el.className.includes("issue-subject-module__titleContainer__")) {
       issueHeading = el;
     }
