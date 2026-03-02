@@ -1,12 +1,12 @@
 function createCalendarButton() {
-  let loop = document.querySelectorAll("h3");
+  let loop = document.querySelectorAll("div");
 
   let issueHeading;
 
-  loop.forEach((h3) => {
-    console.log(`H3: `, h3);
-    if (h3.textContent.includes("Issue Log")) {
-      issueHeading = h3;
+  loop.forEach((el) => {
+    console.log(`Element: `, el);
+    if (el.className.includes("issue-subject-module__titleContainer__")) {
+      issueHeading = el;
     }
   });
 
@@ -31,8 +31,8 @@ function createCalendarButton() {
   button.onclick = function () {
     const id = window.location.href.split("/").pop();
     const subject = document
-      .getElementById("Subject")
-      .nextElementSibling.innerHTML.split("<br>")[0]
+      .querySelector("h1[data-variant='h1 bold'][class='typography-module__heading__Rs-hd']")
+      .innerHTML.split("<br>")[0]
       .trim();
 
     const date = subject.trim().match(/\d{4}.\d{2}.\d{2}/);
