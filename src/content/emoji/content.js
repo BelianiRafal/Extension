@@ -28,8 +28,9 @@
     }
 
     // Znajdź przycisk "Add comment"
-    const addCommentBtn = document.querySelector('input[value="Add comment"]');
-    if (!addCommentBtn) {
+    const actionsBlock = document.querySelector('div[class="new-comment-module__buttons__3jd4H"]');
+    
+    if (!actionsBlock) {
       return;
     }
 
@@ -37,6 +38,7 @@
     const emojiButton = document.createElement("button");
     emojiButton.className = "emoji-button";
     emojiButton.textContent = "Add emoji";
+    
     emojiButton.onclick = function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -45,10 +47,7 @@
     };
 
     // Dodaj przycisk obok "Add comment"
-    addCommentBtn.parentNode.insertBefore(
-      emojiButton,
-      addCommentBtn.nextSibling,
-    );
+    actionsBlock.appendChild(emojiButton);
 
     console.log("Dodano przycisk emoji!");
   }
@@ -66,8 +65,10 @@
     if (picker.style.display === "none" || !picker.style.display) {
       // Pozycjonowanie względem przycisku
       const buttonRect = button.getBoundingClientRect();
+     const  actionsBlock = document.querySelector('div[class="new-comment-module__buttons__3jd4H"]').getBoundingClientRect()
+      console.log('buttonRect.left ', buttonRect.left , window.screenX)    
       picker.style.top = buttonRect.bottom + window.scrollY + 5 + "px";
-      picker.style.left = buttonRect.left + window.scrollX + "px";
+      picker.style.right = window.innerWidth - actionsBlock.right + "px";
       picker.style.display = "block";
     } else {
       picker.style.display = "none";
