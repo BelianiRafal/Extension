@@ -110,19 +110,19 @@
 }
 
 /* Dopasowanie przycisk Add emoji do stylistyki strony */
-.button-module__root__YgbqR.emoji-button {
-  background-color: #4caf50 !important;
-  color: #ffffff !important;
-  margin: 0 10px !important;
-  font-weight: 700 !important;
-  border: 1px none !important;
-  border-radius: 0.625rem !important;
+.new-comment-module__buttons__3jd4H .emoji-button {
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 0.875rem !important;
+  width: 100% !important;
   line-height: 1rem !important;
   padding: 0.75rem !important;
-  cursor: pointer !important;
-  transition: background-color 0.3s !important;
+  color: #fff !important;
+  border-radius: 0.625rem !important;
+  border: none !important;
+  background-color: #02963b !important;
+  font-weight: 700 !important;
 }
 
-.button-module__root__YgbqR.emoji-button:hover {
+.new-comment-module__buttons__3jd4H .emoji-button:hover {
   background-color: #45a049 !important;
 }

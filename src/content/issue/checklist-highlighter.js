@@ -176,9 +176,9 @@ window.ChecklistHighlighter = {
       const apiItem = apiItemsMap.get(tableid);
 
       if (!apiItem) {
-        console.log(
-          `⏭️ [ROW ${index + 1}] Brak danych API dla tableid=${tableid}`
-        );
+        // console.log(
+        //   `⏭️ [ROW ${index + 1}] Brak danych API dla tableid=${tableid}`
+        // );
         return;
       }
 
