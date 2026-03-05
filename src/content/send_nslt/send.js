@@ -39,6 +39,8 @@ const shopId = {
   SK: 165840,
   ES: 11613,
   UK: 11621,
+  HR: 1625054,
+  SI: 1625080
 };
 
 closeCard.addEventListener("click", () => {
