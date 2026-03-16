@@ -89,17 +89,9 @@ function fetchAvailableIds() {
           JChmielewska:
             "Shop#2478629: Justyna Chmielewska chmielewska@beliani.fr",
           RKobus: "Shop#4280939: Rafał Kobus rafal.kobus@beliani.net",
-					NHrehorowicz: "Shop#2927041: Natalia Hrehorowicz natalia.hrehorowicz@beliani.it"
         },
 
         HTML: {
-          KOrliński: "Shop#2684834: Kamil Orliński orlinski@beliani.fr",
-
-          MJurgowiak: "Shop#3046437:   michal.jurgowiak@beliani.com",
-
-          OHrytsaienko:
-            "Shop#6239531: Oleksander Hrytsaienko oleksander.hrytsaienko@beliani.net",
-
           KKazaniecki:
             "Shop#6239524: Kamil Kazaniecki kamil.kazaniecki@beliani.net",
 
@@ -107,9 +99,8 @@ function fetchAvailableIds() {
             "Shop#7253514: Dmytro Krapyvianskyi dmytro.krapyvianskyi@beliani.com"
         },
 
-        "Marketing+Graphics": {
-          DRojek: "Shop#3183799: Dominika Rojek dominika.rojek@beliani.com",
-        },
+        // "Marketing+Graphics": {
+        // },
       };
 
       const flexContainer = document.createElement("div");
